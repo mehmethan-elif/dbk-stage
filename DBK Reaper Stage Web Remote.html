@@ -222,56 +222,162 @@
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
-      display: grid;
-      grid-template-columns: minmax(280px, 1.1fr) minmax(280px, 0.9fr);
+      display: flex;
+      flex-direction: column;
       background: var(--bg);
     }
-    .prep-panel, .prep-side {
+    .prep-panel {
+      flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
       display: flex;
       flex-direction: column;
     }
-    .prep-panel { border-right: 1px solid var(--line); }
-    .prep-head, .prep-side-head {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      min-height: 48px;
-      padding: 0 14px;
-      background: #161616;
-      border-bottom: 1px solid var(--line);
-    }
-    .prep-side-head { align-items: center; }
-    .prep-head h2, .prep-side-head h2 {
-      margin: 0;
-      min-width: 0;
-      overflow: hidden;
-      font-size: 1rem;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    .prep-active-setlist { font-weight: 750; letter-spacing: 0.04em; }
-    .prep-head-summary { color: var(--muted); font-size: 0.82rem; font-weight: 650; }
-    .prep-list, .prep-info {
+    .prep-list {
       flex: 1 1 auto;
       min-height: 0;
-      overflow-y: auto;
+      overflow: auto;
       -webkit-overflow-scrolling: touch;
+      display: grid;
+      grid-template-columns:
+        40px
+        minmax(10rem, 2.55fr)
+        max-content
+        max-content
+        max-content
+        max-content
+        max-content
+        max-content
+        max-content
+        max-content
+        max-content;
+      column-gap: 14px;
+      row-gap: 6px;
+      align-items: start;
+      grid-auto-rows: min-content;
+      padding: 0 12px 16px;
     }
-    .prep-list { padding: 8px 12px 16px; }
-    .prep-info { padding: 12px 14px 24px; }
-    .prep-block { margin: 0 0 6px; touch-action: manipulation; }
+    .prep-block {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: 1 / -1;
+      margin: 0;
+      touch-action: manipulation;
+    }
     .prep-list.is-reordering { cursor: grabbing; }
     .prep-block.dragging { opacity: 0.72; }
-    .prep-song-row, .prep-elif-row, .prep-final {
+    .prep-cols {
       display: grid;
-      grid-template-columns: 40px minmax(0, 1fr) 4.2rem auto;
+      grid-template-columns: subgrid;
+      grid-column: 1 / -1;
       align-items: center;
-      column-gap: 6px;
+    }
+    .prep-head-block {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      grid-column: 1 / -1;
+      background: transparent;
+    }
+    .prep-manage {
+      flex: 0 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
       min-height: 48px;
+      padding: 6px 12px;
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+      color: var(--text);
+    }
+    .prep-setlist-name {
+      flex: 1 1 14rem;
+      max-width: 22rem;
+      min-width: 8rem;
+      height: 36px;
+      margin: 0;
       padding: 0 8px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background: var(--row);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .prep-manage-act {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background: var(--row);
+      color: var(--text);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .prep-manage-act svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      fill: currentColor;
+    }
+    .prep-manage-act:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+    .prep-manage-act.delete { color: #ff8a80; }
+    .prep-stats {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 6px 8px;
+      color: #000;
+      font-size: 0.82rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .prep-stats::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      bottom: 0;
+      left: -12px;
+      right: -12px;
+      background: #ffff00;
+      border-bottom: 1px solid #000;
+    }
+    .prep-stats .prep-stat-total,
+    .prep-stats .prep-stat-form {
+      display: inline-flex;
+      align-items: center;
+    }
+    .prep-stats .prep-stat-total { font-weight: 750; }
+    .prep-stat-dot {
+      display: inline-block;
+      font-size: 0.42em;
+      line-height: 1;
+      margin: 0 0.35em;
+    }
+    .prep-stats .prep-stat-form {
+      margin-left: 14px;
+      padding-left: 14px;
+      border-left: 1px solid #000;
+      font-weight: 400;
+    }
+    .prep-song-row, .prep-elif-row, .prep-final {
+      height: 50px;
+      min-height: 50px;
+      padding: 0;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--row);
@@ -312,21 +418,30 @@
     }
     .prep-block.active[data-k="song"] .prep-cell.time { opacity: 1; }
     .prep-final {
-      margin: 0 0 6px;
-      background: #c62828;
-      color: #fff;
+      margin: 0;
+      background: #ff4d94;
+      color: #111;
       border-color: transparent;
       font-weight: 800;
       letter-spacing: 0.04em;
     }
-    .prep-cell.num { text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
-    .prep-cell.title { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .prep-cell.time { text-align: right; opacity: 0.72; font-variant-numeric: tabular-nums; }
+    .prep-cell.num { padding-left: 8px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .prep-cell.title, .prep-val {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .prep-cell.title { font-weight: 700; }
+    .prep-val { font-size: 0.78rem; font-weight: 650; }
+    .prep-elif-row .prep-cell.title { grid-column: 2 / 11; }
+    .prep-final .prep-cell.title { grid-column: 2 / -1; }
     .prep-acts {
       display: flex;
       gap: 6px;
       justify-content: flex-end;
       align-items: center;
+      padding-right: 8px;
     }
     .prep-act {
       display: inline-flex;
@@ -345,6 +460,25 @@
       font-weight: 700;
       line-height: 1;
     }
+    .prep-act.prep-count {
+      flex: 0 0 auto;
+      width: auto;
+      height: 36px;
+      padding: 0 10px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background: var(--row);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .prep-act.prep-count.on {
+      background: var(--selected);
+      border-color: transparent;
+      color: #fff;
+    }
+    .prep-act.prep-count:disabled { opacity: 1; color: var(--muted); }
     .prep-act.skip svg, .side.skip svg {
       width: 22px;
       height: 15px;
@@ -352,47 +486,14 @@
       flex: 0 0 auto;
     }
     .prep-lib-title {
-      margin: 14px 4px 8px;
+      grid-column: 1 / -1;
+      margin: 8px 4px 2px;
       color: var(--muted);
       font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.08em;
     }
-    .song-info-line {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      min-height: 44px;
-      border-bottom: 1px solid var(--line);
-    }
-    .song-info-line > span:first-child { font-weight: 750; letter-spacing: 0.04em; }
-    .song-info-value { font-weight: 650; }
-    .song-info-modes { display: flex; gap: 8px; }
-    .song-info-modes button, .prep-count {
-      min-height: 40px;
-      padding: 0 12px;
-      border: 1px solid #444;
-      border-radius: 8px;
-      background: var(--row);
-      color: var(--text);
-      font: inherit;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-    }
-    .song-info-modes button { min-width: 92px; }
-    .song-info-modes button.on, .prep-count.on {
-      background: var(--selected);
-      border-color: transparent;
-    }
-    .song-info-modes button:disabled, .prep-count:disabled { opacity: 1; }
-    .prep-count:not(:disabled) { cursor: pointer; }
-    .prep-empty { margin: 8px 0; color: var(--muted); }
-    @media (max-width: 700px) {
-      #prep { grid-template-columns: 1fr; }
-      .prep-panel { border-right: 0; border-bottom: 1px solid var(--line); }
-    }
+    .prep-act.prep-count:not(:disabled) { cursor: pointer; }
     #stage-col {
       flex: 1 1 auto;
       min-width: 0;
@@ -518,6 +619,14 @@
       border-color: #ea8400;
       color: #111;
       caret-color: #111;
+    }
+    .song-note[hidden] { display: none; }
+    #lyrics-stage .song-head:has(.song-note[hidden]) + .lyric-section,
+    #lyrics-stage .song-head:has(.song-note[hidden]) + .lyric-line,
+    #chords-stage .song-head:has(.song-note[hidden]) + .chord-list,
+    #drums-stage .song-head:has(.song-note[hidden]) + .drum-list,
+    #score-stage .song-head:has(.song-note[hidden]) + .nota-count-stack {
+      margin-top: 14px;
     }
     .nota-count-stack { margin: 0 0 10px; }
     .lyric-section.nota-count-bar { width: 100%; margin-bottom: 0; }
@@ -698,13 +807,11 @@
       width: calc(var(--section-span, 1) * 100%);
       max-width: 100%;
       margin-bottom: 0;
-      min-height: 32px;
-      height: 32px;
+      min-height: 22px;
+      height: 22px;
       box-sizing: border-box;
     }
     .lyric-section.chord-section-name {
-      min-height: 22px;
-      height: 22px;
       padding-top: 0;
       padding-bottom: 0;
     }
@@ -832,6 +939,8 @@
     }
     .chord-note-lane .drum-hit,
     .chord-note-lane .drum-hit[data-note] { top: 12%; height: 76%; border-radius: 0; background: #ea8400; }
+    .chord-note-lane .drum-hit.on-eighth,
+    .chord-note-lane .drum-hit.on-eighth[data-note] { background: #e24a4a; }
     .chord-measure-body {
       position: relative;
       z-index: 1;
@@ -1107,8 +1216,8 @@
     #mixer-row[hidden] { display: none; }
     #mixer-faders {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px 14px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
     }
     .mixer-empty {
       grid-column: 1 / -1;
@@ -1119,9 +1228,14 @@
     .fader {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
       gap: 2px 8px;
-      min-width: 0;
       align-items: center;
+      min-width: 0;
+      padding: 8px;
+      border: 1px solid #4a4a4a;
+      border-radius: 8px;
+      background: var(--row);
     }
     .fader-name {
       grid-row: 1;
@@ -1134,23 +1248,36 @@
       text-overflow: ellipsis;
     }
     .fader-db {
-      grid-row: 1;
-      grid-column: 2;
-      justify-self: end;
+      grid-row: 2;
+      grid-column: 1;
       color: var(--muted);
       font-size: 12px;
       font-variant-numeric: tabular-nums;
-      text-align: right;
     }
-    .fader input {
-      grid-row: 2;
-      grid-column: 1 / -1;
-      width: 100%;
-      height: 28px;
+    .mix-step {
+      width: 32px;
+      height: 26px;
       margin: 0;
-      accent-color: #4c8dff;
-      touch-action: none;
+      padding: 0;
+      border: 0;
+      border-radius: 6px;
+      background: #2a2a2a;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
     }
+    .mix-up { grid-row: 1; grid-column: 2; }
+    .mix-down { grid-row: 2; grid-column: 2; }
+    .mix-tri {
+      width: 14px;
+      height: 10px;
+      background: currentColor;
+      display: block;
+    }
+    .mix-up .mix-tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+    .mix-down .mix-tri { clip-path: polygon(0 0, 100% 0, 50% 100%); }
     body:not(.list-edit) #list .row { grid-template-columns: 1fr; }
     body:not(.list-edit) #list .row.song { grid-template-columns: minmax(0, 1fr) auto; }
     body:not(.list-edit) #list .sides { display: none; }
@@ -1203,9 +1330,14 @@
       color: #d0d0d0;
     }
     .row.song.playing { box-shadow: inset 4px 0 0 var(--play); }
-    .row.stop, .row.final, .row.stopadd {
+    .row.stop, .row.stopadd {
       background: var(--stop);
       color: #fff;
+      border-color: transparent;
+    }
+    .row.final {
+      background: #ff4d94;
+      color: #111;
       border-color: transparent;
     }
     .row.stop.selected { background: var(--stop-on); }
@@ -1396,19 +1528,7 @@
     </div>
     <div id="prep" hidden>
       <section class="prep-panel">
-        <div class="prep-head">
-          <h2>
-            <span class="prep-active-setlist">SETLIST</span>
-            <span id="prep-summary" class="prep-head-summary"></span>
-          </h2>
-        </div>
         <div id="prep-list" class="prep-list"></div>
-      </section>
-      <section class="prep-side">
-        <div class="prep-side-head">
-          <h2><span id="prep-title" class="prep-active-setlist"></span></h2>
-        </div>
-        <div id="prep-info" class="prep-info"></div>
       </section>
     </div>
   </div>
@@ -1425,7 +1545,6 @@
     var mixerOpen = false;
     var receives = [];
     var mixerDomKey = "";
-    var mixerDrag = null;
     var mixerHold = null;
     var recvPending = "";
     var recvTimer = 0;
@@ -1476,6 +1595,9 @@
     var scoreNames = "";
     var scoreDocs = {};
     var scoreLoads = {};
+    var scoreStamps = {};
+    var scoreCheckAt = 0;
+    var scoreCheckBusy = false;
     var settingsCache = {};
     var scoreRects = {};
     var scoreEdit = false;
@@ -1503,6 +1625,11 @@
     function selectionGuid() {
       if (practiceMode) return practiceSel || "";
       return meta && meta.sel ? meta.sel : "";
+    }
+
+    function canSelectSong(guid) {
+      if (!stagePlaying()) return true;
+      return !!guid && guid === selectionGuid();
     }
 
     function selectedSongRow() {
@@ -1638,7 +1765,11 @@
     }
 
     function webFile(name) {
-      var safe = String(name || "").replace(/[^A-Za-z0-9._-]+/g, "-").replace(/^-+|-+$/g, "");
+      var text = String(name || "");
+      try { text = text.normalize("NFD"); } catch (err) {}
+      text = text.replace(/[\u0300-\u036f]/g, "");
+      text = text.replace(/\u0131/g, "i").replace(/\u0130/g, "I");
+      var safe = text.replace(/[^A-Za-z0-9._-]+/g, "-").replace(/-+/g, "-").replace(/^-+|-+$/g, "");
       return safe || "song";
     }
 
@@ -1649,7 +1780,7 @@
       songFileSettled = true;
     }
 
-    function requestSongFile(name, primary) {
+    function requestSongFile(name, primary, refresh) {
       if (!name) {
         if (primary) {
           songFile = null;
@@ -1658,22 +1789,36 @@
         }
         return;
       }
-      if (primary) songFileName = name;
       var cached = fileCache[name];
-      if (cached && cached.settled) {
-        if (primary) applyCachedSong(name);
+      if (cached && cached.pending) {
+        if (primary) songFileName = name;
         return;
       }
-      if (primary && (!cached || !cached.pending)) {
+      if (cached && cached.settled && !refresh) {
+        if (primary) {
+          songFileName = name;
+          applyCachedSong(name);
+        }
+        return;
+      }
+      if (refresh && cached && cached.fetchedAt && Date.now() - cached.fetchedAt < 3000) {
+        if (primary) {
+          songFileName = name;
+          applyCachedSong(name);
+        }
+        return;
+      }
+      if (primary) songFileName = name;
+      if (primary && (!cached || !cached.data)) {
         songFile = null;
         songFileSettled = false;
       }
-      if (cached && cached.pending) return;
-      fileCache[name] = { data: null, settled: false, pending: true };
-      fetch("DBK_Stage/" + webFile(name) + ".json").then(function(response) {
+      if (!cached) fileCache[name] = { data: null, settled: false, pending: true };
+      else cached.pending = true;
+      fetch("DBK_Stage/" + webFile(name) + ".json", { cache: "no-store" }).then(function(response) {
         return response.ok ? response.json() : null;
       }).then(function(data) {
-        fileCache[name] = { data: data, settled: true, pending: false };
+        fileCache[name] = { data: data, settled: true, pending: false, fetchedAt: Date.now() };
         fillLibraryKeys();
         if (songFileName === name) {
           applyCachedSong(name);
@@ -1682,7 +1827,8 @@
         refreshViews();
         if (viewPage === "prep") renderPrep();
       }).catch(function() {
-        fileCache[name] = { data: null, settled: true, pending: false };
+        var prev = fileCache[name];
+        fileCache[name] = { data: prev && prev.data || null, settled: true, pending: false, fetchedAt: Date.now() };
         if (songFileName === name) {
           applyCachedSong(name);
           renderTransport();
@@ -1694,6 +1840,11 @@
 
     function loadSongFile(name) {
       requestSongFile(name, true);
+    }
+
+    function transportEditable() {
+      if (practiceMode) return true;
+      return liveNow() && selectedOutputName() === "MEHMETHAN";
     }
 
     function renderTransport() {
@@ -1714,7 +1865,7 @@
       if (song.n !== songFileName) loadSongFile(song.n);
       transportInfo = buildTransport(songFile, countIsOff(song));
       var key = song.n + "|" + (songFile ? JSON.stringify(transportInfo.list) : "");
-      slider.disabled = !songFile || transportInfo.end <= 0;
+      slider.disabled = !transportEditable() || !songFile || transportInfo.end <= 0;
       slider.max = String(transportInfo.end || 1);
       if (key === transportKey) {
         updateHead();
@@ -2088,18 +2239,61 @@
       }
     }
 
+    function libraryNameOrder(a, b) {
+      var an = a && a.n || "";
+      var bn = b && b.n || "";
+      var cmp = 0;
+      try {
+        cmp = an.localeCompare(bn, "tr", { sensitivity: "accent" });
+      } catch (err) {
+        cmp = an < bn ? -1 : (an > bn ? 1 : 0);
+      }
+      if (cmp) return cmp;
+      return String(a && a.g || "").localeCompare(String(b && b.g || ""));
+    }
+
+    function withSortedLibrary(list) {
+      var head = [];
+      var marker = [];
+      var library = [];
+      var passed = false;
+      for (var i = 0; i < list.length; i++) {
+        var item = list[i];
+        if (item.k === "final") passed = true;
+        if (passed && item.k === "song" && !item.set) library.push(item);
+        else if (passed) marker.push(item);
+        else head.push(item);
+      }
+      library.sort(libraryNameOrder);
+      return head.concat(marker).concat(library);
+    }
+
+    function applyPracticeRows(list) {
+      if (liveNow() || rows.length) return false;
+      var body = list && list.rows ? list.rows : list;
+      if (!body || !body.length) return false;
+      rows = withSortedLibrary(body);
+      adoptPracticeSelection();
+      render();
+      return true;
+    }
+
     function ensurePracticeList() {
       adoptPracticeSelection();
       if (rows.length || catalogTried) return;
       catalogTried = true;
-      fetch("DBK_Stage/catalog.json").then(function(res) {
-        if (!res.ok) throw new Error("catalog");
+      fetch("DBK_Stage/practice-setlist.json").then(function(res) {
+        if (!res.ok) throw new Error("practice");
         return res.json();
       }).then(function(list) {
-        if (liveNow() || rows.length || !list || !list.length) return;
-        rows = list;
-        adoptPracticeSelection();
-        render();
+        if (!applyPracticeRows(list)) throw new Error("empty");
+      }).catch(function() {
+        return fetch("DBK_Stage/catalog.json").then(function(res) {
+          if (!res.ok) throw new Error("catalog");
+          return res.json();
+        }).then(function(list) {
+          applyPracticeRows(list);
+        });
       }).catch(function() {});
     }
 
@@ -2246,6 +2440,7 @@
       field.value = text;
       field.classList.toggle("has-note", !!text.trim());
       field.readOnly = !notesEditable();
+      field.hidden = !notesEditable() && !text.trim();
       field.addEventListener("input", function() {
         field.dataset.dirty = "1";
         var next = oneLine(field.value);
@@ -2313,6 +2508,8 @@
           cue.textContent = row.name;
         } else {
           node.className = "lyric-line future";
+          node.setAttribute("data-t", String(row.time));
+          node.setAttribute("data-e", String(row.end));
           for (var b = 0; b < row.text.length; b++) {
             var line = document.createElement("div");
             line.textContent = row.text[b];
@@ -2340,8 +2537,9 @@
         var block = document.createElement("article");
         block.className = "song-block";
         block.setAttribute("data-name", pair[i].n);
+        block.setAttribute("data-lyric", lyricSongSig(pair[i]));
         if (pair[i].g) block.setAttribute("data-g", pair[i].g);
-        if (i === 0) block.setAttribute("data-current", "1");
+        block.setAttribute("data-current", i === 0 ? "1" : "0");
         block.appendChild(songHead(pair[i].n, data, "lyrics"));
         if (data) {
           var built = appendLyricRows(block, data, countIsOff(pair[i]));
@@ -2367,14 +2565,13 @@
       if (key !== lyricKey) {
         lyricKey = key;
         lyricCurrent = -2;
-        drawLyrics();
+        if (!reuseLyricPair(pair)) drawLyrics();
       }
       if (!lyricRows.length) return;
       var off = songOffset();
       var duration = Number(songFile && songFile.duration) || 0;
       var inside = off != null && off >= -0.05 && (duration <= 0 || off <= duration + 0.05);
       var time = inside ? Math.max(0, off) : -1;
-      var current = -1;
       var nodes = document.querySelectorAll("#lyrics-stage [data-current='1'] [data-i]");
       for (var i = 0; i < lyricRows.length; i++) {
         var row = lyricRows[i];
@@ -2383,7 +2580,6 @@
         if (time >= 0 && time >= row.end - 0.02) state = "past";
         else if (time >= 0 && time >= row.time - 0.02) {
           state = "current";
-          current = i;
           fill = measureRangeFill(songFile.tempoMap, row.time, row.end, time);
         }
         var node = nodes[i];
@@ -2391,13 +2587,127 @@
         if (row.kind === "lyric") node.className = "lyric-line " + state;
         node.style.setProperty("--playhead", state === "past" ? "1" : String(fill));
       }
-      if (!stopIsSelected() && current !== lyricCurrent) {
-        lyricCurrent = current;
-        if (current >= 0 && nodes[current] && nodes[current].scrollIntoView) {
-          nodes[current].scrollIntoView({ block: "center" });
-        }
-      }
       paintStageCues("lyrics-stage", time);
+      followLyricScroll();
+    }
+
+    function lyricSongSig(song) {
+      var cached = fileCache[song.n];
+      var ready = cached && cached.data;
+      return song.n + (countIsOff(song) ? ":off" : "") + "=" + (ready ? ((cached.data.lyrics || []).length + ":" + (cached.data.sections || []).length) : (cached && cached.settled ? "missing" : "wait"));
+    }
+
+    function appendLyricSong(host, song, current) {
+      requestSongFile(song.n, current);
+      var data = cachedSong(song.n);
+      var block = document.createElement("article");
+      block.className = "song-block";
+      block.setAttribute("data-name", song.n);
+      block.setAttribute("data-lyric", lyricSongSig(song));
+      if (song.g) block.setAttribute("data-g", song.g);
+      block.setAttribute("data-current", current ? "1" : "0");
+      block.appendChild(songHead(song.n, data, "lyrics"));
+      if (data) appendLyricRows(block, data, countIsOff(song));
+      else if (fileCache[song.n] && fileCache[song.n].settled) {
+        var missing = document.createElement("p");
+        missing.className = "empty";
+        missing.textContent = "No lyrics";
+        block.appendChild(missing);
+      }
+      host.appendChild(block);
+    }
+
+    function reuseLyricPair(pair) {
+      if (!pair.length) return false;
+      var host = document.getElementById("lyrics-stage");
+      var view = document.getElementById("view");
+      if (!host || !view) return false;
+      var blocks = Array.prototype.slice.call(host.querySelectorAll(".song-block"));
+      var keep = [];
+      var i;
+      for (i = 0; i < pair.length; i++) {
+        var found = scoreBlockFor(blocks, pair[i]);
+        if (found && found.getAttribute("data-lyric") !== lyricSongSig(pair[i])) {
+          if (i === 0) return false;
+          if (found.parentNode) found.parentNode.removeChild(found);
+          found = null;
+        }
+        keep.push(found);
+      }
+      if (!keep[0] || !keep[0].querySelector(".lyric-line, .lyric-section, .empty")) return false;
+      var before = keep[0].getBoundingClientRect().top;
+      for (i = blocks.length - 1; i >= 0; i--) {
+        if (keep.indexOf(blocks[i]) < 0 && blocks[i].parentNode) host.removeChild(blocks[i]);
+      }
+      for (i = 0; i < keep.length; i++) {
+        if (!keep[i]) continue;
+        keep[i].setAttribute("data-current", i === 0 ? "1" : "0");
+        if (pair[i].g) keep[i].setAttribute("data-g", pair[i].g);
+        host.appendChild(keep[i]);
+      }
+      var after = keep[0].getBoundingClientRect().top;
+      if (Math.abs(after - before) > 0.5) view.scrollTop += after - before;
+      scoreScrollGoal = null;
+      for (i = 0; i < pair.length; i++) {
+        if (!keep[i]) appendLyricSong(host, pair[i], i === 0);
+      }
+      var data = cachedSong(pair[0].n);
+      lyricRows = data ? buildLyricRows(data, countIsOff(pair[0])) : [];
+      return true;
+    }
+
+    function lyricNodeAt(article, time) {
+      var lines = article.querySelectorAll(".lyric-line");
+      var found = null;
+      for (var i = 0; i < lines.length; i++) {
+        var start = parseFloat(lines[i].getAttribute("data-t"));
+        var end = parseFloat(lines[i].getAttribute("data-e"));
+        if (time >= start - 0.02 && time < end - 0.02) found = lines[i];
+      }
+      return found;
+    }
+
+    function nextLyricNode(article, current) {
+      var lines = article.querySelectorAll(".lyric-line");
+      var i;
+      for (i = 0; i < lines.length; i++) {
+        if (lines[i] !== current) continue;
+        if (lines[i + 1]) return lines[i + 1];
+        break;
+      }
+      var host = article.parentElement;
+      if (!host) return null;
+      var blocks = host.querySelectorAll(".song-block");
+      for (i = 0; i < blocks.length; i++) {
+        if (blocks[i] === article && blocks[i + 1]) return blocks[i + 1].querySelector(".lyric-line");
+      }
+      return null;
+    }
+
+    function followLyricScroll() {
+      if (viewPage !== "lyrics" || !stagePlaying()) return;
+      var article = document.querySelector("#lyrics-stage [data-current='1']");
+      if (!article) return;
+      var time = songOffset();
+      if (time == null || time < -0.05) return;
+      var view = document.getElementById("view");
+      if (!view) return;
+      var current = lyricNodeAt(article, Math.max(0, time));
+      if (!current) return;
+      var next = nextLyricNode(article, current);
+      var above = false;
+      if (next) {
+        var nextTop = next.getBoundingClientRect().top;
+        var hereTop = current.getBoundingClientRect().top;
+        above = nextTop < hereTop - 10;
+      }
+      if (above && next) {
+        revealScoreWrap(view, current, next);
+        return;
+      }
+      var nodes = [current];
+      if (next && next !== current) nodes.push(next);
+      revealScoreLines(view, nodes);
     }
 
     var SEGNO_PATH = "M12.2 9.15C12.72 9.15 13.29 9.32 13.53 10.24L13.7 10.82C14.27 13.06 15.54 17.96 19.74 17.96C23.14 17.96 25.5 15.94 25.5 12.43C25.5 11.17 25.21 9.84 24.81 8.52C23.48 4.72 17.96 3.28 13.7 3.28C7.94 3.28 1.38 10.42 1.38 18.65C1.38 20.6 1.78 22.68 2.71 24.75C5.35 30.79 17.38 38.16 18.01 38.45C18.36 38.62 18.53 38.73 18.53 39.08C18.53 39.42 18.36 39.83 18.01 40.4C17.44 41.55 5.53 63.02 5.53 63.02C5.35 63.37 5.24 63.77 5.24 64.12C5.24 65.44 6.27 66.53 7.6 66.53C8.4 66.53 9.27 66.01 9.67 65.27C9.67 65.27 22.5 42.07 22.73 41.55C22.73 41.67 23.42 41.15 23.77 41.15C24.98 41.44 41.55 46.33 41.55 54.16C41.55 57.38 39.6 59.57 36.78 59.97L36.49 60.09C34.76 60.09 33.38 58.88 33.38 56.35L33.38 55.42C33.38 52.26 31.31 49.96 28.95 49.96C28.66 49.96 28.32 50.01 27.97 50.13C24.92 50.88 22.1 52.2 22.1 55.48C22.1 60.55 27.22 64.98 32.12 64.98C33.21 64.98 34.36 64.81 35.57 64.35C42.24 62.16 46.62 56.75 46.62 49.84C46.62 49.09 46.56 48.29 46.45 47.48C45.24 38.33 32.12 30.96 31.14 30.45C30.1 29.87 29.7 29.58 29.7 29.12C29.7 29.01 29.81 28.83 29.87 28.66C30.27 27.97 43.17 4.89 43.17 4.89C43.4 4.43 43.45 4.14 43.45 3.68C43.45 2.36 42.42 1.38 41.15 1.38C40.35 1.38 39.48 1.78 39.08 2.53C39.08 2.53 25.9 26.3 25.38 27.05C25.15 27.51 24.98 27.74 24.63 27.74C24.4 27.74 24.17 27.68 23.83 27.51C23.08 27.22 10.59 22.45 8.4 18.71C7.94 17.78 7.25 16.06 7.25 14.33C7.25 12.09 8.23 9.73 11.74 9.15ZM35.45 25.67C35.45 28.26 37.58 30.39 40.17 30.39C42.82 30.39 44.89 28.26 44.89 25.67C44.89 23.02 42.82 20.95 40.17 20.95C37.58 20.95 35.45 23.02 35.45 25.67ZM12.66 42.42C12.66 39.83 10.59 37.7 7.94 37.7C5.35 37.7 3.17 39.83 3.17 42.42C3.17 45.06 5.35 47.14 7.94 47.14C10.59 47.14 12.66 45.06 12.66 42.42Z";
@@ -2567,15 +2877,28 @@
       return end;
     }
 
-    function chordNoteLane(notes, steps) {
+    function chordEighthStep(bar, data) {
+      var map = data && data.tempoMap || [];
+      var time = bar && Number(bar.start) || 0;
+      var point = map[0] || null;
+      for (var i = 0; i < map.length; i++) {
+        if (Number(map[i].time) <= time + 0.02) point = map[i];
+      }
+      var den = point && Number(point.denominator) || 4;
+      return Math.max(1, den / 2);
+    }
+
+    function chordNoteLane(notes, steps, eighth) {
       var wrap = document.createElement("div");
       wrap.className = "chord-measure-notes";
       var lane = document.createElement("div");
       lane.className = "drum-lane chord-note-lane";
       lane.style.setProperty("--drum-steps", String(steps));
+      var grid = Math.max(1, eighth || 2);
       for (var i = 0; i < notes.length; i++) {
         var hit = document.createElement("span");
         hit.className = "drum-hit";
+        if (Number(notes[i].step) % grid === 0) hit.classList.add("on-eighth");
         hit.setAttribute("data-note", notes[i].lane);
         hit.style.setProperty("--drum-hit", String(notes[i].step));
         lane.appendChild(hit);
@@ -2606,7 +2929,7 @@
       return headRow;
     }
 
-    function chordBarView(bar, blockId, closesRepeat, ending) {
+    function chordBarView(bar, blockId, closesRepeat, ending, data) {
       var steps = Math.max(1, Math.round(bar.steps || 16));
       var cell = document.createElement("div");
       cell.className = "chord-measure" + (closesRepeat ? " repeat-end" : "");
@@ -2621,7 +2944,7 @@
         rule.style.setProperty("--slot-step", String(slots[i].step));
         cell.appendChild(rule);
       }
-      cell.appendChild(chordNoteLane(bar.notes || [], steps));
+      cell.appendChild(chordNoteLane(bar.notes || [], steps, chordEighthStep(bar, data)));
       var body = document.createElement("div");
       body.className = "chord-measure-body";
       if (ending) {
@@ -2653,7 +2976,7 @@
       return cell;
     }
 
-    function chordSpanView(span, blockId) {
+    function chordSpanView(span, blockId, data) {
       var frag = document.createDocumentFragment();
       var opens = span.opens || span.plays > 1;
       var plays = span.closes != null ? span.closes : (span.plays > 1 ? span.plays : 0);
@@ -2671,7 +2994,7 @@
         measures.className = "chord-measures" + (opens && lineIndex === 0 ? " repeat-start" : "");
         for (var barIndex = 0; barIndex < bars.length; barIndex++) {
           var ending = span.ending && span.ending.at === lineIndex * 4 + barIndex ? span.ending.pass : 0;
-          measures.appendChild(chordBarView(bars[barIndex], blockId, closes && barIndex === bars.length - 1, ending));
+          measures.appendChild(chordBarView(bars[barIndex], blockId, closes && barIndex === bars.length - 1, ending, data));
         }
         if (closes && part) {
           var after = document.createElement("span");
@@ -2720,7 +3043,7 @@
         for (var h = 0; h < row.heads.length; h++) block.appendChild(chordSectionTitle(row, row.heads[h], data));
         if (sectionTone(row.heads[0] && row.heads[0].section.name) !== "count") {
           for (var s = 0; s < row.spans.length; s++) {
-            block.appendChild(chordSpanView(row.spans[s], (row.heads[0] && row.heads[0].block.id) || ""));
+            block.appendChild(chordSpanView(row.spans[s], (row.heads[0] && row.heads[0].block.id) || "", data));
           }
         }
         list.appendChild(block);
@@ -3008,13 +3331,14 @@
         var span = false;
         var showGrids = false;
         for (var i = 0; i < written.length; i++) {
-          if (sectionTone(written[i].section.name) !== "count") showGrids = true;
-          if (sectionTone(written[i].section.name) !== "count" && written[i].runs.length >= 2) span = true;
+          var tone = sectionTone(written[i].section.name);
+          if (tone !== "count") showGrids = true;
+          if (tone === "count" || written[i].runs.length >= 2) span = true;
         }
         var pack = document.createElement("div");
         pack.className = "drum-pack" + (pair ? " pair" : "");
         var titles = document.createElement("div");
-        titles.className = "drum-pack-titles" + (span || !pair ? " span" : "");
+        titles.className = "drum-pack-titles" + (span ? " span" : "");
         for (var t = 0; t < written.length; t++) titles.appendChild(drumSectionTitle(written[t]));
         pack.appendChild(titles);
         if (showGrids) {
@@ -3056,8 +3380,9 @@
           var block = document.createElement("article");
           block.className = "song-block";
           block.setAttribute("data-name", pair[i].n);
+          block.setAttribute("data-chart", chartSongSig(page, pair[i]));
           if (pair[i].g) block.setAttribute("data-g", pair[i].g);
-          if (i === 0) block.setAttribute("data-current", "1");
+          block.setAttribute("data-current", i === 0 ? "1" : "0");
           block.appendChild(songHead(pair[i].n, data, page));
           if (data) {
             var sheet = page === "chords" ? stageCharts.chordSheet(data) : stageCharts.drumSheet(data);
@@ -3074,6 +3399,7 @@
           host.appendChild(block);
         }
         paintChart(page);
+        scrollPinnedSong();
       }).catch(function() {
         if (token !== chartToken) return;
         host.innerHTML = "";
@@ -3097,27 +3423,21 @@
       if (page === "chords") paintChordMarks(article, time, map);
       else paintDrumMarks(article, time, map);
       paintStageCues(page + "-stage", time);
+      followChartScroll(page);
     }
 
     function paintChordMarks(article, time, map) {
       var head = time >= 0 ? stageCharts.chordAt(article._sheet.chart, article._sheet.form, time, map) : null;
       var names = article.querySelectorAll("[data-chord-section]");
-      var currentName = null;
-      var currentNameAt = -1;
+      var nextSection = head && head.next && head.nextPlaying && head.nextPlaying !== head.playing ? head.nextPlaying : "";
       var i;
       for (i = 0; i < names.length; i++) {
         var id = names[i].getAttribute("data-chord-section");
         var on = !!(head && head.playing === id);
         names[i].classList.toggle("current", on);
+        names[i].classList.toggle("next", !on && !!nextSection && id === nextSection);
         var fill = on && head ? measureRangeFill(map, head.fillStart, head.fillEnd, time) : 0;
         names[i].style.setProperty("--playhead", String(fill));
-        if (on) {
-          currentName = names[i];
-          currentNameAt = i;
-        }
-      }
-      for (i = 0; i < names.length; i++) {
-        names[i].classList.toggle("next", currentNameAt >= 0 && i === currentNameAt + 1);
       }
       var bars = article.querySelectorAll("[data-chord-bar]");
       var currentKey = head ? head.blockId + "#" + head.measure : "";
@@ -3156,12 +3476,6 @@
           }
         }
       }
-      var mark = currentKey + ">" + nextKey;
-      if (mark !== chordMark) {
-        chordMark = mark;
-        var target = currentBar || currentName;
-        if (!stopIsSelected() && target && target.scrollIntoView) target.scrollIntoView({ block: "center" });
-      }
     }
 
     function paintDrumMarks(article, time, map) {
@@ -3186,7 +3500,6 @@
       }
       var runs = article.querySelectorAll(".drum-run");
       var currentRun = null;
-      var currentRunAt = -1;
       for (i = 0; i < runs.length; i++) {
         var same = pos && runs[i].getAttribute("data-block-id") === pos.blockId && runs[i].getAttribute("data-drum-copy") === String(pos.copy);
         var start = parseFloat(runs[i].getAttribute("data-t"));
@@ -3202,46 +3515,250 @@
           if (onRun) n = Math.min(repeats, Math.floor(Math.max(0, pos.originTime - start) / cycle) + 1);
           count.textContent = String(n);
         }
-        if (onRun) {
-          currentRun = runs[i];
-          currentRunAt = i;
-        }
+        if (onRun) currentRun = runs[i];
       }
-      var nextRun = null;
       for (i = 0; i < runs.length; i++) {
         var nextStart = parseFloat(runs[i].getAttribute("data-t"));
         var nextEnd = parseFloat(runs[i].getAttribute("data-e"));
         var holdsNext = !!(pos && pos.nextOrigin >= 0 && pos.nextOrigin >= nextStart - 0.02 && pos.nextOrigin < nextEnd - 0.02 && runs[i].getAttribute("data-block-id") === pos.nextBlockId && runs[i].getAttribute("data-drum-copy") === String(pos.nextCopy));
         var patternNext = holdsNext && runs[i] !== currentRun;
         runs[i].classList.toggle("next", patternNext);
-        if (patternNext) nextRun = runs[i];
       }
-      var mark = (currentRun ? currentRun.getAttribute("data-block-id") + currentRun.getAttribute("data-t") : "") + ">" + (nextRun ? nextRun.getAttribute("data-t") : "");
-      if (mark !== drumMark) {
-        drumMark = mark;
-        var target = currentRun || currentName;
-        if (!stopIsSelected() && target && target.scrollIntoView) target.scrollIntoView({ block: "center" });
-      }
+    }
+
+    function chartSongSig(page, song) {
+      var cached = fileCache[song.n];
+      var ready = cached && cached.data;
+      var count = 0;
+      if (ready) count = ((page === "chords" ? cached.data.chords : cached.data.patterns) || []).length;
+      return song.n + (countIsOff(song) ? ":off" : "") + "=" + (ready ? count : (cached && cached.settled ? "missing" : "wait"));
     }
 
     function markChart(page) {
       if (viewPage !== page) return;
       var pair = stagePair();
-      var key = pair.map(function(song) {
-        var cached = fileCache[song.n];
-        var ready = cached && cached.data;
-        var count = 0;
-        if (ready) count = ((page === "chords" ? cached.data.chords : cached.data.patterns) || []).length;
-        return song.n + (countIsOff(song) ? ":off" : "") + "=" + (ready ? count : (cached && cached.settled ? "missing" : "wait"));
-      }).join("|");
+      var key = pair.map(function(song) { return chartSongSig(page, song); }).join("|");
       var stored = page === "chords" ? chordKey : drumKey;
       if (key !== stored) {
         if (page === "chords") { chordKey = key; chordMark = ""; }
         else { drumKey = key; drumMark = ""; }
-        drawChart(page);
+        if (!reuseChartPair(page, pair)) drawChart(page);
+        else paintChart(page);
         return;
       }
       paintChart(page);
+    }
+
+    function appendChartSong(host, page, song, current) {
+      requestSongFile(song.n, current);
+      var data = cachedSong(song.n);
+      var block = document.createElement("article");
+      block.className = "song-block";
+      block.setAttribute("data-name", song.n);
+      block.setAttribute("data-chart", chartSongSig(page, song));
+      if (song.g) block.setAttribute("data-g", song.g);
+      block.setAttribute("data-current", current ? "1" : "0");
+      block.appendChild(songHead(song.n, data, page));
+      if (data && stageCharts) {
+        var sheet = page === "chords" ? stageCharts.chordSheet(data) : stageCharts.drumSheet(data);
+        block._sheet = sheet;
+        block._song = data;
+        if (page === "chords") appendChordChart(block, data, sheet, countIsOff(song));
+        else appendDrumChart(block, data, sheet, countIsOff(song));
+      }
+      host.appendChild(block);
+      return block;
+    }
+
+    function reuseChartPair(page, pair) {
+      if (!pair.length) return false;
+      var host = document.getElementById(page + "-stage");
+      var view = document.getElementById("view");
+      if (!host || !view) return false;
+      var blocks = Array.prototype.slice.call(host.querySelectorAll(".song-block"));
+      var keep = [];
+      var i;
+      for (i = 0; i < pair.length; i++) {
+        var found = scoreBlockFor(blocks, pair[i]);
+        var sig = chartSongSig(page, pair[i]);
+        if (found && found.getAttribute("data-chart") !== sig) {
+          if (i === 0) return false;
+          if (found.parentNode) found.parentNode.removeChild(found);
+          found = null;
+        }
+        keep.push(found);
+      }
+      if (!keep[0] || !keep[0]._sheet) return false;
+      var before = keep[0].getBoundingClientRect().top;
+      for (i = blocks.length - 1; i >= 0; i--) {
+        if (keep.indexOf(blocks[i]) < 0 && blocks[i].parentNode) host.removeChild(blocks[i]);
+      }
+      for (i = 0; i < keep.length; i++) {
+        if (!keep[i]) continue;
+        keep[i].setAttribute("data-current", i === 0 ? "1" : "0");
+        if (pair[i].g) keep[i].setAttribute("data-g", pair[i].g);
+        host.appendChild(keep[i]);
+      }
+      var after = keep[0].getBoundingClientRect().top;
+      if (Math.abs(after - before) > 0.5) view.scrollTop += after - before;
+      scoreScrollGoal = null;
+      for (i = 0; i < pair.length; i++) {
+        if (!keep[i]) appendChartSong(host, page, pair[i], i === 0);
+      }
+      return true;
+    }
+
+    function chartMomentAfter(map, duration, time) {
+      var musical = timeToMusical(map, time);
+      var at = musical.end + 0.001;
+      if (!(at > time + 1e-6)) return null;
+      if (duration > 0 && at > duration + 0.05) return null;
+      return at;
+    }
+
+    function chordBarNode(root, blockId, measure) {
+      if (!root || !blockId) return null;
+      var key = blockId + "#" + measure;
+      var nodes = root.querySelectorAll("[data-chord-bar]");
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].getAttribute("data-chord-bar") === key) return nodes[i];
+      }
+      return null;
+    }
+
+    function drumRunNode(root, pos) {
+      if (!root || !pos) return null;
+      var runs = root.querySelectorAll(".drum-run");
+      var i;
+      for (i = 0; i < runs.length; i++) {
+        if (runs[i].getAttribute("data-block-id") !== pos.blockId) continue;
+        if (runs[i].getAttribute("data-drum-copy") !== String(pos.copy)) continue;
+        var start = parseFloat(runs[i].getAttribute("data-t"));
+        var end = parseFloat(runs[i].getAttribute("data-e"));
+        if (pos.originTime >= start - 0.02 && pos.originTime < end - 0.02) return runs[i];
+      }
+      for (i = 0; i < runs.length; i++) {
+        if (runs[i].getAttribute("data-block-id") === pos.blockId && runs[i].getAttribute("data-drum-copy") === String(pos.copy)) return runs[i];
+      }
+      return null;
+    }
+
+    function chartNodeAt(page, article, time) {
+      if (!article || !article._sheet || !article._song || !stageCharts) return null;
+      var map = article._song.tempoMap || [];
+      if (page === "chords") {
+        var head = stageCharts.chordAt(article._sheet.chart, article._sheet.form, time, map);
+        if (!head) return null;
+        return chordBarNode(article, head.blockId, head.measure);
+      }
+      var pos = stageCharts.drumAt(article._sheet.form, time, map);
+      if (!pos) return null;
+      return drumRunNode(article, pos);
+    }
+
+    function chartLineEl(page, node) {
+      if (!node) return null;
+      if (page === "chords") return node.closest(".chord-row") || node;
+      return node;
+    }
+
+    function shareChartLine(page, a, b) {
+      if (!a || !b) return false;
+      if (page === "chords") return chartLineEl(page, a) === chartLineEl(page, b);
+      var ra = a.getBoundingClientRect();
+      var rb = b.getBoundingClientRect();
+      if (Math.abs(ra.top - rb.top) < 10) return true;
+      var overlap = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
+      var smaller = Math.min(ra.height, rb.height);
+      return smaller > 0 && overlap > smaller * 0.4;
+    }
+
+    function chartLineAbove(page, node, current) {
+      var line = chartLineEl(page, node);
+      var here = chartLineEl(page, current);
+      if (!line || !here || shareChartLine(page, node, current)) return false;
+      return line.getBoundingClientRect().top < here.getBoundingClientRect().top - 10;
+    }
+
+    function firstChartHit(page, article, map, duration, time) {
+      var cursor = time;
+      for (var guard = 0; guard < 400; guard++) {
+        var at = chartMomentAfter(map, duration, cursor);
+        if (at == null) return null;
+        if (chartNodeAt(page, article, at)) return at;
+        cursor = at;
+      }
+      return null;
+    }
+
+    function nextDifferentChartLine(page, article, map, duration, time, current) {
+      var cursor = time;
+      for (var guard = 0; guard < 400; guard++) {
+        var at = chartMomentAfter(map, duration, cursor);
+        if (at == null) return null;
+        var node = chartNodeAt(page, article, at);
+        if (node && !shareChartLine(page, node, current)) return node;
+        cursor = at;
+      }
+      return null;
+    }
+
+    function nextSongChartLine(page, article) {
+      var host = article && article.parentElement;
+      if (!host) return null;
+      var blocks = host.querySelectorAll(".song-block");
+      var next = null;
+      var i;
+      for (i = 0; i < blocks.length; i++) {
+        if (blocks[i] === article) {
+          next = blocks[i + 1] || null;
+          break;
+        }
+      }
+      if (!next) return null;
+      if (page === "chords") return next.querySelector(".chord-row");
+      return next.querySelector(".drum-run");
+    }
+
+    function nextChartLine(page, article, time) {
+      var song = article._song;
+      var map = (song && song.tempoMap) || [];
+      var duration = Number(song && song.duration) || 0;
+      var current = chartNodeAt(page, article, time);
+      if (!current) return null;
+      var at = firstChartHit(page, article, map, duration, time);
+      if (at != null) {
+        var node = chartNodeAt(page, article, at);
+        if (node && !shareChartLine(page, node, current)) {
+          return { current: current, line: chartLineEl(page, node), above: chartLineAbove(page, node, current) };
+        }
+        var later = nextDifferentChartLine(page, article, map, duration, node ? at : time, current);
+        if (later && chartLineAbove(page, later, current)) {
+          return { current: current, line: chartLineEl(page, later), above: true };
+        }
+        if (later) return { current: current, line: null, above: false };
+      }
+      return { current: current, line: nextSongChartLine(page, article), above: false };
+    }
+
+    function followChartScroll(page) {
+      if (viewPage !== page || !stagePlaying()) return;
+      if (page !== "chords" && page !== "drums") return;
+      var article = document.querySelector("#" + page + "-stage [data-current='1']");
+      if (!article || !article._sheet) return;
+      var time = songOffset();
+      if (time == null || time < -0.05) return;
+      var view = document.getElementById("view");
+      if (!view) return;
+      var upcoming = nextChartLine(page, article, Math.max(0, time));
+      if (!upcoming || !upcoming.current) return;
+      if (upcoming.above && upcoming.line) {
+        revealScoreWrap(view, upcoming.current, upcoming.line);
+        return;
+      }
+      var nodes = [upcoming.current];
+      if (upcoming.line && upcoming.line !== upcoming.current) nodes.push(upcoming.line);
+      revealScoreLines(view, nodes);
     }
 
     function scoreMessage(text) {
@@ -3279,6 +3796,7 @@
         if (scoreDocs[names[i]] && scoreDocs[names[i]].destroy) scoreDocs[names[i]].destroy();
         delete scoreDocs[names[i]];
         delete scoreLoads[names[i]];
+        delete scoreStamps[names[i]];
       }
     }
 
@@ -3352,14 +3870,30 @@
       }
     }
 
+    function scoreBytesStamp(buffer) {
+      var bytes = new Uint8Array(buffer);
+      var n = bytes.length;
+      var hash = n >>> 0;
+      var step = Math.max(1, Math.floor(n / 48));
+      var i;
+      for (i = 0; i < n; i += step) hash = (Math.imul(hash, 33) + bytes[i]) >>> 0;
+      if (n) hash = (Math.imul(hash, 33) + bytes[n - 1]) >>> 0;
+      return n + ":" + hash;
+    }
+
+    function fetchScoreBytes(name) {
+      return fetch("DBK_Stage/" + webFile(name) + ".pdf?t=" + Date.now(), { cache: "no-store" }).then(function(response) {
+        if (!response.ok) throw new Error("missing");
+        return response.arrayBuffer();
+      });
+    }
+
     function loadScoreDoc(name) {
       if (scoreDocs[name] && scoreDocs[name] !== "loading") return Promise.resolve(scoreDocs[name]);
       if (scoreLoads[name]) return scoreLoads[name];
       scoreDocs[name] = "loading";
-      var promise = fetch("DBK_Stage/" + webFile(name) + ".pdf").then(function(response) {
-        if (!response.ok) throw new Error("missing");
-        return response.arrayBuffer();
-      }).then(function(buffer) {
+      var promise = fetchScoreBytes(name).then(function(buffer) {
+        scoreStamps[name] = scoreBytesStamp(buffer);
         return ensurePdfJs().then(function(lib) {
           return lib.getDocument({ data: new Uint8Array(buffer) }).promise;
         });
@@ -3381,6 +3915,46 @@
       return promise;
     }
 
+    function createScoreBlock(song, current) {
+      requestSongFile(song.n, current);
+      var block = document.createElement("article");
+      block.className = "song-block";
+      block.setAttribute("data-name", song.n);
+      if (song.g) block.setAttribute("data-g", song.g);
+      block.setAttribute("data-current", current ? "1" : "0");
+      requestSettings(song.n);
+      block.appendChild(songHead(song.n, cachedSong(song.n), "score"));
+      ensureScoreCountBar(block, cachedSong(song.n));
+      var pages = document.createElement("div");
+      pages.className = "score-pages";
+      var waiting = document.createElement("p");
+      waiting.className = "empty";
+      waiting.textContent = "Loading score";
+      pages.appendChild(waiting);
+      block.appendChild(pages);
+      return block;
+    }
+
+    function paintScoreBlock(block, job) {
+      var pages = block.querySelector(".score-pages");
+      var name = block.getAttribute("data-name");
+      return loadScoreDoc(name).then(function(doc) {
+        if (job !== scoreJob) return null;
+        if (!pages) return null;
+        if (!doc || doc === "missing") {
+          pages.innerHTML = "";
+          var note = document.createElement("p");
+          note.className = "empty";
+          note.textContent = "No score";
+          pages.appendChild(note);
+          return null;
+        }
+        return paintDoc(doc, pages, job).then(function() {
+          layoutScore(name);
+        });
+      });
+    }
+
     function loadScores(pair, names) {
       var job = ++scoreJob;
       scoreNames = names;
@@ -3390,24 +3964,9 @@
       host.innerHTML = "";
       var slots = [];
       for (var i = 0; i < pair.length; i++) {
-        requestSongFile(pair[i].n, i === 0);
-        var block = document.createElement("article");
-        block.className = "song-block";
-        block.setAttribute("data-name", pair[i].n);
-        if (pair[i].g) block.setAttribute("data-g", pair[i].g);
-        block.setAttribute("data-current", i === 0 ? "1" : "0");
-        requestSettings(pair[i].n);
-        block.appendChild(songHead(pair[i].n, cachedSong(pair[i].n), "score"));
-        ensureScoreCountBar(block, cachedSong(pair[i].n));
-        var pages = document.createElement("div");
-        pages.className = "score-pages";
-        var waiting = document.createElement("p");
-        waiting.className = "empty";
-        waiting.textContent = "Loading score";
-        pages.appendChild(waiting);
-        block.appendChild(pages);
+        var block = createScoreBlock(pair[i], i === 0);
         host.appendChild(block);
-        slots.push({ name: pair[i].n, pages: pages });
+        slots.push(block);
       }
       var chain = Promise.resolve();
       for (var s = 0; s < slots.length; s++) {
@@ -3415,25 +3974,13 @@
       }
       chain.then(function() {
         if (job === scoreJob) scoreLoading = "";
+        scrollPinnedSong();
       });
 
       function openSlot(slot) {
         return function() {
           if (job !== scoreJob) return null;
-          return loadScoreDoc(slot.name).then(function(doc) {
-            if (job !== scoreJob) return null;
-            if (!doc || doc === "missing") {
-              slot.pages.innerHTML = "";
-              var note = document.createElement("p");
-              note.className = "empty";
-              note.textContent = "No score";
-              slot.pages.appendChild(note);
-              return null;
-            }
-            return paintDoc(doc, slot.pages, job).then(function() {
-              layoutScore(slot.name);
-            });
-          });
+          return paintScoreBlock(slot, job);
         };
       }
     }
@@ -3757,31 +4304,270 @@
       var off = songOffset();
       var inside = !!(data && off != null && off >= -0.05 && (!(Number(data.duration) > 0) || off <= Number(data.duration) + 0.05));
       var time = inside ? Math.max(0, off) : -1;
-      var hit = time >= 0 ? hitAt(data, time) : null;
-      var next = null;
-      if (time >= 0 && song) next = lookAheadHit(data, time, songBroken(song.n), rectsFor(song.n) || []);
+      var currentBox = time >= 0 && song ? scoreBoxAt(song.n, data, time) : null;
+      var nextBox = null;
+      if (time >= 0 && song) {
+        var nextAt = nextScoreMoment(data, time);
+        var following = nextAt == null ? null : hitAt(data, nextAt);
+        var candidate = nextAt == null ? null : scoreBoxAt(song.n, data, nextAt);
+        if (following && candidate && (following.measure === 1 || !isChained(songBroken(song.n), following.name, following.measure) || !currentBox || !shareStaffLine(candidate, currentBox))) nextBox = candidate;
+      }
       var blocks = document.querySelectorAll("#score-stage .song-block");
       for (var b = 0; b < blocks.length; b++) {
         var active = song && blocks[b].getAttribute("data-name") === song.n;
         var blockData = cachedSong(blocks[b].getAttribute("data-name") || "");
         paintScoreCountBar(blocks[b], blockData, active ? time : -1);
         var nodes = blocks[b].querySelectorAll(".score-rect.bar");
-        var rects = active ? rectsFor(song.n) : null;
         for (var i = 0; i < nodes.length; i++) {
           var id = nodes[i].getAttribute("data-id");
-          var box = null;
-          if (rects) {
-            for (var r = 0; r < rects.length; r++) {
-              if (rects[r].id === id) box = rects[r];
-            }
-          }
-          var current = !scoreEdit && !!(active && hit && box && box.kind !== "label" && box.name === hit.name && Number(box.measure) === hit.measure);
-          var upcoming = !scoreEdit && !!(active && next && box && box.kind !== "label" && box.name === next.name && Number(box.measure) === next.measure && !current);
+          var current = !scoreEdit && !!(active && currentBox && id === currentBox.id);
+          var upcoming = !scoreEdit && !!(active && nextBox && id === nextBox.id && !current);
           nodes[i].classList.toggle("current", current);
           nodes[i].classList.toggle("next", upcoming);
         }
       }
       paintStageCues("score-stage", time);
+      followScoreScroll();
+    }
+
+    function stagePlaying() {
+      if (practiceMode) return !!(practicePlaying || practiceChain);
+      return !!(liveNow() && meta && meta.playing);
+    }
+
+    function scoreBlockNamed(name) {
+      var blocks = document.querySelectorAll("#score-stage .song-block");
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].getAttribute("data-name") === name) return blocks[i];
+      }
+      return null;
+    }
+
+    function scoreBarNode(songName, box) {
+      var block = scoreBlockNamed(songName);
+      if (!block || !box || !box.id) return null;
+      var nodes = block.querySelectorAll(".score-rect.bar");
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].getAttribute("data-id") === box.id) return nodes[i];
+      }
+      return null;
+    }
+
+    function scoreBoxAt(songName, data, time) {
+      if (!data) return null;
+      var sections = data.sections || [];
+      var index = -1;
+      var i;
+      for (i = 0; i < sections.length; i++) {
+        var start = Number(sections[i].start) || 0;
+        var end = Number(sections[i].end);
+        if (time >= start - 0.001 && time < end) index = i;
+      }
+      if (index < 0) return null;
+      var hit = hitAt(data, time);
+      if (!hit) return null;
+      var rects = rectsFor(songName) || [];
+      var matches = [];
+      for (i = 0; i < rects.length; i++) {
+        var box = rects[i];
+        if (!isLabel(box) && box.name === hit.name && Number(box.measure) === hit.measure) matches.push(box);
+      }
+      if (!matches.length) return null;
+      var chained = isChained(songBroken(songName), hit.name, hit.measure);
+      if (chained) {
+        for (i = 0; i < matches.length; i++) if (matches[i].sectionIndex == null) return matches[i];
+        return matches[0];
+      }
+      for (i = 0; i < matches.length; i++) if (matches[i].sectionIndex === index) return matches[i];
+      var wanted = voltaIndex(sections, hit.name, index);
+      for (i = 0; i < matches.length; i++) if (matches[i].sectionIndex === wanted) return matches[i];
+      for (i = 0; i < matches.length; i++) if (matches[i].sectionIndex == null) return matches[i];
+      return matches[0];
+    }
+
+    function nextScoreMoment(data, time) {
+      var cursor = time;
+      var duration = Number(data.duration) || 0;
+      var guard;
+      for (guard = 0; guard < 400; guard++) {
+        var musical = timeToMusical(data.tempoMap, cursor);
+        var at = musical.end + 0.001;
+        if (!(at > cursor + 1e-6)) return null;
+        if (duration > 0 && at > duration + 0.05) return null;
+        if (hitAt(data, at)) return at;
+        cursor = at;
+      }
+      return null;
+    }
+
+    function nextSongScoreLine(song) {
+      var pair = stagePair();
+      var nextSong = pair.length > 1 ? pair[1] : null;
+      if (!nextSong || nextSong === song) return null;
+      var nextData = cachedSong(nextSong.n);
+      var sections = (nextData && nextData.sections) || [];
+      for (var s = 0; s < sections.length; s++) {
+        if (sectionTone(sections[s].name) === "count") continue;
+        var line = scoreBoxAt(nextSong.n, nextData, (Number(sections[s].start) || 0) + 0.02);
+        if (line) return { song: nextSong, box: line, other: true };
+      }
+      return null;
+    }
+
+    function lineAbove(box, current) {
+      if (!box || !current) return false;
+      if (box.page !== current.page) return box.page < current.page;
+      return box.y < current.y - 0.02 && !shareStaffLine(box, current);
+    }
+
+    function nextDifferentStaff(song, data, time, current) {
+      var cursor = time;
+      var duration = Number(data.duration) || 0;
+      var guard;
+      for (guard = 0; guard < 400; guard++) {
+        var musical = timeToMusical(data.tempoMap, cursor);
+        var at = musical.end + 0.001;
+        if (!(at > cursor + 1e-6)) return null;
+        if (duration > 0 && at > duration + 0.05) return null;
+        var box = scoreBoxAt(song.n, data, at);
+        if (box && (!current || !shareStaffLine(box, current))) return { box: box, at: at };
+        cursor = at;
+      }
+      return null;
+    }
+
+    function nextScoreLine(song, data, time) {
+      var current = scoreBoxAt(song.n, data, time);
+      var at = nextScoreMoment(data, time);
+      if (at != null) {
+        var box = scoreBoxAt(song.n, data, at);
+        if (box && (!current || !shareStaffLine(box, current))) {
+          if (lineAbove(box, current)) return { song: song, box: box, at: at, above: true };
+          return { song: song, box: box, other: false };
+        }
+        var later = nextDifferentStaff(song, data, box ? at : time, current);
+        if (later && lineAbove(later.box, current)) return { song: song, box: later.box, at: later.at, above: true };
+        if (later) return null;
+      }
+      return nextSongScoreLine(song);
+    }
+
+    var scoreScrollGoal = null;
+    var scoreScrollFrom = 0;
+    var scoreScrollStart = 0;
+    var scoreScrollFrame = 0;
+    var scoreScrollPage = "score";
+
+    function easeScoreScroll() {
+      if (scoreScrollFrame) return;
+      function step(now) {
+        scoreScrollFrame = 0;
+        if (scoreScrollGoal == null || viewPage !== scoreScrollPage || (scoreScrollPage === "score" && scoreEdit) || !stagePlaying()) {
+          scoreScrollGoal = null;
+          return;
+        }
+        var view = document.getElementById("view");
+        if (!view) return;
+        var t = (now - scoreScrollStart) / 1000;
+        if (t >= 1) {
+          view.scrollTop = scoreScrollGoal;
+          scoreScrollGoal = null;
+          return;
+        }
+        if (t < 0) t = 0;
+        view.scrollTop = scoreScrollFrom + (scoreScrollGoal - scoreScrollFrom) * t;
+        scoreScrollFrame = requestAnimationFrame(step);
+      }
+      scoreScrollFrame = requestAnimationFrame(step);
+    }
+
+    function revealScoreLines(view, nodes) {
+      var rects = [];
+      var i;
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i]) rects.push(nodes[i].getBoundingClientRect());
+      }
+      if (!rects.length) return;
+      var viewRect = view.getBoundingClientRect();
+      var style = getComputedStyle(view);
+      var bandTop = viewRect.top + (parseFloat(style.paddingTop) || 0) + 12;
+      var bandBottom = viewRect.top + viewRect.height * 0.3;
+      if (bandBottom < bandTop + 24) bandBottom = bandTop + 24;
+      var minTop = rects[0].top;
+      var maxBot = rects[0].bottom;
+      for (i = 1; i < rects.length; i++) {
+        if (rects[i].top < minTop) minTop = rects[i].top;
+        if (rects[i].bottom > maxBot) maxBot = rects[i].bottom;
+      }
+      var band = bandBottom - bandTop;
+      var current = rects[0];
+      var fits = maxBot - minTop <= band;
+      var delta = 0;
+      if (fits) {
+        if (minTop < bandTop || maxBot > bandBottom) delta = minTop - bandTop;
+      } else if (current.bottom - current.top > band || current.top < bandTop || current.bottom > bandBottom) {
+        delta = current.top - bandTop;
+      }
+      setScoreScrollGoal(view, view.scrollTop + delta);
+    }
+
+    function setScoreScrollGoal(view, goal) {
+      if (goal < 0) goal = 0;
+      var maxScroll = Math.max(0, view.scrollHeight - view.clientHeight);
+      if (goal > maxScroll) goal = maxScroll;
+      if (Math.abs(goal - view.scrollTop) < 1) {
+        scoreScrollGoal = null;
+        return;
+      }
+      var same = scoreScrollGoal != null && scoreScrollPage === viewPage && Math.abs(goal - scoreScrollGoal) < 8;
+      scoreScrollPage = viewPage;
+      scoreScrollGoal = goal;
+      if (!same) {
+        scoreScrollFrom = view.scrollTop;
+        scoreScrollStart = performance.now();
+      }
+      easeScoreScroll();
+    }
+
+    function revealScoreWrap(view, currentNode, lineNode) {
+      var curRect = currentNode.getBoundingClientRect();
+      var nextRect = lineNode.getBoundingClientRect();
+      var viewRect = view.getBoundingClientRect();
+      var style = getComputedStyle(view);
+      var bandTop = viewRect.top + (parseFloat(style.paddingTop) || 0) + 12;
+      var band = viewRect.height * 0.3 - (parseFloat(style.paddingTop) || 0) - 12;
+      if (band < 24) band = 24;
+      if (Math.max(curRect.bottom, nextRect.bottom) - Math.min(curRect.top, nextRect.top) <= band) {
+        revealScoreLines(view, [currentNode, lineNode]);
+        return;
+      }
+      var maxScroll = Math.max(0, view.scrollHeight - view.clientHeight);
+      var target = view.scrollTop + (nextRect.top - bandTop);
+      if (target < 0) target = 0;
+      if (target > maxScroll) target = maxScroll;
+      setScoreScrollGoal(view, target);
+    }
+
+    function followScoreScroll() {
+      if (viewPage !== "score" || scoreEdit || !stagePlaying()) return;
+      var song = selectedSongRow();
+      var data = song && cachedSong(song.n);
+      var time = songOffset();
+      if (!song || !data || time == null || time < -0.05) return;
+      var view = document.getElementById("view");
+      if (!view) return;
+      var current = scoreBoxAt(song.n, data, Math.max(0, time));
+      var upcoming = nextScoreLine(song, data, Math.max(0, time));
+      var nodes = [];
+      var currentNode = current && scoreBarNode(song.n, current);
+      var lineNode = upcoming && scoreBarNode(upcoming.song.n, upcoming.box);
+      if (upcoming && upcoming.above && currentNode && lineNode) {
+        revealScoreWrap(view, currentNode, lineNode);
+        return;
+      }
+      if (currentNode) nodes.push(currentNode);
+      if (lineNode && lineNode !== currentNode) nodes.push(lineNode);
+      revealScoreLines(view, nodes);
     }
 
     function jsonChunks(json) {
@@ -3825,6 +4611,7 @@
         var text = storedPageNote(name, cachedSong(name), noteHostPage(blocks[i]));
         field.value = text;
         field.classList.toggle("has-note", !!text.trim());
+        field.hidden = !notesEditable() && !text.trim();
       }
     }
 
@@ -3873,6 +4660,9 @@
       for (var i = 0; i < fields.length; i++) {
         if (!edit && document.activeElement === fields[i]) fields[i].blur();
         fields[i].readOnly = !edit;
+        var text = String(fields[i].value || "").trim();
+        fields[i].classList.toggle("has-note", !!text);
+        fields[i].hidden = !edit && !text;
       }
     }
 
@@ -4520,6 +5310,110 @@
       syncEditSelection();
     }
 
+    function scoreBlockFor(blocks, song) {
+      var i;
+      if (song.g) {
+        for (i = 0; i < blocks.length; i++) if (blocks[i].getAttribute("data-g") === song.g) return blocks[i];
+      }
+      for (i = 0; i < blocks.length; i++) if (blocks[i].getAttribute("data-name") === song.n) return blocks[i];
+      return null;
+    }
+
+    function reuseScorePair(pair, names) {
+      var host = document.getElementById("score-stage");
+      var view = document.getElementById("view");
+      var blocks = Array.prototype.slice.call(host.querySelectorAll(".song-block"));
+      var current = scoreBlockFor(blocks, pair[0]);
+      if (!current || !view) return false;
+      var before = current.getBoundingClientRect().top;
+      var keep = [];
+      var i;
+      for (i = 0; i < pair.length; i++) keep.push(scoreBlockFor(blocks, pair[i]));
+      for (i = blocks.length - 1; i >= 0; i--) {
+        if (keep.indexOf(blocks[i]) < 0) host.removeChild(blocks[i]);
+      }
+      for (i = 0; i < keep.length; i++) {
+        if (!keep[i]) continue;
+        keep[i].setAttribute("data-current", i === 0 ? "1" : "0");
+        if (pair[i].g) keep[i].setAttribute("data-g", pair[i].g);
+        host.appendChild(keep[i]);
+      }
+      var after = current.getBoundingClientRect().top;
+      if (Math.abs(after - before) > 0.5) view.scrollTop += after - before;
+      scoreScrollGoal = null;
+      scoreNames = names;
+      dropScoreDocs(pair.map(function(song) { return song.n; }));
+      var missing = [];
+      for (i = 0; i < pair.length; i++) if (!keep[i]) missing.push({ song: pair[i], current: i === 0 });
+      if (!missing.length) {
+        scoreLoading = "";
+        refreshScoreTitles(pair);
+        return true;
+      }
+      var job = ++scoreJob;
+      scoreLoading = names;
+      for (i = 0; i < missing.length; i++) host.appendChild(createScoreBlock(missing[i].song, missing[i].current));
+      refreshScoreTitles(pair);
+      var chain = Promise.resolve();
+      var added = Array.prototype.slice.call(host.querySelectorAll(".song-block"));
+      for (i = 0; i < missing.length; i++) chain = chain.then(paintKept(scoreBlockFor(added, missing[i].song)));
+      chain.then(function() {
+        if (job === scoreJob) scoreLoading = "";
+        scrollPinnedSong();
+      });
+      return true;
+
+      function paintKept(block) {
+        return function() {
+          if (job !== scoreJob || !block) return null;
+          return paintScoreBlock(block, job);
+        };
+      }
+    }
+
+    function refreshScoreFiles(pair) {
+      if (scoreCheckBusy || Date.now() - scoreCheckAt < 1500) return;
+      scoreCheckAt = Date.now();
+      scoreCheckBusy = true;
+      var chain = Promise.resolve();
+      var i;
+      for (i = 0; i < pair.length; i++) chain = chain.then(checkSong(pair[i]));
+      chain.then(finish, finish);
+
+      function finish() {
+        scoreCheckBusy = false;
+      }
+
+      function checkSong(song) {
+        return function() {
+          if (viewPage !== "score") return null;
+          return fetchScoreBytes(song.n).then(function(buffer) {
+            var stamp = scoreBytesStamp(buffer);
+            if (scoreStamps[song.n] === stamp) return null;
+            return ensurePdfJs().then(function(lib) {
+              return lib.getDocument({ data: new Uint8Array(buffer) }).promise;
+            }).then(function(doc) {
+              if (viewPage !== "score" || scoreStamps[song.n] === stamp) {
+                if (doc && doc.destroy) doc.destroy();
+                return null;
+              }
+              var old = scoreDocs[song.n];
+              if (old && old !== "loading" && old !== "missing" && old.destroy) old.destroy();
+              scoreDocs[song.n] = doc;
+              scoreStamps[song.n] = stamp;
+              var host = document.getElementById("score-stage");
+              var blocks = host ? Array.prototype.slice.call(host.querySelectorAll(".song-block")) : [];
+              var block = scoreBlockFor(blocks, song);
+              if (!block) return null;
+              return paintScoreBlock(block, scoreJob);
+            });
+          }).catch(function() {
+            return null;
+          });
+        };
+      }
+    }
+
     function ensureScore() {
       if (viewPage !== "score") return;
       var pair = stagePair();
@@ -4532,9 +5426,11 @@
       var width = document.getElementById("view").clientWidth;
       if (names === scoreNames && scoreLoading !== names && Math.abs(width - scoreWidth) < 24) {
         refreshScoreTitles(pair);
+        refreshScoreFiles(pair);
         return;
       }
       if (scoreLoading === names && Math.abs(width - scoreWidth) < 24) return;
+      if (Math.abs(width - scoreWidth) < 24 && reuseScorePair(pair, names)) return;
       loadScores(pair, names);
     }
 
@@ -4551,6 +5447,48 @@
         }
       }
       return false;
+    }
+
+    var pinSongGuid = "";
+    var pinSongUntil = 0;
+
+    function armSongPin(guid) {
+      if (!guid) return;
+      pinSongGuid = guid;
+      pinSongUntil = Date.now() + 2000;
+      scrollPinnedSong();
+    }
+
+    function scrollPinnedSong() {
+      if (!pinSongGuid) return;
+      if (Date.now() > pinSongUntil) {
+        pinSongGuid = "";
+        return;
+      }
+      var page = viewPage;
+      if (page !== "lyrics" && page !== "score" && page !== "chords" && page !== "drums") return;
+      var host = document.getElementById(page + "-stage");
+      var view = document.getElementById("view");
+      if (!host || !view || host.hidden) return;
+      var block = host.querySelector(".song-block[data-current='1']");
+      if (!block || block.getAttribute("data-g") !== pinSongGuid) return;
+      var title = block.querySelector(".song-head .song-title") || block.querySelector(".song-title");
+      if (!title) return;
+      var viewRect = view.getBoundingClientRect();
+      var pad = parseFloat(getComputedStyle(view).paddingTop) || 0;
+      var target = viewRect.top + pad;
+      var delta = title.getBoundingClientRect().top - target;
+      if (Math.abs(delta) < 2) {
+        pinSongGuid = "";
+        return;
+      }
+      scoreScrollGoal = null;
+      if (scoreScrollFrame) {
+        cancelAnimationFrame(scoreScrollFrame);
+        scoreScrollFrame = 0;
+      }
+      view.scrollTop += delta;
+      if (Math.abs(title.getBoundingClientRect().top - target) < 2) pinSongGuid = "";
     }
 
     var stopScrollKey = "";
@@ -4598,6 +5536,7 @@
       if (viewPage === "chords") markChart("chords");
       if (viewPage === "drums") markChart("drums");
       syncStopTitles();
+      scrollPinnedSong();
     }
 
     function liveNow() {
@@ -4750,15 +5689,18 @@
       var toIndex = prepDropIndex(clientY);
       var dest = toIndex > from ? toIndex - 1 : toIndex;
       if (dest === from) return;
-      var next = songs.slice();
-      next.splice(from, 1);
-      next.splice(dest, 0, songBlock);
+      var without = songs.slice();
+      without.splice(from, 1);
+      var target = without[dest];
       var anchor = list.querySelector(".prep-final") || list.querySelector(".prep-lib-title");
-      for (var i = 0; i < next.length; i++) {
-        var stop = prepStopAfter(next[i]);
-        list.insertBefore(next[i], anchor);
-        if (stop) list.insertBefore(stop, anchor);
-        var num = next[i].querySelector(".prep-cell.num");
+      var following = prepStopAfter(songBlock);
+      var takeStop = following && following.getAttribute("data-auto") === "1" ? following : null;
+      if (target) list.insertBefore(songBlock, target);
+      else if (anchor) list.insertBefore(songBlock, anchor);
+      if (takeStop) list.insertBefore(takeStop, songBlock.nextSibling);
+      var ordered = list.querySelectorAll('.prep-block[data-set="1"]');
+      for (var i = 0; i < ordered.length; i++) {
+        var num = ordered[i].querySelector(".prep-cell.num");
         var n = i + 1;
         if (num) num.textContent = n < 10 ? "0" + n : String(n);
       }
@@ -4773,35 +5715,276 @@
       prepKey = "";
     }
 
+    function prepSongStamp(name) {
+      var data = cachedSong(name);
+      if (data === undefined) return "?";
+      if (!data) return "-";
+      var tempo = data.tempoMap && data.tempoMap[0] ? data.tempoMap[0] : {};
+      var first = data.sections && data.sections[0];
+      var second = data.sections && data.sections[1];
+      var count = first && second && sectionTone(first.name || "") === "count" && Number(first.end) > Number(first.start) ? "c" : "";
+      return [data.key || "", data.scale || "", data.style || "", data.form || "", data.kita || "", tempo.numerator || "", tempo.denominator || "", tempo.bpm || "", data.duration || "", count].join("/");
+    }
+
+    function ensurePrepSongs() {
+      var song = selectedSongRow();
+      var stopSelected = !!(meta && meta.selStop);
+      var seen = {};
+      for (var i = 0; i < rows.length; i++) {
+        var item = rows[i];
+        if (item.k !== "song" || !item.n || seen[item.n]) continue;
+        seen[item.n] = true;
+        requestSongFile(item.n, !stopSelected && song && item.g === song.g, true);
+      }
+    }
+
+    function prepFactValues(song, data) {
+      var tempo = data && data.tempoMap && data.tempoMap[0] ? data.tempoMap[0] : null;
+      return [
+        data && data.key ? data.key : "\u2014",
+        data && data.scale ? data.scale : "\u2014",
+        data && data.style ? data.style : "\u2014",
+        data && data.form ? data.form : "\u2014",
+        data && data.kita ? String(data.kita) : "\u2014",
+        tempo ? ((tempo.numerator || 4) + "/" + (tempo.denominator || 4)) : "\u2014",
+        tempo && tempo.bpm ? String(Math.round(tempo.bpm)) : "\u2014",
+        data && data.duration ? (clockText(data.duration) || song.d || "\u2014") : (song.d || "\u2014")
+      ];
+    }
+
+    function appendPrepStat(parent, label, count, seconds, className) {
+      var el = document.createElement("span");
+      if (className) el.className = className;
+      el.appendChild(document.createTextNode(label + ": #" + count + " "));
+      var dot = document.createElement("span");
+      dot.className = "prep-stat-dot";
+      dot.textContent = "\u25cf";
+      el.appendChild(dot);
+      el.appendChild(document.createTextNode(" " + (clockText(seconds) || "0:00")));
+      parent.appendChild(el);
+    }
+
+    function prepSetlistStats() {
+      var count = 0;
+      var total = 0;
+      var forms = [];
+      var formIndex = {};
+      for (var i = 0; i < rows.length; i++) {
+        var item = rows[i];
+        if (item.k !== "song" || !item.set) continue;
+        var seconds = clockSeconds(item.d);
+        var data = cachedSong(item.n);
+        var form = data && data.form ? data.form : "\u2014";
+        count += 1;
+        total += seconds;
+        if (formIndex[form] == null) {
+          formIndex[form] = forms.length;
+          forms.push({ name: form, count: 0, total: 0 });
+        }
+        forms[formIndex[form]].count += 1;
+        forms[formIndex[form]].total += seconds;
+      }
+      return { count: count, total: total, forms: forms };
+    }
+
+    function cleanSetlistName(name) {
+      return String(name || "").replace(/[\u0000-\u001f]/g, " ").replace(/\s+/g, " ").trim().slice(0, 80);
+    }
+
+    function savedSetlistNames() {
+      return meta && Array.isArray(meta.setlists) ? meta.setlists : [];
+    }
+
+    function prepManage(action) {
+      if (!liveNow()) return;
+      var select = document.getElementById("prep-setlist-name");
+      if (!select) return;
+      if (action === "saveas") {
+        var seed = select.value || (meta && meta.setlist) || "";
+        var typed = window.prompt("Save setlist as", seed);
+        if (typed == null) return;
+        var name = cleanSetlistName(typed);
+        if (!name || name.toLowerCase() === "song library" || savedSetlistNames().indexOf(name) >= 0) return;
+        send("savesetlist", name);
+        return;
+      }
+      var current = cleanSetlistName(select.value);
+      if (!current || savedSetlistNames().indexOf(current) < 0) return;
+      if (action === "overwrite") send("overwritesetlist", current);
+      else if (action === "delete") send("deletesetlist", current);
+    }
+
+    function prepManageRow() {
+      var row = document.createElement("div");
+      row.className = "prep-manage";
+      var select = document.createElement("select");
+      select.id = "prep-setlist-name";
+      select.className = "prep-setlist-name";
+      select.setAttribute("aria-label", "Song Library");
+      select.addEventListener("change", function() {
+        var name = cleanSetlistName(select.value);
+        var current = meta && meta.setlist ? cleanSetlistName(meta.setlist) : "";
+        if (name === current) return;
+        if (!liveNow() || stagePlaying()) {
+          select.value = current;
+          return;
+        }
+        if (!name) send("clearsetlist");
+        else send("loadsetlist", name);
+      });
+      row.appendChild(select);
+      function manageIcon(kind) {
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("aria-hidden", "true");
+        var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        if (kind === "overwrite") {
+          path.setAttribute("d", "M4 16.8V20h3.2l9.7-9.7-3.2-3.2L4 16.8zm11.4-8.2 1.5-1.5a1.1 1.1 0 0 0 0-1.6l-1.4-1.4a1.1 1.1 0 0 0-1.6 0l-1.5 1.5 3 3z");
+        } else if (kind === "saveas") {
+          path.setAttribute("fill-rule", "evenodd");
+          path.setAttribute("d", "M6 3.2h12v17.6H6V3.2zm5.2 4.6h1.6v2.4h2.4v1.6h-2.4v2.4h-1.6v-2.4H8.8V10.2h2.4z");
+        } else {
+          path.setAttribute("d", "M9.2 4.5h5.6l.7 1.5H19v1.8H5V6h3.5zm1 5.2h1.8v7.2H10.2zm3.8 0h1.8v7.2h-1.8zM7.4 9.7h1.8v9.1h5.6V9.7h1.8v10.9H7.4z");
+        }
+        svg.appendChild(path);
+        return svg;
+      }
+      function act(label, action, extra) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "prep-manage-act" + (extra ? " " + extra : "");
+        btn.title = label;
+        btn.setAttribute("aria-label", label);
+        btn.setAttribute("data-manage", action);
+        btn.appendChild(manageIcon(action));
+        btn.addEventListener("click", function(ev) {
+          ev.stopPropagation();
+          prepManage(action);
+        });
+        row.appendChild(btn);
+      }
+      act("Overwrite", "overwrite");
+      act("Save as", "saveas");
+      act("Delete", "delete", "delete");
+      return row;
+    }
+
+    function syncPrepManage() {
+      var select = document.getElementById("prep-setlist-name");
+      if (!select || document.activeElement === select) return;
+      var names = savedSetlistNames();
+      var named = meta && meta.setlist ? cleanSetlistName(meta.setlist) : "";
+      var hasSetSong = false;
+      for (var s = 0; s < rows.length; s++) {
+        if (rows[s].k === "song" && rows[s].set) {
+          hasSetSong = true;
+          break;
+        }
+      }
+      var current = hasSetSong && names.indexOf(named) >= 0 ? named : "";
+      var sig = names.join("\n") + "\n" + current;
+      if (select.getAttribute("data-sig") !== sig) {
+        select.setAttribute("data-sig", sig);
+        select.innerHTML = "";
+        var empty = document.createElement("option");
+        empty.value = "";
+        empty.textContent = "Song Library";
+        empty.selected = true;
+        select.appendChild(empty);
+        for (var i = 0; i < names.length; i++) {
+          var opt = document.createElement("option");
+          opt.value = names[i];
+          opt.textContent = names[i];
+          select.appendChild(opt);
+        }
+        select.value = names.indexOf(current) >= 0 ? current : "";
+      }
+      var known = !!select.value && names.indexOf(select.value) >= 0;
+      var live = liveNow();
+      var row = select.parentNode;
+      var overwrite = row.querySelector("[data-manage='overwrite']");
+      var saveas = row.querySelector("[data-manage='saveas']");
+      var del = row.querySelector("[data-manage='delete']");
+      if (overwrite) overwrite.disabled = !live || !known;
+      if (del) del.disabled = !live || !known;
+      if (saveas) saveas.disabled = !live;
+      select.disabled = !live || stagePlaying();
+    }
+
+    function appendPrepHead(list) {
+      var stats = prepSetlistStats();
+      var block = document.createElement("div");
+      block.className = "prep-head-block";
+      var statsRow = document.createElement("div");
+      statsRow.className = "prep-stats";
+      appendPrepStat(statsRow, "Total", stats.count, stats.total, "prep-stat-total");
+      for (var f = 0; f < stats.forms.length; f++) {
+        appendPrepStat(statsRow, stats.forms[f].name, stats.forms[f].count, stats.forms[f].total, "prep-stat-form");
+      }
+      block.appendChild(statsRow);
+      list.appendChild(block);
+    }
+
+    function appendCountAct(acts, song, data) {
+      var first = data && data.sections && data.sections[0];
+      var second = data && data.sections && data.sections[1];
+      var countSection = !!(first && second && sectionTone(first.name || "") === "count" && Number(first.end) > Number(first.start));
+      var trimmed = countTrim(song);
+      var countOn = countSection && !(trimmed > 0);
+      var countBtn = document.createElement("button");
+      countBtn.type = "button";
+      countBtn.className = "prep-act prep-count";
+      countBtn.disabled = !(countSection || trimmed > 0);
+      countBtn.textContent = "COUNT IN";
+      countBtn.setAttribute("data-act", countOn ? "countoff" : "counton");
+      if (song.g) countBtn.setAttribute("data-g", song.g);
+      countBtn.setAttribute("aria-pressed", countOn ? "true" : "false");
+      countBtn.setAttribute("aria-label", "Count in");
+      if (!countBtn.disabled) countBtn.title = countOn ? "Start from the beginning" : "Start from the second section";
+      if (countOn) countBtn.classList.add("on");
+      acts.appendChild(countBtn);
+    }
+
+    function ensurePrepManage() {
+      if (document.getElementById("prep-setlist-name")) return;
+      var panel = document.querySelector(".prep-panel");
+      var list = document.getElementById("prep-list");
+      if (!panel || !list) return;
+      panel.insertBefore(prepManageRow(), list);
+    }
+
     function renderPrep() {
       if (prepDrag) return;
       if (prepHoldOrder) {
         if (setlistGuidOrder() === prepHoldOrder || Date.now() - prepHoldAt > 1500) prepHoldOrder = "";
         else return;
       }
-      var song = selectedSongRow();
-      var name = song ? song.n : "";
+      ensurePrepManage();
       var stopSelected = !!(meta && meta.selStop);
-      if (name && !stopSelected) requestSongFile(name, true);
-      var data = name && !stopSelected ? cachedSong(name) : null;
+      ensurePrepSongs();
+      var seenInfo = {};
+      var infoSig = [];
+      for (var s = 0; s < rows.length; s++) {
+        if (rows[s].k !== "song" || !rows[s].n || seenInfo[rows[s].n]) continue;
+        seenInfo[rows[s].n] = true;
+        infoSig.push(rows[s].n + "=" + prepSongStamp(rows[s].n));
+      }
       var key = rows.map(function(item) {
         return (item.k || "") + (item.g || "") + (item.n || "") + (item.d || "") + (item.set ? "1" : "0") + (item.s ? "s" : "") + (item.c || "");
-      }).join(";") + "|" + selectionGuid() + "|" + (stopSelected ? "1" : "0") + "|" + (data ? "1" : "0");
-      if (key === prepKey) return;
+      }).join(";") + "|" + selectionGuid() + "|" + (stopSelected ? "1" : "0") + "|" + infoSig.join(";");
+      if (key === prepKey) {
+        syncPrepManage();
+        return;
+      }
       prepKey = key;
       var list = document.getElementById("prep-list");
       var top = list.scrollTop;
       list.innerHTML = "";
-      var count = 0;
-      var total = 0;
+      appendPrepHead(list);
       var libraryStarted = false;
       var number = 0;
       for (var i = 0; i < rows.length; i++) {
         var item = rows[i];
-        if (item.k === "song" && item.set) {
-          count += 1;
-          total += clockSeconds(item.d);
-        }
         if (item.k === "song" && !item.set && !libraryStarted) {
           libraryStarted = true;
           var heading = document.createElement("div");
@@ -4811,14 +5994,12 @@
         }
         if (item.k === "final") {
           var finalRow = document.createElement("div");
-          finalRow.className = "prep-final";
+          finalRow.className = "prep-cols prep-final";
           var finalName = document.createElement("div");
           finalName.className = "prep-cell title";
           finalName.textContent = "CONCERT FINAL";
           finalRow.appendChild(document.createElement("div")).className = "prep-cell num";
           finalRow.appendChild(finalName);
-          finalRow.appendChild(document.createElement("div")).className = "prep-cell time";
-          finalRow.appendChild(document.createElement("div"));
           list.appendChild(finalRow);
           continue;
         }
@@ -4826,6 +6007,7 @@
         block.className = "prep-block";
         block.setAttribute("data-k", item.k || "");
         if (item.g) block.setAttribute("data-g", item.g);
+        if (item.k === "stop" && item.a) block.setAttribute("data-auto", "1");
         if (item.k === "song" && item.set) block.setAttribute("data-set", "1");
         if (item.s) block.classList.add("skipped");
         var selected = false;
@@ -4833,13 +6015,12 @@
         if (item.k === "stop") selected = stopSelected && item.g === selectionGuid();
         if (selected) block.classList.add("active");
         var row = document.createElement("div");
-        row.className = item.k === "song" ? "prep-song-row" : "prep-elif-row";
+        row.className = item.k === "song" ? "prep-cols prep-song-row" : "prep-cols prep-elif-row";
         var num = document.createElement("div");
         num.className = "prep-cell num";
         var title = document.createElement("div");
         title.className = "prep-cell title";
-        var time = document.createElement("div");
-        time.className = "prep-cell time";
+        var songData = item.k === "song" ? cachedSong(item.n) : null;
         if (item.k === "song") {
           if (item.set) {
             number += 1;
@@ -4847,20 +6028,29 @@
             if (number > 1 && countIsOff(item)) block.appendChild(countOffMark());
           } else num.textContent = "\u2014";
           title.textContent = item.n || "";
-          time.textContent = item.d || "";
         } else {
           title.textContent = "STOP";
         }
         row.appendChild(num);
         row.appendChild(title);
-        row.appendChild(time);
+        if (item.k === "song") {
+          var values = prepFactValues(item, songData);
+          for (var v = 0; v < values.length; v++) {
+            var value = document.createElement("div");
+            value.className = "prep-val";
+            value.textContent = values[v];
+            row.appendChild(value);
+          }
+        }
         var acts = document.createElement("div");
         acts.className = "prep-acts";
-        if (item.k === "song" && item.set) {
-          acts.appendChild(prepAct("skip", item.g));
-          acts.appendChild(prepAct("remove", item.g));
-        } else if (item.k === "song") acts.appendChild(prepAct("add", item.g));
-        else if (item.k === "stop") {
+        if (item.k === "song") {
+          appendCountAct(acts, item, songData);
+          if (item.set) {
+            acts.appendChild(prepAct("skip", item.g));
+            acts.appendChild(prepAct("remove", item.g));
+          } else acts.appendChild(prepAct("add", item.g));
+        } else if (item.k === "stop") {
           if (!item.a) {
             var stopSkip = prepAct("skipstop", item.g);
             if (item.s) {
@@ -4869,81 +6059,16 @@
               stopSkip.setAttribute("aria-pressed", "true");
             }
             acts.appendChild(stopSkip);
+            acts.appendChild(prepAct("removestop", item.g));
           }
-          acts.appendChild(prepAct("removestop", item.g));
         }
         else acts.appendChild(prepAct("addstop"));
         row.appendChild(acts);
         block.appendChild(row);
         list.appendChild(block);
       }
+      syncPrepManage();
       list.scrollTop = top;
-      document.getElementById("prep-summary").textContent = count + (count === 1 ? " song" : " songs") + " \u00b7 " + (clockText(total) || "0:00");
-      var titleName = stopSelected ? "STOP" : (name || "");
-      document.getElementById("prep-title").textContent = titleName;
-      var info = document.getElementById("prep-info");
-      info.innerHTML = "";
-      if (stopSelected) {
-        var note = document.createElement("p");
-        note.className = "prep-empty";
-        note.textContent = "No notes";
-        info.appendChild(note);
-        return;
-      }
-      if (!song) {
-        var empty = document.createElement("p");
-        empty.className = "prep-empty";
-        empty.textContent = "Select a song to edit its info.";
-        info.appendChild(empty);
-        return;
-      }
-      var start = document.createElement("div");
-      start.className = "song-info-line";
-      var startLabel = document.createElement("span");
-      startLabel.textContent = "START";
-      var first = data && data.sections && data.sections[0];
-      var second = data && data.sections && data.sections[1];
-      var countSection = !!(first && second && sectionTone(first.name || "") === "count" && Number(first.end) > Number(first.start));
-      var trimmed = countTrim(song);
-      var countOn = countSection && !(trimmed > 0);
-      var countBtn = document.createElement("button");
-      countBtn.type = "button";
-      countBtn.className = "prep-count";
-      countBtn.disabled = !(countSection || trimmed > 0);
-      countBtn.textContent = "COUNT IN";
-      countBtn.setAttribute("aria-pressed", countOn ? "true" : "false");
-      if (!countBtn.disabled) countBtn.title = countOn ? "Start from the beginning" : "Start from the second section";
-      if (countOn) countBtn.classList.add("on");
-      countBtn.addEventListener("click", function() {
-        if (countBtn.disabled || !song.g) return;
-        send(countOn ? "countoff" : "counton", song.g);
-      });
-      start.appendChild(startLabel);
-      start.appendChild(countBtn);
-      info.appendChild(start);
-      var tempo = data && data.tempoMap && data.tempoMap[0] ? data.tempoMap[0] : {};
-      var lines = [
-        ["Key", data && data.key ? data.key : "\u2014"],
-        ["Scale", data && data.scale ? data.scale : "\u2014"],
-        ["Style", data && data.style ? data.style : "\u2014"],
-        ["Kita", data && data.kita ? String(data.kita) : "\u2014"],
-        ["TS", (tempo.numerator || 4) + "/" + (tempo.denominator || 4)],
-        ["BPM", tempo.bpm ? String(Math.round(tempo.bpm)) : "\u2014"],
-        ["Duration", data && data.duration ? (clockText(data.duration) || "\u2014") : (song.d || "\u2014")]
-      ];
-      if (!data) lines = [["Duration", song.d || "\u2014"]];
-      for (var n = 0; n < lines.length; n++) {
-        var line = document.createElement("div");
-        line.className = "song-info-line";
-        var label = document.createElement("span");
-        label.textContent = lines[n][0];
-        var value = document.createElement("span");
-        value.className = "song-info-value";
-        value.textContent = lines[n][1];
-        line.appendChild(label);
-        line.appendChild(value);
-        info.appendChild(line);
-      }
     }
 
     function paint() {
@@ -5172,7 +6297,7 @@
         rebuilt.push(songs[i].song);
         if (songs[i].stop) rebuilt.push(songs[i].stop);
       }
-      rows = rebuilt.concat(tail);
+      rows = withSortedLibrary(rebuilt.concat(tail));
       return true;
     }
 
@@ -5455,7 +6580,7 @@
       saveSettings(name);
     });
     document.getElementById("slider").addEventListener("pointerdown", function(ev) {
-      if (!(liveNow() || practiceMode) || !songFile || !transportInfo || !(transportInfo.end > 0)) return;
+      if (!transportEditable() || !songFile || !transportInfo || !(transportInfo.end > 0)) return;
       if (ev.button != null && ev.button !== 0) return;
       ev.preventDefault();
       var now = Date.now();
@@ -5493,7 +6618,7 @@
         prepDrag.active = true;
         prepDrag.song.classList.add("dragging");
         var stop = prepStopAfter(prepDrag.song);
-        if (stop) stop.classList.add("dragging");
+        if (stop && stop.getAttribute("data-auto") === "1") stop.classList.add("dragging");
         ev.currentTarget.classList.add("is-reordering");
         try { ev.currentTarget.setPointerCapture(ev.pointerId); } catch (err) {}
       }
@@ -5540,11 +6665,16 @@
       var kind = block.getAttribute("data-k");
       var guid = (act && act.getAttribute("data-g")) || block.getAttribute("data-g") || "";
       if (act) {
+        if (act.disabled) return;
         send(act.getAttribute("data-act"), guid);
         return;
       }
-      if (kind === "song") send("select", guid);
-      else if (kind === "stop") send("selectstop", guid);
+      if (kind === "song") {
+        if (canSelectSong(guid)) {
+          armSongPin(guid);
+          send("select", guid);
+        }
+      } else if (kind === "stop") send("selectstop", guid);
     });
     document.getElementById("list").addEventListener("click", function(ev) {
       var side = parentWith(ev.target, "side");
@@ -5561,6 +6691,8 @@
         return;
       }
       if (!practiceMode && kind === "song" && row.getAttribute("data-set") !== "1") return;
+      if (kind === "song" && !canSelectSong(guid)) return;
+      if (kind === "song") armSongPin(guid);
       if (practiceMode) {
         if (kind === "song") practiceSelect(guid);
         return;
@@ -5571,6 +6703,7 @@
     document.addEventListener("keydown", function(ev) {
       if (ev.key !== " " && ev.code !== "Space") return;
       if (ev.target && ev.target.classList && ev.target.classList.contains("song-note")) return;
+      if (ev.target && ev.target.id === "prep-setlist-name") return;
       var playBtn = document.getElementById("play");
       if (playBtn.disabled) return;
       ev.preventDefault();
@@ -5592,17 +6725,8 @@
       return (rounded > 0 ? "+" : "") + rounded.toFixed(1);
     }
 
-    function volToPos(vol) {
-      var db = volToDb(vol);
-      if (db <= -60) return db <= -120 ? 0 : 1;
-      if (db >= 12) return 1000;
-      if (db < 0) return Math.round(((db + 60) / 60) * 750);
-      return Math.round(750 + (db / 12) * 250);
-    }
-
-    function posToVol(pos) {
-      if (pos <= 0) return 0;
-      var db = pos < 750 ? -60 + (pos / 750) * 60 : ((pos - 750) / 250) * 12;
+    function dbToVol(db) {
+      if (!(db > -150)) return 0;
       return Math.exp(db * 0.11512925464970229);
     }
 
@@ -5614,7 +6738,6 @@
     function clearMixer() {
       receives = [];
       mixerDomKey = "";
-      mixerDrag = null;
       receiveCount = -1;
       receiveParts = ["", "", "", ""];
       renderMixer();
@@ -5631,10 +6754,44 @@
       wwr_req("SET/EXTSTATE/DBK_STAGE/recv/" + encodeURIComponent(value));
     }
 
-    function endMixerDrag() {
-      if (mixerDrag != null) mixerHold = { i: mixerDrag, until: Date.now() + 400 };
-      mixerDrag = null;
-      flushRecv();
+    function stepRecv(index, delta) {
+      var item = null;
+      for (var i = 0; i < receives.length; i++) {
+        if (receives[i].i === index) item = receives[i];
+      }
+      if (!item) return;
+      var db = volToDb(item.v);
+      var next;
+      if (db <= -120) {
+        if (delta < 0) return;
+        next = -60;
+      } else {
+        next = db + delta;
+        if (next > 12) next = 12;
+        if (next < -60) next = -60;
+        if (delta < 0 && db <= -60) next = -150;
+      }
+      var vol = next <= -150 ? 0 : dbToVol(next);
+      item.v = vol;
+      mixerHold = { i: index, until: Date.now() + 500 };
+      var cell = document.querySelector('#mixer-faders [data-i="' + index + '"] .fader-db');
+      if (cell) cell.textContent = dbText(vol);
+      queueRecv(index, vol);
+    }
+
+    function mixStep(direction) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "mix-step mix-" + direction;
+      button.setAttribute("aria-label", direction === "up" ? "Up" : "Down");
+      var tri = document.createElement("span");
+      tri.className = "mix-tri";
+      tri.setAttribute("aria-hidden", "true");
+      button.appendChild(tri);
+      button.addEventListener("click", function(ev) {
+        stepRecv(Number(ev.currentTarget.parentNode.getAttribute("data-i")), direction === "up" ? 1 : -1);
+      });
+      return button;
     }
 
     function queueRecv(index, vol) {
@@ -5654,7 +6811,6 @@
       var key = receives.map(function(rec) { return rec.i + ":" + rec.n; }).join("\n");
       if (key !== mixerDomKey) {
         mixerDomKey = key;
-        mixerDrag = null;
         row.innerHTML = "";
         for (var i = 0; i < receives.length; i++) {
           var rec = receives[i];
@@ -5664,42 +6820,13 @@
           var name = document.createElement("div");
           name.className = "fader-name";
           name.textContent = rec.n;
-          var slider = document.createElement("input");
-          slider.type = "range";
-          slider.min = "0";
-          slider.max = "1000";
-          slider.step = "1";
-          slider.setAttribute("aria-label", rec.n + " receive level");
-          slider.title = "Double-click to reset to 0.0 dB";
           var readout = document.createElement("div");
           readout.className = "fader-db";
           fader.appendChild(name);
-          fader.appendChild(slider);
           fader.appendChild(readout);
+          fader.appendChild(mixStep("up"));
+          fader.appendChild(mixStep("down"));
           row.appendChild(fader);
-          slider.addEventListener("input", function(ev) {
-            var node = ev.currentTarget.parentNode;
-            var index = Number(node.getAttribute("data-i"));
-            mixerDrag = index;
-            var vol = posToVol(Number(ev.currentTarget.value));
-            node.querySelector(".fader-db").textContent = dbText(vol);
-            queueRecv(index, vol);
-          });
-          slider.addEventListener("change", endMixerDrag);
-          slider.addEventListener("pointerup", endMixerDrag);
-          slider.addEventListener("pointercancel", endMixerDrag);
-          slider.addEventListener("dblclick", function(ev) {
-            var node = ev.currentTarget.parentNode;
-            var index = Number(node.getAttribute("data-i"));
-            ev.currentTarget.value = "750";
-            node.querySelector(".fader-db").textContent = "0.0";
-            for (var k = 0; k < receives.length; k++) {
-              if (receives[k].i === index) receives[k].v = 1;
-            }
-            mixerDrag = index;
-            queueRecv(index, 1);
-            endMixerDrag();
-          });
         }
       }
       var nodes = row.querySelectorAll(".fader");
@@ -5709,11 +6836,8 @@
         for (var r = 0; r < receives.length; r++) {
           if (receives[r].i === idx) item = receives[r];
         }
-        if (!item || mixerDrag === idx) continue;
+        if (!item) continue;
         if (mixerHold && mixerHold.i === idx && Date.now() < mixerHold.until) continue;
-        var input = nodes[n].querySelector("input");
-        var pos = String(volToPos(item.v));
-        if (input.value !== pos) input.value = pos;
         nodes[n].querySelector(".fader-db").textContent = dbText(item.v);
       }
     }
@@ -5863,7 +6987,7 @@
           var list = parseJson(raw);
           if (list) {
             lastSongsRaw = raw;
-            rows = list;
+            rows = withSortedLibrary(list);
             songsChanged = true;
           }
         }
