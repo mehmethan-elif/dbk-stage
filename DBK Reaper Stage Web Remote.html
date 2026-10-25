@@ -1268,6 +1268,7 @@
       min-width: 0;
       padding: 8px;
       border: 1px solid #4a4a4a;
+      border-top: 3px solid #4a4a4a;
       border-radius: 8px;
       background: var(--row);
     }
@@ -7188,6 +7189,8 @@
           if (receives[r].i === idx) item = receives[r];
         }
         if (!item) continue;
+        // Same colour as the REAPER track, shown as the strip's top bar.
+        nodes[n].style.borderTopColor = item.c || "";
         if (mixerHold && mixerHold.i === idx && Date.now() < mixerHold.until) continue;
         nodes[n].querySelector(".fader-db").textContent = dbText(item.v);
       }
@@ -7207,9 +7210,16 @@
         var bits = lines[j].split("|");
         if (bits.length < 3) continue;
         var index = parseInt(bits[0], 10);
-        var vol = parseFloat(bits[bits.length - 1]);
+        var end = bits.length;
+        var color = null;
+        var tail = String(bits[end - 1] || "");
+        if (/^#[0-9A-Fa-f]{6}$/.test(tail)) {
+          color = tail;
+          end -= 1;
+        }
+        var vol = parseFloat(bits[end - 1]);
         if (!isFinite(index) || !isFinite(vol)) continue;
-        next.push({ i: index, n: bits.slice(1, bits.length - 1).join("|"), v: vol });
+        next.push({ i: index, n: bits.slice(1, end - 1).join("|"), v: vol, c: color });
       }
       receives = next;
       renderMixer();
