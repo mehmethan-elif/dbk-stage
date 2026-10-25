@@ -6488,7 +6488,8 @@
       setlistBtn.setAttribute("aria-pressed", setlistOpen ? "true" : "false");
       var playBtn = document.getElementById("play");
       var playing = practiceMode ? (practicePlaying || practiceChain) : !!(live && meta && meta.playing);
-      var showPlay = practiceMode || !!(live && selectedOutputName() === "MEHMETHAN");
+      var playOut = selectedOutputName();
+      var showPlay = practiceMode || !!(live && (playOut === "MEHMETHAN" || playOut === "MASTER"));
       playBtn.hidden = !showPlay;
       playBtn.classList.toggle("on", playing);
       playBtn.disabled = !showPlay || (practiceMode ? !selectedSongRow() : (!playing && !(meta && meta.sel)));
