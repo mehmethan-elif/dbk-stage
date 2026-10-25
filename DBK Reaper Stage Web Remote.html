@@ -1598,6 +1598,7 @@
     var practiceCtx = null;
     var practiceBuffers = {};
     var practiceLoading = {};
+    var practiceBufferOrder = [];
     var practiceSource = null;
     var practiceSong = "";
     var practiceOffset = 0;
@@ -2085,6 +2086,20 @@
       return practiceCtx;
     }
 
+    // A decoded song is ~100 MB, so only the last few songs stay in memory;
+    // otherwise a full practice session exhausts an iPad's tab memory.
+    function rememberPracticeBuffer(name) {
+      var at = practiceBufferOrder.indexOf(name);
+      if (at >= 0) practiceBufferOrder.splice(at, 1);
+      practiceBufferOrder.push(name);
+      while (practiceBufferOrder.length > 3) {
+        var oldest = practiceBufferOrder[0];
+        if (oldest === practiceSong) break;
+        practiceBufferOrder.shift();
+        delete practiceBuffers[oldest];
+      }
+    }
+
     function loadPracticeSong(name) {
       if (!name) return Promise.reject(new Error("song"));
       if (practiceBuffers[name]) return Promise.resolve(practiceBuffers[name]);
@@ -2098,6 +2113,7 @@
         return ctx.decodeAudioData(bytes.slice(0));
       }).then(function(buffer) {
         practiceBuffers[name] = buffer;
+        rememberPracticeBuffer(name);
         delete practiceLoading[name];
         return buffer;
       }, function(err) {
