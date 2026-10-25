@@ -6,7 +6,8 @@
   "nextSongAt": 274.268775,
   "key": "B",
   "scale": "KURDI",
-  "style": "SLOW",
+  "style": "İç Anadolu",
+  "form": "Orta",
   "kita": 2,
   "tags": ["reaper-export"],
   "tempoMap": [
@@ -35,8 +36,8 @@
     { "name": "NAK", "start": 252, "end": 276.554489 }
   ],
   "lyrics": [
-    { "time": 44, "end": 56, "measure": 23, "beat": 1, "text": "TELLİ TURNAM SELAM GÖTÜR\r\nSEVGDİĞİMİN DİYARINA" },
-    { "time": 56, "end": 68, "measure": 29, "beat": 1, "text": "TELLİ TURNAM SELAM GÖTÜR\r\nSEVGDİĞİMİN DİYARINA" },
+    { "time": 44, "end": 56, "measure": 23, "beat": 1, "text": "TELLİ TURNAM SELAM GÖTÜR\r\nSEVDİĞİMİN DİYARINA" },
+    { "time": 56, "end": 68, "measure": 29, "beat": 1, "text": "TELLİ TURNAM SELAM GÖTÜR\r\nSEVDİĞİMİN DİYARINA" },
     { "time": 68, "end": 80, "measure": 35, "beat": 1, "text": "ÜZÜLMESİN AĞLAMASIN\r\nBELKİ GELİRİM YARINA CANANIMA" },
     { "time": 80, "end": 92, "measure": 41, "beat": 1, "text": "ÜZÜLMESİN AĞLAMASIN\r\nBELKİ GELİRİM YARINA CANANIMA" },
     { "time": 92, "end": 104, "measure": 47, "beat": 1, "text": "HASRET KİMSEYE KALMASIN\r\nSEVDALILAR AYRILMASIN \r\nAYRILMASIN" },
@@ -754,11 +755,6 @@
         { "time": 45.5, "end": 45.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 23, "beat": 4, "numerator": 4, "denominator": 4 }
       ] },
     { "text": "FILL", "time": 54, "end": 56, "length": 2, "measure": 28, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "SLOW", "time": 56, "end": 58, "length": 2, "measure": 29, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 56, "end": 56.125, "pitch": 48, "channel": 0, "velocity": 127, "measure": 29, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 56.75, "end": 56.875, "pitch": 48, "channel": 0, "velocity": 127, "measure": 29, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 57.5, "end": 57.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 29, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
     { "text": "FILL", "time": 66, "end": 68, "length": 2, "measure": 34, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
     { "text": "SLOW", "time": 68, "end": 70, "length": 2, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
         { "time": 68, "end": 68.125, "pitch": 48, "channel": 0, "velocity": 127, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4 },
@@ -766,11 +762,6 @@
         { "time": 69.5, "end": 69.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 35, "beat": 4, "numerator": 4, "denominator": 4 }
       ] },
     { "text": "FILL", "time": 78, "end": 80, "length": 2, "measure": 40, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "SLOW", "time": 80, "end": 82, "length": 2, "measure": 41, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 80, "end": 80.125, "pitch": 48, "channel": 0, "velocity": 127, "measure": 41, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 80.75, "end": 80.875, "pitch": 48, "channel": 0, "velocity": 127, "measure": 41, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 81.5, "end": 81.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 41, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
     { "text": "FILL", "time": 90, "end": 92, "length": 2, "measure": 46, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
     { "text": "ZILLER", "time": 92, "end": 94, "length": 2, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
         { "time": 92, "end": 92.25, "pitch": 53, "channel": 0, "velocity": 127, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4 },
@@ -814,11 +805,6 @@
         { "time": 181.5, "end": 181.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 91, "beat": 4, "numerator": 4, "denominator": 4 }
       ] },
     { "text": "FILL", "time": 190, "end": 192, "length": 2, "measure": 96, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "SLOW", "time": 192, "end": 194, "length": 2, "measure": 97, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 192, "end": 192.125, "pitch": 48, "channel": 0, "velocity": 127, "measure": 97, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 192.75, "end": 192.875, "pitch": 48, "channel": 0, "velocity": 127, "measure": 97, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 193.5, "end": 193.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 97, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
     { "text": "FILL", "time": 202, "end": 204, "length": 2, "measure": 102, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
     { "text": "SLOW", "time": 204, "end": 206, "length": 2, "measure": 103, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
         { "time": 204, "end": 204.125, "pitch": 48, "channel": 0, "velocity": 127, "measure": 103, "beat": 1, "numerator": 4, "denominator": 4 },
@@ -826,11 +812,6 @@
         { "time": 205.5, "end": 205.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 103, "beat": 4, "numerator": 4, "denominator": 4 }
       ] },
     { "text": "FILL", "time": 214, "end": 216, "length": 2, "measure": 108, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "SLOW", "time": 216, "end": 218, "length": 2, "measure": 109, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 216, "end": 216.125, "pitch": 48, "channel": 0, "velocity": 127, "measure": 109, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 216.75, "end": 216.875, "pitch": 48, "channel": 0, "velocity": 127, "measure": 109, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 217.5, "end": 217.625, "pitch": 50, "channel": 0, "velocity": 127, "measure": 109, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
     { "text": "FILL", "time": 226, "end": 228, "length": 2, "measure": 114, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
     { "text": "ZILLER", "time": 228, "end": 230, "length": 2, "measure": 115, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
         { "time": 228, "end": 228.25, "pitch": 53, "channel": 0, "velocity": 127, "measure": 115, "beat": 1, "numerator": 4, "denominator": 4 },

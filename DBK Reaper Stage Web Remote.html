@@ -794,6 +794,12 @@
       flex-direction: column;
       gap: 8px;
     }
+    .drum-list {
+      --chord-repeat-w: 22px;
+      --drum-bar-h: 22px;
+      --drum-stack-gap: 2px;
+      gap: 20px;
+    }
     .chord-section { min-width: 0; margin-bottom: 6px; }
     .chord-section-head {
       display: grid;
@@ -1040,8 +1046,21 @@
     .score-cue.rall { background: rgba(232, 193, 42, 0.45); color: #1a1a1a; }
     .score-cue.final { background: rgba(226, 74, 74, 0.35); color: #fff; }
     .score-cue.idle { opacity: 0.72; }
+    .drum-head-stack { display: flex; flex-direction: column; min-width: 0; }
+    .drum-pack .chord-section-head { margin-bottom: 0; }
+    .drum-pack-titles > .chord-section-head + .chord-section-head { margin-top: 0; }
+    .drum-head-stack .chord-section-head + .chord-section-head { margin-top: var(--drum-stack-gap); }
+    .drum-pack.pair .drum-pack-titles { align-items: start; }
+    .drum-pack.pair .drum-pack-titles:has(.drum-head-stack) > .chord-section-head {
+      margin-top: calc(var(--drum-bar-h) + var(--drum-stack-gap));
+    }
+    .drum-pack .chord-row { margin: 0; }
+    .drum-pack .chord-row.has-plays { margin-bottom: 18px; }
+    .drum-head-stack .lyric-section.drum-section-name { width: 100%; }
+    .drum-form, .drum-form-body { min-width: 0; }
+    .drum-form-body { display: flex; flex-direction: column; gap: 6px; }
     .drum-pack { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-    .drum-pack-titles, .drum-pack.pair .drum-pack-grids {
+    .drum-pack-titles, .drum-pack.pair .drum-pack-grids, .drum-pack.narrow .drum-pack-grids {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 6px;
@@ -1052,7 +1071,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
     }
-    .drum-pack.pair .drum-section-runs { grid-template-columns: minmax(0, 1fr); }
+    .drum-section-runs.cols-1 { grid-template-columns: minmax(0, 1fr); }
     .drum-run-grid { background: #1c1c1c; }
     .drum-measure-name {
       display: flex;
@@ -1073,6 +1092,21 @@
     .drum-run.current .drum-count { color: #fff; }
     .drum-run.next .drum-measure-name { background: #ea8400; color: #111; }
     .drum-run.next .drum-count { color: #111; }
+    .drum-run { position: relative; }
+    .drum-run-sign {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: var(--chord-repeat-w);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .drum-run-sign.start { right: 100%; }
+    .drum-run-sign.end { left: 100%; }
+    .drum-run-sign .chord-repeat-mark { height: 92%; }
     .drum-grid {
       display: flex;
       flex-direction: column;
@@ -1552,6 +1586,7 @@
     var receiveCount = -1;
     var lastMetaRaw = null;
     var lastSongsRaw = null;
+    var lastRev = null;
     var lastHb = "";
     var lastHbChange = 0;
     var lastScrollKey = "";
@@ -1979,6 +2014,25 @@
       measure.style.display = "block";
       measure.style.left = ((barStart / length) * 100) + "%";
       measure.style.width = (((barEnd - barStart) / length) * 100) + "%";
+    }
+
+    function inSongSections(data) {
+      var sections = (data && data.sections) || [];
+      var kept = [];
+      for (var i = 0; i < sections.length; i++) {
+        var section = sections[i];
+        if (!section) continue;
+        var start = Number(section.start);
+        var end = Number(section.end);
+        if (end > start && end > 0) kept.push(section);
+      }
+      return kept;
+    }
+
+    function leadingCount(data) {
+      var sections = inSongSections(data);
+      var first = sections[0];
+      return !!(first && sections[1] && sectionTone(first.name || "") === "count");
     }
 
     function countTrim(song) {
@@ -3229,27 +3283,204 @@
       }
     }
 
-    function drumFullRow(row) {
-      return sectionTone(row.section.name) === "count" || row.runs.length >= 2;
+    function drumFamily(name) {
+      var text = String(name || "").trim();
+      var letters = "";
+      try { letters = (text.match(/^\p{L}+/u) || [])[0] || ""; } catch (err) { letters = text.match(/^[A-Za-z]+/) ? text.match(/^[A-Za-z]+/)[0] : ""; }
+      return (letters || text).toUpperCase();
     }
 
-    function packDrumRows(rows) {
-      var packs = [];
+    function drumRunSig(row) {
+      return (row.runs || []).map(function(run) {
+        return [run.name, run.repeats, run.steps, JSON.stringify(run.hits || {})].join("\t");
+      }).join("\n");
+    }
+
+    function drumFoldable(first, next) {
+      if (first.length !== next.length) return false;
+      for (var at = 0; at < first.length; at++) {
+        var item = first[at].row;
+        var other = next[at].row;
+        if (!item || !other || !drumRunSig(item) || drumRunSig(item) !== drumRunSig(other)) return false;
+        if (sectionTone(item.section.name) === "count" || sectionTone(other.section.name) === "count") return false;
+        if (other.block && (other.block.coda || other.block.repeatStart)) return false;
+        var name = String(other.section.name || "").trim();
+        if (!name || drumFamily(name) !== drumFamily(item.section.name)) return false;
+      }
+      return true;
+    }
+
+    function drumNamesDistinct(rows) {
+      var seen = {};
       for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var last = packs[packs.length - 1];
-        if (last && last.length === 1 && !drumFullRow(last[0]) && !drumFullRow(row)) last.push(row);
-        else packs.push([row]);
+        var name = String(rows[i].section && rows[i].section.name || "").trim();
+        if (!name || seen[name]) return false;
+        seen[name] = true;
+      }
+      return true;
+    }
+
+    function drumSameGroove(rows) {
+      if (!rows.length || !drumRunSig(rows[0])) return false;
+      var sig = drumRunSig(rows[0]);
+      for (var i = 1; i < rows.length; i++) if (drumRunSig(rows[i]) !== sig) return false;
+      return true;
+    }
+
+    function drumFormGroups(rows) {
+      var items = [];
+      for (var i = 0; i < rows.length; i++) items.push({ row: rows[i], heads: [rows[i]] });
+      var groups = [];
+      var index = 0;
+      while (index < items.length) {
+        var folded = 0;
+        for (var length = Math.floor((items.length - index) / 2); length >= 1; length--) {
+          var first = items.slice(index, index + length);
+          var passes = 1;
+          for (;;) {
+            var from = index + length * passes;
+            var next = items.slice(from, from + length);
+            if (next.length < length || !drumFoldable(first, next)) break;
+            if (first.some(function(item) { return item.row.block && item.row.block.ds; })) break;
+            for (var at = 0; at < first.length; at++) first[at].heads.push(next[at].row);
+            passes += 1;
+          }
+          if (passes === 1) continue;
+          if (length > 1) {
+            var span = [];
+            for (var p = 0; p < passes; p++) {
+              for (var q = 0; q < length; q++) span.push(items[index + p * length + q].row);
+            }
+            if (drumSameGroove(span) && drumNamesDistinct(first.map(function(item) { return item.row; }))) {
+              for (var u = 0; u < first.length; u++) first[u].heads = [first[u].row];
+              continue;
+            }
+          }
+          if (length === 1 && passes > 2 && drumNamesDistinct(first[0].heads)) {
+            first[0].heads = first[0].heads.slice(0, 2);
+            passes = 2;
+          }
+          for (var n = 0; n < first.length; n++) {
+            groups.push({
+              rows: first[n].heads,
+              opens: n === 0,
+              closes: n === first.length - 1 ? passes : 0,
+              repeat: true,
+              width: 1
+            });
+          }
+          folded = length * passes;
+          break;
+        }
+        if (!folded && index + 1 < items.length && drumNumberPair(items[index].row, items[index + 1].row)) {
+          groups.push({
+            rows: [items[index].row, items[index + 1].row],
+            opens: false,
+            closes: 0,
+            width: 1
+          });
+          folded = 2;
+        }
+        if (!folded) {
+          groups.push({ rows: [items[index].row], opens: false, closes: 0, width: 1 });
+        }
+        index += folded || 1;
+      }
+      return groups;
+    }
+
+    function drumNumberPair(left, right) {
+      function part(row) {
+        var text = String(row && row.section && row.section.name || "").trim();
+        var match = text.match(/^(.*?)(\d+)$/);
+        if (!match) return null;
+        return { family: drumFamily(match[1]), n: parseInt(match[2], 10) };
+      }
+      var a = part(left);
+      var b = part(right);
+      if (!a || !b || a.family !== b.family || a.family !== "NAK" || a.n % 2 !== 1) return false;
+      return b.n === a.n + 1;
+    }
+
+    function drumGroupSide(group) {
+      var row = group.rows[0];
+      if (!row || sectionTone(row.section.name) === "count" || row.runs.length >= 2) return false;
+      if (group.rows.length > 1 && !(group.opens && group.closes > 1)) return false;
+      if (group.repeat && !(group.opens && group.closes > 1)) return false;
+      return true;
+    }
+
+    function drumRepeatPair(left, right) {
+      function one(group) {
+        var row = group && group.rows && group.rows[0];
+        return !!(row && sectionTone(row.section.name) !== "count" && row.runs.length < 2);
+      }
+      if (!one(left) || !one(right)) return false;
+      return !!(left.opens && !(left.closes > 1) && left.repeat && right.repeat && !right.opens && right.closes > 1);
+    }
+
+    function drumGroupPlain(group) {
+      return group.rows.length === 1 && !group.opens && !(group.closes > 1) && drumGroupSide(group);
+    }
+
+    function drumSameStack(left, right) {
+      if (!left || !right || !left.rows || !right.rows || left.rows.length !== right.rows.length || !left.rows.length) return false;
+      if (left.rows[0].runs.length >= 2 || right.rows[0].runs.length >= 2) return false;
+      if (sectionTone(left.rows[0].section.name) === "count") return false;
+      if (drumRunSig(left.rows[0]) !== drumRunSig(right.rows[0])) return false;
+      for (var i = 0; i < left.rows.length; i++) {
+        var name = String(left.rows[i].section.name || "").trim();
+        if (!name || name !== String(right.rows[i].section.name || "").trim()) return false;
+      }
+      return true;
+    }
+
+    function packDrumGroups(groups) {
+      var packs = [];
+      for (var i = 0; i < groups.length; i++) {
+        var group = groups[i];
+        var next = groups[i + 1];
+        var third = groups[i + 2];
+        var keepPlainPair = next && third && !drumGroupPlain(group) && drumGroupPlain(next) && drumGroupPlain(third);
+        var repeatSide = drumRepeatPair(group, next);
+        var sameStack = drumSameStack(group, next);
+        if (!keepPlainPair && next && (sameStack || (drumGroupSide(group) && drumGroupSide(next)) || repeatSide)) {
+          if (repeatSide) {
+            group.holdShaft = true;
+            next.holdShaft = true;
+          }
+          if (sameStack) {
+            group.holdRight = true;
+            next.holdLeft = true;
+          }
+          packs.push([group, next]);
+          i += 1;
+        } else packs.push([group]);
       }
       return packs;
     }
 
-    function drumSectionTitle(row) {
+    function drumNameOn(node, blockId, copy) {
+      if (!node || !blockId) return false;
+      if (node.getAttribute("data-drum-section") === blockId && node.getAttribute("data-drum-copy") === String(copy)) return true;
+      var raw = node.getAttribute("data-drum-passes");
+      if (!raw) return false;
+      try {
+        var passes = JSON.parse(raw);
+        for (var i = 0; i < passes.length; i++) {
+          if (passes[i].id === blockId && String(passes[i].copy) === String(copy)) return true;
+        }
+      } catch (err) {}
+      return false;
+    }
+
+    function drumSectionTitle(row, stacked, passes) {
       var isCount = sectionTone(row.section.name) === "count";
       var title = document.createElement("div");
       title.className = "lyric-section drum-section-name tone-" + sectionTone(row.section.name);
       title.setAttribute("data-drum-section", row.block.id);
       title.setAttribute("data-drum-copy", String(row.copy));
+      if (passes && passes.length > 1) title.setAttribute("data-drum-passes", JSON.stringify(passes));
       var play = document.createElement("span");
       play.className = "lyric-playhead";
       title.appendChild(play);
@@ -3263,10 +3494,38 @@
       }
       body.appendChild(formSectionBar(row.block, extra));
       title.appendChild(body);
-      return title;
+      var headRow = document.createElement("div");
+      headRow.className = "chord-section-head";
+      headRow.appendChild(document.createElement("div")).className = "chord-repeat-col";
+      headRow.appendChild(title);
+      headRow.appendChild(document.createElement("div")).className = "chord-repeat-col";
+      return headRow;
     }
 
-    function drumRunView(run, blockId, copy) {
+    function drumRepeatRow(group, content, holdMarks) {
+      var plays = group.closes > 1 ? group.closes : 0;
+      var row = document.createElement("div");
+      row.className = "chord-row drum-repeat-row" + (plays >= 3 ? " has-plays" : "");
+      var left = document.createElement("div");
+      left.className = "chord-repeat-col";
+      if (!holdMarks && group.opens) left.appendChild(repeatMark("start"));
+      var right = document.createElement("div");
+      right.className = "chord-repeat-col";
+      if (!holdMarks && plays > 1) right.appendChild(repeatClose(plays));
+      row.appendChild(left);
+      row.appendChild(content);
+      row.appendChild(right);
+      return row;
+    }
+
+    function drumRunSign(side, plays) {
+      var sign = document.createElement("div");
+      sign.className = "drum-run-sign " + side;
+      sign.appendChild(side === "start" ? repeatMark("start") : repeatClose(plays));
+      return sign;
+    }
+
+    function drumRunView(run, blockId, copy, passes) {
       var node = document.createElement("div");
       node.className = "drum-run";
       node.setAttribute("data-block-id", blockId);
@@ -3275,6 +3534,7 @@
       node.setAttribute("data-e", String(run.end));
       node.setAttribute("data-cycle", String(run.cycle || 0));
       node.setAttribute("data-repeats", String(run.repeats || 1));
+      if (passes && passes.length) node.setAttribute("data-passes", JSON.stringify(passes));
       node.style.setProperty("--drum-steps", String(run.steps || 16));
       node.style.setProperty("--drum-bar-steps", String(run.barSteps || 16));
       var name = document.createElement("div");
@@ -3324,42 +3584,100 @@
       }
       var list = document.createElement("div");
       list.className = "drum-list";
-      var packs = packDrumRows(source);
+      var packs = packDrumGroups(drumFormGroups(source));
       for (var p = 0; p < packs.length; p++) {
         var written = packs[p];
         var pair = written.length === 2;
         var span = false;
         var showGrids = false;
         for (var i = 0; i < written.length; i++) {
-          var tone = sectionTone(written[i].section.name);
+          var tone = sectionTone(written[i].rows[0].section.name);
           if (tone !== "count") showGrids = true;
-          if (tone === "count" || written[i].runs.length >= 2) span = true;
+          if (tone === "count" || written[i].rows[0].runs.length >= 2) span = true;
         }
         var pack = document.createElement("div");
-        pack.className = "drum-pack" + (pair ? " pair" : "");
+        pack.className = "drum-pack" + (pair ? " pair" : "") + (!pair && !span ? " narrow" : "");
         var titles = document.createElement("div");
         titles.className = "drum-pack-titles" + (span ? " span" : "");
-        for (var t = 0; t < written.length; t++) titles.appendChild(drumSectionTitle(written[t]));
-        pack.appendChild(titles);
-        if (showGrids) {
-          var grids = document.createElement("div");
-          grids.className = "drum-pack-grids";
-          for (var g = 0; g < written.length; g++) {
-            if (sectionTone(written[g].section.name) === "count") {
-              grids.appendChild(document.createElement("div"));
-              continue;
-            }
+        var grids = document.createElement("div");
+        grids.className = "drum-pack-grids";
+        for (var t = 0; t < written.length; t++) {
+          var group = written[t];
+          var marked = group.rows.length > 1 || group.opens || group.closes > 1;
+          var frame = document.createElement("div");
+          frame.className = "drum-form";
+          if (!pair && group.width > 0 && group.width < 1) {
+            frame.style.width = (group.width * 100) + "%";
+            frame.style.justifySelf = "start";
+          }
+          if (group.rows.length === 1 && !marked) {
+            titles.appendChild(drumSectionTitle(group.rows[0], false));
+          } else {
+            var heads = document.createElement("div");
+            heads.className = "drum-head-stack";
+            for (var h = 0; h < group.rows.length; h++) heads.appendChild(drumSectionTitle(group.rows[h], marked));
+            frame.appendChild(heads);
+            titles.appendChild(frame);
+          }
+          if (!showGrids || sectionTone(group.rows[0].section.name) === "count") {
+            if (showGrids) grids.appendChild(document.createElement("div"));
+            continue;
+          }
+          var same = true;
+          var sig = drumRunSig(group.rows[0]);
+          for (var s = 1; s < group.rows.length; s++) if (drumRunSig(group.rows[s]) !== sig) same = false;
+          var body = document.createElement("div");
+          body.className = "drum-form-body";
+          var shown = same ? [group.rows[0]] : group.rows;
+          var holdMarks = false;
+          for (var r = 0; r < shown.length; r++) {
+            var row = shown[r];
+            var lastRun = row.runs[row.runs.length - 1];
+            var tusClose = !group.opens && group.closes > 1 && lastRun && String(lastRun.name || "").trim() === "TUS";
+            var wrapMarks = group.opens && group.closes > 1 && row.runs.length > 2;
+            if (wrapMarks || tusClose) holdMarks = true;
             var runs = document.createElement("div");
             runs.className = "drum-section-runs";
-            runs.setAttribute("data-drum-section", written[g].block.id);
-            runs.setAttribute("data-drum-copy", String(written[g].copy));
-            for (var n = 0; n < written[g].runs.length; n++) {
-              runs.appendChild(drumRunView(written[g].runs[n], written[g].block.id, written[g].copy));
+            runs.setAttribute("data-drum-section", row.block.id);
+            if (row.runs.length < 2) runs.classList.add("cols-1");
+            for (var n = 0; n < row.runs.length; n++) {
+              var passes = null;
+              if (same && group.rows.length > 1) {
+                passes = [];
+                for (var k = 0; k < group.rows.length; k++) {
+                  var sourceRun = group.rows[k].runs[n];
+                  if (!sourceRun) continue;
+                  passes.push({
+                    id: group.rows[k].block.id,
+                    copy: group.rows[k].copy,
+                    start: sourceRun.start,
+                    end: sourceRun.end,
+                    repeats: sourceRun.repeats
+                  });
+                }
+              }
+              var view = drumRunView(row.runs[n], row.block.id, row.copy, passes);
+              if (wrapMarks && n === 0 && group.opens) view.appendChild(drumRunSign("start"));
+              if ((wrapMarks || tusClose) && n === row.runs.length - 1 && group.closes > 1) view.appendChild(drumRunSign("end", group.closes));
+              runs.appendChild(view);
             }
-            grids.appendChild(runs);
+            body.appendChild(runs);
           }
-          pack.appendChild(grids);
+          var grid = drumRepeatRow(group, body, holdMarks);
+          if (group.rows.length === 1 && !marked) grids.appendChild(grid);
+          else {
+            var gridFrame = document.createElement("div");
+            gridFrame.className = "drum-form";
+            if (!pair && group.width > 0 && group.width < 1) {
+              gridFrame.style.width = (group.width * 100) + "%";
+              gridFrame.style.justifySelf = "start";
+            }
+            gridFrame.appendChild(grid);
+            grids.appendChild(gridFrame);
+          }
         }
+        pack.appendChild(titles);
+        if (showGrids) pack.appendChild(grids);
         list.appendChild(pack);
       }
       appendCueBars(list, sheet.cues || cueKinds(data));
@@ -3478,6 +3796,28 @@
       }
     }
 
+    function drumRunPass(run, pos) {
+      if (!run || !pos || pos.originTime == null || pos.originTime < 0 || !pos.blockId) return null;
+      var raw = run.getAttribute("data-passes");
+      if (raw) {
+        try {
+          var passes = JSON.parse(raw);
+          for (var p = 0; p < passes.length; p++) {
+            if (passes[p].id !== pos.blockId || String(passes[p].copy) !== String(pos.copy)) continue;
+            if (pos.originTime >= passes[p].start - 0.02 && pos.originTime < passes[p].end - 0.02) return passes[p];
+          }
+          return null;
+        } catch (err) {}
+      }
+      if (run.getAttribute("data-block-id") !== pos.blockId || run.getAttribute("data-drum-copy") !== String(pos.copy)) return null;
+      var start = parseFloat(run.getAttribute("data-t"));
+      var end = parseFloat(run.getAttribute("data-e"));
+      if (pos.originTime >= start - 0.02 && pos.originTime < end - 0.02) {
+        return { start: start, end: end, repeats: parseInt(run.getAttribute("data-repeats"), 10) || 1 };
+      }
+      return null;
+    }
+
     function paintDrumMarks(article, time, map) {
       var pos = time >= 0 ? stageCharts.drumAt(article._sheet.form, time, map) : null;
       var names = article.querySelectorAll(".drum-section-name[data-drum-section]");
@@ -3485,7 +3825,7 @@
       var currentNameAt = -1;
       var i;
       for (i = 0; i < names.length; i++) {
-        var on = !!(pos && names[i].getAttribute("data-drum-section") === pos.blockId && names[i].getAttribute("data-drum-copy") === String(pos.copy));
+        var on = !!(pos && drumNameOn(names[i], pos.blockId, pos.copy));
         names[i].classList.toggle("current", on);
         names[i].style.setProperty("--playhead", on && pos ? String(measureRangeFill(map, pos.fillStart, pos.fillEnd, time)) : "0");
         if (on) {
@@ -3495,18 +3835,18 @@
       }
       var nextSection = !!(pos && (pos.nextBlockId !== pos.blockId || String(pos.nextCopy) !== String(pos.copy)));
       for (i = 0; i < names.length; i++) {
-        var sectionNext = !!(nextSection && names[i].getAttribute("data-drum-section") === pos.nextBlockId && names[i].getAttribute("data-drum-copy") === String(pos.nextCopy));
+        var sectionNext = !!(nextSection && drumNameOn(names[i], pos.nextBlockId, pos.nextCopy));
         names[i].classList.toggle("next", sectionNext && !names[i].classList.contains("current"));
       }
       var runs = article.querySelectorAll(".drum-run");
       var currentRun = null;
       for (i = 0; i < runs.length; i++) {
-        var same = pos && runs[i].getAttribute("data-block-id") === pos.blockId && runs[i].getAttribute("data-drum-copy") === String(pos.copy);
-        var start = parseFloat(runs[i].getAttribute("data-t"));
-        var end = parseFloat(runs[i].getAttribute("data-e"));
-        var onRun = !!(same && pos.originTime >= start - 0.02 && pos.originTime < end - 0.02);
+        var pass = drumRunPass(runs[i], pos);
+        var onRun = !!pass;
         runs[i].classList.toggle("current", onRun);
-        var repeats = parseInt(runs[i].getAttribute("data-repeats"), 10) || 1;
+        var repeats = pass ? (parseInt(pass.repeats, 10) || 1) : (parseInt(runs[i].getAttribute("data-repeats"), 10) || 1);
+        var start = pass ? pass.start : parseFloat(runs[i].getAttribute("data-t"));
+        var end = pass ? pass.end : parseFloat(runs[i].getAttribute("data-e"));
         var cycle = parseFloat(runs[i].getAttribute("data-cycle"));
         if (!(cycle > 0)) cycle = Math.max(0.02, (end - start) / repeats);
         var count = runs[i].querySelector(".drum-count");
@@ -3518,11 +3858,8 @@
         if (onRun) currentRun = runs[i];
       }
       for (i = 0; i < runs.length; i++) {
-        var nextStart = parseFloat(runs[i].getAttribute("data-t"));
-        var nextEnd = parseFloat(runs[i].getAttribute("data-e"));
-        var holdsNext = !!(pos && pos.nextOrigin >= 0 && pos.nextOrigin >= nextStart - 0.02 && pos.nextOrigin < nextEnd - 0.02 && runs[i].getAttribute("data-block-id") === pos.nextBlockId && runs[i].getAttribute("data-drum-copy") === String(pos.nextCopy));
-        var patternNext = holdsNext && runs[i] !== currentRun;
-        runs[i].classList.toggle("next", patternNext);
+        var nextPass = pos ? drumRunPass(runs[i], { blockId: pos.nextBlockId, copy: pos.nextCopy, originTime: pos.nextOrigin }) : null;
+        runs[i].classList.toggle("next", !!nextPass && runs[i] !== currentRun);
       }
     }
 
@@ -3993,7 +4330,7 @@
       fetch("DBK_Stage/" + webFile(name + " settings") + ".json?t=" + Date.now(), { cache: "no-store" }).then(function(response) {
         return response.ok ? response.json().then(function(data) { return data; }) : null;
       }).then(function(data) {
-        settingsCache[name] = { data: data || {}, settled: true, pending: false, loaded: !!data };
+        settingsCache[name] = { data: data || {}, settled: true, pending: false, loaded: true };
         if (!scoreRects[name]) {
           var rects = data && data.notaSections && data.notaSections.rects;
           scoreRects[name] = rects ? JSON.parse(JSON.stringify(rects)) : [];
@@ -5540,7 +5877,9 @@
     }
 
     function liveNow() {
-      return !!(meta && !meta.off && lastHbChange && (Date.now() - lastHbChange) < 2500);
+      // A long Import or Refresh can block the script for a few seconds, so
+      // allow a generous gap before the page decides it is offline.
+      return !!(meta && !meta.off && lastHbChange && (Date.now() - lastHbChange) < 6000);
     }
 
     function syncPracticeMode() {
@@ -5720,9 +6059,7 @@
       if (data === undefined) return "?";
       if (!data) return "-";
       var tempo = data.tempoMap && data.tempoMap[0] ? data.tempoMap[0] : {};
-      var first = data.sections && data.sections[0];
-      var second = data.sections && data.sections[1];
-      var count = first && second && sectionTone(first.name || "") === "count" && Number(first.end) > Number(first.start) ? "c" : "";
+      var count = leadingCount(data) ? "c" : "";
       return [data.key || "", data.scale || "", data.style || "", data.form || "", data.kita || "", tempo.numerator || "", tempo.denominator || "", tempo.bpm || "", data.duration || "", count].join("/");
     }
 
@@ -5926,9 +6263,7 @@
     }
 
     function appendCountAct(acts, song, data) {
-      var first = data && data.sections && data.sections[0];
-      var second = data && data.sections && data.sections[1];
-      var countSection = !!(first && second && sectionTone(first.name || "") === "count" && Number(first.end) > Number(first.start));
+      var countSection = leadingCount(data);
       var trimmed = countTrim(song);
       var countOn = countSection && !(trimmed > 0);
       var countBtn = document.createElement("button");
@@ -6932,6 +7267,8 @@
     function wwr_onreply(results) {
       var lines = String(results || "").split("\n");
       var songsChanged = false;
+      var metaChanged = false;
+      var outputsChanged = false;
       var receiveDirty = false;
       for (var i = 0; i < lines.length; i++) {
         if (!lines[i]) continue;
@@ -6952,6 +7289,12 @@
           var next = parseJson(raw);
           if (next && next.v === 1) {
             meta = next;
+            metaChanged = true;
+            if (next.rev != null && next.rev !== lastRev) {
+              lastRev = next.rev;
+              // The song list is large; only ask for it when the script says it changed.
+              wwr_req("GET/EXTSTATE/DBK_STAGE/songs");
+            }
             if (next.off) {
               lastHbChange = 0;
             } else {
@@ -6960,7 +7303,7 @@
                 lastHb = hb;
                 lastHbChange = Date.now();
               }
-              if (next.sel) rememberedSel = next.sel;
+              rememberedSel = next.sel || "";
             }
           }
         } else if (tok[2] === "outputs" && raw !== lastOutputsRaw) {
@@ -6968,6 +7311,7 @@
           if (outputs) {
             lastOutputsRaw = raw;
             outputTracks = outputs;
+            outputsChanged = true;
             fillOutputs();
           }
         } else if (tok[2] === "rn") {
@@ -6995,7 +7339,7 @@
       remoteReady = true;
       if (receiveDirty) applyReceives();
       if (songsChanged) render();
-      else paint();
+      else if (metaChanged || outputsChanged || receiveDirty) paint();
     }
 
     setInterval(paint, 500);
@@ -7013,7 +7357,9 @@
     if (typeof wwr_start === "function") {
       wwr_start();
       wwr_req_recur("TRANSPORT", 120);
-      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/meta;GET/EXTSTATE/DBK_STAGE/songs;GET/EXTSTATE/DBK_STAGE/outputs;GET/EXTSTATE/DBK_STAGE/rn;GET/EXTSTATE/DBK_STAGE/r0;GET/EXTSTATE/DBK_STAGE/r1;GET/EXTSTATE/DBK_STAGE/r2;GET/EXTSTATE/DBK_STAGE/r3", 200);
+      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/meta;GET/EXTSTATE/DBK_STAGE/outputs;GET/EXTSTATE/DBK_STAGE/rn;GET/EXTSTATE/DBK_STAGE/r0;GET/EXTSTATE/DBK_STAGE/r1;GET/EXTSTATE/DBK_STAGE/r2;GET/EXTSTATE/DBK_STAGE/r3", 200);
+      // Slow fallback for the song list; the fast path is the rev check in meta.
+      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/songs", 2000);
     } else {
       remoteReady = true;
       paint();
