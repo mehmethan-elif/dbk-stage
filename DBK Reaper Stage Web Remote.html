@@ -1435,7 +1435,25 @@
       width: 62%;
       height: 6px;
       transform: translateX(-50%);
-      background: #ea8400;
+      background: #37c26a;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      pointer-events: none;
+    }
+    .count-tri {
+      position: relative;
+      display: inline-block;
+      width: max-content;
+      max-width: 100%;
+      vertical-align: middle;
+    }
+    .count-tri::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -6px;
+      height: 6px;
+      background: #37c26a;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       pointer-events: none;
     }
@@ -1731,6 +1749,13 @@
     function canSelectSong(guid) {
       if (!stagePlaying()) return true;
       return !!guid && guid === selectionGuid();
+    }
+
+    function rowForName(name) {
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].k === "song" && rows[i].n === name) return rows[i];
+      }
+      return null;
     }
 
     function selectedSongRow() {
@@ -2670,6 +2695,8 @@
       var title = document.createElement("span");
       title.className = "song-name";
       title.textContent = name || "";
+      var titleRow = rowForName(name);
+      if (titleRow && countIsOff(titleRow)) title.classList.add("count-tri");
       bar.appendChild(title);
       var parts = songMetaParts(data, page);
       if (!parts.length) return bar;
@@ -6792,7 +6819,7 @@
         var num = document.createElement("div");
         num.className = "prep-cell num";
         var title = document.createElement("div");
-        title.className = "prep-cell title";
+        title.className = "prep-cell title" + (item.k === "song" && countIsOff(item) ? " count-tri" : "");
         var songData = item.k === "song" ? cachedSong(item.n) : null;
         if (item.k === "song") {
           if (item.set) {
@@ -7097,7 +7124,7 @@
         main.className = "main";
         if (main.tagName === "BUTTON") main.type = "button";
         var name = document.createElement("span");
-        name.className = "name";
+        name.className = "name" + (item.k === "song" && countIsOff(item) ? " count-tri" : "");
         if (item.k === "song") {
           name.setAttribute("data-name", item.n || "");
           name.textContent = item.n || "";
