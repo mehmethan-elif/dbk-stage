@@ -4434,11 +4434,16 @@
       }).then(function(cache) {
         return cache.match(url).then(function(hit) {
           if (hit) return 0;
-          return fetch(url).then(function(res) {
+          return fetch(url, { cache: "no-store" }).then(function(res) {
             if (!res || !res.ok || res.status !== 200) throw new Error("fetch");
             var size = Number(res.headers.get("content-length")) || 0;
-            return cache.put(url, res.clone()).then(function() {
-              return size;
+            var type = res.headers.get("content-type") || "application/octet-stream";
+            return res.arrayBuffer().then(function(body) {
+              return cache.put(url, new Response(body, {
+                headers: { "Content-Type": type, "Content-Length": String(body.byteLength) }
+              })).then(function() {
+                return size || body.byteLength;
+              });
             });
           });
         });
@@ -4495,7 +4500,7 @@
 
     function startOfflinePack(force) {
       if (offlineState.busy) return;
-      fetch("DBK_Stage/offline-manifest.json", { cache: "no-store" }).then(function(res) {
+      fetch("DBK_Stage/offline-manifest.json?v=" + Date.now(), { cache: "no-store" }).then(function(res) {
         if (!res.ok) throw new Error("manifest");
         return res.json();
       }).then(function(manifest) {
@@ -4505,46 +4510,56 @@
         try { saved = localStorage.getItem("dbkOfflineVersion") || ""; } catch (err) {}
         offlineState.total = Number(manifest.total) || 0;
         offlineState.files = files.length;
-        if (!force && manifest.version && saved === manifest.version) {
-          offlineState.done = true;
-          offlineState.offer = false;
-          paintOfflineBar();
-          return;
-        }
         var standalone = false;
         try {
           standalone = window.navigator.standalone === true
             || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
         } catch (err) {}
-        if (!force && !standalone) {
+        var begin = function() {
+          offlineState.offer = false;
+          offlineState.busy = true;
+          offlineState.cancel = false;
+          offlineState.got = 0;
+          offlineState.count = 0;
+          paintOfflineBar();
+          downloadOfflineFiles(files, manifest.sizes).then(function(completed) {
+            if (!completed) {
+              offlineState.busy = false;
+              paintOfflineBar();
+              return;
+            }
+            return verifyOfflineFiles(files).then(function(missing) {
+              offlineState.busy = false;
+              if (missing.length) {
+                paintOfflineBar();
+                return;
+              }
+              offlineState.done = true;
+              try { localStorage.setItem("dbkOfflineVersion", manifest.version || ""); } catch (err) {}
+              paintOfflineBar();
+            });
+          });
+        };
+        if (!force && manifest.version && saved === manifest.version) {
+          // Trust the saved version only if every file really is in the cache.
+          return verifyOfflineFiles(files).then(function(missing) {
+            if (!missing.length) {
+              offlineState.done = true;
+              offlineState.offer = false;
+              paintOfflineBar();
+              return;
+            }
+            begin();
+          });
+        }
+        if (!force && !standalone && !saved) {
           offlineState.offer = true;
           paintOfflineBar();
           return;
         }
-        offlineState.offer = false;
-        offlineState.busy = true;
-        offlineState.cancel = false;
-        offlineState.got = 0;
-        offlineState.count = 0;
-        paintOfflineBar();
-        downloadOfflineFiles(files, manifest.sizes).then(function(completed) {
-          if (!completed) {
-            offlineState.busy = false;
-            paintOfflineBar();
-            return;
-          }
-          return verifyOfflineFiles(files).then(function(missing) {
-            offlineState.busy = false;
-            if (missing.length) {
-              // Say it is incomplete instead of pretending, so Resume is offered.
-              paintOfflineBar();
-              return;
-            }
-            offlineState.done = true;
-            try { localStorage.setItem("dbkOfflineVersion", manifest.version || ""); } catch (err) {}
-            paintOfflineBar();
-          });
-        });
+        begin();
+        return;
+        /* old inline download block below is unreachable */
       }).catch(function() {});
     }
 

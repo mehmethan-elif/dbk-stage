@@ -34,6 +34,13 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
+  // The pack list must always come from the network, otherwise an old copy
+  // makes the page think the download is already up to date.
+  if (url.pathname.endsWith("offline-manifest.json")) {
+    event.respondWith(fetch(request).catch(() => caches.match(request)));
+    return;
+  }
+
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
