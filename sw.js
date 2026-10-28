@@ -34,6 +34,13 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
+  // The page writes the offline pack into the cache itself; do not store those
+  // responses a second time here.
+  if (request.headers.get("x-dbk-cache") === "page") {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   // The pack list must always come from the network, otherwise an old copy
   // makes the page think the download is already up to date.
   if (url.pathname.endsWith("offline-manifest.json")) {

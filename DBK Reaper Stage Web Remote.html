@@ -4399,7 +4399,15 @@
         var pct = offlineState.total > 0
           ? Math.min(100, Math.round((offlineState.got / offlineState.total) * 100))
           : 0;
-        txt.textContent = "Downloading for offline " + pct + "% · " + offlineMb(offlineState.got) + " / " + offlineMb(offlineState.total);
+        var speed = "";
+        if (offlineState.startedAt) {
+          var secs = (Date.now() - offlineState.startedAt) / 1000;
+          if (secs > 1.5) {
+            speed = " · " + ((offlineState.got / 1048576) / secs).toFixed(1) + " MB/s";
+          }
+        }
+        txt.textContent = "Downloading for offline " + pct + "% · " + offlineMb(offlineState.got)
+          + " / " + offlineMb(offlineState.total) + speed;
         fill.style.width = pct + "%";
         go.hidden = true;
         stop.hidden = false;
@@ -4427,23 +4435,23 @@
       bar.classList.remove("on");
     }
 
-    function cacheFile(url) {
+    function cacheFile(url, store) {
       return Promise.resolve().then(function() {
+        if (store) return store;
         if (!window.caches) throw new Error("nocache");
         return caches.open(OFFLINE_CACHE);
       }).then(function(cache) {
         return cache.match(url).then(function(hit) {
           if (hit) return 0;
-          return fetch(url, { cache: "no-store" }).then(function(res) {
-            if (!res || !res.ok || res.status !== 200) throw new Error("fetch");
+          // The header tells the worker not to cache this response again.
+          return fetch(url, {
+            cache: "no-store",
+            headers: { "X-DBK-Cache": "page" }
+          }).then(function(res) {
+            if (!res || res.status !== 200) throw new Error("fetch");
             var size = Number(res.headers.get("content-length")) || 0;
-            var type = res.headers.get("content-type") || "application/octet-stream";
-            return res.arrayBuffer().then(function(body) {
-              return cache.put(url, new Response(body, {
-                headers: { "Content-Type": type, "Content-Length": String(body.byteLength) }
-              })).then(function() {
-                return size || body.byteLength;
-              });
+            return cache.put(url, res).then(function() {
+              return size;
             });
           });
         });
@@ -4470,31 +4478,35 @@
 
     function downloadOfflineFiles(files, sizes) {
       sizes = sizes || {};
-      var index = 0;
-      var failed = 0;
-      return new Promise(function(resolve) {
-        function next() {
-          if (offlineState.cancel) {
-            resolve(false);
-            return;
+      if (!window.caches) return Promise.resolve(false);
+      return caches.open(OFFLINE_CACHE).then(function(store) {
+        return new Promise(function(resolve) {
+          var index = 0;
+          var failed = 0;
+          function next() {
+            if (offlineState.cancel) {
+              resolve(false);
+              return;
+            }
+            if (index >= files.length) {
+              resolve(failed === 0);
+              return;
+            }
+            var file = files[index++];
+            cacheFile(file, store).then(function(fresh) {
+              offlineState.got += Number(sizes[file]) || Number(fresh) || 0;
+              offlineState.count = index;
+              paintOfflineBar();
+              next();
+            }).catch(function() {
+              failed += 1;
+              next();
+            });
           }
-          if (index >= files.length) {
-            resolve(failed === 0);
-            return;
-          }
-          var file = files[index++];
-          cacheFile(file).then(function(fresh) {
-            offlineState.got += Number(sizes[file]) || Number(fresh) || 0;
-            offlineState.count = index;
-            paintOfflineBar();
-            next();
-          }).catch(function() {
-            failed += 1;
-            next();
-          });
-        }
-        var lanes = Math.max(1, Math.min(4, files.length));
-        for (var i = 0; i < lanes; i++) next();
+          // More streams keep a fast connection busy while the cache writes.
+          var lanes = Math.max(1, Math.min(6, files.length));
+          for (var i = 0; i < lanes; i++) next();
+        });
       });
     }
 
@@ -4521,6 +4533,7 @@
           offlineState.cancel = false;
           offlineState.got = 0;
           offlineState.count = 0;
+          offlineState.startedAt = Date.now();
           paintOfflineBar();
           downloadOfflineFiles(files, manifest.sizes).then(function(completed) {
             if (!completed) {
