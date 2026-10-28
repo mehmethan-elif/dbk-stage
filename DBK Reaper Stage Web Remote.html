@@ -1372,11 +1372,6 @@
       background: #4a4a4a;
       border-color: transparent;
     }
-    .prep-key {
-      margin-left: 8px;
-      font-weight: 400;
-      opacity: 0.72;
-    }
     .prep-block.lib .prep-song-row,
     .prep-block.lib .prep-elif-row {
       background: #4a4a4a;
@@ -6883,7 +6878,6 @@
         var title = document.createElement("div");
         title.className = "prep-cell title";
         var songData = item.k === "song" ? cachedSong(item.n) : null;
-        if (item.k === "song") requestSongFile(item.n, false);
         if (item.k === "song") {
           if (item.set) {
             number += 1;
@@ -6891,15 +6885,6 @@
             if (number > 1 && countIsOff(item)) block.appendChild(countOffMark());
           } else num.textContent = "\u2014";
           title.textContent = item.n || "";
-          if (item.set) {
-            var keyName = libraryKeyText(item.n || "");
-            if (keyName) {
-              var keySpan = document.createElement("span");
-              keySpan.className = "prep-key";
-              keySpan.textContent = keyName;
-              title.appendChild(keySpan);
-            }
-          }
         } else {
           title.textContent = "STOP";
         }
@@ -7105,7 +7090,6 @@
     function fillLibraryKeys() {
       syncLibraryMarks();
       if (applyAutoStops()) render();
-      else if (document.getElementById("prep-list")) renderPrep();
     }
 
     function keyToken(name) {
