@@ -4424,7 +4424,10 @@
         return;
       }
       if (offlineState.files > 0) {
-        txt.textContent = "Offline pack incomplete · " + offlineMb(offlineState.got) + " / " + offlineMb(offlineState.total);
+        var shortText = offlineState.missing
+          ? " · " + offlineState.missing + " file" + (offlineState.missing === 1 ? "" : "s") + " short"
+          : "";
+        txt.textContent = "Offline pack incomplete · " + offlineMb(offlineState.got) + " / " + offlineMb(offlineState.total) + shortText;
         fill.style.width = "0%";
         go.textContent = "Resume";
         go.hidden = false;
@@ -4482,30 +4485,45 @@
       return caches.open(OFFLINE_CACHE).then(function(store) {
         return new Promise(function(resolve) {
           var index = 0;
+          var active = 0;
           var failed = 0;
-          function next() {
+          var finished = false;
+          var lanes = Math.max(1, Math.min(6, files.length));
+          function settle() {
+            active -= 1;
+            if (finished) return;
             if (offlineState.cancel) {
+              finished = true;
               resolve(false);
               return;
             }
-            if (index >= files.length) {
+            // Finish only when nothing is still being written: the last lanes
+            // used to be cut off and the check then saw them as missing.
+            if (index >= files.length && active === 0) {
+              finished = true;
               resolve(failed === 0);
               return;
             }
-            var file = files[index++];
-            cacheFile(file, store).then(function(fresh) {
-              offlineState.got += Number(sizes[file]) || Number(fresh) || 0;
-              offlineState.count = index;
-              paintOfflineBar();
-              next();
-            }).catch(function() {
-              failed += 1;
-              next();
-            });
+            pump();
           }
-          // More streams keep a fast connection busy while the cache writes.
-          var lanes = Math.max(1, Math.min(6, files.length));
-          for (var i = 0; i < lanes; i++) next();
+          function pump() {
+            while (!finished && active < lanes && index < files.length) {
+              var file = files[index++];
+              active += 1;
+              (function(name) {
+                cacheFile(name, store).then(function(fresh) {
+                  offlineState.got += Number(sizes[name]) || Number(fresh) || 0;
+                  offlineState.count += 1;
+                  paintOfflineBar();
+                  settle();
+                }, function() {
+                  failed += 1;
+                  settle();
+                });
+              })(file);
+            }
+          }
+          pump();
         });
       });
     }
@@ -4544,6 +4562,7 @@
             return verifyOfflineFiles(files).then(function(missing) {
               offlineState.busy = false;
               if (missing.length) {
+                offlineState.missing = missing.length;
                 paintOfflineBar();
                 return;
               }
