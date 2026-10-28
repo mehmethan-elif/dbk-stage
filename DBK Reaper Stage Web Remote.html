@@ -6819,7 +6819,7 @@
         var num = document.createElement("div");
         num.className = "prep-cell num";
         var title = document.createElement("div");
-        title.className = "prep-cell title" + (item.k === "song" && countIsOff(item) ? " count-tri" : "");
+        title.className = "prep-cell title";
         var songData = item.k === "song" ? cachedSong(item.n) : null;
         if (item.k === "song") {
           if (item.set) {
@@ -7124,7 +7124,7 @@
         main.className = "main";
         if (main.tagName === "BUTTON") main.type = "button";
         var name = document.createElement("span");
-        name.className = "name" + (item.k === "song" && countIsOff(item) ? " count-tri" : "");
+        name.className = "name";
         if (item.k === "song") {
           name.setAttribute("data-name", item.n || "");
           name.textContent = item.n || "";
