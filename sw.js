@@ -52,7 +52,7 @@ self.addEventListener("fetch", (event) => {
       if (hit) {
         fetch(request)
           .then((response) => {
-            if (response && response.ok) {
+            if (response && response.status === 200) {
               caches.open(CACHE).then((cache) => cache.put(request, response)).catch(() => {});
             }
           })
@@ -60,7 +60,7 @@ self.addEventListener("fetch", (event) => {
         return hit;
       }
       return fetch(request).then((response) => {
-        if (response && response.ok && response.type === "basic") {
+        if (response && response.status === 200 && response.type === "basic") {
           const copy = response.clone();
           caches.open(CACHE).then((cache) => cache.put(request, copy)).catch(() => {});
         }

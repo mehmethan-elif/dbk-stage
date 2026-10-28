@@ -2086,6 +2086,8 @@
       return playPos - (Number(song.p) || 0) + countTrim(song);
     }
 
+    var OFFLINE_CACHE = "dbk-stage-v1";
+    var practiceBlobUrl = "";
     var practiceEl = null;
     var practiceElSong = "";
     var practiceEndGuid = "";
@@ -2124,20 +2126,43 @@
 
     // Giving the element the file starts the download at once, so Play waits for
     // the first seconds of it instead of the whole file plus a full decode.
+    function practiceAudioSource(name) {
+      var url = "DBK_Stage/" + webFile(name) + ".mp3";
+      if (!window.caches) return Promise.resolve(url);
+      return caches.open(OFFLINE_CACHE).then(function(cache) {
+        return cache.match(url);
+      }).then(function(hit) {
+        if (!hit) return url;
+        return hit.blob().then(function(blob) {
+          return URL.createObjectURL(blob);
+        });
+      }).catch(function() {
+        return url;
+      });
+    }
+
     function preparePracticeAudio(name) {
       if (!name) return;
       var el = ensurePracticeAudioEl();
       if (practiceElSong === name) return;
       practiceElSong = name;
-      el.src = "DBK_Stage/" + webFile(name) + ".mp3";
+      practiceAudioSource(name).then(function(url) {
+        if (practiceElSong !== name) {
+          if (url.indexOf("blob:") === 0) URL.revokeObjectURL(url);
+          return;
+        }
+        if (practiceBlobUrl && practiceBlobUrl !== url) {
+          try { URL.revokeObjectURL(practiceBlobUrl); } catch (err) {}
+        }
+        practiceBlobUrl = url.indexOf("blob:") === 0 ? url : "";
+        el.src = url;
+      });
     }
 
     function warmPracticeAudio(name) {
       if (!name || practiceWarmed[name]) return;
       practiceWarmed[name] = true;
-      fetch("DBK_Stage/" + webFile(name) + ".mp3").then(function(res) {
-        if (res.ok) return res.arrayBuffer();
-      }).catch(function() {
+      cacheFile("DBK_Stage/" + webFile(name) + ".mp3").catch(function() {
         delete practiceWarmed[name];
       });
     }
@@ -4402,7 +4427,44 @@
       bar.classList.remove("on");
     }
 
-    function downloadOfflineFiles(files) {
+    function cacheFile(url) {
+      return Promise.resolve().then(function() {
+        if (!window.caches) throw new Error("nocache");
+        return caches.open(OFFLINE_CACHE);
+      }).then(function(cache) {
+        return cache.match(url).then(function(hit) {
+          if (hit) return 0;
+          return fetch(url).then(function(res) {
+            if (!res || !res.ok || res.status !== 200) throw new Error("fetch");
+            var size = Number(res.headers.get("content-length")) || 0;
+            return cache.put(url, res.clone()).then(function() {
+              return size;
+            });
+          });
+        });
+      });
+    }
+
+    function verifyOfflineFiles(files) {
+      if (!window.caches) return Promise.resolve(files);
+      return caches.open(OFFLINE_CACHE).then(function(cache) {
+        var missing = [];
+        var index = 0;
+        function next() {
+          if (index >= files.length) return Promise.resolve(missing);
+          var file = files[index++];
+          return cache.match(file).then(function(hit) {
+            if (!hit) missing.push(file);
+          }).then(next);
+        }
+        return next();
+      }).catch(function() {
+        return files;
+      });
+    }
+
+    function downloadOfflineFiles(files, sizes) {
+      sizes = sizes || {};
       var index = 0;
       var failed = 0;
       return new Promise(function(resolve) {
@@ -4416,8 +4478,8 @@
             return;
           }
           var file = files[index++];
-          fetch(file).then(function(res) {
-            offlineState.got += Number(res.headers.get("content-length")) || 0;
+          cacheFile(file).then(function(fresh) {
+            offlineState.got += Number(sizes[file]) || Number(fresh) || 0;
             offlineState.count = index;
             paintOfflineBar();
             next();
@@ -4465,13 +4527,23 @@
         offlineState.got = 0;
         offlineState.count = 0;
         paintOfflineBar();
-        downloadOfflineFiles(files).then(function(completed) {
-          offlineState.busy = false;
-          if (completed) {
+        downloadOfflineFiles(files, manifest.sizes).then(function(completed) {
+          if (!completed) {
+            offlineState.busy = false;
+            paintOfflineBar();
+            return;
+          }
+          return verifyOfflineFiles(files).then(function(missing) {
+            offlineState.busy = false;
+            if (missing.length) {
+              // Say it is incomplete instead of pretending, so Resume is offered.
+              paintOfflineBar();
+              return;
+            }
             offlineState.done = true;
             try { localStorage.setItem("dbkOfflineVersion", manifest.version || ""); } catch (err) {}
-          }
-          paintOfflineBar();
+            paintOfflineBar();
+          });
         });
       }).catch(function() {});
     }
