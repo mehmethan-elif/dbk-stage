@@ -1266,8 +1266,8 @@
     }
     #offline-bar.on { display: flex; }
     #offline-bar .txt { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    #offline-bar .bar { flex: 0 1 120px; height: 6px; border-radius: 3px; background: #33333c; overflow: hidden; }
-    #offline-bar .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+    #offline-bar .bar { flex: 0 0 110px; height: 8px; border-radius: 4px; background: #3a3a44; overflow: hidden; }
+    #offline-bar .bar i { display: block; height: 100%; width: 0; background: #e8913a; transition: width .25s linear; }
     #offline-bar button { border: 0; border-radius: 6px; padding: 7px 12px; background: #2e2e36; color: var(--text); font: inherit; }
     #offline-bar button[hidden] { display: none; }
     #mixer-faders {
@@ -4361,13 +4361,8 @@
       bar = document.createElement("div");
       bar.id = "offline-bar";
       bar.innerHTML = '<span class="txt"></span><span class="bar"><i></i></span>'
-        + '<button type="button" class="go" hidden>Download</button>'
-        + '<button type="button" class="stop">Cancel</button>';
+        + '<button type="button" class="go" hidden>Download</button>';
       document.body.appendChild(bar);
-      bar.querySelector(".stop").addEventListener("click", function() {
-        offlineState.cancel = true;
-        paintOfflineBar();
-      });
       bar.querySelector(".go").addEventListener("click", function() {
         startOfflinePack(true);
       });
@@ -4384,13 +4379,11 @@
       var txt = bar.querySelector(".txt");
       var fill = bar.querySelector(".bar i");
       var go = bar.querySelector(".go");
-      var stop = bar.querySelector(".stop");
       if (offlineState.done) {
         bar.classList.add("on");
         txt.textContent = "Offline ready · " + offlineMb(offlineState.total);
         fill.style.width = "100%";
         go.hidden = true;
-        stop.hidden = true;
         clearTimeout(paintOfflineBar.hide);
         paintOfflineBar.hide = setTimeout(function() { bar.classList.remove("on"); }, 6000);
         return;
@@ -4410,7 +4403,6 @@
           + " / " + offlineMb(offlineState.total) + speed;
         fill.style.width = pct + "%";
         go.hidden = true;
-        stop.hidden = false;
         bar.classList.add("on");
         return;
       }
@@ -4419,7 +4411,6 @@
         fill.style.width = "0%";
         go.textContent = "Download";
         go.hidden = false;
-        stop.hidden = true;
         bar.classList.add("on");
         return;
       }
@@ -4431,7 +4422,6 @@
         fill.style.width = "0%";
         go.textContent = "Resume";
         go.hidden = false;
-        stop.hidden = true;
         bar.classList.add("on");
         return;
       }
