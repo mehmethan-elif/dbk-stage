@@ -2623,16 +2623,24 @@
       return kita > 0 ? "KITA " + kita : "";
     }
 
+    function songTempo(data) {
+      var map = (data && data.tempoMap) || [];
+      if (!map.length) return "";
+      var bpm = Number(map[0].bpm);
+      if (!(bpm > 0)) return "";
+      return (Math.round(bpm * 10) / 10) + " BPM";
+    }
+
     function songMetaParts(data, page) {
       var parts = [];
       var tone = toneScale(data);
       if (tone) parts.push(tone);
-      if (page === "score") {
-        var kita = kitaLabel(data);
-        var meter = timeSignature(data);
-        if (kita) parts.push(kita);
-        if (meter) parts.push(meter);
-      }
+      var kita = kitaLabel(data);
+      if (kita) parts.push(kita);
+      var meter = timeSignature(data);
+      if (meter) parts.push(meter);
+      var tempo = songTempo(data);
+      if (tempo) parts.push(tempo);
       return parts;
     }
 
