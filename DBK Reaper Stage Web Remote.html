@@ -1642,6 +1642,9 @@
     var lastHbChange = 0;
     var lastScrollKey = "";
     var playPos = 0;
+    var playPosAt = 0;
+    var playState = 0;
+    var playPosLast = -1;
     var remoteReady = false;
     var practiceMode = false;
     var practiceSel = "";
@@ -2143,6 +2146,19 @@
       return mark;
     }
 
+    // The transport position arrives a few times a second, so it is advanced
+    // locally between packets: the highlight shows "now", not the last packet.
+    function stagePosition() {
+      if (playState === 1 || playState === 5) {
+        var t = playPos + (performance.now() - playPosAt) / 1000;
+        if (playPosLast >= 0 && t < playPosLast) t = playPosLast;
+        playPosLast = t;
+        return t;
+      }
+      playPosLast = playPos;
+      return playPos;
+    }
+
     function songOffset() {
       var song = selectedSongRow();
       if (!song) return null;
@@ -2151,7 +2167,7 @@
         if (t < 0) t = 0;
         return t;
       }
-      return playPos - (Number(song.p) || 0) + countTrim(song);
+      return stagePosition() - (Number(song.p) || 0) + countTrim(song);
     }
 
     var OFFLINE_CACHE = "dbk-stage-v1";
@@ -7839,6 +7855,10 @@
         var tok = lines[i].split("\t");
         if (tok[0] === "TRANSPORT") {
           playPos = parseFloat(tok[2]) || 0;
+          playState = parseInt(tok[1], 10) || 0;
+          playPosAt = performance.now();
+          if (playState !== 1 && playState !== 5) playPosLast = playPos;
+          else if (playPosLast >= 0 && playPos < playPosLast - 0.35) playPosLast = playPos;
           updateHead();
           if (viewPage === "lyrics") markLyrics();
           if (viewPage === "score") markScore();
@@ -7912,6 +7932,25 @@
     }
 
     setInterval(paint, 500);
+    // Mixer meters are the only heavy payload; they are requested only while the
+    // mixer is actually on screen.
+    setInterval(function() {
+      if (!mixerOpen || practiceMode) return;
+      if (typeof wwr_req !== "function") return;
+      wwr_req("GET/EXTSTATE/DBK_STAGE/rn;GET/EXTSTATE/DBK_STAGE/r0;GET/EXTSTATE/DBK_STAGE/r1;GET/EXTSTATE/DBK_STAGE/r2;GET/EXTSTATE/DBK_STAGE/r3");
+    }, 400);
+    var stageFrameAt = 0;
+    function stageFrame(now) {
+      if (!practiceMode && (playState === 1 || playState === 5) && now - stageFrameAt >= 30) {
+        stageFrameAt = now;
+        if (viewPage === "lyrics") markLyrics();
+        else if (viewPage === "score") markScore();
+        else if (viewPage === "chords") markChart("chords");
+        else if (viewPage === "drums") markChart("drums");
+      }
+      requestAnimationFrame(stageFrame);
+    }
+    requestAnimationFrame(stageFrame);
     setInterval(function() {
       if (!practiceMode || (!practicePlaying && !practiceChain)) return;
       followPracticeChain();
@@ -7926,9 +7965,9 @@
     if (typeof wwr_start === "function") {
       wwr_start();
       wwr_req_recur("TRANSPORT", 120);
-      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/meta;GET/EXTSTATE/DBK_STAGE/outputs;GET/EXTSTATE/DBK_STAGE/rn;GET/EXTSTATE/DBK_STAGE/r0;GET/EXTSTATE/DBK_STAGE/r1;GET/EXTSTATE/DBK_STAGE/r2;GET/EXTSTATE/DBK_STAGE/r3", 200);
+      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/meta;GET/EXTSTATE/DBK_STAGE/outputs", 500);
       // Slow fallback for the song list; the fast path is the rev check in meta.
-      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/songs", 2000);
+      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/songs", 5000);
     } else {
       remoteReady = true;
       paint();
