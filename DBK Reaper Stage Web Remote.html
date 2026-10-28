@@ -1661,6 +1661,7 @@
     var practiceStartAt = 0;
     var practicePlaying = false;
     var practiceChain = false;
+    var practiceChainTimer = null;
     var catalogTried = false;
     var songFile = null;
     var songFileName = "";
@@ -2174,6 +2175,8 @@
     }
 
     function stopPracticeAudio() {
+      clearTimeout(practiceChainTimer);
+      practiceChainTimer = null;
       if (practiceEl) {
         if (practicePlaying && !practiceEl.paused) practiceOffset = practiceEl.currentTime;
         try { practiceEl.pause(); } catch (err) {}
@@ -2415,22 +2418,31 @@
             paint();
           });
         }
+        // Fire the handover at the marker itself rather than waiting for the
+        // 80 ms poll, so the next song starts on time.
+        var nextAt = practiceNextAt(song);
+        if (nextAt > 0 && !practiceStops(song)) {
+          clearTimeout(practiceChainTimer);
+          var delay = Math.max(0, (nextAt - practiceOffset) * 1000 - 25);
+          practiceChainTimer = setTimeout(function() {
+            if (!practiceMode || !practicePlaying || practiceChain) return;
+            followPracticeChain();
+          }, delay);
+        }
         paint();
       }
       // When chaining, the element still holds the previous song, so begin()
       // must wait until the new source is actually the one loaded.
       if (practiceSrcName === name && el.readyState >= 1) begin();
       else {
-        var tries = 0;
-        var waitForSource = setInterval(function() {
-          tries += 1;
-          if (practiceSrcName === name && el.readyState >= 1) {
-            clearInterval(waitForSource);
-            begin();
-          } else if (tries > 120) {
-            clearInterval(waitForSource);
-          }
-        }, 100);
+        var onReady = function() {
+          if (practiceSrcName !== name) return;
+          el.removeEventListener("loadedmetadata", onReady);
+          el.removeEventListener("canplay", onReady);
+          begin();
+        };
+        el.addEventListener("loadedmetadata", onReady);
+        el.addEventListener("canplay", onReady);
       }
     }
 
