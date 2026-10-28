@@ -2514,22 +2514,48 @@
       return true;
     }
 
+    function mergePracticeLibrary(setlistRows, catalogRows) {
+      var out = [];
+      var names = {};
+      var finalAt = -1;
+      for (var i = 0; i < setlistRows.length; i++) {
+        var row = setlistRows[i];
+        if (row && row.k === "song" && row.n) names[row.n] = true;
+        if (row && row.k === "final") finalAt = i;
+        out.push(row);
+      }
+      if (!catalogRows) return out;
+      var extra = [];
+      for (var j = 0; j < catalogRows.length; j++) {
+        var item = catalogRows[j];
+        if (!item || item.k !== "song" || !item.n || names[item.n]) continue;
+        extra.push({ k: "song", g: item.g, n: item.n, d: item.d, p: item.p, set: 0, c: item.c });
+      }
+      if (!extra.length) return out;
+      var insertAt = finalAt >= 0 ? finalAt : out.length;
+      return out.slice(0, insertAt).concat(extra, out.slice(insertAt));
+    }
+
     function ensurePracticeList() {
       adoptPracticeSelection();
       if (rows.length || catalogTried) return;
       catalogTried = true;
-      fetch("DBK_Stage/practice-setlist.json").then(function(res) {
+      var setlistReq = fetch("DBK_Stage/practice-setlist.json").then(function(res) {
         if (!res.ok) throw new Error("practice");
         return res.json();
-      }).then(function(list) {
-        if (!applyPracticeRows(list)) throw new Error("empty");
-      }).catch(function() {
-        return fetch("DBK_Stage/catalog.json").then(function(res) {
-          if (!res.ok) throw new Error("catalog");
-          return res.json();
-        }).then(function(list) {
-          applyPracticeRows(list);
-        });
+      }).catch(function() { return null; });
+      var catalogReq = fetch("DBK_Stage/catalog.json").then(function(res) {
+        if (!res.ok) throw new Error("catalog");
+        return res.json();
+      }).catch(function() { return null; });
+      Promise.all([setlistReq, catalogReq]).then(function(results) {
+        var setlist = results[0];
+        var catalog = results[1];
+        var body = setlist && setlist.rows ? setlist.rows : (Array.isArray(setlist) ? setlist : null);
+        var catalogRows = Array.isArray(catalog) ? catalog : (catalog && catalog.rows ? catalog.rows : null);
+        if (!body) body = catalogRows;
+        if (!body || !body.length) return;
+        applyPracticeRows(setlist ? mergePracticeLibrary(body, catalogRows) : body);
       }).catch(function() {});
     }
 
