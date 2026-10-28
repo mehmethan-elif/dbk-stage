@@ -2117,6 +2117,24 @@
       return countTrim(song) > 0;
     }
 
+    function nextCountOffSong(name) {
+      var index = -1;
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].k === "song" && rows[i].n === name) { index = i; break; }
+      }
+      if (index < 0) return null;
+      for (var j = index + 1; j < rows.length; j++) {
+        if (rows[j].k === "song") {
+          return countIsOff(rows[j]) ? (rows[j].n || "") : null;
+        }
+      }
+      return null;
+    }
+
+    function finalCueLabel(data) {
+      return nextCountOffSong(data && data.title) || "FINAL";
+    }
+
     function countOffMark() {
       var mark = document.createElement("span");
       mark.className = "count-off-mark";
@@ -2737,7 +2755,7 @@
         parent.appendChild(node);
       }
       }
-      appendCueBars(parent, cueKinds(data));
+      appendCueBars(parent, cueKinds(data), data);
       return list;
     }
 
@@ -3264,7 +3282,7 @@
         }
         list.appendChild(block);
       }
-      appendCueBars(list, sheet.cues || cueKinds(data));
+      appendCueBars(list, sheet.cues || cueKinds(data), data);
       parent.appendChild(list);
     }
 
@@ -3383,13 +3401,13 @@
       return "soon";
     }
 
-    function appendCueBars(list, cues) {
+    function appendCueBars(list, cues, data) {
       for (var i = 0; i < cues.length; i++) {
         var kind = cues[i];
         var bar = document.createElement("div");
         bar.className = "song-cue-bar tone-" + (kind === "rall" ? "rall" : "final") + " idle";
         bar.setAttribute("data-cue", kind);
-        bar.textContent = kind === "rall" ? "RALL" : "FINAL";
+        bar.textContent = kind === "rall" ? "RALL" : finalCueLabel(data);
         list.appendChild(bar);
       }
     }
@@ -3432,6 +3450,7 @@
         var same = have.length === cues.length;
         for (var c = 0; same && c < cues.length; c++) {
           if (have[c].getAttribute("data-cue") !== cues[c]) same = false;
+          else if (have[c].textContent !== (cues[c] === "rall" ? "RALL" : finalCueLabel(data))) same = false;
         }
         if (same) continue;
         footer.innerHTML = "";
@@ -3439,7 +3458,7 @@
           var mark = document.createElement("div");
           mark.className = "score-cue " + cues[n] + " idle";
           mark.setAttribute("data-cue", cues[n]);
-          mark.textContent = cues[n] === "rall" ? "RALL" : "FINAL";
+          mark.textContent = cues[n] === "rall" ? "RALL" : finalCueLabel(data);
           footer.appendChild(mark);
         }
       }
@@ -3842,7 +3861,7 @@
         if (showGrids) pack.appendChild(grids);
         list.appendChild(pack);
       }
-      appendCueBars(list, sheet.cues || cueKinds(data));
+      appendCueBars(list, sheet.cues || cueKinds(data), data);
       parent.appendChild(list);
     }
 
