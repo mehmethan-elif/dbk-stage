@@ -2064,19 +2064,83 @@
       return playPos - (Number(song.p) || 0) + countTrim(song);
     }
 
+    var practiceEl = null;
+    var practiceElSong = "";
+    var practiceEndGuid = "";
+    var practiceWarmed = {};
+
     function practiceAudioTime() {
-      if (!practicePlaying || !practiceCtx) return practiceOffset;
-      return practiceOffset + (practiceCtx.currentTime - practiceStartAt);
+      if (practicePlaying && practiceEl && !practiceEl.paused) {
+        return practiceEl.currentTime;
+      }
+      return practiceOffset;
     }
 
     function stopPracticeAudio() {
-      if (practicePlaying) practiceOffset = practiceAudioTime();
-      if (practiceSource) {
-        try { practiceSource.onended = null; practiceSource.stop(); } catch (err) {}
-        try { practiceSource.disconnect(); } catch (err2) {}
-        practiceSource = null;
+      if (practiceEl) {
+        if (practicePlaying && !practiceEl.paused) practiceOffset = practiceEl.currentTime;
+        try { practiceEl.pause(); } catch (err) {}
       }
       practicePlaying = false;
+    }
+
+    function ensurePracticeAudioEl() {
+      if (practiceEl) return practiceEl;
+      practiceEl = document.createElement("audio");
+      practiceEl.preload = "auto";
+      practiceEl.setAttribute("playsinline", "");
+      practiceEl.setAttribute("webkit-playsinline", "");
+      practiceEl.style.display = "none";
+      practiceEl.addEventListener("ended", onPracticeAudioEnded);
+      practiceEl.addEventListener("error", function() {
+        practicePlaying = false;
+        paint();
+      });
+      document.body.appendChild(practiceEl);
+      return practiceEl;
+    }
+
+    // Giving the element the file starts the download at once, so Play waits for
+    // the first seconds of it instead of the whole file plus a full decode.
+    function preparePracticeAudio(name) {
+      if (!name) return;
+      var el = ensurePracticeAudioEl();
+      if (practiceElSong === name) return;
+      practiceElSong = name;
+      el.src = "DBK_Stage/" + webFile(name) + ".mp3";
+    }
+
+    function warmPracticeAudio(name) {
+      if (!name || practiceWarmed[name]) return;
+      practiceWarmed[name] = true;
+      fetch("DBK_Stage/" + webFile(name) + ".mp3").then(function(res) {
+        if (res.ok) return res.arrayBuffer();
+      }).catch(function() {
+        delete practiceWarmed[name];
+      });
+    }
+
+    function onPracticeAudioEnded() {
+      practicePlaying = false;
+      if (!practiceMode) {
+        paint();
+        return;
+      }
+      var guid = practiceEndGuid;
+      if (practiceChain || practiceSel !== guid) {
+        paint();
+        return;
+      }
+      var ended = null;
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].k === "song" && rows[i].g === guid) ended = rows[i];
+      }
+      if (!ended) {
+        paint();
+        return;
+      }
+      if (practiceStops(ended)) finishPracticeAtStop(ended);
+      else continuePracticeAtNext(ended);
     }
 
     function ensurePracticeCtx() {
@@ -2164,7 +2228,7 @@
       }
       practiceSel = next.g;
       practiceOffset = practiceSongStart(next);
-      loadPracticeSong(next.n);
+      warmPracticeAudio(next.n);
       requestSongFile(next.n, true);
       paint();
     }
@@ -2191,7 +2255,7 @@
       var at = practiceNextAt(song);
       var next = practiceNextSong(song);
       if (next && (!(at > 0) || practiceAudioTime() > at - 8)) {
-        loadPracticeSong(next.n);
+        warmPracticeAudio(next.n);
         requestSongFile(next.n, false);
       }
       if (!(at > 0) || practiceAudioTime() + 0.02 < at) return;
@@ -2201,68 +2265,44 @@
     function startPractice(offset) {
       var song = selectedSongRow();
       if (!song) return;
-      var ctx = ensurePracticeCtx();
-      if (!ctx) return;
       var name = song.n;
       var guid = song.g;
+      var el = ensurePracticeAudioEl();
+      preparePracticeAudio(name);
       requestSongFile(name, false);
       var upcoming = practiceNextSong(song);
       if (upcoming) {
-        loadPracticeSong(upcoming.n);
+        warmPracticeAudio(upcoming.n);
         requestSongFile(upcoming.n, false);
       }
-      loadPracticeSong(name).then(function(buffer) {
-        if (!practiceMode) return;
-        var current = selectedSongRow();
-        if (!current || current.g !== guid) {
-          practiceChain = false;
-          paint();
-          return;
-        }
-        stopPracticeAudio();
-        var dur = buffer.duration || 0;
-        var at = Math.max(0, Number(offset) || 0);
+      var at = Math.max(0, Number(offset) || 0);
+      practiceSong = name;
+      practiceEndGuid = guid;
+      practiceOffset = at;
+      practicePlaying = true;
+      practiceChain = false;
+      function begin() {
+        if (!practiceMode || practiceElSong !== name) return;
+        var dur = el.duration;
         if (dur > 0 && at >= dur - 0.05) at = 0;
-        var src = ctx.createBufferSource();
-        src.buffer = buffer;
-        src.connect(ctx.destination);
-        practiceSong = name;
+        try { el.currentTime = at; } catch (err) {}
         practiceOffset = at;
-        practiceStartAt = ctx.currentTime;
-        practicePlaying = true;
-        practiceChain = false;
-        src.onended = function() {
-          if (practiceSource !== src) return;
-          practiceSource = null;
-          practicePlaying = false;
-          practiceOffset = dur || practiceOffset;
-          if (practiceChain || !practiceMode || practiceSel !== guid) {
+        var started = el.play();
+        if (started && started.catch) {
+          started.catch(function() {
+            practicePlaying = false;
             paint();
-            return;
-          }
-          var ended = null;
-          for (var i = 0; i < rows.length; i++) {
-            if (rows[i].k === "song" && rows[i].g === guid) ended = rows[i];
-          }
-          if (!ended) {
-            paint();
-            return;
-          }
-          if (practiceStops(ended)) finishPracticeAtStop(ended);
-          else continuePracticeAtNext(ended);
-        };
-        practiceSource = src;
-        try { src.start(0, at); } catch (err) {
-          practicePlaying = false;
-          practiceChain = false;
-          practiceSource = null;
+          });
         }
         paint();
-      }).catch(function() {
-        practicePlaying = false;
-        practiceChain = false;
-        paint();
-      });
+      }
+      if (el.readyState >= 1) begin();
+      else {
+        el.addEventListener("loadedmetadata", function once() {
+          el.removeEventListener("loadedmetadata", once);
+          begin();
+        });
+      }
     }
 
     function togglePractice() {
@@ -2377,7 +2417,10 @@
       practiceOffset = 0;
       practiceSel = guid;
       var song = selectedSongRow();
-      if (song) loadPracticeSong(song.n);
+      if (song) {
+        preparePracticeAudio(song.n);
+        warmPracticeScore(song.n);
+      }
       if (same && was) startPractice(0);
       paint();
     }
@@ -4236,10 +4279,21 @@
     }
 
     function fetchScoreBytes(name) {
-      return fetch("DBK_Stage/" + webFile(name) + ".pdf?t=" + Date.now(), { cache: "no-store" }).then(function(response) {
+      // On stage the score can be re-exported while the page is open, so it is
+      // re-read every time. At home the file is fixed and is cached normally.
+      var url = "DBK_Stage/" + webFile(name) + ".pdf";
+      if (!practiceMode) url += "?t=" + Date.now();
+      return fetch(url, { cache: practiceMode ? "default" : "no-store" }).then(function(response) {
         if (!response.ok) throw new Error("missing");
         return response.arrayBuffer();
       });
+    }
+
+    function warmPracticeScore(name) {
+      if (!name || !practiceMode || scoreDocs[name]) return;
+      fetch("DBK_Stage/" + webFile(name) + ".pdf", { cache: "default" }).then(function(res) {
+        if (res.ok) return res.arrayBuffer();
+      }).catch(function() {});
     }
 
     function loadScoreDoc(name) {
@@ -5726,6 +5780,8 @@
     }
 
     function refreshScoreFiles(pair) {
+      // The hosted scores never change while the page is open.
+      if (practiceMode) return;
       if (scoreCheckBusy || Date.now() - scoreCheckAt < 1500) return;
       scoreCheckAt = Date.now();
       scoreCheckBusy = true;
@@ -5902,7 +5958,14 @@
     function syncPracticeMode() {
       var live = liveNow();
       if (remoteReady && !live) {
-        if (!practiceMode) practiceMode = true;
+        if (!practiceMode) {
+          practiceMode = true;
+          // Fetch the score engine in the background while the list is read, so
+          // the first score page does not wait for its 1.8 MB.
+          setTimeout(function() {
+            if (practiceMode) ensurePdfJs();
+          }, 2500);
+        }
         ensurePracticeList();
         return;
       }
