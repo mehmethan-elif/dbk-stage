@@ -2532,7 +2532,9 @@
         extra.push({ k: "song", g: item.g, n: item.n, d: item.d, p: item.p, set: 0, c: item.c });
       }
       if (!extra.length) return out;
-      var insertAt = finalAt >= 0 ? finalAt : out.length;
+      // Library songs belong after the CONCERT FINAL row: the final row stays at
+      // the end of the setlist, and everything after it is the library.
+      var insertAt = finalAt >= 0 ? finalAt + 1 : out.length;
       return out.slice(0, insertAt).concat(extra, out.slice(insertAt));
     }
 
