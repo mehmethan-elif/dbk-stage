@@ -26,6 +26,9 @@ jobs:
         run: |
           mkdir -p _site/DBK_Stage
           cp "DBK Reaper Stage Web Remote.html" _site/index.html
+          cp sw.js _site/sw.js
+          cp manifest.webmanifest _site/manifest.webmanifest
+          cp -R icons _site/icons
           cp -R DBK_Stage/. _site/DBK_Stage/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5

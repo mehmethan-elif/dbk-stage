@@ -1248,6 +1248,28 @@
       padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
     }
     #mixer-row[hidden] { display: none; }
+    #offline-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      background: #1a1a20;
+      border-top: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    #offline-bar.on { display: flex; }
+    #offline-bar .txt { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #offline-bar .bar { flex: 0 1 120px; height: 6px; border-radius: 3px; background: #33333c; overflow: hidden; }
+    #offline-bar .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+    #offline-bar button { border: 0; border-radius: 6px; padding: 7px 12px; background: #2e2e36; color: var(--text); font: inherit; }
+    #offline-bar button[hidden] { display: none; }
     #mixer-faders {
       display: grid;
       grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -4289,6 +4311,183 @@
       });
     }
 
+    var offlineTried = false;
+    var offlineState = { busy: false, done: false, offer: false, cancel: false, got: 0, total: 0, files: 0, count: 0 };
+
+    function injectPracticeHead() {
+      if (document.querySelector('link[rel="manifest"]')) return;
+      var manifest = document.createElement("link");
+      manifest.rel = "manifest";
+      manifest.href = "manifest.webmanifest";
+      document.head.appendChild(manifest);
+      var touch = document.createElement("link");
+      touch.rel = "apple-touch-icon";
+      touch.href = "icons/icon-180.png";
+      document.head.appendChild(touch);
+      var theme = document.createElement("meta");
+      theme.name = "theme-color";
+      theme.content = "#101014";
+      document.head.appendChild(theme);
+    }
+
+    function offlineBar() {
+      var bar = document.getElementById("offline-bar");
+      if (bar) return bar;
+      bar = document.createElement("div");
+      bar.id = "offline-bar";
+      bar.innerHTML = '<span class="txt"></span><span class="bar"><i></i></span>'
+        + '<button type="button" class="go" hidden>Download</button>'
+        + '<button type="button" class="stop">Cancel</button>';
+      document.body.appendChild(bar);
+      bar.querySelector(".stop").addEventListener("click", function() {
+        offlineState.cancel = true;
+        paintOfflineBar();
+      });
+      bar.querySelector(".go").addEventListener("click", function() {
+        startOfflinePack(true);
+      });
+      return bar;
+    }
+
+    function offlineMb(bytes) {
+      var mb = Math.max(0, Number(bytes) || 0) / (1024 * 1024);
+      return mb >= 1024 ? (mb / 1024).toFixed(1) + " GB" : Math.round(mb) + " MB";
+    }
+
+    function paintOfflineBar() {
+      var bar = offlineBar();
+      var txt = bar.querySelector(".txt");
+      var fill = bar.querySelector(".bar i");
+      var go = bar.querySelector(".go");
+      var stop = bar.querySelector(".stop");
+      if (offlineState.done) {
+        bar.classList.add("on");
+        txt.textContent = "Offline ready · " + offlineMb(offlineState.total);
+        fill.style.width = "100%";
+        go.hidden = true;
+        stop.hidden = true;
+        clearTimeout(paintOfflineBar.hide);
+        paintOfflineBar.hide = setTimeout(function() { bar.classList.remove("on"); }, 6000);
+        return;
+      }
+      if (offlineState.busy) {
+        var pct = offlineState.total > 0
+          ? Math.min(100, Math.round((offlineState.got / offlineState.total) * 100))
+          : 0;
+        txt.textContent = "Downloading for offline " + pct + "% · " + offlineMb(offlineState.got) + " / " + offlineMb(offlineState.total);
+        fill.style.width = pct + "%";
+        go.hidden = true;
+        stop.hidden = false;
+        bar.classList.add("on");
+        return;
+      }
+      if (offlineState.offer) {
+        txt.textContent = "Download all songs for offline · " + offlineMb(offlineState.total);
+        fill.style.width = "0%";
+        go.textContent = "Download";
+        go.hidden = false;
+        stop.hidden = true;
+        bar.classList.add("on");
+        return;
+      }
+      if (offlineState.files > 0) {
+        txt.textContent = "Offline pack incomplete · " + offlineMb(offlineState.got) + " / " + offlineMb(offlineState.total);
+        fill.style.width = "0%";
+        go.textContent = "Resume";
+        go.hidden = false;
+        stop.hidden = true;
+        bar.classList.add("on");
+        return;
+      }
+      bar.classList.remove("on");
+    }
+
+    function downloadOfflineFiles(files) {
+      var index = 0;
+      var failed = 0;
+      return new Promise(function(resolve) {
+        function next() {
+          if (offlineState.cancel) {
+            resolve(false);
+            return;
+          }
+          if (index >= files.length) {
+            resolve(failed === 0);
+            return;
+          }
+          var file = files[index++];
+          fetch(file).then(function(res) {
+            offlineState.got += Number(res.headers.get("content-length")) || 0;
+            offlineState.count = index;
+            paintOfflineBar();
+            next();
+          }).catch(function() {
+            failed += 1;
+            next();
+          });
+        }
+        var lanes = Math.max(1, Math.min(4, files.length));
+        for (var i = 0; i < lanes; i++) next();
+      });
+    }
+
+    function startOfflinePack(force) {
+      if (offlineState.busy) return;
+      fetch("DBK_Stage/offline-manifest.json", { cache: "no-store" }).then(function(res) {
+        if (!res.ok) throw new Error("manifest");
+        return res.json();
+      }).then(function(manifest) {
+        var files = (manifest && manifest.files) || [];
+        if (!files.length) return;
+        var saved = "";
+        try { saved = localStorage.getItem("dbkOfflineVersion") || ""; } catch (err) {}
+        offlineState.total = Number(manifest.total) || 0;
+        offlineState.files = files.length;
+        if (!force && manifest.version && saved === manifest.version) {
+          offlineState.done = true;
+          offlineState.offer = false;
+          paintOfflineBar();
+          return;
+        }
+        var standalone = false;
+        try {
+          standalone = window.navigator.standalone === true
+            || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+        } catch (err) {}
+        if (!force && !standalone) {
+          offlineState.offer = true;
+          paintOfflineBar();
+          return;
+        }
+        offlineState.offer = false;
+        offlineState.busy = true;
+        offlineState.cancel = false;
+        offlineState.got = 0;
+        offlineState.count = 0;
+        paintOfflineBar();
+        downloadOfflineFiles(files).then(function(completed) {
+          offlineState.busy = false;
+          if (completed) {
+            offlineState.done = true;
+            try { localStorage.setItem("dbkOfflineVersion", manifest.version || ""); } catch (err) {}
+          }
+          paintOfflineBar();
+        });
+      }).catch(function() {});
+    }
+
+    function registerPracticeOffline() {
+      if (offlineTried) return;
+      offlineTried = true;
+      injectPracticeHead();
+      if (!("serviceWorker" in navigator)) return;
+      navigator.serviceWorker.register("sw.js").then(function() {
+        return navigator.serviceWorker.ready;
+      }).then(function() {
+        startOfflinePack(false);
+      }).catch(function() {});
+    }
+
     function warmPracticeScore(name) {
       if (!name || !practiceMode || scoreDocs[name]) return;
       fetch("DBK_Stage/" + webFile(name) + ".pdf", { cache: "default" }).then(function(res) {
@@ -5963,7 +6162,9 @@
           // Fetch the score engine in the background while the list is read, so
           // the first score page does not wait for its 1.8 MB.
           setTimeout(function() {
-            if (practiceMode) ensurePdfJs();
+            if (!practiceMode) return;
+            ensurePdfJs();
+            registerPracticeOffline();
           }, 2500);
         }
         ensurePracticeList();
