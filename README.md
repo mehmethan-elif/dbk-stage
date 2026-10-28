@@ -49,3 +49,20 @@ The command prints the site URL, normally https://dbk-stage.pages.dev .
 
 The service worker, the app manifest and the offline pack work the same on both
 hosts; the GitHub Pages copy stays as a mirror.
+
+## Primary address (Cloudflare Workers)
+
+Some ISPs (including the one at the rehearsal room) answer every *.pages.dev
+name with a block page, so the practice site is published as a Cloudflare
+Worker instead:
+
+    https://dbk-stage.dbkstage.workers.dev
+
+Publish after the songs change:
+
+```bash
+./scripts/deploy-worker.sh
+```
+
+`https://dbk-stage.pages.dev` stays as a mirror for networks where pages.dev
+works.

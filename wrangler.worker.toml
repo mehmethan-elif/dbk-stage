@@ -1,0 +1,6 @@
+name = "dbk-stage"
+compatibility_date = "2025-01-01"
+
+# Static assets are uploaded from _site (built by scripts/deploy-worker.sh).
+[assets]
+directory = "./_site"
