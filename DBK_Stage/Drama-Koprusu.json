@@ -3,7 +3,6 @@
   "version": 1,
   "title": "Drama Köprüsü",
   "duration": 217.554656,
-  "clickDuration": 217.554656,
   "nextSongAt": 208.080972,
   "key": "D",
   "scale": "Minör",
@@ -17,17 +16,17 @@
     { "time": 204.923077, "measure": 73, "bpm": 95, "numerator": 10, "denominator": 8 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 2.884616 },
-    { "name": "ARA", "start": 2.884616, "end": 25.961539 },
-    { "name": "SAN A", "start": 25.961539, "end": 43.269231 },
-    { "name": "SAN B", "start": 43.269231, "end": 66.346154 },
-    { "name": "SAN C", "start": 66.346154, "end": 83.653847 },
-    { "name": "SAN D", "start": 83.653847, "end": 106.73077 },
-    { "name": "ARA", "start": 106.73077, "end": 129.807693 },
-    { "name": "SAN A", "start": 129.807693, "end": 147.115385 },
-    { "name": "SAN B", "start": 147.115385, "end": 170.192308 },
-    { "name": "SAN C", "start": 170.192308, "end": 187.5 },
-    { "name": "SAN D", "start": 187.5, "end": 211.238867 }
+    { "name": "COUNT", "start": 0, "end": 2.884616, "measure": 1, "beat": 264, "endMeasure": 1841, "endBeat": 1, "qn": 5800.499999, "endQn": 5805.5 },
+    { "name": "ARA", "start": 2.884616, "end": 25.961539, "measure": 3, "beat": 1, "endMeasure": 1849, "endBeat": 1, "qn": 5805.5, "endQn": 5845.5 },
+    { "name": "SAN A", "start": 25.961539, "end": 43.269231, "measure": 11, "beat": 1, "endMeasure": 1854, "endBeat": 1, "qn": 5845.5, "endQn": 5875.5 },
+    { "name": "SAN B", "start": 43.269231, "end": 66.346154, "measure": 16, "beat": 1, "endMeasure": 1862, "endBeat": 1, "qn": 5875.5, "endQn": 5915.5 },
+    { "name": "SAN C", "start": 66.346154, "end": 83.653847, "measure": 24, "beat": 1, "endMeasure": 1869, "endBeat": 1, "qn": 5915.5, "endQn": 5945.500001 },
+    { "name": "SAN D", "start": 83.653847, "end": 106.73077, "measure": 31, "beat": 1, "endMeasure": 1877, "endBeat": 1, "qn": 5945.500001, "endQn": 5985.500001 },
+    { "name": "ARA", "start": 106.73077, "end": 129.807693, "measure": 39, "beat": 1, "endMeasure": 1885, "endBeat": 1, "qn": 5985.500001, "endQn": 6025.500001 },
+    { "name": "SAN A", "start": 129.807693, "end": 147.115385, "measure": 47, "beat": 1, "endMeasure": 1891, "endBeat": 1, "qn": 6025.500001, "endQn": 6055.5 },
+    { "name": "SAN B", "start": 147.115385, "end": 170.192308, "measure": 53, "beat": 1, "endMeasure": 1898, "endBeat": 1, "qn": 6055.5, "endQn": 6095.5 },
+    { "name": "SAN C", "start": 170.192308, "end": 187.5, "measure": 60, "beat": 1, "endMeasure": 1904, "endBeat": 1, "qn": 6095.5, "endQn": 6125.499999 },
+    { "name": "SAN D", "start": 187.5, "end": 211.238867, "measure": 66, "beat": 1, "endMeasure": 1913, "endBeat": 1, "qn": 6125.499999, "endQn": 6165.5 }
   ],
   "lyrics": [
     { "time": 25.961539, "end": 43.269231, "measure": 11, "beat": 1, "text": "DRAMA KÖPRÜSÜNÜ BRE HASAN\r\nGECE Mİ GEÇTİN HASAN\r\nGECE Mİ GEÇTİN" },

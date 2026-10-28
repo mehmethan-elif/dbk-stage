@@ -3,7 +3,6 @@
   "version": 1,
   "title": "Nemrudun Kızı",
   "duration": 240.948052,
-  "clickDuration": 240.948052,
   "nextSongAt": 237.948052,
   "key": "B",
   "scale": "Hicaz",
@@ -17,17 +16,17 @@
     { "time": 231.948052, "measure": 87, "bpm": 100, "numerator": 10, "denominator": 8 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 2.727273 },
-    { "name": "ARA", "start": 2.727273, "end": 24.545455 },
-    { "name": "ARA", "start": 24.545455, "end": 46.363636 },
-    { "name": "SAN", "start": 46.363636, "end": 76.363636 },
-    { "name": "NAK 1", "start": 76.363636, "end": 98.181818 },
-    { "name": "NAK 2", "start": 98.181818, "end": 120 },
-    { "name": "ARA", "start": 120, "end": 141.818182 },
-    { "name": "ARA", "start": 141.818182, "end": 163.636364 },
-    { "name": "SAN", "start": 163.636364, "end": 193.636364 },
-    { "name": "NAK 1", "start": 193.636364, "end": 215.454546 },
-    { "name": "NAK 2", "start": 215.454546, "end": 237.948052 }
+    { "name": "COUNT", "start": 0, "end": 2.727273, "measure": 1, "beat": 10747, "endMeasure": 4305, "endBeat": 1, "qn": 14641.5, "endQn": 14646.5 },
+    { "name": "ARA", "start": 2.727273, "end": 24.545455, "measure": 3, "beat": 1, "endMeasure": 4313, "endBeat": 1, "qn": 14646.5, "endQn": 14686.500001 },
+    { "name": "ARA", "start": 24.545455, "end": 46.363636, "measure": 11, "beat": 1, "endMeasure": 4320, "endBeat": 1, "qn": 14686.500001, "endQn": 14726.499999 },
+    { "name": "SAN", "start": 46.363636, "end": 76.363636, "measure": 18, "beat": 1, "endMeasure": 4331, "endBeat": 1, "qn": 14726.499999, "endQn": 14781.499999 },
+    { "name": "NAK 1", "start": 76.363636, "end": 98.181818, "measure": 29, "beat": 1, "endMeasure": 4339, "endBeat": 1, "qn": 14781.499999, "endQn": 14821.5 },
+    { "name": "NAK 2", "start": 98.181818, "end": 120, "measure": 37, "beat": 1, "endMeasure": 4347, "endBeat": 1, "qn": 14821.5, "endQn": 14861.5 },
+    { "name": "ARA", "start": 120, "end": 141.818182, "measure": 45, "beat": 1, "endMeasure": 4356, "endBeat": 1, "qn": 14861.5, "endQn": 14901.5 },
+    { "name": "ARA", "start": 141.818182, "end": 163.636364, "measure": 54, "beat": 1, "endMeasure": 4364, "endBeat": 1, "qn": 14901.5, "endQn": 14941.500001 },
+    { "name": "SAN", "start": 163.636364, "end": 193.636364, "measure": 62, "beat": 1, "endMeasure": 4375, "endBeat": 1, "qn": 14941.500001, "endQn": 14996.500001 },
+    { "name": "NAK 1", "start": 193.636364, "end": 215.454546, "measure": 73, "beat": 1, "endMeasure": 4383, "endBeat": 1, "qn": 14996.500001, "endQn": 15036.500001 },
+    { "name": "NAK 2", "start": 215.454546, "end": 237.948052, "measure": 81, "beat": 1, "endMeasure": 4390, "endBeat": 1, "qn": 15036.500001, "endQn": 15076.5 }
   ],
   "lyrics": [
     { "time": 46.363636, "end": 51.818182, "measure": 18, "beat": 1, "text": "NEMRUT'UN KIZI YANDIRDI BİZİ" },

@@ -1368,6 +1368,21 @@
     body:not(.view-prep) #list .side.del { display: none; }
     .side.skip.skip-locked,
     .prep-act.skip.skip-locked { display: none; }
+    .row.lib {
+      background: #141416;
+      border-color: #26262a;
+      color: #9a9aa4;
+    }
+    .row.lib .row-name,
+    .row.lib .row-key,
+    .row.lib .row-sub {
+      color: #8e8e98;
+    }
+    .prep-block.lib .prep-song-row,
+    .prep-block.lib .prep-elif-row {
+      background: #141416;
+      color: #9a9aa4;
+    }
     .row {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -2454,6 +2469,12 @@
         if (passed && item.k === "song" && !item.set) library.push(item);
         else if (passed) marker.push(item);
         else head.push(item);
+      }
+      for (var m = 0; m < head.length; m++) {
+        if (head[m].k === "song") head[m].lib = false;
+      }
+      for (var n = 0; n < library.length; n++) {
+        if (library[n].k === "song") library[n].lib = true;
       }
       library.sort(libraryNameOrder);
       return head.concat(marker).concat(library);
@@ -6762,7 +6783,7 @@
           continue;
         }
         var block = document.createElement("div");
-        block.className = "prep-block";
+        block.className = "prep-block" + (item.k === "song" && item.lib ? " lib" : "");
         block.setAttribute("data-k", item.k || "");
         if (item.g) block.setAttribute("data-g", item.g);
         if (item.k === "stop" && item.a) block.setAttribute("data-auto", "1");
@@ -7069,7 +7090,7 @@
       for (var i = 0; i < rows.length; i++) {
         var item = rows[i];
         var row = document.createElement("div");
-        row.className = "row " + (item.k || "");
+        row.className = "row " + (item.k || "") + (item.lib ? " lib" : "");
         row.setAttribute("data-k", item.k || "");
         if (item.g) row.setAttribute("data-g", item.g);
         if (item.k === "song") row.setAttribute("data-set", item.set ? "1" : "0");

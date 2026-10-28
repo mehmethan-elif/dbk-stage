@@ -15,19 +15,19 @@
     { "time": 0, "measure": 1, "bpm": 105, "numerator": 4, "denominator": 4 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 4.571428 },
-    { "name": "ARA", "start": 4.571428, "end": 18.285714 },
-    { "name": "ARA", "start": 18.285714, "end": 32 },
-    { "name": "SAN A", "start": 32, "end": 41.142857 },
-    { "name": "SAN B", "start": 41.142857, "end": 50.285714 },
-    { "name": "NAK", "start": 50.285714, "end": 64 },
-    { "name": "NAK", "start": 64, "end": 77.714285 },
-    { "name": "ARA", "start": 77.714285, "end": 91.428571 },
-    { "name": "ARA", "start": 91.428571, "end": 105.142857 },
-    { "name": "SAN A", "start": 105.142857, "end": 114.285714 },
-    { "name": "SAN B", "start": 114.285714, "end": 123.428571 },
-    { "name": "NAK", "start": 123.428571, "end": 137.142857 },
-    { "name": "NAK", "start": 137.142857, "end": 150.857143 }
+    { "name": "COUNT", "start": 0, "end": 4.571428, "measure": 1, "beat": 2718, "endMeasure": 3890, "endBeat": 2721, "qn": 13559.5, "endQn": 13567.499999 },
+    { "name": "ARA", "start": 4.571428, "end": 18.285714, "measure": 2, "beat": 2721, "endMeasure": 3896, "endBeat": 2721, "qn": 13567.499999, "endQn": 13591.5 },
+    { "name": "ARA", "start": 18.285714, "end": 32, "measure": 8, "beat": 2721, "endMeasure": 3903, "endBeat": 2718, "qn": 13591.5, "endQn": 13615.5 },
+    { "name": "SAN A", "start": 32, "end": 41.142857, "measure": 15, "beat": 2718, "endMeasure": 3907, "endBeat": 2718, "qn": 13615.5, "endQn": 13631.5 },
+    { "name": "SAN B", "start": 41.142857, "end": 50.285714, "measure": 19, "beat": 2718, "endMeasure": 3910, "endBeat": 2721, "qn": 13631.5, "endQn": 13647.5 },
+    { "name": "NAK", "start": 50.285714, "end": 64, "measure": 22, "beat": 2721, "endMeasure": 3917, "endBeat": 2718, "qn": 13647.5, "endQn": 13671.5 },
+    { "name": "NAK", "start": 64, "end": 77.714285, "measure": 29, "beat": 2718, "endMeasure": 3922, "endBeat": 2721, "qn": 13671.5, "endQn": 13695.499999 },
+    { "name": "ARA", "start": 77.714285, "end": 91.428571, "measure": 34, "beat": 2721, "endMeasure": 3928, "endBeat": 2721, "qn": 13695.499999, "endQn": 13719.5 },
+    { "name": "ARA", "start": 91.428571, "end": 105.142857, "measure": 40, "beat": 2721, "endMeasure": 3935, "endBeat": 2718, "qn": 13719.5, "endQn": 13743.5 },
+    { "name": "SAN A", "start": 105.142857, "end": 114.285714, "measure": 47, "beat": 2718, "endMeasure": 3938, "endBeat": 2721, "qn": 13743.5, "endQn": 13759.5 },
+    { "name": "SAN B", "start": 114.285714, "end": 123.428571, "measure": 50, "beat": 2721, "endMeasure": 3942, "endBeat": 2721, "qn": 13759.5, "endQn": 13775.5 },
+    { "name": "NAK", "start": 123.428571, "end": 137.142857, "measure": 54, "beat": 2721, "endMeasure": 3949, "endBeat": 2718, "qn": 13775.5, "endQn": 13799.5 },
+    { "name": "NAK", "start": 137.142857, "end": 150.857143, "measure": 61, "beat": 2718, "endMeasure": 3955, "endBeat": 2718, "qn": 13799.5, "endQn": 13823.500001 }
   ],
   "lyrics": [
     { "time": 32, "end": 36.571428, "measure": 15, "beat": 2718, "text": "MAKARAM SARI BAĞLAR (oy)\r\nKIZ SÖYLER GELİN AĞLAR" },

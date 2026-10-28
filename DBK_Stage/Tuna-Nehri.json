@@ -2,9 +2,8 @@
   "id": "tuna_nehri",
   "version": 1,
   "title": "Tuna Nehri",
-  "duration": 182.940659,
-  "clickDuration": 182.940659,
-  "nextSongAt": 173.940659,
+  "duration": 182.94066,
+  "nextSongAt": 173.94066,
   "key": "B",
   "scale": "Kürdi",
   "style": "Rumeli",
@@ -15,24 +14,24 @@
     { "time": 0, "measure": 1, "bpm": 75, "numerator": 3, "denominator": 4 },
     { "time": 165.6, "measure": 71, "bpm": 70, "numerator": 3, "denominator": 4 },
     { "time": 168.171429, "measure": 72, "bpm": 65, "numerator": 3, "denominator": 4 },
-    { "time": 170.940659, "measure": 73, "bpm": 60, "numerator": 3, "denominator": 4 }
+    { "time": 170.94066, "measure": 73, "bpm": 60, "numerator": 3, "denominator": 4 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 4.8 },
-    { "name": "ARA 1", "start": 4.8, "end": 16.8 },
-    { "name": "ARA 2", "start": 16.8, "end": 28.8 },
-    { "name": "SAN 1", "start": 28.8, "end": 40.8 },
-    { "name": "SAN 2", "start": 40.8, "end": 52.8 },
-    { "name": "NAK 1", "start": 52.8, "end": 64.8 },
-    { "name": "NAK 2", "start": 64.8, "end": 76.8 },
-    { "name": "ARA 1", "start": 76.8, "end": 88.8 },
-    { "name": "ARA 2", "start": 88.8, "end": 100.8 },
-    { "name": "SAN 1", "start": 100.8, "end": 112.8 },
-    { "name": "SAN 2", "start": 112.8, "end": 124.8 },
-    { "name": "NAK 1", "start": 124.8, "end": 136.8 },
-    { "name": "NAK 2", "start": 136.8, "end": 148.8 },
-    { "name": "NAK 3", "start": 148.8, "end": 160.8 },
-    { "name": "NAK 4", "start": 160.8, "end": 173.940659 }
+    { "name": "COUNT", "start": 0, "end": 4.8, "measure": 1, "beat": 3015, "endMeasure": 5199, "endBeat": 8211, "qn": 17981.499999, "endQn": 17987.5 },
+    { "name": "ARA 1", "start": 4.8, "end": 16.8, "measure": 3, "beat": 8211, "endMeasure": 5204, "endBeat": 8211, "qn": 17987.5, "endQn": 18002.5 },
+    { "name": "ARA 2", "start": 16.8, "end": 28.8, "measure": 8, "beat": 8211, "endMeasure": 5209, "endBeat": 8211, "qn": 18002.5, "endQn": 18017.5 },
+    { "name": "SAN 1", "start": 28.8, "end": 40.8, "measure": 13, "beat": 8211, "endMeasure": 5214, "endBeat": 8211, "qn": 18017.5, "endQn": 18032.5 },
+    { "name": "SAN 2", "start": 40.8, "end": 52.8, "measure": 18, "beat": 8211, "endMeasure": 5219, "endBeat": 8211, "qn": 18032.5, "endQn": 18047.5 },
+    { "name": "NAK 1", "start": 52.8, "end": 64.8, "measure": 23, "beat": 8211, "endMeasure": 5224, "endBeat": 8211, "qn": 18047.5, "endQn": 18062.5 },
+    { "name": "NAK 2", "start": 64.8, "end": 76.8, "measure": 28, "beat": 8211, "endMeasure": 5229, "endBeat": 8211, "qn": 18062.5, "endQn": 18077.5 },
+    { "name": "ARA 1", "start": 76.8, "end": 88.8, "measure": 33, "beat": 8211, "endMeasure": 5234, "endBeat": 8211, "qn": 18077.5, "endQn": 18092.5 },
+    { "name": "ARA 2", "start": 88.8, "end": 100.8, "measure": 38, "beat": 8211, "endMeasure": 5239, "endBeat": 8211, "qn": 18092.5, "endQn": 18107.5 },
+    { "name": "SAN 1", "start": 100.8, "end": 112.8, "measure": 43, "beat": 8211, "endMeasure": 5244, "endBeat": 8211, "qn": 18107.5, "endQn": 18122.5 },
+    { "name": "SAN 2", "start": 112.8, "end": 124.8, "measure": 48, "beat": 8211, "endMeasure": 5249, "endBeat": 8211, "qn": 18122.5, "endQn": 18137.5 },
+    { "name": "NAK 1", "start": 124.8, "end": 136.8, "measure": 53, "beat": 8211, "endMeasure": 5254, "endBeat": 8211, "qn": 18137.5, "endQn": 18152.5 },
+    { "name": "NAK 2", "start": 136.8, "end": 148.8, "measure": 58, "beat": 8211, "endMeasure": 5259, "endBeat": 8211, "qn": 18152.5, "endQn": 18167.5 },
+    { "name": "NAK 3", "start": 148.8, "end": 160.8, "measure": 63, "beat": 8211, "endMeasure": 5264, "endBeat": 8211, "qn": 18167.5, "endQn": 18182.5 },
+    { "name": "NAK 4", "start": 160.8, "end": 173.94066, "measure": 68, "beat": 8211, "endMeasure": 5270, "endBeat": 8209, "qn": 18182.5, "endQn": 18197.5 }
   ],
   "lyrics": [
     { "time": 28.8, "end": 38.4, "measure": 13, "beat": 8211, "text": "TUNA NEHRİ AKMAM DİYOR\r\nETRAFIMI YIKMAM DİYOR" },
@@ -53,8 +52,8 @@
     { "time": 146.4, "end": 148.8, "measure": 62, "beat": 8211, "text": "CEVAP" },
     { "time": 148.8, "end": 158.4, "measure": 63, "beat": 8211, "text": "ŞANI BÜYÜK OSMAN PAŞA\r\nASKERİNLE BİNLER YAŞA" },
     { "time": 158.4, "end": 160.8, "measure": 67, "beat": 8211, "text": "CEVAP" },
-    { "time": 160.8, "end": 170.940659, "measure": 68, "beat": 8211, "text": "ŞANI BÜYÜK OSMAN PAŞA\r\nASKERİNLE BİNLER YAŞA" },
-    { "time": 170.940659, "end": 173.940659, "measure": 72, "beat": 8211, "text": "CEVAP" }
+    { "time": 160.8, "end": 170.94066, "measure": 68, "beat": 8211, "text": "ŞANI BÜYÜK OSMAN PAŞA\r\nASKERİNLE BİNLER YAŞA" },
+    { "time": 170.94066, "end": 173.94066, "measure": 73, "beat": 8209, "text": "CEVAP" }
   ],
   "chords": [
     { "time": 0, "end": 4.8, "measure": 1, "beat": 3015, "text": "1 2 3 - SON 2 3" },
@@ -444,19 +443,19 @@
       ] },
     { "time": 165.6, "end": 168.171429, "measure": 70, "beat": 8211, "text": "Cmaj7", "notes": [
         { "time": 165.6, "end": 166.028572, "pitch": 48, "channel": 0, "velocity": 96, "measure": 70, "beat": 8211, "numerator": 3, "denominator": 4 },
-        { "time": 166.457143, "end": 166.885714, "pitch": 48, "channel": 0, "velocity": 96, "measure": 71, "beat": 8210, "numerator": 3, "denominator": 4 }
+        { "time": 166.457143, "end": 166.885715, "pitch": 48, "channel": 0, "velocity": 96, "measure": 71, "beat": 8209, "numerator": 3, "denominator": 4 }
       ] },
     { "time": 168.171429, "end": 169.094506, "measure": 72, "beat": 8209, "text": "Am", "notes": [
         { "time": 168.171429, "end": 168.632967, "pitch": 48, "channel": 0, "velocity": 96, "measure": 72, "beat": 8209, "numerator": 3, "denominator": 4 }
       ] },
-    { "time": 169.094506, "end": 170.940659, "measure": 72, "beat": 8210, "text": "Bm", "notes": [
+    { "time": 169.094506, "end": 170.94066, "measure": 72, "beat": 8210, "text": "Bm", "notes": [
         { "time": 169.094506, "end": 169.556044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 72, "beat": 8210, "numerator": 3, "denominator": 4 }
       ] },
-    { "time": 170.940659, "end": 171.940659, "measure": 72, "beat": 8211, "text": "Am", "notes": [
-        { "time": 170.940659, "end": 171.440659, "pitch": 48, "channel": 0, "velocity": 96, "measure": 72, "beat": 8211, "numerator": 3, "denominator": 4 }
+    { "time": 170.94066, "end": 171.94066, "measure": 73, "beat": 8209, "text": "Am", "notes": [
+        { "time": 170.94066, "end": 171.44066, "pitch": 48, "channel": 0, "velocity": 96, "measure": 73, "beat": 8209, "numerator": 3, "denominator": 4 }
       ] },
-    { "time": 171.940659, "end": 173.940659, "measure": 73, "beat": 8209, "text": "Bm", "notes": [
-        { "time": 171.940659, "end": 172.440659, "pitch": 48, "channel": 0, "velocity": 96, "measure": 73, "beat": 8209, "numerator": 3, "denominator": 4 }
+    { "time": 171.94066, "end": 173.94066, "measure": 73, "beat": 8210, "text": "Bm", "notes": [
+        { "time": 171.94066, "end": 172.44066, "pitch": 48, "channel": 0, "velocity": 96, "measure": 73, "beat": 8210, "numerator": 3, "denominator": 4 }
       ] }
   ],
   "patterns": [
