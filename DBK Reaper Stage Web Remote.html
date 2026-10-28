@@ -2415,12 +2415,20 @@
         }
         paint();
       }
-      if (el.readyState >= 1) begin();
+      // When chaining, the element still holds the previous song, so begin()
+      // must wait until the new source is actually the one loaded.
+      if (practiceElSong === name && el.readyState >= 1) begin();
       else {
-        el.addEventListener("loadedmetadata", function once() {
-          el.removeEventListener("loadedmetadata", once);
-          begin();
-        });
+        var tries = 0;
+        var waitForSource = setInterval(function() {
+          tries += 1;
+          if (practiceElSong === name && el.readyState >= 1) {
+            clearInterval(waitForSource);
+            begin();
+          } else if (tries > 120) {
+            clearInterval(waitForSource);
+          }
+        }, 100);
       }
     }
 
