@@ -1645,6 +1645,7 @@
     var playPosAt = 0;
     var playState = 0;
     var playPosLast = -1;
+    var lastTransportAt = 0;
     var remoteReady = false;
     var practiceMode = false;
     var practiceSel = "";
@@ -2150,7 +2151,9 @@
     // locally between packets: the highlight shows "now", not the last packet.
     function stagePosition() {
       if (playState === 1 || playState === 5) {
-        var t = playPos + (performance.now() - playPosAt) / 1000;
+        var elapsed = (performance.now() - playPosAt) / 1000;
+        if (elapsed > 8) elapsed = 8;
+        var t = playPos + elapsed;
         if (playPosLast >= 0 && t < playPosLast) t = playPosLast;
         playPosLast = t;
         return t;
@@ -6952,9 +6955,10 @@
       var outputName = selectedOutputName();
       document.body.classList.toggle("list-edit", !!(live && (outputName === "ELIF" || outputName === "MEHMETHAN")));
       var net = document.getElementById("net");
-      net.classList.toggle("on", live);
-      net.title = live ? "Connected" : "Not connected";
-      net.setAttribute("aria-label", live ? "Connected" : "Not connected");
+      var linkOk = live && (performance.now() - lastTransportAt < 2500);
+      net.classList.toggle("on", !!linkOk);
+      net.title = linkOk ? "Connected" : (live ? "Signal lost" : "Not connected");
+      net.setAttribute("aria-label", net.title);
       document.getElementById("offline").hidden = show;
       document.getElementById("columns").hidden = !show;
       syncNoteFields();
@@ -7857,6 +7861,7 @@
           playPos = parseFloat(tok[2]) || 0;
           playState = parseInt(tok[1], 10) || 0;
           playPosAt = performance.now();
+          lastTransportAt = playPosAt;
           if (playState !== 1 && playState !== 5) playPosLast = playPos;
           else if (playPosLast >= 0 && playPos < playPosLast - 0.35) playPosLast = playPos;
           updateHead();
