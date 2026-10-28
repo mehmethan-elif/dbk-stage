@@ -26,3 +26,26 @@ git push
 ```
 
 When the Action finishes, the band page has the new files. Ask everyone to open DBK again.
+
+## Faster host (Cloudflare Pages)
+
+GitHub Pages caps at about 1 MB/s on some connections, which makes the offline
+pack slow. The same site is published to Cloudflare Pages, which is much faster.
+
+One-time setup on the Mac:
+
+```bash
+cd "/Users/md/Projects/DBK Reaper Stage Control"
+npx wrangler@latest login
+```
+
+Publish (after the songs are updated):
+
+```bash
+./scripts/deploy-cloudflare.sh
+```
+
+The command prints the site URL, normally https://dbk-stage.pages.dev .
+
+The service worker, the app manifest and the offline pack work the same on both
+hosts; the GitHub Pages copy stays as a mirror.
