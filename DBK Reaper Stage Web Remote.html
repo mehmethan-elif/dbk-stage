@@ -1439,31 +1439,6 @@
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       pointer-events: none;
     }
-    .count-bar-mark {
-      height: 6px;
-      margin-bottom: 2px;
-      background: #37c26a;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      pointer-events: none;
-    }
-    .count-tri {
-      position: relative;
-      display: inline-block;
-      width: max-content;
-      max-width: 100%;
-      vertical-align: middle;
-    }
-    .count-tri::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: -6px;
-      height: 6px;
-      background: #37c26a;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      pointer-events: none;
-    }
     .row > .count-off-mark { top: -7px; }
     .main, .side {
       border: 0;
@@ -2670,13 +2645,6 @@
     function songHead(name, data, page) {
       var head = document.createElement("div");
       head.className = "song-head";
-      var titleRow = rowForName(name);
-      if (titleRow && countIsOff(titleRow)) {
-        var tri = document.createElement("div");
-        tri.className = "count-bar-mark";
-        tri.setAttribute("aria-hidden", "true");
-        head.appendChild(tri);
-      }
       head.appendChild(songTitle(name, data, page));
       var field = document.createElement("input");
       field.type = "text";
@@ -2709,8 +2677,6 @@
       var title = document.createElement("span");
       title.className = "song-name";
       title.textContent = name || "";
-      var titleRow = rowForName(name);
-      if (titleRow && countIsOff(titleRow)) title.classList.add("count-tri");
       bar.appendChild(title);
       var parts = songMetaParts(data, page);
       if (!parts.length) return bar;
@@ -4316,18 +4282,6 @@
           var fresh = songTitle(pair[i].n, data, "score");
           if (title) head.replaceChild(fresh, title);
           else head.insertBefore(fresh, head.firstChild);
-          var titleRow = rowForName(pair[i].n);
-          var mark = head.querySelector(".count-bar-mark");
-          if (titleRow && countIsOff(titleRow)) {
-            if (!mark) {
-              mark = document.createElement("div");
-              mark.className = "count-bar-mark";
-              mark.setAttribute("aria-hidden", "true");
-              head.insertBefore(mark, head.firstChild);
-            }
-          } else if (mark) {
-            mark.remove();
-          }
         }
         ensureScoreCountBar(blocks[i], data);
         ensureScoreCues(blocks[i], data);
