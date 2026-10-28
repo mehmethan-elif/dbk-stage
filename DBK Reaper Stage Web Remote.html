@@ -6994,7 +6994,7 @@
       var playBtn = document.getElementById("play");
       var playing = practiceMode ? (practicePlaying || practiceChain) : !!(live && meta && meta.playing);
       var playOut = selectedOutputName();
-      var showPlay = practiceMode || !!(live && (playOut === "MEHMETHAN" || playOut === "MASTER"));
+      var showPlay = practiceMode || !!(live && (playOut === "MEHMETHAN" || playOut === "MASTER" || playOut === "FRONT"));
       playBtn.hidden = !showPlay;
       playBtn.classList.toggle("on", playing);
       playBtn.disabled = !showPlay || (practiceMode ? !selectedSongRow() : (!playing && !(meta && meta.sel)));
