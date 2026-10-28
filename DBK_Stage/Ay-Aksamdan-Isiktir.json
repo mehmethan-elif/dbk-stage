@@ -3,6 +3,7 @@
   "version": 1,
   "title": "Ay Akşamdan Işıktır",
   "duration": 141.6,
+  "clickDuration": 141.6,
   "nextSongAt": 139.2,
   "finalAt": 136.8,
   "key": "D",
@@ -538,8 +539,8 @@
     { "text": "FILL", "time": 74.4, "end": 76.8, "length": 2.4, "measure": 32, "beat": 382, "numerator": 4, "denominator": 4, "notes": [] }
   ],
   "assets": [
-    { "id": "bass", "kind": "audio", "path": "Ay Akşamdan Işıktır- BASS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BASS" },
-    { "id": "bag", "kind": "audio", "path": "Ay Akşamdan Işıktır- BAG.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BAG" }
+    { "id": "click", "kind": "audio", "path": "Ay Akşamdan Işıktır- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
+    { "id": "keys", "kind": "audio", "path": "Ay Akşamdan Işıktır- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 2

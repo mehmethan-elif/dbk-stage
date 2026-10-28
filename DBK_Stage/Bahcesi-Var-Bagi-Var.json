@@ -3,6 +3,7 @@
   "version": 1,
   "title": "Bahçesi Var Bağı Var",
   "duration": 129.405406,
+  "clickDuration": 129.405406,
   "nextSongAt": 128.432433,
   "finalAt": 126.486487,
   "key": "D",
@@ -682,8 +683,8 @@
     { "text": "FILL", "time": 127.45946, "end": 128.432433, "length": 0.972973, "measure": 133, "beat": 1, "numerator": 6, "denominator": 8, "notes": [] }
   ],
   "assets": [
-    { "id": "bass", "kind": "audio", "path": "Bahçesi Var Bağı Var- BASS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BASS" },
-    { "id": "bag", "kind": "audio", "path": "Bahçesi Var Bağı Var- BAG.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BAG" }
+    { "id": "click", "kind": "audio", "path": "Bahçesi Var Bağı Var- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
+    { "id": "keys", "kind": "audio", "path": "Bahçesi Var Bağı Var- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 2

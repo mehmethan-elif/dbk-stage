@@ -3,10 +3,11 @@
   "version": 1,
   "title": "Anlatamam Derdimi",
   "duration": 216.189271,
+  "clickDuration": 216.189271,
   "nextSongAt": 212.589271,
   "key": "D",
   "scale": "Ussak",
-  "style": "Asık Veysel",
+  "style": "Aık Veysel",
   "form": "Orta",
   "kita": 2,
   "tags": ["reaper-export"],
@@ -270,7 +271,7 @@
     { "time": 84.521739, "end": 85.565217, "measure": 41, "beat": 380, "text": "Csus4", "notes": [
         { "time": 84.782609, "end": 84.913043, "pitch": 48, "channel": 1, "velocity": 96, "measure": 41, "beat": 381, "numerator": 4, "denominator": 4 }
       ] },
-    { "time": 85.565217, "end": 87.652174, "measure": 41, "beat": 382, "text": "Bbmaj7", "notes": [
+    { "time": 85.565217, "end": 87.652174, "measure": 41, "beat": 382, "text": "Csus4", "notes": [
         { "time": 85.826087, "end": 85.956522, "pitch": 48, "channel": 1, "velocity": 96, "measure": 42, "beat": 379, "numerator": 4, "denominator": 4 },
         { "time": 86.347826, "end": 86.478261, "pitch": 48, "channel": 1, "velocity": 96, "measure": 42, "beat": 380, "numerator": 4, "denominator": 4 },
         { "time": 86.869565, "end": 87, "pitch": 48, "channel": 1, "velocity": 96, "measure": 42, "beat": 381, "numerator": 4, "denominator": 4 }
@@ -319,7 +320,7 @@
     { "time": 103.304348, "end": 104.347826, "measure": 50, "beat": 381, "text": "Csus4", "notes": [
         { "time": 103.565217, "end": 103.695652, "pitch": 48, "channel": 1, "velocity": 96, "measure": 50, "beat": 381, "numerator": 4, "denominator": 4 }
       ] },
-    { "time": 104.347826, "end": 106.434782, "measure": 51, "beat": 379, "text": "Bbmaj7", "notes": [
+    { "time": 104.347826, "end": 106.434782, "measure": 51, "beat": 379, "text": "Csus4", "notes": [
         { "time": 104.608696, "end": 104.73913, "pitch": 48, "channel": 1, "velocity": 96, "measure": 51, "beat": 379, "numerator": 4, "denominator": 4 },
         { "time": 105.130435, "end": 105.260869, "pitch": 48, "channel": 1, "velocity": 96, "measure": 51, "beat": 380, "numerator": 4, "denominator": 4 },
         { "time": 105.652174, "end": 105.782609, "pitch": 48, "channel": 1, "velocity": 96, "measure": 51, "beat": 381, "numerator": 4, "denominator": 4 }
@@ -536,7 +537,7 @@
     { "time": 188.869565, "end": 189.913043, "measure": 91, "beat": 380, "text": "Csus4", "notes": [
         { "time": 189.130435, "end": 189.260869, "pitch": 48, "channel": 1, "velocity": 96, "measure": 91, "beat": 381, "numerator": 4, "denominator": 4 }
       ] },
-    { "time": 189.913043, "end": 192, "measure": 91, "beat": 382, "text": "Bbmaj7", "notes": [
+    { "time": 189.913043, "end": 192, "measure": 91, "beat": 382, "text": "Csus4", "notes": [
         { "time": 190.173913, "end": 190.304348, "pitch": 48, "channel": 1, "velocity": 96, "measure": 92, "beat": 379, "numerator": 4, "denominator": 4 },
         { "time": 190.695652, "end": 190.826087, "pitch": 48, "channel": 1, "velocity": 96, "measure": 92, "beat": 380, "numerator": 4, "denominator": 4 },
         { "time": 191.217391, "end": 191.347826, "pitch": 48, "channel": 1, "velocity": 96, "measure": 92, "beat": 381, "numerator": 4, "denominator": 4 }
@@ -585,7 +586,7 @@
     { "time": 207.846414, "end": 208.989271, "measure": 100, "beat": 380, "text": "Csus4", "notes": [
         { "time": 208.132129, "end": 208.274986, "pitch": 48, "channel": 1, "velocity": 96, "measure": 100, "beat": 381, "numerator": 4, "denominator": 4 }
       ] },
-    { "time": 208.989271, "end": 211.389271, "measure": 100, "beat": 382, "text": "Bbmaj7", "notes": [
+    { "time": 208.989271, "end": 211.389271, "measure": 100, "beat": 382, "text": "Csus4", "notes": [
         { "time": 209.289271, "end": 209.439271, "pitch": 48, "channel": 1, "velocity": 96, "measure": 101, "beat": 379, "numerator": 4, "denominator": 4 },
         { "time": 209.889271, "end": 210.039271, "pitch": 48, "channel": 1, "velocity": 96, "measure": 101, "beat": 380, "numerator": 4, "denominator": 4 },
         { "time": 210.489271, "end": 210.639271, "pitch": 48, "channel": 1, "velocity": 96, "measure": 101, "beat": 381, "numerator": 4, "denominator": 4 }
@@ -748,8 +749,8 @@
     { "text": "FILL", "time": 210.782609, "end": 212.869565, "length": 2.086956, "measure": 101, "beat": 381, "numerator": 4, "denominator": 4, "notes": [] }
   ],
   "assets": [
-    { "id": "bass", "kind": "audio", "path": "Anlatamam Derdimi- BASS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BASS" },
-    { "id": "bag", "kind": "audio", "path": "Anlatamam Derdimi- BAG.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BAG" }
+    { "id": "click", "kind": "audio", "path": "Anlatamam Derdimi- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
+    { "id": "keys", "kind": "audio", "path": "Anlatamam Derdimi- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 2

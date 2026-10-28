@@ -3,11 +3,12 @@
   "version": 1,
   "title": "Arpa Buğday Daneler",
   "duration": 151.698114,
+  "clickDuration": 151.698114,
   "nextSongAt": 149.433963,
   "finalAt": 147.169812,
   "key": "D",
   "scale": "Hicaz",
-  "style": "Kırıkkale",
+  "style": "Yozgat",
   "form": "Hareketli",
   "kita": 2,
   "tags": ["reaper-export"],
@@ -34,14 +35,14 @@
     { "time": 31.698114, "end": 40.754717, "measure": 16, "beat": 379, "text": "AMAN YIKILSIN MEYHANELER\r\nAMAN YIKILSIN MEYHANELER" },
     { "time": 40.754717, "end": 49.811321, "measure": 19, "beat": 382, "text": "TERZİ ELİN KIRILSIN\r\nAMAN TERZİ ELİN KIRILSIN" },
     { "time": 49.811321, "end": 58.867925, "measure": 23, "beat": 382, "text": "AMAN DAR GELİYOR DÜĞMELER\r\nAMAN DAR GELİYOR DÜĞMELER" },
-    { "time": 58.867925, "end": 67.924529, "measure": 27, "beat": 382, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYANDIM GÜLE GÜLE GÜLE YAR GELİYOR" },
-    { "time": 67.924529, "end": 76.981133, "measure": 32, "beat": 379, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYANDIM GÜLE GÜLE GÜLE YAR GELİYOR" },
+    { "time": 58.867925, "end": 67.924529, "measure": 27, "beat": 382, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYAVRUM GÜLE GÜLE GÜLE YAR GELİYOR" },
+    { "time": 67.924529, "end": 76.981133, "measure": 32, "beat": 379, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYAVRUM GÜLE GÜLE GÜLE YAR GELİYOR" },
     { "time": 95.09434, "end": 104.150944, "measure": 43, "beat": 382, "text": "ARPA BUĞDAY ÇEC OLUR\r\nAMAN ARPA BUĞDAY ÇEC OLUR" },
     { "time": 104.150944, "end": 113.207548, "measure": 48, "beat": 379, "text": "AMAN GÜZELLER GÜLEÇ OLUR\r\nAMAN GÜZELLER GÜLEÇ OLUR" },
     { "time": 113.207548, "end": 122.264151, "measure": 52, "beat": 379, "text": "MEYİL VERME GÜZELE\r\nAMAN MEYİL VERME GÜZELE" },
     { "time": 122.264151, "end": 131.320755, "measure": 55, "beat": 382, "text": "AMAN AYRILMSI GÜÇ OLUR\r\nAMAN AYRILMSI GÜÇ OLUR" },
-    { "time": 131.320755, "end": 140.377359, "measure": 59, "beat": 382, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYANDIM GÜLE GÜLE GÜLE YAR GELİYOR" },
-    { "time": 140.377359, "end": 149.433963, "measure": 64, "beat": 379, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYANDIM GÜLE GÜLE GÜLE YAR GELİYOR" }
+    { "time": 131.320755, "end": 140.377359, "measure": 59, "beat": 382, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYAVRUM GÜLE GÜLE GÜLE YAR GELİYOR" },
+    { "time": 140.377359, "end": 149.433963, "measure": 64, "beat": 379, "text": "AMAN DÖNE DÖNE DÖNE HAR GELİYOR\r\nYAVRUM GÜLE GÜLE GÜLE YAR GELİYOR" }
   ],
   "chords": [
     { "time": 0, "end": 4.528302, "measure": 1, "beat": 382, "text": "1 2 3 4 - SON  2 3 4" },
@@ -656,8 +657,8 @@
     { "text": "FILL", "time": 144.905661, "end": 147.169812, "length": 2.264151, "measure": 66, "beat": 379, "numerator": 4, "denominator": 4, "notes": [] }
   ],
   "assets": [
-    { "id": "bass", "kind": "audio", "path": "Arpa Buğday Daneler- BASS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BASS" },
-    { "id": "bag", "kind": "audio", "path": "Arpa Buğday Daneler- BAG.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BAG" }
+    { "id": "click", "kind": "audio", "path": "Arpa Buğday Daneler- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
+    { "id": "keys", "kind": "audio", "path": "Arpa Buğday Daneler- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 2

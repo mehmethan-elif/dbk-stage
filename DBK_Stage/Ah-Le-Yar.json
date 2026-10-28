@@ -3,6 +3,7 @@
   "version": 1,
   "title": "Ah Le Yar",
   "duration": 298.299673,
+  "clickDuration": 298.299673,
   "nextSongAt": 296.444003,
   "key": "B",
   "scale": "Hicaz",
@@ -1019,8 +1020,8 @@
     { "text": "FILL", "time": 294.107143, "end": 295.714286, "length": 1.607143, "measure": 183, "beat": 5, "numerator": 6, "denominator": 8, "notes": [] }
   ],
   "assets": [
-    { "id": "bass", "kind": "audio", "path": "Ah Le Yar- BASS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BASS" },
-    { "id": "bag", "kind": "audio", "path": "Ah Le Yar- BAG.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BAG" }
+    { "id": "click", "kind": "audio", "path": "Ah Le Yar- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
+    { "id": "keys", "kind": "audio", "path": "Ah Le Yar- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 2

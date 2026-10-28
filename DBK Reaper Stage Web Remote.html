@@ -7043,7 +7043,8 @@
         else if (kind === "stopadd") send("addstop");
         return;
       }
-      if (!practiceMode && kind === "song" && row.getAttribute("data-set") !== "1") return;
+      // Library songs that are not in the setlist can be picked too, from any
+      // view page and any cue mix; the selection is shared by every client.
       if (kind === "song" && !canSelectSong(guid)) return;
       if (kind === "song") armSongPin(guid);
       if (practiceMode) {

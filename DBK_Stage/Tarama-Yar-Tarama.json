@@ -4,11 +4,11 @@
   "title": "Tarama Yar Tarama",
   "duration": 131.478261,
   "clickDuration": 131.478261,
-  "nextSongAt": 129.391304,
+  "nextSongAt": 129.391305,
   "finalAt": 127.304348,
   "key": "D",
-  "scale": "USSAK",
-  "style": "Güneydoğu",
+  "scale": "Ussak",
+  "style": "Agrı",
   "form": "Halay",
   "kita": 3,
   "tags": ["reaper-export"],
@@ -18,11 +18,11 @@
   "sections": [
     { "name": "COUNT", "start": 0, "end": 4.173913 },
     { "name": "ARA", "start": 4.173913, "end": 12.521739 },
-    { "name": "ARA", "start": 12.521739, "end": 20.869565 },
-    { "name": "SAN", "start": 20.869565, "end": 29.217391 },
-    { "name": "NAK", "start": 29.217391, "end": 37.565217 },
-    { "name": "NAK", "start": 37.565217, "end": 45.913043 },
-    { "name": "ARA", "start": 45.913043, "end": 54.26087 },
+    { "name": "ARA", "start": 12.521739, "end": 20.869566 },
+    { "name": "SAN", "start": 20.869566, "end": 29.217392 },
+    { "name": "NAK", "start": 29.217392, "end": 37.565218 },
+    { "name": "NAK", "start": 37.565218, "end": 45.913044 },
+    { "name": "ARA", "start": 45.913044, "end": 54.26087 },
     { "name": "ARA", "start": 54.26087, "end": 62.608696 },
     { "name": "SAN", "start": 62.608696, "end": 70.956522 },
     { "name": "NAK", "start": 70.956522, "end": 79.304348 },
@@ -30,816 +30,809 @@
     { "name": "ARA", "start": 87.652174, "end": 96 },
     { "name": "ARA", "start": 96, "end": 104.347826 },
     { "name": "SAN", "start": 104.347826, "end": 112.695652 },
-    { "name": "NAK", "start": 112.695652, "end": 121.043478 },
-    { "name": "NAK", "start": 121.043478, "end": 129.391304 }
+    { "name": "NAK", "start": 112.695652, "end": 121.043479 },
+    { "name": "NAK", "start": 121.043479, "end": 129.391305 }
   ],
   "lyrics": [
-    { "time": 20.869565, "end": 25.043478, "measure": 10, "beat": 4, "text": "TARAMA YAR TARAMA\nYAR ZÜLÜFÜN TARAMA" },
-    { "time": 25.043478, "end": 29.217391, "measure": 12, "beat": 4, "text": "BEN BU DERTTEN ÖLÜRSEM\nMELHEM OLMA YARAMA" },
-    { "time": 29.217391, "end": 33.391304, "measure": 14, "beat": 4, "text": "HELE HELE YAR YAR GÜLENDE\nGÜLENDE YAR GÜLENDE" },
-    { "time": 33.391304, "end": 37.565217, "measure": 16, "beat": 4, "text": "AKLIMI BAŞTAN ALDI\nYAR YÜZÜME GÜLENDE" },
-    { "time": 37.565217, "end": 41.73913, "measure": 18, "beat": 4, "text": "HELE HELE YAR YAR GÜLENDE\nGÜLENDE YAR GÜLENDE" },
-    { "time": 41.73913, "end": 45.913043, "measure": 20, "beat": 4, "text": "AKLIMI BAŞTAN ALDI\nYAR YÜZÜME GÜLENDE" },
-    { "time": 62.608696, "end": 66.782609, "measure": 31, "beat": 1, "text": "MENDİLİNDE KARE VAR\nYÜREĞİMDE YARE VAR" },
-    { "time": 66.782609, "end": 70.956522, "measure": 33, "beat": 1, "text": "NE BEN ÖLDÜM KURTULDUM\nNE BU DERDE ÇARE VAR" },
-    { "time": 70.956522, "end": 75.130435, "measure": 35, "beat": 1, "text": "HELE HELE YAR YAR GÜLENDE\nGÜLENDE YAR GÜLENDE" },
-    { "time": 75.130435, "end": 79.304348, "measure": 37, "beat": 1, "text": "AKLIMI BAŞTAN ALDI\nYAR YÜZÜME GÜLENDE" },
-    { "time": 79.304348, "end": 83.478261, "measure": 39, "beat": 1, "text": "HELE HELE YAR YAR GÜLENDE\nGÜLENDE YAR GÜLENDE" },
-    { "time": 83.478261, "end": 87.652174, "measure": 41, "beat": 1, "text": "AKLIMI BAŞTAN ALDI\nYAR YÜZÜME GÜLENDE" },
-    { "time": 104.347826, "end": 108.521739, "measure": 50, "beat": 4, "text": "TANDIR YAKTIM TERLEDİM\nÇIKTIM HEVES EYLEDİM" },
-    { "time": 108.521739, "end": 112.695652, "measure": 52, "beat": 4, "text": "DESELER YARİM GELDİ\nGOÇU GURBAN EYLERİM" },
-    { "time": 112.695652, "end": 116.869565, "measure": 54, "beat": 4, "text": "HELE HELE YAR YAR GÜLENDE\nGÜLENDE YAR GÜLENDE" },
-    { "time": 116.869565, "end": 121.043478, "measure": 56, "beat": 4, "text": "AKLIMI BAŞTAN ALDI\nYAR YÜZÜME GÜLENDE" },
-    { "time": 121.043478, "end": 125.217391, "measure": 58, "beat": 4, "text": "HELE HELE YAR YAR GÜLENDE\nGÜLENDE YAR GÜLENDE" },
-    { "time": 125.217391, "end": 129.391304, "measure": 60, "beat": 4, "text": "AKLIMI BAŞTAN ALDI\nYAR YÜZÜME GÜLENDE" }
+    { "time": 20.869566, "end": 25.043479, "measure": 12, "beat": 3012, "text": "TARAMA YAR TARAMA\r\nYAR ZÜLÜFÜN TARAMA" },
+    { "time": 25.043479, "end": 29.217392, "measure": 14, "beat": 3012, "text": "BEN BU DERTTEN ÖLÜRSEM\r\nMELHEM OLMA YARAMA" },
+    { "time": 29.217392, "end": 33.391305, "measure": 16, "beat": 3012, "text": "HELE HELE YAR YAR GÜLENDE\r\nGÜLENDE YAR GÜLENDE" },
+    { "time": 33.391305, "end": 37.565218, "measure": 18, "beat": 3012, "text": "AKLIMI BAŞTAN ALDI\r\nYAR YÜZÜME GÜLENDE" },
+    { "time": 37.565218, "end": 41.739131, "measure": 20, "beat": 3012, "text": "HELE HELE YAR YAR GÜLENDE\r\nGÜLENDE YAR GÜLENDE" },
+    { "time": 41.739131, "end": 45.913044, "measure": 22, "beat": 3012, "text": "AKLIMI BAŞTAN ALDI\r\nYAR YÜZÜME GÜLENDE" },
+    { "time": 62.608696, "end": 66.782609, "measure": 32, "beat": 3012, "text": "MENDİLİNDE KARE VAR\r\nYÜREĞİMDE YARE VAR" },
+    { "time": 66.782609, "end": 70.956522, "measure": 33, "beat": 3015, "text": "NE BEN ÖLDÜM KURTULDUM\r\nNE BU DERDE ÇARE VAR" },
+    { "time": 70.956522, "end": 75.130435, "measure": 35, "beat": 3015, "text": "HELE HELE YAR YAR GÜLENDE\r\nGÜLENDE YAR GÜLENDE" },
+    { "time": 75.130435, "end": 79.304348, "measure": 37, "beat": 3015, "text": "AKLIMI BAŞTAN ALDI\r\nYAR YÜZÜME GÜLENDE" },
+    { "time": 79.304348, "end": 83.478261, "measure": 39, "beat": 3015, "text": "HELE HELE YAR YAR GÜLENDE\r\nGÜLENDE YAR GÜLENDE" },
+    { "time": 83.478261, "end": 87.652174, "measure": 41, "beat": 3015, "text": "AKLIMI BAŞTAN ALDI\r\nYAR YÜZÜME GÜLENDE" },
+    { "time": 104.347826, "end": 108.521739, "measure": 51, "beat": 3015, "text": "TANDIR YAKTIM TERLEDİM\r\nÇIKTIM HEVES EYLEDİM" },
+    { "time": 108.521739, "end": 112.695652, "measure": 53, "beat": 3015, "text": "DESELER YARİM GELDİ\r\nGOÇU GURBAN EYLERİM" },
+    { "time": 112.695652, "end": 116.869566, "measure": 55, "beat": 3015, "text": "HELE HELE YAR YAR GÜLENDE\r\nGÜLENDE YAR GÜLENDE" },
+    { "time": 116.869566, "end": 121.043479, "measure": 58, "beat": 3012, "text": "AKLIMI BAŞTAN ALDI\r\nYAR YÜZÜME GÜLENDE" },
+    { "time": 121.043479, "end": 125.217392, "measure": 60, "beat": 3012, "text": "HELE HELE YAR YAR GÜLENDE\r\nGÜLENDE YAR GÜLENDE" },
+    { "time": 125.217392, "end": 129.391305, "measure": 62, "beat": 3012, "text": "AKLIMI BAŞTAN ALDI\r\nYAR YÜZÜME GÜLENDE" }
   ],
   "chords": [
-    { "time": 0, "end": 4.173913, "measure": 1, "beat": 1, "text": "1 2 3 4 - SON  2 3 4" },
-    { "time": 4.173913, "end": 5.217391, "measure": 2, "beat": 4, "text": "Dm", "notes": [
-        { "time": 4.173913, "end": 4.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 2, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 4.565217, "end": 4.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 4.956522, "end": 5.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 5.217391, "end": 6.26087, "measure": 3, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 5.217391, "end": 5.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 5.608696, "end": 5.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 6, "end": 6.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 6.26087, "end": 7.304348, "measure": 4, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 6.26087, "end": 6.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 6.652174, "end": 6.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 7.043478, "end": 7.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 7.304348, "end": 8.347826, "measure": 4, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 7.304348, "end": 7.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 7.695652, "end": 7.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 8.086957, "end": 8.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 8.347826, "end": 9.391304, "measure": 4, "beat": 4, "text": "Dm", "notes": [
-        { "time": 8.347826, "end": 8.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 8.73913, "end": 8.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 9.130435, "end": 9.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 9.391304, "end": 10.434783, "measure": 5, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 9.391304, "end": 9.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 9.782609, "end": 9.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 10.173913, "end": 10.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 10.434783, "end": 10.956522, "measure": 6, "beat": 1, "text": "Bb", "notes": [
-        { "time": 10.434783, "end": 10.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 10.956522, "end": 11.478261, "measure": 6, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 10.956522, "end": 11.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 11.478261, "end": 12.521739, "measure": 6, "beat": 3, "text": "Dm", "notes": [
-        { "time": 11.478261, "end": 11.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 11.869565, "end": 12, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 12.26087, "end": 12.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 12.521739, "end": 13.565217, "measure": 6, "beat": 4, "text": "Dm", "notes": [
-        { "time": 12.521739, "end": 12.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 12.913043, "end": 13.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 13.304348, "end": 13.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 13.565217, "end": 14.608696, "measure": 7, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 13.565217, "end": 13.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 13.956522, "end": 14.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 14.347826, "end": 14.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 14.608696, "end": 15.652174, "measure": 8, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 14.608696, "end": 14.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 15, "end": 15.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 15.391304, "end": 15.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 15.652174, "end": 16.695652, "measure": 8, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 15.652174, "end": 15.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 16.043478, "end": 16.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 16.434783, "end": 16.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 16.695652, "end": 17.73913, "measure": 8, "beat": 4, "text": "Dm", "notes": [
-        { "time": 16.695652, "end": 16.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 17.086957, "end": 17.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 17.478261, "end": 17.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 17.73913, "end": 18.782609, "measure": 9, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 17.73913, "end": 17.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 18.130435, "end": 18.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 18.521739, "end": 18.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 18.782609, "end": 19.304348, "measure": 10, "beat": 1, "text": "Bb", "notes": [
-        { "time": 18.782609, "end": 18.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 19.304348, "end": 19.826087, "measure": 10, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 19.304348, "end": 19.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 19.826087, "end": 20.869565, "measure": 10, "beat": 3, "text": "Dm", "notes": [
-        { "time": 19.826087, "end": 19.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 20.217391, "end": 20.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 20.608696, "end": 20.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 20.869565, "end": 21.913043, "measure": 10, "beat": 4, "text": "Csus4", "notes": [
-        { "time": 20.869565, "end": 21, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 21.26087, "end": 21.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 21.652174, "end": 21.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 21.913043, "end": 22.956522, "measure": 11, "beat": 2, "text": "Dm", "notes": [
-        { "time": 21.913043, "end": 22.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 22.304348, "end": 22.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 22.695652, "end": 22.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 22.956522, "end": 24, "measure": 12, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 22.956522, "end": 23.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 23.347826, "end": 23.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 23.73913, "end": 23.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 24, "end": 25.043478, "measure": 12, "beat": 3, "text": "Dm", "notes": [
-        { "time": 24, "end": 24.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 24.391304, "end": 24.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 24.782609, "end": 24.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 25.043478, "end": 26.086957, "measure": 12, "beat": 4, "text": "Csus4", "notes": [
-        { "time": 25.043478, "end": 25.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 25.434783, "end": 25.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 25.826087, "end": 25.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 26.086957, "end": 27.130435, "measure": 13, "beat": 3, "text": "Dm", "notes": [
-        { "time": 26.086957, "end": 26.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 26.478261, "end": 26.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 26.869565, "end": 27, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 27.130435, "end": 28.173913, "measure": 14, "beat": 1, "text": "Dm", "notes": [
-        { "time": 27.130435, "end": 27.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 27.521739, "end": 27.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 27.913043, "end": 28.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 28.173913, "end": 29.217391, "measure": 14, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 28.173913, "end": 28.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 28.565217, "end": 28.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 28.956522, "end": 29.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 29.217391, "end": 30.26087, "measure": 14, "beat": 4, "text": "Dm", "notes": [
-        { "time": 29.217391, "end": 29.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 29.608696, "end": 29.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 30, "end": 30.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 30.26087, "end": 31.304348, "measure": 15, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 30.26087, "end": 30.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 30.652174, "end": 30.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 31.043478, "end": 31.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 31.304348, "end": 32.347826, "measure": 16, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 31.304348, "end": 31.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 31.695652, "end": 31.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 32.086957, "end": 32.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 32.347826, "end": 33.391304, "measure": 16, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 32.347826, "end": 32.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 32.73913, "end": 32.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 33.130435, "end": 33.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 33.391304, "end": 34.434783, "measure": 16, "beat": 4, "text": "Dm", "notes": [
-        { "time": 33.391304, "end": 33.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 33.782609, "end": 33.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 34.173913, "end": 34.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 34.434783, "end": 35.478261, "measure": 17, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 34.434783, "end": 34.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 34.826087, "end": 34.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 35.217391, "end": 35.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 35.478261, "end": 36, "measure": 18, "beat": 1, "text": "Bb", "notes": [
-        { "time": 35.478261, "end": 35.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 36, "end": 36.521739, "measure": 18, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 36, "end": 36.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 36.521739, "end": 37.565217, "measure": 18, "beat": 2, "text": "Dm", "notes": [
-        { "time": 36.521739, "end": 36.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 36.913043, "end": 37.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 37.304348, "end": 37.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 37.565217, "end": 38.608696, "measure": 18, "beat": 4, "text": "Dm", "notes": [
-        { "time": 37.565217, "end": 37.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 37.956522, "end": 38.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 38.347826, "end": 38.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 38.608696, "end": 39.652174, "measure": 19, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 38.608696, "end": 38.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 39, "end": 39.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 39.391304, "end": 39.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 39.652174, "end": 40.695652, "measure": 20, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 39.652174, "end": 39.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 40.043478, "end": 40.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 40.434783, "end": 40.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 40.695652, "end": 41.73913, "measure": 20, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 40.695652, "end": 40.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 41.086957, "end": 41.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 41.478261, "end": 41.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 41.73913, "end": 42.782609, "measure": 20, "beat": 4, "text": "Dm", "notes": [
-        { "time": 41.73913, "end": 41.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 42.130435, "end": 42.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 42.521739, "end": 42.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 42.782609, "end": 43.826087, "measure": 21, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 42.782609, "end": 42.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 43.173913, "end": 43.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 43.565217, "end": 43.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 43.826087, "end": 44.347826, "measure": 22, "beat": 1, "text": "Bb", "notes": [
-        { "time": 43.826087, "end": 43.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 44.347826, "end": 44.869565, "measure": 22, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 44.347826, "end": 44.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 44.869565, "end": 45.913043, "measure": 22, "beat": 2, "text": "Dm", "notes": [
-        { "time": 44.869565, "end": 45, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 45.26087, "end": 45.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 45.652174, "end": 45.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 45.913043, "end": 46.956522, "measure": 22, "beat": 4, "text": "Dm", "notes": [
-        { "time": 45.913043, "end": 46.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 46.304348, "end": 46.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 46.695652, "end": 46.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 46.956522, "end": 48, "measure": 23, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 46.956522, "end": 47.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 47.347826, "end": 47.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 47.73913, "end": 47.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 48, "end": 49.043478, "measure": 24, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 48, "end": 48.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 48.391304, "end": 48.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 48.782609, "end": 48.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 49.043478, "end": 50.086957, "measure": 24, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 49.043478, "end": 49.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 49.434783, "end": 49.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 49.826087, "end": 49.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 50.086957, "end": 51.130435, "measure": 25, "beat": 1, "text": "Dm", "notes": [
-        { "time": 50.086957, "end": 50.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 50.478261, "end": 50.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 50.869565, "end": 51, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 51.130435, "end": 52.173913, "measure": 25, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 51.130435, "end": 51.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 51.521739, "end": 51.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 51.913043, "end": 52.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 52.173913, "end": 52.695652, "measure": 25, "beat": 4, "text": "Bb", "notes": [
-        { "time": 52.173913, "end": 52.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 52.695652, "end": 53.217391, "measure": 26, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 52.695652, "end": 52.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 53.217391, "end": 54.26087, "measure": 26, "beat": 2, "text": "Dm", "notes": [
-        { "time": 53.217391, "end": 53.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 53.608696, "end": 53.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 54, "end": 54.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 54.26087, "end": 55.304348, "measure": 27, "beat": 1, "text": "Dm", "notes": [
-        { "time": 54.26087, "end": 54.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 54.652174, "end": 54.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 55.043478, "end": 55.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 55.304348, "end": 56.347826, "measure": 27, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 55.304348, "end": 55.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 55.695652, "end": 55.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 56.086957, "end": 56.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 56.347826, "end": 57.391304, "measure": 27, "beat": 4, "text": "Bbmaj7", "notes": [
-        { "time": 56.347826, "end": 56.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 56.73913, "end": 56.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 57.130435, "end": 57.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 57.391304, "end": 58.434783, "measure": 28, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 57.391304, "end": 57.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 57.782609, "end": 57.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 58.173913, "end": 58.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 58.434783, "end": 59.478261, "measure": 29, "beat": 1, "text": "Dm", "notes": [
-        { "time": 58.434783, "end": 58.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 58.826087, "end": 58.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 59.217391, "end": 59.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 59.478261, "end": 60.521739, "measure": 29, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 59.478261, "end": 59.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 59.869565, "end": 60, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 60.26087, "end": 60.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 60.521739, "end": 61.043478, "measure": 29, "beat": 4, "text": "Bb", "notes": [
-        { "time": 60.521739, "end": 60.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 61.043478, "end": 61.565217, "measure": 30, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 61.043478, "end": 61.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 61.565217, "end": 62.608696, "measure": 30, "beat": 2, "text": "Dm", "notes": [
-        { "time": 61.565217, "end": 61.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 61.956522, "end": 62.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 62.347826, "end": 62.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 62.608696, "end": 63.652174, "measure": 31, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 62.608696, "end": 62.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 63, "end": 63.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 63.391304, "end": 63.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 63.652174, "end": 64.695652, "measure": 31, "beat": 3, "text": "Dm", "notes": [
-        { "time": 63.652174, "end": 63.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 64.043478, "end": 64.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 64.434783, "end": 64.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 64.695652, "end": 65.73913, "measure": 31, "beat": 4, "text": "Csus4", "notes": [
-        { "time": 64.695652, "end": 64.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 65.086957, "end": 65.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 65.478261, "end": 65.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 65.73913, "end": 66.782609, "measure": 32, "beat": 2, "text": "Dm", "notes": [
-        { "time": 65.73913, "end": 65.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 66.130435, "end": 66.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 66.521739, "end": 66.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 66.782609, "end": 67.826087, "measure": 33, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 66.782609, "end": 66.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 67.173913, "end": 67.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 67.565217, "end": 67.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 67.826087, "end": 68.869565, "measure": 33, "beat": 3, "text": "Dm", "notes": [
-        { "time": 67.826087, "end": 67.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 68.217391, "end": 68.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 68.608696, "end": 68.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 68.869565, "end": 69.913043, "measure": 33, "beat": 4, "text": "Dm", "notes": [
-        { "time": 68.869565, "end": 69, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 69.26087, "end": 69.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 69.652174, "end": 69.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 69.913043, "end": 70.956522, "measure": 34, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 69.913043, "end": 70.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 70.304348, "end": 70.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 70.695652, "end": 70.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 70.956522, "end": 72, "measure": 35, "beat": 1, "text": "Dm", "notes": [
-        { "time": 70.956522, "end": 71.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 71.347826, "end": 71.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 71.73913, "end": 71.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 72, "end": 73.043478, "measure": 35, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 72, "end": 72.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 72.391304, "end": 72.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 72.782609, "end": 72.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 73.043478, "end": 74.086957, "measure": 35, "beat": 4, "text": "Bbmaj7", "notes": [
-        { "time": 73.043478, "end": 73.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 73.434783, "end": 73.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 73.826087, "end": 73.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 74.086957, "end": 75.130435, "measure": 36, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 74.086957, "end": 74.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 74.478261, "end": 74.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 74.869565, "end": 75, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 75.130435, "end": 76.173913, "measure": 37, "beat": 1, "text": "Dm", "notes": [
-        { "time": 75.130435, "end": 75.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 75.521739, "end": 75.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 75.913043, "end": 76.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 76.173913, "end": 77.217391, "measure": 37, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 76.173913, "end": 76.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 76.565217, "end": 76.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 76.956522, "end": 77.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 77.217391, "end": 77.73913, "measure": 37, "beat": 4, "text": "Bb", "notes": [
-        { "time": 77.217391, "end": 77.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 77.73913, "end": 78.26087, "measure": 38, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 77.73913, "end": 77.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 78.26087, "end": 79.304348, "measure": 38, "beat": 3, "text": "Dm", "notes": [
-        { "time": 78.26087, "end": 78.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 78.652174, "end": 78.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 79.043478, "end": 79.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 79.304348, "end": 80.347826, "measure": 39, "beat": 1, "text": "Dm", "notes": [
-        { "time": 79.304348, "end": 79.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 79.695652, "end": 79.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 80.086957, "end": 80.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 80.347826, "end": 81.391304, "measure": 39, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 80.347826, "end": 80.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 80.73913, "end": 80.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 81.130435, "end": 81.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 81.391304, "end": 82.434783, "measure": 39, "beat": 4, "text": "Bbmaj7", "notes": [
-        { "time": 81.391304, "end": 81.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 81.782609, "end": 81.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 82.173913, "end": 82.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 82.434783, "end": 83.478261, "measure": 40, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 82.434783, "end": 82.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 82.826087, "end": 82.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 83.217391, "end": 83.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 83.478261, "end": 84.521739, "measure": 41, "beat": 1, "text": "Dm", "notes": [
-        { "time": 83.478261, "end": 83.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 83.869565, "end": 84, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 84.26087, "end": 84.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 84.521739, "end": 85.565217, "measure": 41, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 84.521739, "end": 84.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 84.913043, "end": 85.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 85.304348, "end": 85.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 85.565217, "end": 86.086957, "measure": 41, "beat": 4, "text": "Bb", "notes": [
-        { "time": 85.565217, "end": 85.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 86.086957, "end": 86.608696, "measure": 42, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 86.086957, "end": 86.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 86.608696, "end": 87.652174, "measure": 42, "beat": 3, "text": "Dm", "notes": [
-        { "time": 86.608696, "end": 86.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 87, "end": 87.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 87.391304, "end": 87.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 87.652174, "end": 88.695652, "measure": 43, "beat": 1, "text": "Dm", "notes": [
-        { "time": 87.652174, "end": 87.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 88.043478, "end": 88.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 88.434783, "end": 88.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 88.695652, "end": 89.73913, "measure": 43, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 88.695652, "end": 88.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 89.086957, "end": 89.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 89.478261, "end": 89.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 89.73913, "end": 90.782609, "measure": 43, "beat": 4, "text": "Bbmaj7", "notes": [
-        { "time": 89.73913, "end": 89.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 90.130435, "end": 90.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 90.521739, "end": 90.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 90.782609, "end": 91.826087, "measure": 44, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 90.782609, "end": 90.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 91.173913, "end": 91.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 91.565217, "end": 91.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 91.826087, "end": 92.869565, "measure": 45, "beat": 1, "text": "Dm", "notes": [
-        { "time": 91.826087, "end": 91.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 92.217391, "end": 92.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 92.608696, "end": 92.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 92.869565, "end": 93.913043, "measure": 45, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 92.869565, "end": 93, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 93.26087, "end": 93.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 93.652174, "end": 93.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 93.913043, "end": 94.434783, "measure": 45, "beat": 4, "text": "Bb", "notes": [
-        { "time": 93.913043, "end": 94.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 94.434783, "end": 94.956522, "measure": 46, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 94.434783, "end": 94.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 94.956522, "end": 96, "measure": 46, "beat": 3, "text": "Dm", "notes": [
-        { "time": 94.956522, "end": 95.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 95.347826, "end": 95.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 95.73913, "end": 95.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 96, "end": 97.043478, "measure": 47, "beat": 1, "text": "Dm", "notes": [
-        { "time": 96, "end": 96.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 96.391304, "end": 96.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 96.782609, "end": 96.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 97.043478, "end": 98.086957, "measure": 47, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 97.043478, "end": 97.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 97.434783, "end": 97.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 97.826087, "end": 97.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 98.086957, "end": 99.130435, "measure": 48, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 98.086957, "end": 98.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 98.478261, "end": 98.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 98.869565, "end": 99, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 99.130435, "end": 100.173913, "measure": 48, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 99.130435, "end": 99.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 99.521739, "end": 99.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 99.913043, "end": 100.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 100.173913, "end": 101.217391, "measure": 48, "beat": 4, "text": "Dm", "notes": [
-        { "time": 100.173913, "end": 100.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 100.565217, "end": 100.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 100.956522, "end": 101.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 101.217391, "end": 102.26087, "measure": 49, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 101.217391, "end": 101.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 101.608696, "end": 101.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 102, "end": 102.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 102.26087, "end": 102.782609, "measure": 50, "beat": 1, "text": "Bb", "notes": [
-        { "time": 102.26087, "end": 102.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 102.782609, "end": 103.304348, "measure": 50, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 102.782609, "end": 102.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 103.304348, "end": 104.347826, "measure": 50, "beat": 3, "text": "Dm", "notes": [
-        { "time": 103.304348, "end": 103.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 103.695652, "end": 103.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 104.086957, "end": 104.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 104.347826, "end": 105.391304, "measure": 50, "beat": 4, "text": "Csus4", "notes": [
-        { "time": 104.347826, "end": 104.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 104.73913, "end": 104.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 105.130435, "end": 105.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 105.391304, "end": 106.434783, "measure": 51, "beat": 2, "text": "Dm", "notes": [
-        { "time": 105.391304, "end": 105.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 105.782609, "end": 105.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 106.173913, "end": 106.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 106.434783, "end": 107.478261, "measure": 52, "beat": 1, "text": "Csus4", "notes": [
-        { "time": 106.434783, "end": 106.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 106.826087, "end": 106.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 107.217391, "end": 107.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 107.478261, "end": 108.521739, "measure": 52, "beat": 3, "text": "Dm", "notes": [
-        { "time": 107.478261, "end": 107.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 107.869565, "end": 108, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 108.26087, "end": 108.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 108.521739, "end": 109.565217, "measure": 52, "beat": 4, "text": "Csus4", "notes": [
-        { "time": 108.521739, "end": 108.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 108.913043, "end": 109.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 109.304348, "end": 109.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 109.565217, "end": 110.608696, "measure": 53, "beat": 2, "text": "Dm", "notes": [
-        { "time": 109.565217, "end": 109.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 109.956522, "end": 110.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 110.347826, "end": 110.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 110.608696, "end": 111.652174, "measure": 54, "beat": 1, "text": "Dm", "notes": [
-        { "time": 110.608696, "end": 110.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 111, "end": 111.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 111.391304, "end": 111.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 111.652174, "end": 112.695652, "measure": 54, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 111.652174, "end": 111.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 112.043478, "end": 112.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 112.434783, "end": 112.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 112.695652, "end": 113.73913, "measure": 54, "beat": 4, "text": "Dm", "notes": [
-        { "time": 112.695652, "end": 112.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 113.086957, "end": 113.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 113.478261, "end": 113.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 113.73913, "end": 114.782609, "measure": 55, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 113.73913, "end": 113.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 114.130435, "end": 114.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 114.521739, "end": 114.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 114.782609, "end": 115.826087, "measure": 56, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 114.782609, "end": 114.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 115.173913, "end": 115.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 115.565217, "end": 115.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 115.826087, "end": 116.869565, "measure": 56, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 115.826087, "end": 115.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 116.217391, "end": 116.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 116.608696, "end": 116.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 116.869565, "end": 117.913043, "measure": 56, "beat": 4, "text": "Dm", "notes": [
-        { "time": 116.869565, "end": 117, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 117.26087, "end": 117.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 117.652174, "end": 117.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 117.913043, "end": 118.956522, "measure": 57, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 117.913043, "end": 118.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 118.304348, "end": 118.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 118.695652, "end": 118.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 118.956522, "end": 119.478261, "measure": 58, "beat": 1, "text": "Bb", "notes": [
-        { "time": 118.956522, "end": 119.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 119.478261, "end": 120, "measure": 58, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 119.478261, "end": 119.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 120, "end": 121.043478, "measure": 58, "beat": 3, "text": "Dm", "notes": [
-        { "time": 120, "end": 120.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 120.391304, "end": 120.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 120.782609, "end": 120.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 121.043478, "end": 122.086957, "measure": 58, "beat": 4, "text": "Dm", "notes": [
-        { "time": 121.043478, "end": 121.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 121.434783, "end": 121.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 121.826087, "end": 121.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 122.086957, "end": 123.130435, "measure": 59, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 122.086957, "end": 122.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 122.478261, "end": 122.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 122.869565, "end": 123, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 123.130435, "end": 124.173913, "measure": 60, "beat": 1, "text": "Bbmaj7", "notes": [
-        { "time": 123.130435, "end": 123.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 123.521739, "end": 123.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 123.913043, "end": 124.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 124.173913, "end": 125.217391, "measure": 60, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 124.173913, "end": 124.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 124.565217, "end": 124.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 124.956522, "end": 125.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 125.217391, "end": 126.26087, "measure": 60, "beat": 4, "text": "Dm", "notes": [
-        { "time": 125.217391, "end": 125.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 125.608696, "end": 125.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 126, "end": 126.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 126.26087, "end": 127.304348, "measure": 61, "beat": 3, "text": "Csus4", "notes": [
-        { "time": 126.26087, "end": 126.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 126.652174, "end": 126.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 127.043478, "end": 127.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 4, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 127.304348, "end": 127.826087, "measure": 62, "beat": 1, "text": "Bb", "notes": [
-        { "time": 127.304348, "end": 127.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 1, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 127.826087, "end": 128.347826, "measure": 62, "beat": 2, "text": "Csus4", "notes": [
-        { "time": 127.826087, "end": 127.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 2, "numerator": 4, "denominator": 4 }
-      ] },
-    { "time": 128.347826, "end": 129.391304, "measure": 62, "beat": 2, "text": "Dm", "notes": [
-        { "time": 128.347826, "end": 128.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 128.73913, "end": 128.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 129.130435, "end": 129.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "time": 0, "end": 4.173913, "measure": 1, "beat": 3015, "text": "1 2 3 4 - SON  2 3 4" },
+    { "time": 4.173913, "end": 5.217392, "measure": 3, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 4.173913, "end": 4.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 4.565218, "end": 4.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 4.956522, "end": 5.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 5.217392, "end": 6.26087, "measure": 4, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 5.217392, "end": 5.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 5.608696, "end": 5.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 6, "end": 6.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 6.26087, "end": 7.304348, "measure": 5, "beat": 3012, "text": "Bbmaj7", "notes": [
+        { "time": 6.26087, "end": 6.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 6.652174, "end": 6.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 7.043479, "end": 7.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 7.304348, "end": 8.347826, "measure": 5, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 7.304348, "end": 7.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 7.695652, "end": 7.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 8.086957, "end": 8.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 8.347826, "end": 9.391305, "measure": 5, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 8.347826, "end": 8.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 5, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 8.739131, "end": 8.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 9.130435, "end": 9.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 9.391305, "end": 10.434783, "measure": 6, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 9.391305, "end": 9.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 9.782609, "end": 9.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 10.173913, "end": 10.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 10.434783, "end": 10.956522, "measure": 7, "beat": 3012, "text": "Bb", "notes": [
+        { "time": 10.434783, "end": 10.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 10.956522, "end": 11.478261, "measure": 7, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 10.956522, "end": 11.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 11.478261, "end": 12.521739, "measure": 7, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 11.478261, "end": 11.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 11.869566, "end": 12, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 12.26087, "end": 12.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 12.521739, "end": 13.565218, "measure": 7, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 12.521739, "end": 12.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 12.913044, "end": 13.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 13.304348, "end": 13.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 13.565218, "end": 14.608696, "measure": 8, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 13.565218, "end": 13.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 13.956522, "end": 14.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 14.347826, "end": 14.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 14.608696, "end": 15.652174, "measure": 9, "beat": 3012, "text": "Bbmaj7", "notes": [
+        { "time": 14.608696, "end": 14.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 15, "end": 15.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 15.391305, "end": 15.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 15.652174, "end": 16.695652, "measure": 9, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 15.652174, "end": 15.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 16.043479, "end": 16.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 16.434783, "end": 16.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 16.695652, "end": 17.739131, "measure": 9, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 16.695652, "end": 16.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 9, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 17.086957, "end": 17.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 17.478261, "end": 17.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 17.739131, "end": 18.782609, "measure": 10, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 17.739131, "end": 17.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 18.130435, "end": 18.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 18.521739, "end": 18.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 18.782609, "end": 19.304348, "measure": 10, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 18.782609, "end": 18.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 19.304348, "end": 19.826087, "measure": 11, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 19.304348, "end": 19.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 19.826087, "end": 20.869566, "measure": 11, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 19.826087, "end": 19.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 20.217392, "end": 20.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 20.608696, "end": 20.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 20.869566, "end": 21.913044, "measure": 12, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 20.869566, "end": 21, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 21.26087, "end": 21.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 21.652174, "end": 21.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 21.913044, "end": 22.956522, "measure": 12, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 21.913044, "end": 22.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 22.304348, "end": 22.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 22.695652, "end": 22.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 22.956522, "end": 24, "measure": 12, "beat": 3015, "text": "Csus4", "notes": [
+        { "time": 22.956522, "end": 23.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 23.347826, "end": 23.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 23.739131, "end": 23.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 24, "end": 25.043479, "measure": 13, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 24, "end": 24.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 24.391305, "end": 24.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 24.782609, "end": 24.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 13, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 25.043479, "end": 26.086957, "measure": 14, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 25.043479, "end": 25.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 25.434783, "end": 25.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 25.826087, "end": 25.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 26.086957, "end": 27.130435, "measure": 14, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 26.086957, "end": 26.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 26.478261, "end": 26.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 26.869566, "end": 27, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 27.130435, "end": 28.173913, "measure": 14, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 27.130435, "end": 27.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 27.521739, "end": 27.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 27.913044, "end": 28.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 28.173913, "end": 29.217392, "measure": 15, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 28.173913, "end": 28.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 28.565218, "end": 28.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 28.956522, "end": 29.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 29.217392, "end": 30.26087, "measure": 16, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 29.217392, "end": 29.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 29.608696, "end": 29.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 30, "end": 30.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 30.26087, "end": 31.304348, "measure": 16, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 30.26087, "end": 30.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 30.652174, "end": 30.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 31.043479, "end": 31.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 31.304348, "end": 32.347826, "measure": 16, "beat": 3015, "text": "Bbmaj7", "notes": [
+        { "time": 31.304348, "end": 31.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 31.695652, "end": 31.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 32.086957, "end": 32.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 32.347826, "end": 33.391305, "measure": 17, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 32.347826, "end": 32.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 32.739131, "end": 32.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 33.130435, "end": 33.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 17, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 33.391305, "end": 34.434783, "measure": 18, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 33.391305, "end": 33.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 33.782609, "end": 33.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 34.173913, "end": 34.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 34.434783, "end": 35.478261, "measure": 18, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 34.434783, "end": 34.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 34.826087, "end": 34.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 35.217392, "end": 35.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 35.478261, "end": 36, "measure": 18, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 35.478261, "end": 35.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 36, "end": 36.521739, "measure": 19, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 36, "end": 36.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 36.521739, "end": 37.565218, "measure": 19, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 36.521739, "end": 36.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 36.913044, "end": 37.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 37.304348, "end": 37.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 37.565218, "end": 38.608696, "measure": 20, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 37.565218, "end": 37.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 37.956522, "end": 38.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 38.347826, "end": 38.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 38.608696, "end": 39.652174, "measure": 20, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 38.608696, "end": 38.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 39, "end": 39.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 39.391305, "end": 39.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 39.652174, "end": 40.695652, "measure": 20, "beat": 3015, "text": "Bbmaj7", "notes": [
+        { "time": 39.652174, "end": 39.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 40.043479, "end": 40.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 40.434783, "end": 40.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 40.695652, "end": 41.739131, "measure": 21, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 40.695652, "end": 40.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 41.086957, "end": 41.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 41.478261, "end": 41.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 21, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 41.739131, "end": 42.782609, "measure": 22, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 41.739131, "end": 41.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 42.130435, "end": 42.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 42.521739, "end": 42.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 42.782609, "end": 43.826087, "measure": 22, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 42.782609, "end": 42.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 43.173913, "end": 43.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 43.565218, "end": 43.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 43.826087, "end": 44.347826, "measure": 22, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 43.826087, "end": 43.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 44.347826, "end": 44.869566, "measure": 23, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 44.347826, "end": 44.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 44.869566, "end": 45.913044, "measure": 23, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 44.869566, "end": 45, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 45.26087, "end": 45.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 45.652174, "end": 45.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 45.913044, "end": 46.956522, "measure": 24, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 45.913044, "end": 46.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 46.304348, "end": 46.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 46.695652, "end": 46.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 46.956522, "end": 48, "measure": 24, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 46.956522, "end": 47.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 47.347826, "end": 47.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 47.739131, "end": 47.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 48, "end": 49.043479, "measure": 24, "beat": 3015, "text": "Bbmaj7", "notes": [
+        { "time": 48, "end": 48.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 48.391305, "end": 48.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 48.782609, "end": 48.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 49.043479, "end": 50.086957, "measure": 25, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 49.043479, "end": 49.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 49.434783, "end": 49.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 49.826087, "end": 49.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 25, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 50.086957, "end": 51.130435, "measure": 26, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 50.086957, "end": 50.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 50.478261, "end": 50.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 50.869566, "end": 51, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 51.130435, "end": 52.173913, "measure": 26, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 51.130435, "end": 51.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 51.521739, "end": 51.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 51.913044, "end": 52.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 52.173913, "end": 52.695652, "measure": 26, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 52.173913, "end": 52.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 26, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 52.695652, "end": 53.217392, "measure": 27, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 52.695652, "end": 52.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 53.217392, "end": 54.26087, "measure": 27, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 53.217392, "end": 53.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 53.608696, "end": 53.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 54, "end": 54.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 54.26087, "end": 55.304348, "measure": 28, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 54.26087, "end": 54.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 54.652174, "end": 54.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 55.043479, "end": 55.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 55.304348, "end": 56.347826, "measure": 28, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 55.304348, "end": 55.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 55.695652, "end": 55.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 56.086957, "end": 56.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 56.347826, "end": 57.391305, "measure": 28, "beat": 3015, "text": "Bbmaj7", "notes": [
+        { "time": 56.347826, "end": 56.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 56.739131, "end": 56.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 57.130435, "end": 57.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 57.391305, "end": 58.434783, "measure": 29, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 57.391305, "end": 57.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 57.782609, "end": 57.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 58.173913, "end": 58.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 29, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 58.434783, "end": 59.478261, "measure": 30, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 58.434783, "end": 58.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 58.826087, "end": 58.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 59.217392, "end": 59.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 59.478261, "end": 60.521739, "measure": 30, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 59.478261, "end": 59.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 59.869566, "end": 60, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 60.26087, "end": 60.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 60.521739, "end": 61.043479, "measure": 30, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 60.521739, "end": 60.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 30, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 61.043479, "end": 61.565218, "measure": 31, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 61.043479, "end": 61.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 61.565218, "end": 62.608696, "measure": 31, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 61.565218, "end": 61.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 61.956522, "end": 62.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 62.347826, "end": 62.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 62.608696, "end": 63.652174, "measure": 32, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 62.608696, "end": 62.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 63, "end": 63.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 63.391305, "end": 63.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 63.652174, "end": 64.695652, "measure": 32, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 63.652174, "end": 63.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 64.043479, "end": 64.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 64.434783, "end": 64.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 64.695652, "end": 65.739131, "measure": 32, "beat": 3015, "text": "Csus4", "notes": [
+        { "time": 64.695652, "end": 64.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 65.086957, "end": 65.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 65.478261, "end": 65.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 65.739131, "end": 66.782609, "measure": 33, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 65.739131, "end": 65.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 66.130435, "end": 66.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 66.521739, "end": 66.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 66.782609, "end": 67.826087, "measure": 33, "beat": 3015, "text": "Csus4", "notes": [
+        { "time": 66.782609, "end": 66.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 33, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 67.173913, "end": 67.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 67.565218, "end": 67.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 67.826087, "end": 68.869566, "measure": 34, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 67.826087, "end": 67.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 68.217392, "end": 68.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 68.608696, "end": 68.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 34, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 68.869566, "end": 69.913044, "measure": 35, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 68.869566, "end": 69, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 69.26087, "end": 69.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 69.652174, "end": 69.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 69.913044, "end": 70.956522, "measure": 35, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 69.913044, "end": 70.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 70.304348, "end": 70.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 70.695652, "end": 70.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 70.956522, "end": 72, "measure": 35, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 70.956522, "end": 71.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 71.347826, "end": 71.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 71.739131, "end": 71.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 72, "end": 73.043479, "measure": 36, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 72, "end": 72.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 72.391305, "end": 72.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 72.782609, "end": 72.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 73.043479, "end": 74.086957, "measure": 37, "beat": 3012, "text": "Bbmaj7", "notes": [
+        { "time": 73.043479, "end": 73.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 73.434783, "end": 73.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 73.826087, "end": 73.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 74.086957, "end": 75.130435, "measure": 37, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 74.086957, "end": 74.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 74.478261, "end": 74.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 74.869566, "end": 75, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 75.130435, "end": 76.173913, "measure": 37, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 75.130435, "end": 75.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 37, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 75.521739, "end": 75.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 75.913044, "end": 76.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 76.173913, "end": 77.217392, "measure": 38, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 76.173913, "end": 76.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 76.565218, "end": 76.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 76.956522, "end": 77.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 38, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 77.217392, "end": 77.739131, "measure": 39, "beat": 3012, "text": "Bb", "notes": [
+        { "time": 77.217392, "end": 77.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 77.739131, "end": 78.26087, "measure": 39, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 77.739131, "end": 77.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 78.26087, "end": 79.304348, "measure": 39, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 78.26087, "end": 78.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 78.652174, "end": 78.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 79.043479, "end": 79.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 79.304348, "end": 80.347826, "measure": 39, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 79.304348, "end": 79.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 79.695652, "end": 79.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 80.086957, "end": 80.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 80.347826, "end": 81.391305, "measure": 40, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 80.347826, "end": 80.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 80.739131, "end": 80.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 81.130435, "end": 81.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 81.391305, "end": 82.434783, "measure": 41, "beat": 3012, "text": "Bbmaj7", "notes": [
+        { "time": 81.391305, "end": 81.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 81.782609, "end": 81.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 82.173913, "end": 82.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 82.434783, "end": 83.478261, "measure": 41, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 82.434783, "end": 82.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 82.826087, "end": 82.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 83.217392, "end": 83.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 83.478261, "end": 84.521739, "measure": 41, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 83.478261, "end": 83.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 41, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 83.869566, "end": 84, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 84.26087, "end": 84.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 84.521739, "end": 85.565218, "measure": 42, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 84.521739, "end": 84.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 84.913044, "end": 85.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 85.304348, "end": 85.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 42, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 85.565218, "end": 86.086957, "measure": 43, "beat": 3012, "text": "Bb", "notes": [
+        { "time": 85.565218, "end": 85.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 86.086957, "end": 86.608696, "measure": 43, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 86.086957, "end": 86.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 86.608696, "end": 87.652174, "measure": 43, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 86.608696, "end": 86.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 87, "end": 87.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 87.391305, "end": 87.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 87.652174, "end": 88.695652, "measure": 43, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 87.652174, "end": 87.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 88.043479, "end": 88.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 88.434783, "end": 88.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 88.695652, "end": 89.739131, "measure": 44, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 88.695652, "end": 88.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 89.086957, "end": 89.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 89.478261, "end": 89.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 89.739131, "end": 90.782609, "measure": 45, "beat": 3012, "text": "Bbmaj7", "notes": [
+        { "time": 89.739131, "end": 89.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 90.130435, "end": 90.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 90.521739, "end": 90.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 90.782609, "end": 91.826087, "measure": 45, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 90.782609, "end": 90.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 91.173913, "end": 91.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 91.565218, "end": 91.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 91.826087, "end": 92.869566, "measure": 45, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 91.826087, "end": 91.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 45, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 92.217392, "end": 92.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 92.608696, "end": 92.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 92.869566, "end": 93.913044, "measure": 46, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 92.869566, "end": 93, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 93.26087, "end": 93.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 93.652174, "end": 93.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 46, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 93.913044, "end": 94.434783, "measure": 47, "beat": 3012, "text": "Bb", "notes": [
+        { "time": 93.913044, "end": 94.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 94.434783, "end": 94.956522, "measure": 47, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 94.434783, "end": 94.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 94.956522, "end": 96, "measure": 47, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 94.956522, "end": 95.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 95.347826, "end": 95.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 95.739131, "end": 95.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 96, "end": 97.043479, "measure": 47, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 96, "end": 96.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 96.391305, "end": 96.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 96.782609, "end": 96.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 97.043479, "end": 98.086957, "measure": 48, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 97.043479, "end": 97.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 97.434783, "end": 97.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 97.826087, "end": 97.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 98.086957, "end": 99.130435, "measure": 49, "beat": 3012, "text": "Bbmaj7", "notes": [
+        { "time": 98.086957, "end": 98.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 98.478261, "end": 98.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 98.869566, "end": 99, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 99.130435, "end": 100.173913, "measure": 49, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 99.130435, "end": 99.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 99.521739, "end": 99.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 99.913044, "end": 100.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 100.173913, "end": 101.217392, "measure": 49, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 100.173913, "end": 100.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 49, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 100.565218, "end": 100.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 100.956522, "end": 101.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 101.217392, "end": 102.26087, "measure": 50, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 101.217392, "end": 101.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 101.608696, "end": 101.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 102, "end": 102.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 102.26087, "end": 102.782609, "measure": 51, "beat": 3012, "text": "Bb", "notes": [
+        { "time": 102.26087, "end": 102.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 102.782609, "end": 103.304348, "measure": 51, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 102.782609, "end": 102.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 103.304348, "end": 104.347826, "measure": 51, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 103.304348, "end": 103.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 103.695652, "end": 103.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 104.086957, "end": 104.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 104.347826, "end": 105.391305, "measure": 51, "beat": 3015, "text": "Csus4", "notes": [
+        { "time": 104.347826, "end": 104.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 104.739131, "end": 104.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 105.130435, "end": 105.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 105.391305, "end": 106.434783, "measure": 52, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 105.391305, "end": 105.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 105.782609, "end": 105.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 106.173913, "end": 106.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 106.434783, "end": 107.478261, "measure": 53, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 106.434783, "end": 106.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 106.826087, "end": 106.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 107.217392, "end": 107.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 107.478261, "end": 108.521739, "measure": 53, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 107.478261, "end": 107.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 107.869566, "end": 108, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 108.26087, "end": 108.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 108.521739, "end": 109.565218, "measure": 53, "beat": 3015, "text": "Csus4", "notes": [
+        { "time": 108.521739, "end": 108.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 53, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 108.913044, "end": 109.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 109.304348, "end": 109.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 109.565218, "end": 110.608696, "measure": 54, "beat": 3014, "text": "Dm", "notes": [
+        { "time": 109.565218, "end": 109.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 109.956522, "end": 110.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 110.347826, "end": 110.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 110.608696, "end": 111.652174, "measure": 55, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 110.608696, "end": 110.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 111, "end": 111.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 111.391305, "end": 111.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 111.652174, "end": 112.695652, "measure": 55, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 111.652174, "end": 111.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 112.043479, "end": 112.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 112.434783, "end": 112.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 112.695652, "end": 113.739131, "measure": 55, "beat": 3015, "text": "Dm", "notes": [
+        { "time": 112.695652, "end": 112.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 113.086957, "end": 113.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 113.478261, "end": 113.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 113.739131, "end": 114.782609, "measure": 56, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 113.739131, "end": 113.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 114.130435, "end": 114.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 114.521739, "end": 114.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 114.782609, "end": 115.826087, "measure": 56, "beat": 3015, "text": "Bbmaj7", "notes": [
+        { "time": 114.782609, "end": 114.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 115.173913, "end": 115.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 115.565218, "end": 115.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 115.826087, "end": 116.869566, "measure": 57, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 115.826087, "end": 115.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 116.217392, "end": 116.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 116.608696, "end": 116.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 57, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 116.869566, "end": 117.913044, "measure": 58, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 116.869566, "end": 117, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 117.26087, "end": 117.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 117.652174, "end": 117.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 117.913044, "end": 118.956522, "measure": 58, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 117.913044, "end": 118.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 118.304348, "end": 118.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 118.695652, "end": 118.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 118.956522, "end": 119.478261, "measure": 58, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 118.956522, "end": 119.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 119.478261, "end": 120, "measure": 59, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 119.478261, "end": 119.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 120, "end": 121.043479, "measure": 59, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 120, "end": 120.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 120.391305, "end": 120.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 120.782609, "end": 120.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 121.043479, "end": 122.086957, "measure": 60, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 121.043479, "end": 121.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 121.434783, "end": 121.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 121.826087, "end": 121.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 122.086957, "end": 123.130435, "measure": 60, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 122.086957, "end": 122.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 122.478261, "end": 122.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 122.869566, "end": 123, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 123.130435, "end": 124.173913, "measure": 60, "beat": 3015, "text": "Bbmaj7", "notes": [
+        { "time": 123.130435, "end": 123.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 123.521739, "end": 123.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 123.913044, "end": 124.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 124.173913, "end": 125.217392, "measure": 61, "beat": 3013, "text": "Csus4", "notes": [
+        { "time": 124.173913, "end": 124.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 124.565218, "end": 124.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 124.956522, "end": 125.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 61, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 125.217392, "end": 126.26087, "measure": 62, "beat": 3012, "text": "Dm", "notes": [
+        { "time": 125.217392, "end": 125.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 125.608696, "end": 125.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 126, "end": 126.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3013, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 126.26087, "end": 127.304348, "measure": 62, "beat": 3014, "text": "Csus4", "notes": [
+        { "time": 126.26087, "end": 126.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 126.652174, "end": 126.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 127.043479, "end": 127.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 127.304348, "end": 127.826087, "measure": 62, "beat": 3015, "text": "Bb", "notes": [
+        { "time": 127.304348, "end": 127.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 62, "beat": 3015, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 127.826087, "end": 128.347826, "measure": 63, "beat": 3012, "text": "Csus4", "notes": [
+        { "time": 127.826087, "end": 127.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 63, "beat": 3012, "numerator": 4, "denominator": 4 }
+      ] },
+    { "time": 128.347826, "end": 129.391305, "measure": 63, "beat": 3013, "text": "Dm", "notes": [
+        { "time": 128.347826, "end": 128.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 63, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 128.739131, "end": 128.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 63, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 129.130435, "end": 129.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 63, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] }
   ],
   "patterns": [
-    { "text": "1 2 3 4 - SON  2 3 4", "time": 0, "end": 4.173913, "length": 4.173913, "measure": 1, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 4.173913, "end": 6.26087, "length": 2.086957, "measure": 2, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 4.173913, "end": 4.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 2, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 4.565217, "end": 4.695652, "pitch": 50, "channel": 0, "velocity": 96, "measure": 3, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 4.695652, "end": 4.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 4.956522, "end": 5.086957, "pitch": 50, "channel": 0, "velocity": 96, "measure": 3, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 5.217391, "end": 5.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 5.608696, "end": 5.73913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 3, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 5.73913, "end": 5.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 6, "end": 6.130435, "pitch": 50, "channel": 0, "velocity": 96, "measure": 3, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "1 2 3 4 - SON  2 3 4", "time": 0, "end": 4.173913, "length": 4.173913, "measure": 1, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 4.173913, "end": 6.26087, "length": 2.086957, "measure": 3, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 4.173913, "end": 4.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 3, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 4.565218, "end": 4.695652, "pitch": 50, "channel": 0, "velocity": 96, "measure": 4, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 4.695652, "end": 4.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 4.956522, "end": 5.086957, "pitch": 50, "channel": 0, "velocity": 96, "measure": 4, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 5.217392, "end": 5.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 5.608696, "end": 5.739131, "pitch": 50, "channel": 0, "velocity": 96, "measure": 4, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 5.739131, "end": 5.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 4, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 6, "end": 6.130435, "pitch": 50, "channel": 0, "velocity": 96, "measure": 4, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 10.434783, "end": 12.521739, "length": 2.086956, "measure": 6, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 12.521739, "end": 14.608696, "length": 2.086957, "measure": 6, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 12.521739, "end": 12.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 6, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 12.913043, "end": 13.043478, "pitch": 50, "channel": 0, "velocity": 96, "measure": 7, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 13.043478, "end": 13.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 13.304348, "end": 13.434783, "pitch": 50, "channel": 0, "velocity": 96, "measure": 7, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 13.565217, "end": 13.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 13.956522, "end": 14.086957, "pitch": 50, "channel": 0, "velocity": 96, "measure": 7, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 14.086957, "end": 14.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 14.347826, "end": 14.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 7, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 10.434783, "end": 12.521739, "length": 2.086956, "measure": 7, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 12.521739, "end": 14.608696, "length": 2.086957, "measure": 7, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 12.521739, "end": 12.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 7, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 12.913044, "end": 13.043479, "pitch": 50, "channel": 0, "velocity": 96, "measure": 8, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 13.043479, "end": 13.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 13.304348, "end": 13.434783, "pitch": 50, "channel": 0, "velocity": 96, "measure": 8, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 13.565218, "end": 13.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 13.956522, "end": 14.086957, "pitch": 50, "channel": 0, "velocity": 96, "measure": 8, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 14.086957, "end": 14.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 8, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 14.347826, "end": 14.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 8, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 18.782609, "end": 20.869565, "length": 2.086956, "measure": 10, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "DISCO KASNAK", "time": 20.869565, "end": 22.956522, "length": 2.086957, "measure": 10, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 20.869565, "end": 21, "pitch": 48, "channel": 0, "velocity": 96, "measure": 10, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 21.391304, "end": 21.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 21.391304, "end": 21.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 11, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 21.913043, "end": 22.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 22.434783, "end": 22.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 11, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 22.434783, "end": 22.565217, "pitch": 50, "channel": 0, "velocity": 96, "measure": 11, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 18.782609, "end": 20.869566, "length": 2.086957, "measure": 10, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "DISCO KASNAK", "time": 20.869566, "end": 22.956522, "length": 2.086956, "measure": 12, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 20.869566, "end": 21, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 21.391305, "end": 21.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 21.391305, "end": 21.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 12, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 21.913044, "end": 22.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 22.434783, "end": 22.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 12, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 22.434783, "end": 22.565218, "pitch": 50, "channel": 0, "velocity": 96, "measure": 12, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 27.130435, "end": 29.217391, "length": 2.086956, "measure": 14, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 29.217391, "end": 31.304348, "length": 2.086957, "measure": 14, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 29.217391, "end": 29.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 14, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 29.608696, "end": 29.73913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 15, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 29.73913, "end": 29.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 30, "end": 30.130435, "pitch": 50, "channel": 0, "velocity": 96, "measure": 15, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 30.26087, "end": 30.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 30.652174, "end": 30.782609, "pitch": 50, "channel": 0, "velocity": 96, "measure": 15, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 30.782609, "end": 30.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 15, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 31.043478, "end": 31.173913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 15, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 27.130435, "end": 29.217392, "length": 2.086957, "measure": 14, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 29.217392, "end": 31.304348, "length": 2.086956, "measure": 16, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 29.217392, "end": 29.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 29.608696, "end": 29.739131, "pitch": 50, "channel": 0, "velocity": 96, "measure": 16, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 29.739131, "end": 29.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 30, "end": 30.130435, "pitch": 50, "channel": 0, "velocity": 96, "measure": 16, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 30.26087, "end": 30.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 30.652174, "end": 30.782609, "pitch": 50, "channel": 0, "velocity": 96, "measure": 16, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 30.782609, "end": 30.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 16, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 31.043479, "end": 31.173913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 16, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 35.478261, "end": 37.565217, "length": 2.086956, "measure": 18, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 37.565217, "end": 39.652174, "length": 2.086957, "measure": 18, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 37.565217, "end": 37.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 18, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 37.956522, "end": 38.086957, "pitch": 50, "channel": 0, "velocity": 96, "measure": 19, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 38.086957, "end": 38.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 38.347826, "end": 38.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 19, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 38.608696, "end": 38.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 39, "end": 39.130435, "pitch": 50, "channel": 0, "velocity": 96, "measure": 19, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 39.130435, "end": 39.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 19, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 39.391304, "end": 39.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 19, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 35.478261, "end": 37.565218, "length": 2.086957, "measure": 18, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 37.565218, "end": 39.652174, "length": 2.086956, "measure": 20, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 37.565218, "end": 37.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 37.956522, "end": 38.086957, "pitch": 50, "channel": 0, "velocity": 96, "measure": 20, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 38.086957, "end": 38.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 38.347826, "end": 38.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 20, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 38.608696, "end": 38.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 39, "end": 39.130435, "pitch": 50, "channel": 0, "velocity": 96, "measure": 20, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 39.130435, "end": 39.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 20, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 39.391305, "end": 39.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 20, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 43.826087, "end": 45.913043, "length": 2.086956, "measure": 22, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 45.913043, "end": 48, "length": 2.086957, "measure": 22, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 45.913043, "end": 46.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 22, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 46.304348, "end": 46.434783, "pitch": 50, "channel": 0, "velocity": 96, "measure": 23, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 46.434783, "end": 46.565217, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 46.695652, "end": 46.826087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 23, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 46.956522, "end": 47.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 47.347826, "end": 47.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 23, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 47.478261, "end": 47.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 23, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 47.73913, "end": 47.869565, "pitch": 50, "channel": 0, "velocity": 96, "measure": 23, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 43.826087, "end": 45.913044, "length": 2.086957, "measure": 22, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 45.913044, "end": 48, "length": 2.086956, "measure": 24, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 45.913044, "end": 46.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 46.304348, "end": 46.434783, "pitch": 50, "channel": 0, "velocity": 96, "measure": 24, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 46.434783, "end": 46.565218, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 46.695652, "end": 46.826087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 24, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 46.956522, "end": 47.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 47.347826, "end": 47.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 24, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 47.478261, "end": 47.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 24, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 47.739131, "end": 47.869566, "pitch": 50, "channel": 0, "velocity": 96, "measure": 24, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 52.173913, "end": 54.26087, "length": 2.086957, "measure": 25, "beat": 4, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 54.26087, "end": 56.347826, "length": 2.086956, "measure": 27, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 54.26087, "end": 54.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 54.652174, "end": 54.782609, "pitch": 50, "channel": 0, "velocity": 96, "measure": 27, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 54.782609, "end": 54.913043, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 55.043478, "end": 55.173913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 27, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 55.304348, "end": 55.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 55.695652, "end": 55.826087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 27, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 55.826087, "end": 55.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 27, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 56.086957, "end": 56.217391, "pitch": 50, "channel": 0, "velocity": 96, "measure": 27, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 52.173913, "end": 54.26087, "length": 2.086957, "measure": 26, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 54.26087, "end": 56.347826, "length": 2.086956, "measure": 28, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 54.26087, "end": 54.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 54.652174, "end": 54.782609, "pitch": 50, "channel": 0, "velocity": 96, "measure": 28, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 54.782609, "end": 54.913044, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 55.043479, "end": 55.173913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 28, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 55.304348, "end": 55.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 55.695652, "end": 55.826087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 28, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 55.826087, "end": 55.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 28, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 56.086957, "end": 56.217392, "pitch": 50, "channel": 0, "velocity": 96, "measure": 28, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 60.521739, "end": 62.608696, "length": 2.086957, "measure": 29, "beat": 4, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "DISCO KASNAK", "time": 62.608696, "end": 64.695652, "length": 2.086956, "measure": 31, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 62.608696, "end": 62.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 63.130435, "end": 63.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 63.130435, "end": 63.26087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 31, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 63.652174, "end": 63.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 64.173913, "end": 64.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 31, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 64.173913, "end": 64.304348, "pitch": 50, "channel": 0, "velocity": 96, "measure": 31, "beat": 3, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 60.521739, "end": 62.608696, "length": 2.086957, "measure": 30, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "DISCO KASNAK", "time": 62.608696, "end": 64.695652, "length": 2.086956, "measure": 32, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 62.608696, "end": 62.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 63.130435, "end": 63.26087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 63.130435, "end": 63.26087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 32, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 63.652174, "end": 63.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 64.173913, "end": 64.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 32, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 64.173913, "end": 64.304348, "pitch": 50, "channel": 0, "velocity": 96, "measure": 32, "beat": 3014, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 68.869565, "end": 70.956522, "length": 2.086957, "measure": 33, "beat": 4, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 70.956522, "end": 73.043478, "length": 2.086956, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 70.956522, "end": 71.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 71.347826, "end": 71.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 35, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 71.478261, "end": 71.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 71.73913, "end": 71.869565, "pitch": 50, "channel": 0, "velocity": 96, "measure": 35, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 72, "end": 72.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 72.391304, "end": 72.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 35, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 72.521739, "end": 72.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 72.782609, "end": 72.913043, "pitch": 50, "channel": 0, "velocity": 96, "measure": 35, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 68.869566, "end": 70.956522, "length": 2.086956, "measure": 35, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 70.956522, "end": 73.043479, "length": 2.086957, "measure": 35, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 70.956522, "end": 71.086957, "pitch": 48, "channel": 0, "velocity": 96, "measure": 35, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 71.347826, "end": 71.478261, "pitch": 50, "channel": 0, "velocity": 96, "measure": 36, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 71.478261, "end": 71.608696, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 71.739131, "end": 71.869566, "pitch": 50, "channel": 0, "velocity": 96, "measure": 36, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 72, "end": 72.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 72.391305, "end": 72.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 36, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 72.521739, "end": 72.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 36, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 72.782609, "end": 72.913044, "pitch": 50, "channel": 0, "velocity": 96, "measure": 36, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 77.217391, "end": 79.304348, "length": 2.086957, "measure": 37, "beat": 4, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 79.304348, "end": 81.391304, "length": 2.086956, "measure": 39, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 79.304348, "end": 79.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 79.695652, "end": 79.826087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 39, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 79.826087, "end": 79.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 80.086957, "end": 80.217391, "pitch": 50, "channel": 0, "velocity": 96, "measure": 39, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 80.347826, "end": 80.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 80.73913, "end": 80.869565, "pitch": 50, "channel": 0, "velocity": 96, "measure": 39, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 80.869565, "end": 81, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 81.130435, "end": 81.26087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 39, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 77.217392, "end": 79.304348, "length": 2.086956, "measure": 39, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 79.304348, "end": 81.391305, "length": 2.086957, "measure": 39, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 79.304348, "end": 79.434783, "pitch": 48, "channel": 0, "velocity": 96, "measure": 39, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 79.695652, "end": 79.826087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 40, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 79.826087, "end": 79.956522, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 80.086957, "end": 80.217392, "pitch": 50, "channel": 0, "velocity": 96, "measure": 40, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 80.347826, "end": 80.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 80.739131, "end": 80.869566, "pitch": 50, "channel": 0, "velocity": 96, "measure": 40, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 80.869566, "end": 81, "pitch": 48, "channel": 0, "velocity": 96, "measure": 40, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 81.130435, "end": 81.26087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 40, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 85.565217, "end": 87.652174, "length": 2.086957, "measure": 41, "beat": 4, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 87.652174, "end": 89.73913, "length": 2.086956, "measure": 43, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 87.652174, "end": 87.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 88.043478, "end": 88.173913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 43, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 88.173913, "end": 88.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 88.434783, "end": 88.565217, "pitch": 50, "channel": 0, "velocity": 96, "measure": 43, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 88.695652, "end": 88.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 89.086957, "end": 89.217391, "pitch": 50, "channel": 0, "velocity": 96, "measure": 43, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 89.217391, "end": 89.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 89.478261, "end": 89.608696, "pitch": 50, "channel": 0, "velocity": 96, "measure": 43, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 85.565218, "end": 87.652174, "length": 2.086956, "measure": 43, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 87.652174, "end": 89.739131, "length": 2.086957, "measure": 43, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 87.652174, "end": 87.782609, "pitch": 48, "channel": 0, "velocity": 96, "measure": 43, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 88.043479, "end": 88.173913, "pitch": 50, "channel": 0, "velocity": 96, "measure": 44, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 88.173913, "end": 88.304348, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 88.434783, "end": 88.565218, "pitch": 50, "channel": 0, "velocity": 96, "measure": 44, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 88.695652, "end": 88.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 89.086957, "end": 89.217392, "pitch": 50, "channel": 0, "velocity": 96, "measure": 44, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 89.217392, "end": 89.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 44, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 89.478261, "end": 89.608696, "pitch": 50, "channel": 0, "velocity": 96, "measure": 44, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 93.913043, "end": 96, "length": 2.086957, "measure": 45, "beat": 4, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 96, "end": 98.086957, "length": 2.086957, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 96, "end": 96.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 96.391304, "end": 96.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 96.521739, "end": 96.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 96.782609, "end": 96.913043, "pitch": 50, "channel": 0, "velocity": 96, "measure": 47, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 97.043478, "end": 97.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 97.434783, "end": 97.565217, "pitch": 50, "channel": 0, "velocity": 96, "measure": 47, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 97.565217, "end": 97.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 97.826087, "end": 97.956522, "pitch": 50, "channel": 0, "velocity": 96, "measure": 47, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 93.913044, "end": 96, "length": 2.086956, "measure": 47, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 96, "end": 98.086957, "length": 2.086957, "measure": 47, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 96, "end": 96.130435, "pitch": 48, "channel": 0, "velocity": 96, "measure": 47, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 96.391305, "end": 96.521739, "pitch": 50, "channel": 0, "velocity": 96, "measure": 48, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 96.521739, "end": 96.652174, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 96.782609, "end": 96.913044, "pitch": 50, "channel": 0, "velocity": 96, "measure": 48, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 97.043479, "end": 97.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 97.434783, "end": 97.565218, "pitch": 50, "channel": 0, "velocity": 96, "measure": 48, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 97.565218, "end": 97.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 48, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 97.826087, "end": 97.956522, "pitch": 50, "channel": 0, "velocity": 96, "measure": 48, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 102.26087, "end": 104.347826, "length": 2.086956, "measure": 50, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "DISCO KASNAK", "time": 104.347826, "end": 106.434783, "length": 2.086957, "measure": 50, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 104.347826, "end": 104.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 50, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 104.869565, "end": 105, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 104.869565, "end": 105, "pitch": 50, "channel": 0, "velocity": 96, "measure": 51, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 105.391304, "end": 105.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 105.913043, "end": 106.043478, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 105.913043, "end": 106.043478, "pitch": 50, "channel": 0, "velocity": 96, "measure": 51, "beat": 3, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 102.26087, "end": 104.347826, "length": 2.086956, "measure": 51, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "DISCO KASNAK", "time": 104.347826, "end": 106.434783, "length": 2.086957, "measure": 51, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 104.347826, "end": 104.478261, "pitch": 48, "channel": 0, "velocity": 96, "measure": 51, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 104.869566, "end": 105, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 104.869566, "end": 105, "pitch": 50, "channel": 0, "velocity": 96, "measure": 52, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 105.391305, "end": 105.521739, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 105.913044, "end": 106.043479, "pitch": 48, "channel": 0, "velocity": 96, "measure": 52, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 105.913044, "end": 106.043479, "pitch": 50, "channel": 0, "velocity": 96, "measure": 52, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 110.608696, "end": 112.695652, "length": 2.086956, "measure": 54, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 112.695652, "end": 114.782609, "length": 2.086957, "measure": 54, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 112.695652, "end": 112.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 54, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 113.086957, "end": 113.217391, "pitch": 50, "channel": 0, "velocity": 96, "measure": 55, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 113.217391, "end": 113.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 113.478261, "end": 113.608696, "pitch": 50, "channel": 0, "velocity": 96, "measure": 55, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 113.73913, "end": 113.869565, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 114.130435, "end": 114.26087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 55, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 114.26087, "end": 114.391304, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 114.521739, "end": 114.652174, "pitch": 50, "channel": 0, "velocity": 96, "measure": 55, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 110.608696, "end": 112.695652, "length": 2.086956, "measure": 55, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 112.695652, "end": 114.782609, "length": 2.086957, "measure": 55, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 112.695652, "end": 112.826087, "pitch": 48, "channel": 0, "velocity": 96, "measure": 55, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 113.086957, "end": 113.217392, "pitch": 50, "channel": 0, "velocity": 96, "measure": 56, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 113.217392, "end": 113.347826, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 113.478261, "end": 113.608696, "pitch": 50, "channel": 0, "velocity": 96, "measure": 56, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 113.739131, "end": 113.869566, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 114.130435, "end": 114.26087, "pitch": 50, "channel": 0, "velocity": 96, "measure": 56, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 114.26087, "end": 114.391305, "pitch": 48, "channel": 0, "velocity": 96, "measure": 56, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 114.521739, "end": 114.652174, "pitch": 50, "channel": 0, "velocity": 96, "measure": 56, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 118.956522, "end": 121.043478, "length": 2.086956, "measure": 58, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] },
-    { "text": "HALAY", "time": 121.043478, "end": 123.130435, "length": 2.086957, "measure": 58, "beat": 4, "numerator": 4, "denominator": 4, "notes": [
-        { "time": 121.043478, "end": 121.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 58, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 121.434783, "end": 121.565217, "pitch": 50, "channel": 0, "velocity": 96, "measure": 59, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 121.565217, "end": 121.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 1, "numerator": 4, "denominator": 4 },
-        { "time": 121.826087, "end": 121.956522, "pitch": 50, "channel": 0, "velocity": 96, "measure": 59, "beat": 2, "numerator": 4, "denominator": 4 },
-        { "time": 122.086957, "end": 122.217391, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 122.478261, "end": 122.608696, "pitch": 50, "channel": 0, "velocity": 96, "measure": 59, "beat": 3, "numerator": 4, "denominator": 4 },
-        { "time": 122.608696, "end": 122.73913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 59, "beat": 4, "numerator": 4, "denominator": 4 },
-        { "time": 122.869565, "end": 123, "pitch": 50, "channel": 0, "velocity": 96, "measure": 59, "beat": 4, "numerator": 4, "denominator": 4 }
+    { "text": "FILL", "time": 118.956522, "end": 121.043479, "length": 2.086957, "measure": 58, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] },
+    { "text": "HALAY", "time": 121.043479, "end": 123.130435, "length": 2.086956, "measure": 60, "beat": 3012, "numerator": 4, "denominator": 4, "notes": [
+        { "time": 121.043479, "end": 121.173913, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 121.434783, "end": 121.565218, "pitch": 50, "channel": 0, "velocity": 96, "measure": 60, "beat": 3012, "numerator": 4, "denominator": 4 },
+        { "time": 121.565218, "end": 121.695652, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 121.826087, "end": 121.956522, "pitch": 50, "channel": 0, "velocity": 96, "measure": 60, "beat": 3013, "numerator": 4, "denominator": 4 },
+        { "time": 122.086957, "end": 122.217392, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 122.478261, "end": 122.608696, "pitch": 50, "channel": 0, "velocity": 96, "measure": 60, "beat": 3014, "numerator": 4, "denominator": 4 },
+        { "time": 122.608696, "end": 122.739131, "pitch": 48, "channel": 0, "velocity": 96, "measure": 60, "beat": 3015, "numerator": 4, "denominator": 4 },
+        { "time": 122.869566, "end": 123, "pitch": 50, "channel": 0, "velocity": 96, "measure": 60, "beat": 3015, "numerator": 4, "denominator": 4 }
       ] },
-    { "text": "FILL", "time": 127.304348, "end": 129.391304, "length": 2.086956, "measure": 62, "beat": 1, "numerator": 4, "denominator": 4, "notes": [] }
+    { "text": "FILL", "time": 127.304348, "end": 129.391305, "length": 2.086957, "measure": 62, "beat": 3015, "numerator": 4, "denominator": 4, "notes": [] }
   ],
   "assets": [
-    { "id": "master", "kind": "audio", "path": "Tarama-Yar-Tarama.mp3", "hash": "sha256:pending", "label": "Master" },
     { "id": "click", "kind": "audio", "path": "Tarama Yar Tarama- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
-    { "id": "kick", "kind": "audio", "path": "Tarama Yar Tarama- Kick.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Kick" },
-    { "id": "drums", "kind": "audio", "path": "Tarama Yar Tarama- Drums.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Drums" },
-    { "id": "perc", "kind": "audio", "path": "Tarama Yar Tarama- Perc.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Perc" },
-    { "id": "bass", "kind": "audio", "path": "Tarama Yar Tarama- Bass.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Bass" },
-    { "id": "keys", "kind": "audio", "path": "Tarama Yar Tarama- Keys.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Keys" },
-    { "id": "pluck", "kind": "audio", "path": "Tarama Yar Tarama- Pluck.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Pluck" },
-    { "id": "melody", "kind": "audio", "path": "Tarama Yar Tarama- Melody.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "Melody" }
+    { "id": "keys", "kind": "audio", "path": "Tarama Yar Tarama- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 3

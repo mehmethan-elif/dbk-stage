@@ -3,11 +3,12 @@
   "version": 1,
   "title": "Bahçe Duvarından Aştım",
   "duration": 141.818182,
+  "clickDuration": 141.818182,
   "nextSongAt": 137.454545,
   "finalAt": 135.272727,
   "key": "D",
   "scale": "Hicaz",
-  "style": "Kırsehir",
+  "style": "Neset Ertas",
   "form": "Hareketli",
   "kita": 2,
   "tags": ["reaper-export"],
@@ -537,8 +538,8 @@
       ] }
   ],
   "assets": [
-    { "id": "bass", "kind": "audio", "path": "Bahçe Duvarından Aştım- BASS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BASS" },
-    { "id": "bag", "kind": "audio", "path": "Bahçe Duvarından Aştım- BAG.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "BAG" }
+    { "id": "click", "kind": "audio", "path": "Bahçe Duvarından Aştım- Click.flac", "hash": "sha256:pending", "audioRole": "click", "bus": "CUE", "label": "Click" },
+    { "id": "keys", "kind": "audio", "path": "Bahçe Duvarından Aştım- KEYS.flac", "hash": "sha256:pending", "audioRole": "stem", "bus": "MAIN", "label": "KEYS" }
   ],
   "info": {
     "kita": 2
