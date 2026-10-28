@@ -1265,6 +1265,25 @@
       font-weight: 600;
     }
     #offline-bar.on { display: flex; }
+    #dbk-toast {
+      position: fixed;
+      left: 50%;
+      top: calc(10px + env(safe-area-inset-top));
+      transform: translateX(-50%);
+      z-index: 90;
+      max-width: min(92vw, 520px);
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: #26262e;
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 6px 24px rgba(0,0,0,.45);
+      display: none;
+      white-space: pre-wrap;
+    }
+    #dbk-toast.on { display: block; }
     #offline-bar .txt { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     #offline-bar .bar { flex: 0 0 110px; height: 8px; border-radius: 4px; background: #3a3a44; overflow: hidden; }
     #offline-bar .bar i { display: block; height: 100%; width: 0; background: #e8913a; transition: width .25s linear; }
@@ -1669,6 +1688,20 @@
     var scoreWidth = 0;
     var scoreLoading = "";
     var pdfjsPromise = null;
+
+    var lastMsg = "";
+    function showToast(text) {
+      var el = document.getElementById("dbk-toast");
+      if (!el) {
+        el = document.createElement("div");
+        el.id = "dbk-toast";
+        document.body.appendChild(el);
+      }
+      el.textContent = text;
+      el.classList.add("on");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(function() { el.classList.remove("on"); }, 3200);
+    }
 
     function parseJson(raw) {
       if (!raw) return null;
@@ -7737,6 +7770,11 @@
               }
               rememberedSel = next.sel || "";
             }
+          }
+        } else if (tok[2] === "msg") {
+          if (raw && raw !== lastMsg) {
+            lastMsg = raw;
+            showToast(raw);
           }
         } else if (tok[2] === "outputs" && raw !== lastOutputsRaw) {
           var outputs = parseJson(raw);
