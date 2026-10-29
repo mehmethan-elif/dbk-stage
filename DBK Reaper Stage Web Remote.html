@@ -4748,9 +4748,16 @@
       if (!liveNow()) return;
       if (viewPrefetchFor === lastSongsRaw) return;
       viewPrefetchFor = lastSongsRaw;
+      // The setlist comes first so the concert is fully readable even if the
+      // device is switched on minutes before the show; the rest of the library
+      // follows behind it. Audio is never fetched here.
       var queue = [];
-      for (var i = 0; i < rows.length; i++) {
+      var i;
+      for (i = 0; i < rows.length; i++) {
         if (rows[i].k === "song" && rows[i].set) queue.push(rows[i].n);
+      }
+      for (i = 0; i < rows.length; i++) {
+        if (rows[i].k === "song" && !rows[i].set) queue.push(rows[i].n);
       }
       var at = 0;
       function next() {
@@ -4758,7 +4765,7 @@
         var name = queue[at++];
         requestSongFile(name, false);
         fetch("DBK_Stage/" + webFile(name) + ".pdf").catch(function() {});
-        setTimeout(next, 400);
+        setTimeout(next, 500);
       }
       setTimeout(next, 1500);
       if (!pdfEngineWarmed) {
