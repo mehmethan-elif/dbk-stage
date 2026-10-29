@@ -4725,7 +4725,9 @@
             begin();
           });
         }
-        if (!force && !standalone && !saved) {
+        // The pack is only downloaded when the user asks for it: a device that
+        // cannot see the remote must not pull 157 MB over the stage Wi-Fi.
+        if (!force) {
           offlineState.offer = true;
           paintOfflineBar();
           return;
@@ -6897,6 +6899,7 @@
         var title = document.createElement("div");
         title.className = "prep-cell title";
         var songData = item.k === "song" ? cachedSong(item.n) : null;
+        if (item.k === "song") requestSongFile(item.n, false);
         if (item.k === "song") {
           if (item.set) {
             number += 1;
@@ -7085,12 +7088,22 @@
     }
 
     function libraryKeyText(name) {
+      var row = rowForName(name);
+      if (row && row.key) return String(row.key).trim();
       var cached = fileCache[name];
       if (!cached || !cached.settled || !cached.data) return "";
       return String(cached.data.key || "").trim();
     }
 
     function libraryRowText(name) {
+      var row = rowForName(name);
+      if (row) {
+        if (viewPage === "drums") {
+          if (row.ts) return String(row.ts);
+        } else if (row.key) {
+          return String(row.key);
+        }
+      }
       var cached = fileCache[name];
       if (!cached || !cached.settled || !cached.data) return "";
       if (viewPage === "drums") return timeSignature(cached.data);
@@ -7217,7 +7230,6 @@
           key.className = "key";
           key.textContent = libraryRowText(item.n || "");
           row.appendChild(key);
-          requestSongFile(item.n, false);
         }
 
         if (item.k !== "final") {
