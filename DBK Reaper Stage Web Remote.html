@@ -4738,16 +4738,48 @@
       }).catch(function() {});
     }
 
+    var viewPrefetchFor = "";
+    var pdfEngineWarmed = false;
+
+    // Song files and scores are small compared with audio, and they are what the
+    // band needs to keep reading if the link drops mid-show. They are fetched a
+    // few at a time so the transport packets always get through first.
+    function prefetchSetlistViews() {
+      if (!liveNow()) return;
+      if (viewPrefetchFor === lastSongsRaw) return;
+      viewPrefetchFor = lastSongsRaw;
+      var queue = [];
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].k === "song" && rows[i].set) queue.push(rows[i].n);
+      }
+      var at = 0;
+      function next() {
+        if (at >= queue.length) return;
+        var name = queue[at++];
+        requestSongFile(name, false);
+        fetch("DBK_Stage/" + webFile(name) + ".pdf").catch(function() {});
+        setTimeout(next, 400);
+      }
+      setTimeout(next, 1500);
+      if (!pdfEngineWarmed) {
+        pdfEngineWarmed = true;
+        setTimeout(function() {
+          ensurePdfJs().catch(function() {});
+        }, 9000);
+      }
+    }
+
+    function registerOfflineWorker() {
+      injectPracticeHead();
+      if (!("serviceWorker" in navigator)) return;
+      navigator.serviceWorker.register("sw.js").catch(function() {});
+    }
+
     function registerPracticeOffline() {
       if (offlineTried) return;
       offlineTried = true;
-      injectPracticeHead();
-      if (!("serviceWorker" in navigator)) return;
-      navigator.serviceWorker.register("sw.js").then(function() {
-        return navigator.serviceWorker.ready;
-      }).then(function() {
-        startOfflinePack(false);
-      }).catch(function() {});
+      registerOfflineWorker();
+      startOfflinePack(false);
     }
 
     function warmPracticeScore(name) {
@@ -7938,7 +7970,9 @@
           if (list) {
             lastSongsRaw = raw;
             rows = withSortedLibrary(list);
+            try { localStorage.setItem("dbk_rows", raw); } catch (err) {}
             songsChanged = true;
+            prefetchSetlistViews();
           }
         }
       }
@@ -7979,6 +8013,17 @@
     }, 80);
     if (typeof wwr_req !== "function") window.wwr_req = function() {};
     if (typeof wwr_req_recur !== "function") window.wwr_req_recur = function() {};
+    registerOfflineWorker();
+    try {
+      var savedRows = localStorage.getItem("dbk_rows");
+      if (savedRows) {
+        var restored = parseJson(savedRows);
+        if (restored && restored.length) {
+          rows = withSortedLibrary(restored);
+          render();
+        }
+      }
+    } catch (err) {}
     if (typeof wwr_start === "function") {
       wwr_start();
       wwr_req_recur("TRANSPORT", 120);
