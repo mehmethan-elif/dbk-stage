@@ -50,6 +50,7 @@
       gap: 8px;
       align-items: stretch;
       min-width: 0;
+      flex-wrap: wrap;
     }
     #play, #setlist, #mixer {
       height: 52px;
@@ -157,6 +158,13 @@
     }
     .mute-row .mute-btn:disabled {
       opacity: 0.45;
+    }
+    @media (max-width: 560px) {
+      .mute-row .mute-btn {
+        height: 44px;
+        font-size: 0.64rem;
+        padding: 0 4px;
+      }
     }
     .transport {
       display: flex;
