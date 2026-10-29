@@ -125,6 +125,32 @@
     #play svg[hidden] { display: none; }
     #play.on { background: var(--play); color: #fff; }
     .transport[hidden] { display: none; }
+    .mute-row {
+      display: flex;
+      gap: 8px;
+      padding: 0 10px;
+    }
+    .mute-row[hidden] { display: none; }
+    .mute-row .mute-btn {
+      flex: 1 1 0;
+      min-height: 42px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--row);
+      color: var(--text);
+      font-weight: 750;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+      touch-action: manipulation;
+    }
+    .mute-row .mute-btn.on {
+      background: #e24a4a;
+      border-color: transparent;
+      color: #fff;
+    }
+    .mute-row .mute-btn:disabled {
+      opacity: 0.45;
+    }
     .transport {
       display: flex;
       gap: 8px;
@@ -1586,6 +1612,11 @@
         <div id="measure" class="measure" aria-hidden="true"></div>
         <input id="slider" class="slider" type="range" min="0" max="1" step="any" value="0" disabled aria-label="Jump to section">
       </div>
+    </div>
+    <div id="mute-row" class="mute-row" hidden>
+      <button type="button" class="mute-btn" data-act="mutemaster" aria-pressed="false">Master</button>
+      <button type="button" class="mute-btn" data-act="mutefront" aria-pressed="false">Front</button>
+      <button type="button" class="mute-btn" data-act="muteinputs" aria-pressed="false">Inputs</button>
     </div>
   </header>
   <p id="offline">Close the DBK Reaper Stage Master Control window, then run the script again.</p>
@@ -7002,6 +7033,24 @@
       net.title = linkOk ? "Connected" : (live ? "Signal lost" : "Not connected");
       net.setAttribute("aria-label", net.title);
       document.getElementById("offline").hidden = show;
+      var muteRow = document.getElementById("mute-row");
+      var showMutes = live && !practiceMode && (outputName === "MASTER" || outputName === "FRONT" || outputName === "MEHMETHAN");
+      muteRow.hidden = !showMutes;
+      if (showMutes) {
+        var muteStates = {
+          mutemaster: !!(meta && meta.mm),
+          mutefront: !!(meta && meta.mf),
+          muteinputs: !!(meta && meta.mi)
+        };
+        var muteBtns = muteRow.querySelectorAll(".mute-btn");
+        for (var mi = 0; mi < muteBtns.length; mi++) {
+          var act = muteBtns[mi].getAttribute("data-act");
+          var on = !!muteStates[act];
+          muteBtns[mi].classList.toggle("on", on);
+          muteBtns[mi].setAttribute("aria-pressed", on ? "true" : "false");
+          muteBtns[mi].disabled = !live;
+        }
+      }
       document.getElementById("columns").hidden = !show;
       syncNoteFields();
       syncOutputPage();
@@ -8020,6 +8069,16 @@
     }, 80);
     if (typeof wwr_req !== "function") window.wwr_req = function() {};
     if (typeof wwr_req_recur !== "function") window.wwr_req_recur = function() {};
+    document.addEventListener("click", function(ev) {
+      var el = ev.target;
+      while (el && el !== document.body) {
+        if (el.classList && el.classList.contains("mute-btn")) {
+          if (!el.disabled) send(el.getAttribute("data-act"), "");
+          return;
+        }
+        el = el.parentNode;
+      }
+    });
     registerOfflineWorker();
     try {
       var savedRows = localStorage.getItem("dbk_rows");
