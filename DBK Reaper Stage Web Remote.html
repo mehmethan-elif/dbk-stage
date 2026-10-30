@@ -3896,7 +3896,10 @@
         for (var i = 0; i < written.length; i++) {
           var tone = sectionTone(written[i].rows[0].section.name);
           if (tone !== "count") showGrids = true;
-          if (tone === "count" || written[i].rows[0].runs.length >= 2) span = true;
+          // Only the COUNT bar spans the page. A section with two patterns is
+          // laid out like a one-pattern section (half width), and its two grids
+          // share that half instead of stretching across the page.
+          if (tone === "count") span = true;
         }
         var pack = document.createElement("div");
         pack.className = "drum-pack" + (pair ? " pair" : "") + (!pair && !span ? " narrow" : "");
