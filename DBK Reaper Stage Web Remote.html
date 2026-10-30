@@ -3857,11 +3857,7 @@
       var pattern = document.createElement("span");
       pattern.className = "drum-pattern-name";
       pattern.textContent = run.name;
-      var repeat = document.createElement("span");
-      repeat.className = "drum-repeat";
-      repeat.innerHTML = "x" + run.repeats + '<span class="drum-count">1</span>';
       name.appendChild(pattern);
-      name.appendChild(repeat);
       var staff = document.createElement("div");
       staff.className = "drum-grid";
       var lanes = ["F", "E", "D", "C"];
