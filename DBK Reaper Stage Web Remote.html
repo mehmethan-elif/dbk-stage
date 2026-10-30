@@ -3953,6 +3953,8 @@
             runs.className = "drum-section-runs";
             runs.setAttribute("data-drum-section", row.block.id);
             if (row.runs.length < 2) runs.classList.add("cols-1");
+            // Every pattern of the section sits on one row, however many there are.
+            runs.style.gridTemplateColumns = "repeat(" + Math.max(1, row.runs.length) + ", minmax(0, 1fr))";
             for (var n = 0; n < row.runs.length; n++) {
               var passes = null;
               if (same && group.rows.length > 1) {
