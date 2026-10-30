@@ -7355,25 +7355,22 @@
         }
 
         if (item.k !== "final") {
-          var sides = document.createElement("div");
-          sides.className = "sides";
-          var side = document.createElement("button");
-          side.type = "button";
-          side.className = "side";
-          if (item.k === "song") {
-            side.textContent = item.set ? "x" : "+";
-            side.classList.add(item.set ? "del" : "add");
-          } else if (item.k === "stop") {
-            side.textContent = "x";
-            side.classList.add("del");
-          } else {
-            side.textContent = "+";
-            side.classList.add("add");
+          var isRemove = (item.k === "song" && item.set) || item.k === "stop";
+          // MEHMETHAN adds songs from the preparation window, not from the
+          // setlist view, so no + button is shown on this page for that role.
+          var allowAdd = selectedOutputName() !== "MEHMETHAN";
+          if (isRemove || allowAdd) {
+            var sides = document.createElement("div");
+            sides.className = "sides";
+            var side = document.createElement("button");
+            side.type = "button";
+            side.className = "side" + (isRemove ? " del" : " add");
+            side.textContent = isRemove ? "x" : "+";
+            side.title = isRemove ? "Remove" : "Add";
+            side.setAttribute("aria-label", side.title);
+            sides.appendChild(side);
+            row.appendChild(sides);
           }
-          side.title = side.classList.contains("del") ? "Remove" : "Add";
-          side.setAttribute("aria-label", side.title);
-          sides.appendChild(side);
-          row.appendChild(sides);
         }
         if (item.e) {
           var err = document.createElement("div");
