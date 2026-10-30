@@ -2046,44 +2046,50 @@
     }
 
     function timeToMusical(map, time) {
-      var points = map && map.length ? map : [{ time: 0, measure: 1, bpm: 120, numerator: 4, denominator: 4 }];
-      var t = Math.max(0, time);
-      var active = points[0];
-      var i;
-      for (i = 0; i < points.length; i++) {
-        var next = points[i + 1];
-        if (next && t >= next.time) {
-          active = next;
-          continue;
+      // Measures are accumulated from the tempo segments themselves. The stored
+      // measure numbers on later tempo points can disagree with their time
+      // (a rall entry was one bar off), and trusting them made the counter jump
+      // a bar at every tempo change.
+      var points = (map && map.length
+        ? map
+        : [{ time: 0, measure: 1, bpm: 120, numerator: 4, denominator: 4 }]
+      ).slice().sort(function(a, b) {
+        return (Number(a.time) || 0) - (Number(b.time) || 0);
+      });
+      var t = Math.max(0, Number(time) || 0);
+      var base = Number(points[0].measure) || 1;
+      var measures = 0;
+      var meterNum = 4;
+      var meterDen = 4;
+      var measureLen = (60 / 120) * 4;
+      var segStart = 0;
+      var accBefore = 0;
+      for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        var num = Number(p.numerator) > 0 ? Number(p.numerator) : meterNum;
+        var den = Number(p.denominator) > 0 ? Number(p.denominator) : meterDen;
+        var bpm = Number(p.bpm) > 0 ? Number(p.bpm) : 120;
+        var len = num * (60 / bpm) * (4 / den);
+        if (!(len > 0)) continue;
+        var from = Math.max(0, Number(p.time) || 0);
+        var to = i + 1 < points.length ? Math.max(from, Number(points[i + 1].time) || 0) : Infinity;
+        meterNum = num;
+        meterDen = den;
+        measureLen = len;
+        segStart = from;
+        accBefore = measures;
+        if (t < to) {
+          measures += (t - from) / len;
+          break;
         }
-        active = points[i];
-        break;
+        measures += (to - from) / len;
       }
-      var numerator = 4;
-      var denominator = 4;
-      for (i = 0; i < points.length; i++) {
-        if (points[i].time > active.time + 1e-9) break;
-        if (points[i].numerator > 0 && points[i].denominator > 0) {
-          numerator = points[i].numerator;
-          denominator = points[i].denominator;
-        }
-      }
-      if (active.numerator > 0) numerator = active.numerator;
-      if (active.denominator > 0) denominator = active.denominator;
-      var bpm = Number(active.bpm) || 120;
-      var measureLen = numerator * (60 / bpm) * (4 / denominator);
-      if (!(measureLen > 0)) return { measure: active.measure || 1, beat: 1, start: t, end: t };
-      var origin = Number(active.time || 0);
-      var elapsed = t - origin;
-      // A section start sits on a barline, but the bar length is a repeating
-      // fraction, so elapsed/measureLen can be 1e-7 under the integer. Floor
-      // then draws that bar in the previous section.
-      var whole = Math.floor(elapsed / measureLen + 1e-4);
-      var beat = 1 + (elapsed - whole * measureLen) / (measureLen / numerator);
-      var barStart = origin + whole * measureLen;
+      var whole = Math.floor(base + measures + 1e-4);
+      var fraction = base + measures - whole;
+      var barStart = segStart + (whole - base - accBefore) * measureLen;
       return {
-        measure: (Number(active.measure) || 1) + whole,
-        beat: Math.min(numerator + 0.999, Math.max(1, beat)),
+        measure: whole,
+        beat: Math.min(meterNum + 0.999, Math.max(1, 1 + fraction * meterNum)),
         start: barStart,
         end: barStart + measureLen
       };
@@ -3425,7 +3431,7 @@
       for (var i = 0; i < points.length; i++) {
         var point = points[i];
         if (Number(point.time) > Number(first.time) + 0.02 && Math.abs(Number(point.bpm) - Number(first.bpm)) > 1e-6) {
-          return Number(point.measure);
+          return timeToMusical(map, Number(point.time)).measure;
         }
       }
       return null;
