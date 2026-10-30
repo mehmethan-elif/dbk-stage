@@ -7346,7 +7346,20 @@
               break;
             }
           }
-          if (medleyNext && countIsOff(medleyNext)) row.classList.add("medley");
+          var medleyPrev = null;
+          for (var mp = i - 1; mp >= 0; mp--) {
+            if (rows[mp].k === "stop") break;
+            if (rows[mp].k === "song" && rows[mp].set) {
+              medleyPrev = rows[mp];
+              break;
+            }
+          }
+          // The song that runs into a count-off song is green, and so is a
+          // count-off song that follows another count-off one: an OFF-OFF pair
+          // is highlighted on both sides.
+          var nextOff = !!(medleyNext && countIsOff(medleyNext));
+          var pairOff = countIsOff(item) && !!(medleyPrev && countIsOff(medleyPrev));
+          if (nextOff || pairOff) row.classList.add("medley");
         }
 
         var main = document.createElement(item.k === "final" ? "div" : "button");
