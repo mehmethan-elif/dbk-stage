@@ -7356,9 +7356,9 @@
 
         if (item.k !== "final") {
           var isRemove = (item.k === "song" && item.set) || item.k === "stop";
-          // MEHMETHAN adds songs from the preparation window, not from the
-          // setlist view, so no + button is shown on this page for that role.
-          var allowAdd = selectedOutputName() !== "MEHMETHAN";
+          // Songs are added from the preparation window only: the setlist view
+          // never shows a + button, on any output.
+          var allowAdd = false;
           if (isRemove || allowAdd) {
             var sides = document.createElement("div");
             sides.className = "sides";
