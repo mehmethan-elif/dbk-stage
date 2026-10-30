@@ -3607,6 +3607,9 @@
     }
 
     function drumFoldable(first, next) {
+      // The drums page lists each section plainly: repeated sections are not
+      // folded, stacked or merged with a repeat count.
+      return false;
       if (first.length !== next.length) return false;
       for (var at = 0; at < first.length; at++) {
         var item = first[at].row;
@@ -3721,6 +3724,7 @@
     }
 
     function drumRepeatPair(left, right) {
+      return false;
       function one(group) {
         var row = group && group.rows && group.rows[0];
         return !!(row && sectionTone(row.section.name) !== "count" && row.runs.length < 2);
@@ -3734,6 +3738,7 @@
     }
 
     function drumSameStack(left, right) {
+      return false;
       if (!left || !right || !left.rows || !right.rows || left.rows.length !== right.rows.length || !left.rows.length) return false;
       if (left.rows[0].runs.length >= 2 || right.rows[0].runs.length >= 2) return false;
       if (sectionTone(left.rows[0].section.name) === "count") return false;

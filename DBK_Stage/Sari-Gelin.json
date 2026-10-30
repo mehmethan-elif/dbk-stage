@@ -16,19 +16,19 @@
     { "time": 177.461538, "measure": 65, "bpm": 55, "numerator": 6, "denominator": 8 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 2.76923, "measure": 1, "beat": 1, "endMeasure": 4724, "endBeat": 1, "qn": 16156.500001, "endQn": 16159.5 },
-    { "name": "ARA", "start": 2.76923, "end": 13.846153, "measure": 1, "beat": 1, "endMeasure": 4728, "endBeat": 1, "qn": 16159.5, "endQn": 16171.5 },
-    { "name": "ARA", "start": 13.846153, "end": 24.923076, "measure": 5, "beat": 1, "endMeasure": 4732, "endBeat": 1, "qn": 16171.5, "endQn": 16183.5 },
-    { "name": "SAN A", "start": 24.923076, "end": 38.76923, "measure": 9, "beat": 1, "endMeasure": 4737, "endBeat": 1, "qn": 16183.5, "endQn": 16198.5 },
-    { "name": "SAN A", "start": 38.76923, "end": 52.615384, "measure": 14, "beat": 1, "endMeasure": 4742, "endBeat": 1, "qn": 16198.5, "endQn": 16213.5 },
-    { "name": "SAN B", "start": 52.615384, "end": 72, "measure": 19, "beat": 1, "endMeasure": 4750, "endBeat": 1, "qn": 16213.5, "endQn": 16234.500001 },
-    { "name": "SAN B", "start": 72, "end": 91.384615, "measure": 27, "beat": 1, "endMeasure": 4757, "endBeat": 1, "qn": 16234.500001, "endQn": 16255.5 },
-    { "name": "ARA", "start": 91.384615, "end": 102.461538, "measure": 34, "beat": 1, "endMeasure": 4761, "endBeat": 1, "qn": 16255.5, "endQn": 16267.5 },
-    { "name": "ARA", "start": 102.461538, "end": 113.538461, "measure": 38, "beat": 1, "endMeasure": 4764, "endBeat": 1, "qn": 16267.5, "endQn": 16279.5 },
-    { "name": "SAN A", "start": 113.538461, "end": 127.384615, "measure": 41, "beat": 1, "endMeasure": 4770, "endBeat": 1, "qn": 16279.5, "endQn": 16294.5 },
-    { "name": "SAN A", "start": 127.384615, "end": 141.230769, "measure": 47, "beat": 1, "endMeasure": 4775, "endBeat": 1, "qn": 16294.5, "endQn": 16309.5 },
-    { "name": "SAN B", "start": 141.230769, "end": 160.615384, "measure": 52, "beat": 1, "endMeasure": 4781, "endBeat": 1, "qn": 16309.5, "endQn": 16330.5 },
-    { "name": "SAN B", "start": 160.615384, "end": 180.734265, "measure": 58, "beat": 1, "endMeasure": 4788, "endBeat": 1, "qn": 16330.5, "endQn": 16351.5 }
+    { "name": "COUNT", "start": 0, "end": 2.76923, "measure": 1, "beat": 1, "endMeasure": 1, "endBeat": 1, "qn": 16124.500001, "endQn": 16127.5 },
+    { "name": "ARA", "start": 2.76923, "end": 13.846153, "measure": 1, "beat": 1, "endMeasure": 5, "endBeat": 1, "qn": 16127.5, "endQn": 16139.5 },
+    { "name": "ARA", "start": 13.846153, "end": 24.923076, "measure": 5, "beat": 1, "endMeasure": 9, "endBeat": 1, "qn": 16139.5, "endQn": 16151.5 },
+    { "name": "SAN A", "start": 24.923076, "end": 38.76923, "measure": 9, "beat": 1, "endMeasure": 14, "endBeat": 1, "qn": 16151.5, "endQn": 16166.5 },
+    { "name": "SAN A", "start": 38.76923, "end": 52.615384, "measure": 14, "beat": 1, "endMeasure": 19, "endBeat": 1, "qn": 16166.5, "endQn": 16181.5 },
+    { "name": "SAN B", "start": 52.615384, "end": 72, "measure": 19, "beat": 1, "endMeasure": 27, "endBeat": 1, "qn": 16181.5, "endQn": 16202.500001 },
+    { "name": "SAN B", "start": 72, "end": 91.384615, "measure": 27, "beat": 1, "endMeasure": 34, "endBeat": 1, "qn": 16202.500001, "endQn": 16223.5 },
+    { "name": "ARA", "start": 91.384615, "end": 102.461538, "measure": 34, "beat": 1, "endMeasure": 38, "endBeat": 1, "qn": 16223.5, "endQn": 16235.5 },
+    { "name": "ARA", "start": 102.461538, "end": 113.538461, "measure": 38, "beat": 1, "endMeasure": 41, "endBeat": 1, "qn": 16235.5, "endQn": 16247.5 },
+    { "name": "SAN A", "start": 113.538461, "end": 127.384615, "measure": 41, "beat": 1, "endMeasure": 47, "endBeat": 1, "qn": 16247.5, "endQn": 16262.5 },
+    { "name": "SAN A", "start": 127.384615, "end": 141.230769, "measure": 47, "beat": 1, "endMeasure": 52, "endBeat": 1, "qn": 16262.5, "endQn": 16277.5 },
+    { "name": "SAN B", "start": 141.230769, "end": 160.615384, "measure": 52, "beat": 1, "endMeasure": 58, "endBeat": 1, "qn": 16277.5, "endQn": 16298.5 },
+    { "name": "SAN B", "start": 160.615384, "end": 180.734265, "measure": 58, "beat": 1, "endMeasure": 65, "endBeat": 1, "qn": 16298.5, "endQn": 16319.5 }
   ],
   "lyrics": [
     { "time": 24.923076, "end": 30.461538, "measure": 9, "beat": 1, "text": "SAÇIN UZUN HÖRMEZLER" },

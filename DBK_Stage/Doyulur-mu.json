@@ -15,17 +15,17 @@
     { "time": 0, "measure": 1, "bpm": 98, "numerator": 4, "denominator": 4 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 4.897959, "measure": 1, "beat": 261, "endMeasure": 1787, "endBeat": 261, "qn": 5580.5, "endQn": 5588.5 },
-    { "name": "ARA", "start": 4.897959, "end": 24.489796, "measure": 3, "beat": 261, "endMeasure": 1795, "endBeat": 261, "qn": 5588.5, "endQn": 5620.5 },
-    { "name": "SAN", "start": 24.489796, "end": 34.285714, "measure": 11, "beat": 261, "endMeasure": 1798, "endBeat": 264, "qn": 5620.5, "endQn": 5636.5 },
-    { "name": "SAN", "start": 34.285714, "end": 44.081632, "measure": 14, "beat": 264, "endMeasure": 1802, "endBeat": 264, "qn": 5636.5, "endQn": 5652.499999 },
-    { "name": "NAK A", "start": 44.081632, "end": 53.877551, "measure": 18, "beat": 264, "endMeasure": 1807, "endBeat": 261, "qn": 5652.499999, "endQn": 5668.5 },
-    { "name": "NAK B", "start": 53.877551, "end": 63.673469, "measure": 23, "beat": 261, "endMeasure": 1810, "endBeat": 264, "qn": 5668.5, "endQn": 5684.5 },
-    { "name": "ARA", "start": 63.673469, "end": 83.265306, "measure": 26, "beat": 264, "endMeasure": 1819, "endBeat": 261, "qn": 5684.5, "endQn": 5716.5 },
-    { "name": "SAN", "start": 83.265306, "end": 93.061224, "measure": 35, "beat": 261, "endMeasure": 1822, "endBeat": 264, "qn": 5716.5, "endQn": 5732.5 },
-    { "name": "SAN", "start": 93.061224, "end": 102.857143, "measure": 38, "beat": 264, "endMeasure": 1827, "endBeat": 261, "qn": 5732.5, "endQn": 5748.500001 },
-    { "name": "NAK A", "start": 102.857143, "end": 112.653061, "measure": 43, "beat": 261, "endMeasure": 1830, "endBeat": 264, "qn": 5748.500001, "endQn": 5764.5 },
-    { "name": "NAK B", "start": 112.653061, "end": 122.448979, "measure": 46, "beat": 264, "endMeasure": 1834, "endBeat": 264, "qn": 5764.5, "endQn": 5780.499999 }
+    { "name": "COUNT", "start": 0, "end": 4.897959, "measure": 1, "beat": 261, "endMeasure": 3, "endBeat": 261, "qn": 5580.5, "endQn": 5588.5 },
+    { "name": "ARA", "start": 4.897959, "end": 24.489796, "measure": 3, "beat": 261, "endMeasure": 11, "endBeat": 261, "qn": 5588.5, "endQn": 5620.5 },
+    { "name": "SAN", "start": 24.489796, "end": 34.285714, "measure": 11, "beat": 261, "endMeasure": 14, "endBeat": 264, "qn": 5620.5, "endQn": 5636.5 },
+    { "name": "SAN", "start": 34.285714, "end": 44.081632, "measure": 14, "beat": 264, "endMeasure": 18, "endBeat": 264, "qn": 5636.5, "endQn": 5652.499999 },
+    { "name": "NAK A", "start": 44.081632, "end": 53.877551, "measure": 18, "beat": 264, "endMeasure": 23, "endBeat": 261, "qn": 5652.499999, "endQn": 5668.5 },
+    { "name": "NAK B", "start": 53.877551, "end": 63.673469, "measure": 23, "beat": 261, "endMeasure": 26, "endBeat": 264, "qn": 5668.5, "endQn": 5684.5 },
+    { "name": "ARA", "start": 63.673469, "end": 83.265306, "measure": 26, "beat": 264, "endMeasure": 35, "endBeat": 261, "qn": 5684.5, "endQn": 5716.5 },
+    { "name": "SAN", "start": 83.265306, "end": 93.061224, "measure": 35, "beat": 261, "endMeasure": 38, "endBeat": 264, "qn": 5716.5, "endQn": 5732.5 },
+    { "name": "SAN", "start": 93.061224, "end": 102.857143, "measure": 38, "beat": 264, "endMeasure": 43, "endBeat": 261, "qn": 5732.5, "endQn": 5748.500001 },
+    { "name": "NAK A", "start": 102.857143, "end": 112.653061, "measure": 43, "beat": 261, "endMeasure": 46, "endBeat": 264, "qn": 5748.500001, "endQn": 5764.5 },
+    { "name": "NAK B", "start": 112.653061, "end": 122.448979, "measure": 46, "beat": 264, "endMeasure": 50, "endBeat": 264, "qn": 5764.5, "endQn": 5780.499999 }
   ],
   "lyrics": [
     { "time": 24.489796, "end": 34.285714, "measure": 11, "beat": 261, "text": "TATLI DİLE GÜLER YÜZE\r\nDOYULUR MU DOYULUR MU\r\nAŞK İLE BAKIŞAN GÖZE\r\nDOYULUR MU DOYULUR MU" },

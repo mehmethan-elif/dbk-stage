@@ -16,15 +16,15 @@
     { "time": 185.400885, "measure": 89, "bpm": 99, "numerator": 4, "denominator": 4 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 4.210526, "measure": 1, "beat": 1870, "endMeasure": 3158, "endBeat": 1873, "qn": 10419.5, "endQn": 10427.499999 },
-    { "name": "ARA", "start": 4.210526, "end": 31.578947, "measure": 2, "beat": 1873, "endMeasure": 3171, "endBeat": 1873, "qn": 10427.499999, "endQn": 10479.499999 },
-    { "name": "SAN A", "start": 31.578947, "end": 48.421053, "measure": 15, "beat": 1873, "endMeasure": 3180, "endBeat": 1870, "qn": 10479.499999, "endQn": 10511.500001 },
-    { "name": "SAN B", "start": 48.421053, "end": 69.473684, "measure": 24, "beat": 1870, "endMeasure": 3189, "endBeat": 1873, "qn": 10511.500001, "endQn": 10551.5 },
-    { "name": "NAK", "start": 69.473684, "end": 96.842105, "measure": 33, "beat": 1873, "endMeasure": 3202, "endBeat": 1873, "qn": 10551.5, "endQn": 10603.5 },
-    { "name": "ARA", "start": 96.842105, "end": 124.210526, "measure": 46, "beat": 1873, "endMeasure": 3215, "endBeat": 1873, "qn": 10603.5, "endQn": 10655.499999 },
-    { "name": "SAN A", "start": 124.210526, "end": 141.052632, "measure": 59, "beat": 1873, "endMeasure": 3224, "endBeat": 1870, "qn": 10655.499999, "endQn": 10687.500001 },
-    { "name": "SAN B", "start": 141.052632, "end": 162.105263, "measure": 68, "beat": 1870, "endMeasure": 3233, "endBeat": 1873, "qn": 10687.500001, "endQn": 10727.5 },
-    { "name": "NAK", "start": 162.105263, "end": 190.24937, "measure": 77, "beat": 1873, "endMeasure": 3246, "endBeat": 1873, "qn": 10727.5, "endQn": 10779.5 }
+    { "name": "COUNT", "start": 0, "end": 4.210526, "measure": 1, "beat": 1870, "endMeasure": 2, "endBeat": 1873, "qn": 10419.5, "endQn": 10427.499999 },
+    { "name": "ARA", "start": 4.210526, "end": 31.578947, "measure": 2, "beat": 1873, "endMeasure": 15, "endBeat": 1873, "qn": 10427.499999, "endQn": 10479.499999 },
+    { "name": "SAN A", "start": 31.578947, "end": 48.421053, "measure": 15, "beat": 1873, "endMeasure": 24, "endBeat": 1870, "qn": 10479.499999, "endQn": 10511.500001 },
+    { "name": "SAN B", "start": 48.421053, "end": 69.473684, "measure": 24, "beat": 1870, "endMeasure": 33, "endBeat": 1873, "qn": 10511.500001, "endQn": 10551.5 },
+    { "name": "NAK", "start": 69.473684, "end": 96.842105, "measure": 33, "beat": 1873, "endMeasure": 46, "endBeat": 1873, "qn": 10551.5, "endQn": 10603.5 },
+    { "name": "ARA", "start": 96.842105, "end": 124.210526, "measure": 46, "beat": 1873, "endMeasure": 59, "endBeat": 1873, "qn": 10603.5, "endQn": 10655.499999 },
+    { "name": "SAN A", "start": 124.210526, "end": 141.052632, "measure": 59, "beat": 1873, "endMeasure": 68, "endBeat": 1870, "qn": 10655.499999, "endQn": 10687.500001 },
+    { "name": "SAN B", "start": 141.052632, "end": 162.105263, "measure": 68, "beat": 1870, "endMeasure": 77, "endBeat": 1873, "qn": 10687.500001, "endQn": 10727.5 },
+    { "name": "NAK", "start": 162.105263, "end": 190.24937, "measure": 77, "beat": 1873, "endMeasure": 90, "endBeat": 1873, "qn": 10727.5, "endQn": 10779.5 }
   ],
   "lyrics": [
     { "time": 31.578947, "end": 40, "measure": 15, "beat": 1873, "text": "KARAHİSAR KALESİ YIKILIR GELİR" },

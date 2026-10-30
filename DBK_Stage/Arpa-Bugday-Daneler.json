@@ -15,19 +15,19 @@
     { "time": 0, "measure": 1, "bpm": 106, "numerator": 4, "denominator": 4 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 4.528302, "measure": 1, "beat": 382, "endMeasure": 298, "endBeat": 382, "qn": 994.999999, "endQn": 1002.999999 },
-    { "name": "ARA", "start": 4.528302, "end": 13.584906, "measure": 3, "beat": 382, "endMeasure": 302, "endBeat": 382, "qn": 1002.999999, "endQn": 1019 },
-    { "name": "ARA", "start": 13.584906, "end": 22.64151, "measure": 7, "beat": 382, "endMeasure": 307, "endBeat": 379, "qn": 1019, "endQn": 1035 },
-    { "name": "SAN", "start": 22.64151, "end": 40.754717, "measure": 12, "beat": 379, "endMeasure": 314, "endBeat": 382, "qn": 1035, "endQn": 1066.999999 },
-    { "name": "SAN", "start": 40.754717, "end": 58.867925, "measure": 19, "beat": 382, "endMeasure": 322, "endBeat": 382, "qn": 1066.999999, "endQn": 1099 },
-    { "name": "NAK", "start": 58.867925, "end": 67.924529, "measure": 27, "beat": 382, "endMeasure": 327, "endBeat": 379, "qn": 1099, "endQn": 1115 },
-    { "name": "NAK", "start": 67.924529, "end": 76.981133, "measure": 32, "beat": 379, "endMeasure": 331, "endBeat": 379, "qn": 1115, "endQn": 1131.000001 },
-    { "name": "ARA", "start": 76.981133, "end": 86.037736, "measure": 36, "beat": 379, "endMeasure": 334, "endBeat": 382, "qn": 1131.000001, "endQn": 1146.999999 },
-    { "name": "ARA", "start": 86.037736, "end": 95.09434, "measure": 39, "beat": 382, "endMeasure": 338, "endBeat": 382, "qn": 1146.999999, "endQn": 1163 },
-    { "name": "SAN", "start": 95.09434, "end": 113.207548, "measure": 43, "beat": 382, "endMeasure": 347, "endBeat": 379, "qn": 1163, "endQn": 1195.000001 },
-    { "name": "SAN", "start": 113.207548, "end": 131.320755, "measure": 52, "beat": 379, "endMeasure": 354, "endBeat": 382, "qn": 1195.000001, "endQn": 1227 },
-    { "name": "NAK", "start": 131.320755, "end": 140.377359, "measure": 59, "beat": 382, "endMeasure": 359, "endBeat": 379, "qn": 1227, "endQn": 1243 },
-    { "name": "NAK", "start": 140.377359, "end": 149.433963, "measure": 64, "beat": 379, "endMeasure": 363, "endBeat": 379, "qn": 1243, "endQn": 1259 }
+    { "name": "COUNT", "start": 0, "end": 4.528302, "measure": 1, "beat": 382, "endMeasure": 3, "endBeat": 382, "qn": 994.999999, "endQn": 1002.999999 },
+    { "name": "ARA", "start": 4.528302, "end": 13.584906, "measure": 3, "beat": 382, "endMeasure": 7, "endBeat": 382, "qn": 1002.999999, "endQn": 1019 },
+    { "name": "ARA", "start": 13.584906, "end": 22.64151, "measure": 7, "beat": 382, "endMeasure": 12, "endBeat": 379, "qn": 1019, "endQn": 1035 },
+    { "name": "SAN", "start": 22.64151, "end": 40.754717, "measure": 12, "beat": 379, "endMeasure": 19, "endBeat": 382, "qn": 1035, "endQn": 1066.999999 },
+    { "name": "SAN", "start": 40.754717, "end": 58.867925, "measure": 19, "beat": 382, "endMeasure": 27, "endBeat": 382, "qn": 1066.999999, "endQn": 1099 },
+    { "name": "NAK", "start": 58.867925, "end": 67.924529, "measure": 27, "beat": 382, "endMeasure": 32, "endBeat": 379, "qn": 1099, "endQn": 1115 },
+    { "name": "NAK", "start": 67.924529, "end": 76.981133, "measure": 32, "beat": 379, "endMeasure": 36, "endBeat": 379, "qn": 1115, "endQn": 1131.000001 },
+    { "name": "ARA", "start": 76.981133, "end": 86.037736, "measure": 36, "beat": 379, "endMeasure": 39, "endBeat": 382, "qn": 1131.000001, "endQn": 1146.999999 },
+    { "name": "ARA", "start": 86.037736, "end": 95.09434, "measure": 39, "beat": 382, "endMeasure": 43, "endBeat": 382, "qn": 1146.999999, "endQn": 1163 },
+    { "name": "SAN", "start": 95.09434, "end": 113.207548, "measure": 43, "beat": 382, "endMeasure": 52, "endBeat": 379, "qn": 1163, "endQn": 1195.000001 },
+    { "name": "SAN", "start": 113.207548, "end": 131.320755, "measure": 52, "beat": 379, "endMeasure": 59, "endBeat": 382, "qn": 1195.000001, "endQn": 1227 },
+    { "name": "NAK", "start": 131.320755, "end": 140.377359, "measure": 59, "beat": 382, "endMeasure": 64, "endBeat": 379, "qn": 1227, "endQn": 1243 },
+    { "name": "NAK", "start": 140.377359, "end": 149.433963, "measure": 64, "beat": 379, "endMeasure": 68, "endBeat": 379, "qn": 1243, "endQn": 1259 }
   ],
   "lyrics": [
     { "time": 22.64151, "end": 31.698114, "measure": 12, "beat": 379, "text": "ARPA BUĞDAY DANELER\r\nAMAN ARPA BUĞDAY DANELER" },

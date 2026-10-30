@@ -15,16 +15,16 @@
     { "time": 0, "measure": 1, "bpm": 100, "numerator": 4, "denominator": 4 }
   ],
   "sections": [
-    { "name": "COUNT", "start": 0, "end": 4.8, "measure": 1, "beat": 382, "endMeasure": 369, "endBeat": 382, "qn": 1278.999999, "endQn": 1286.999999 },
-    { "name": "INTRO", "start": 4.8, "end": 14.4, "measure": 3, "beat": 382, "endMeasure": 373, "endBeat": 382, "qn": 1286.999999, "endQn": 1302.999999 },
-    { "name": "ARA", "start": 14.4, "end": 28.8, "measure": 7, "beat": 382, "endMeasure": 379, "endBeat": 382, "qn": 1302.999999, "endQn": 1326.999999 },
-    { "name": "ARA", "start": 28.8, "end": 43.2, "measure": 13, "beat": 382, "endMeasure": 385, "endBeat": 382, "qn": 1326.999999, "endQn": 1350.999999 },
-    { "name": "SAN", "start": 43.2, "end": 60, "measure": 19, "beat": 382, "endMeasure": 392, "endBeat": 382, "qn": 1350.999999, "endQn": 1378.999999 },
-    { "name": "SAN", "start": 60, "end": 76.8, "measure": 26, "beat": 382, "endMeasure": 399, "endBeat": 382, "qn": 1378.999999, "endQn": 1406.999999 },
-    { "name": "ARA", "start": 76.8, "end": 91.2, "measure": 33, "beat": 382, "endMeasure": 405, "endBeat": 382, "qn": 1406.999999, "endQn": 1430.999999 },
-    { "name": "ARA", "start": 91.2, "end": 105.6, "measure": 39, "beat": 382, "endMeasure": 411, "endBeat": 382, "qn": 1430.999999, "endQn": 1454.999999 },
-    { "name": "SAN", "start": 105.6, "end": 122.4, "measure": 45, "beat": 382, "endMeasure": 418, "endBeat": 382, "qn": 1454.999999, "endQn": 1482.999999 },
-    { "name": "SAN", "start": 122.4, "end": 139.2, "measure": 52, "beat": 382, "endMeasure": 425, "endBeat": 382, "qn": 1482.999999, "endQn": 1510.999999 }
+    { "name": "COUNT", "start": 0, "end": 4.8, "measure": 1, "beat": 382, "endMeasure": 3, "endBeat": 382, "qn": 1278.999999, "endQn": 1286.999999 },
+    { "name": "INTRO", "start": 4.8, "end": 14.4, "measure": 3, "beat": 382, "endMeasure": 7, "endBeat": 382, "qn": 1286.999999, "endQn": 1302.999999 },
+    { "name": "ARA", "start": 14.4, "end": 28.8, "measure": 7, "beat": 382, "endMeasure": 13, "endBeat": 382, "qn": 1302.999999, "endQn": 1326.999999 },
+    { "name": "ARA", "start": 28.8, "end": 43.2, "measure": 13, "beat": 382, "endMeasure": 19, "endBeat": 382, "qn": 1326.999999, "endQn": 1350.999999 },
+    { "name": "SAN", "start": 43.2, "end": 60, "measure": 19, "beat": 382, "endMeasure": 26, "endBeat": 382, "qn": 1350.999999, "endQn": 1378.999999 },
+    { "name": "SAN", "start": 60, "end": 76.8, "measure": 26, "beat": 382, "endMeasure": 33, "endBeat": 382, "qn": 1378.999999, "endQn": 1406.999999 },
+    { "name": "ARA", "start": 76.8, "end": 91.2, "measure": 33, "beat": 382, "endMeasure": 39, "endBeat": 382, "qn": 1406.999999, "endQn": 1430.999999 },
+    { "name": "ARA", "start": 91.2, "end": 105.6, "measure": 39, "beat": 382, "endMeasure": 45, "endBeat": 382, "qn": 1430.999999, "endQn": 1454.999999 },
+    { "name": "SAN", "start": 105.6, "end": 122.4, "measure": 45, "beat": 382, "endMeasure": 52, "endBeat": 382, "qn": 1454.999999, "endQn": 1482.999999 },
+    { "name": "SAN", "start": 122.4, "end": 139.2, "measure": 52, "beat": 382, "endMeasure": 59, "endBeat": 382, "qn": 1482.999999, "endQn": 1510.999999 }
   ],
   "lyrics": [
     { "time": 43.2, "end": 50.4, "measure": 19, "beat": 382, "text": "AY AKŞAMDAN IŞIKTIR\r\nYAYLALAR YAYLALAR\r\nYAYLALAR YAYLALAR" },
