@@ -1450,6 +1450,11 @@
       border-color: transparent;
     }
     .row.song.next:not(.selected) { background: rgba(234, 132, 0, 0.38); }
+    .row.song.medley {
+      background: rgba(55, 194, 106, 0.26);
+      border-color: transparent;
+    }
+    .row.song.medley.selected { background: var(--selected); }
     .row.song.skipped,
     .row.song.skipped.selected,
     .row.song.skipped.next {
@@ -7332,6 +7337,17 @@
         if (item.k === "stop" && item.s) row.classList.add("skipped");
         if (item.k === "song" && item.set && seenSetSong && countIsOff(item)) row.appendChild(countOffMark());
         if (item.k === "song" && item.set) seenSetSong = true;
+        if (item.k === "song" && item.set) {
+          var medleyNext = null;
+          for (var mn = i + 1; mn < rows.length; mn++) {
+            if (rows[mn].k === "stop") break;
+            if (rows[mn].k === "song" && rows[mn].set) {
+              medleyNext = rows[mn];
+              break;
+            }
+          }
+          if (medleyNext && countIsOff(medleyNext)) row.classList.add("medley");
+        }
 
         var main = document.createElement(item.k === "final" ? "div" : "button");
         main.className = "main";
