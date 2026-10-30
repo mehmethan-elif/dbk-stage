@@ -3896,6 +3896,9 @@
       }
       var list = document.createElement("div");
       list.className = "drum-list";
+      // Up to four sections per row on a wide screen, fewer on a phone.
+      var drumCols = window.innerWidth >= 1180 ? 4 : (window.innerWidth >= 820 ? 3 : 2);
+      list.style.gridTemplateColumns = "repeat(" + drumCols + ", minmax(0, 1fr))";
       var packs = packDrumGroups(drumFormGroups(source));
       for (var p = 0; p < packs.length; p++) {
         var written = packs[p];
@@ -3955,6 +3958,7 @@
             runs.className = "drum-section-runs";
             runs.setAttribute("data-drum-section", row.block.id);
             if (row.runs.length < 2) runs.classList.add("cols-1");
+            runs.style.gridTemplateColumns = "repeat(" + Math.max(1, Math.min(4, row.runs.length)) + ", minmax(0, 1fr))";
             for (var n = 0; n < row.runs.length; n++) {
               var passes = null;
               if (same && group.rows.length > 1) {
