@@ -7354,12 +7354,12 @@
               break;
             }
           }
-          // The song that runs into a count-off song is green, and so is a
-          // count-off song that follows another count-off one: an OFF-OFF pair
-          // is highlighted on both sides.
+          // The song that runs into a count-off song is green, and so is the
+          // count-off song itself when it follows any song (the medley target).
+          // A STOP still ends the band.
           var nextOff = !!(medleyNext && countIsOff(medleyNext));
-          var pairOff = countIsOff(item) && !!(medleyPrev && countIsOff(medleyPrev));
-          if (nextOff || pairOff) row.classList.add("medley");
+          var targetOff = countIsOff(item) && !!medleyPrev;
+          if (nextOff || targetOff) row.classList.add("medley");
         }
 
         var main = document.createElement(item.k === "final" ? "div" : "button");
