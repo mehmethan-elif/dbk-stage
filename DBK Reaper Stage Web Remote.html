@@ -7066,6 +7066,7 @@
       net.classList.toggle("on", !!linkOk);
       net.title = linkOk ? "Connected" : (live ? "Signal lost" : "Not connected");
       net.setAttribute("aria-label", net.title);
+      syncLibraryMarks();
       document.getElementById("offline").hidden = show;
       var muteRow = document.getElementById("mute-row");
       var showMutes = live && !practiceMode && (outputName === "MASTER" || outputName === "FRONT" || outputName === "MEHMETHAN");
@@ -7218,17 +7219,16 @@
     }
 
     function libraryRowText(name) {
+      // YEKTAN works from the time signature, everyone else from the key.
+      var showTs = viewPage === "drums" || selectedOutputName() === "YEKTAN";
       var row = rowForName(name);
       if (row) {
-        if (viewPage === "drums") {
-          if (row.ts) return String(row.ts);
-        } else if (row.key) {
-          return String(row.key);
-        }
+        if (showTs && row.ts) return String(row.ts);
+        if (row.key) return String(row.key);
       }
       var cached = fileCache[name];
       if (!cached || !cached.settled || !cached.data) return "";
-      if (viewPage === "drums") return timeSignature(cached.data);
+      if (showTs) return timeSignature(cached.data);
       return libraryKeyText(name);
     }
 
