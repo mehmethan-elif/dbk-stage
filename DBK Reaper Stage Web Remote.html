@@ -1417,7 +1417,9 @@
     body:not(.list-edit) #list .row { grid-template-columns: 1fr; }
     body:not(.list-edit) #list .row.song { grid-template-columns: minmax(0, 1fr) auto; }
     body:not(.list-edit) #list .sides { display: none; }
-    body.list-edit #list .key { display: none; }
+    /* MEHMETHAN works from the key, so the column stays visible in list-edit
+       mode; the row gains a third column for it next to the side button. */
+    body.list-edit #list .row { grid-template-columns: minmax(0, 1fr) auto auto; }
     #list .key {
       justify-self: end;
       margin-left: 8px;
