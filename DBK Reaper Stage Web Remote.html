@@ -839,7 +839,14 @@
       --chord-repeat-w: 22px;
       --drum-bar-h: 22px;
       --drum-stack-gap: 2px;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 8px;
+      align-items: start;
+    }
+    .drum-list .song-cue-bar,
+    .drum-pack.full {
+      grid-column: 1 / -1;
     }
     .chord-section { min-width: 0; margin-bottom: 6px; }
     .chord-section-head {
@@ -1101,9 +1108,9 @@
     .drum-form, .drum-form-body { min-width: 0; }
     .drum-form-body { display: flex; flex-direction: column; gap: 6px; }
     .drum-pack { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-    .drum-pack-titles, .drum-pack.pair .drum-pack-grids, .drum-pack.narrow .drum-pack-grids {
+    .drum-pack-titles, .drum-pack .drum-pack-grids {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
       column-gap: 6px;
     }
     .drum-pack-titles.span > * { grid-column: 1 / -1; }
@@ -3902,7 +3909,7 @@
           if (tone === "count") span = true;
         }
         var pack = document.createElement("div");
-        pack.className = "drum-pack" + (pair ? " pair" : "") + (!pair && !span ? " narrow" : "");
+        pack.className = "drum-pack" + (pair ? " pair" : "") + (!pair && !span ? " narrow" : "") + (span ? " full" : "");
         var titles = document.createElement("div");
         titles.className = "drum-pack-titles" + (span ? " span" : "");
         var grids = document.createElement("div");
