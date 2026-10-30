@@ -3918,6 +3918,15 @@
         }
         var pack = document.createElement("div");
         pack.className = "drum-pack" + (pair ? " pair" : "") + (!pair && !span ? " narrow" : "") + (span ? " full" : "");
+        // A section with several patterns takes one grid column per pattern, so
+        // its patterns line up with the sections of a single-pattern one.
+        var patternCount = 0;
+        for (var pw = 0; pw < written.length; pw++) {
+          patternCount = Math.max(patternCount, written[pw].rows[0].runs.length);
+        }
+        if (!span && patternCount > 1) {
+          pack.style.gridColumn = "span " + Math.min(4, patternCount);
+        }
         var titles = document.createElement("div");
         titles.className = "drum-pack-titles" + (span ? " span" : "");
         var grids = document.createElement("div");
