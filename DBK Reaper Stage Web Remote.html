@@ -850,6 +850,12 @@
     .drum-pack.full {
       grid-column: 1 / -1;
     }
+    @media (min-width: 820px) {
+      .drum-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1180px) {
+      .drum-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
     .chord-section { min-width: 0; margin-bottom: 6px; }
     .chord-section-head {
       display: grid;
@@ -3896,9 +3902,6 @@
       }
       var list = document.createElement("div");
       list.className = "drum-list";
-      // Up to four sections per row on a wide screen, fewer on a phone.
-      var drumCols = window.innerWidth >= 1180 ? 4 : (window.innerWidth >= 820 ? 3 : 2);
-      list.style.gridTemplateColumns = "repeat(" + drumCols + ", minmax(0, 1fr))";
       var packs = packDrumGroups(drumFormGroups(source));
       for (var p = 0; p < packs.length; p++) {
         var written = packs[p];
