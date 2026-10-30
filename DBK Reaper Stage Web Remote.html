@@ -3751,26 +3751,11 @@
     }
 
     function packDrumGroups(groups) {
+      // One section per block on the drums page: no pairing, stacking or repeat
+      // merging, so a repeated section is never drawn on top of another.
       var packs = [];
       for (var i = 0; i < groups.length; i++) {
-        var group = groups[i];
-        var next = groups[i + 1];
-        var third = groups[i + 2];
-        var keepPlainPair = next && third && !drumGroupPlain(group) && drumGroupPlain(next) && drumGroupPlain(third);
-        var repeatSide = drumRepeatPair(group, next);
-        var sameStack = drumSameStack(group, next);
-        if (!keepPlainPair && next && (sameStack || (drumGroupSide(group) && drumGroupSide(next)) || repeatSide)) {
-          if (repeatSide) {
-            group.holdShaft = true;
-            next.holdShaft = true;
-          }
-          if (sameStack) {
-            group.holdRight = true;
-            next.holdLeft = true;
-          }
-          packs.push([group, next]);
-          i += 1;
-        } else packs.push([group]);
+        packs.push([groups[i]]);
       }
       return packs;
     }
