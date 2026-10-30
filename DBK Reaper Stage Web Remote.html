@@ -3703,6 +3703,9 @@
     }
 
     function drumNumberPair(left, right) {
+      // NAK 1 / NAK 2 used to be merged into one stacked block; on the drums
+      // page each section is shown on its own.
+      return false;
       function part(row) {
         var text = String(row && row.section && row.section.name || "").trim();
         var match = text.match(/^(.*?)(\d+)$/);
