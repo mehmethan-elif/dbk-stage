@@ -7038,18 +7038,10 @@
         if (item.k === "song") {
           appendCountAct(acts, item, songData);
           if (item.set) {
-            acts.appendChild(prepAct("skip", item.g));
             acts.appendChild(prepAct("remove", item.g));
           } else acts.appendChild(prepAct("add", item.g));
         } else if (item.k === "stop") {
           if (!item.a) {
-            var stopSkip = prepAct("skipstop", item.g);
-            if (item.s) {
-              stopSkip.title = "Include";
-              stopSkip.setAttribute("aria-label", "Include");
-              stopSkip.setAttribute("aria-pressed", "true");
-            }
-            acts.appendChild(stopSkip);
             acts.appendChild(prepAct("removestop", item.g));
           }
         }
@@ -7365,16 +7357,6 @@
         if (item.k !== "final") {
           var sides = document.createElement("div");
           sides.className = "sides";
-          if ((item.k === "song" && item.set) || (item.k === "stop" && !item.a)) {
-            var skip = document.createElement("button");
-            skip.type = "button";
-            skip.className = "side skip";
-            skip.title = item.s ? "Include" : "Skip";
-            skip.setAttribute("aria-label", skip.title);
-            skip.setAttribute("aria-pressed", item.s ? "true" : "false");
-            skip.appendChild(skipIcon());
-            sides.appendChild(skip);
-          }
           var side = document.createElement("button");
           side.type = "button";
           side.className = "side";
