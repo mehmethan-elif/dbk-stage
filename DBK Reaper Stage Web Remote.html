@@ -423,6 +423,10 @@
       border-radius: 8px;
       background: var(--row);
     }
+    .prep-block.medley .prep-song-row {
+      background: rgba(55, 194, 106, 0.26);
+      border-color: transparent;
+    }
     .prep-block.active .prep-song-row,
     .prep-block.active .prep-elif-row {
       background: var(--selected);
@@ -2210,6 +2214,26 @@
 
     function finalCueLabel(data) {
       return nextCountOffSong(data && data.title) || "FINAL";
+    }
+
+    // True when a setlist song is part of a medley: it runs into a count-off
+    // song, or it is a count-off song following another song. A STOP ends it.
+    function medleyLead(index) {
+      var item = rows[index];
+      if (!item || item.k !== "song" || !item.set) return false;
+      var next = null;
+      var prev = null;
+      for (var n = index + 1; n < rows.length; n++) {
+        if (rows[n].k === "stop") break;
+        if (rows[n].k === "song" && rows[n].set) { next = rows[n]; break; }
+      }
+      for (var p = index - 1; p >= 0; p--) {
+        if (rows[p].k === "stop") break;
+        if (rows[p].k === "song" && rows[p].set) { prev = rows[p]; break; }
+      }
+      var nextOff = !!(next && countIsOff(next));
+      var targetOff = countIsOff(item) && !!prev;
+      return nextOff || targetOff;
     }
 
     function countOffMark() {
@@ -7000,6 +7024,7 @@
         }
         var block = document.createElement("div");
         block.className = "prep-block" + (item.k === "song" && item.lib ? " lib" : "");
+        if (medleyLead(i)) block.classList.add("medley");
         block.setAttribute("data-k", item.k || "");
         if (item.g) block.setAttribute("data-g", item.g);
         if (item.k === "stop" && item.a) block.setAttribute("data-auto", "1");
@@ -7337,30 +7362,7 @@
         if (item.k === "stop" && item.s) row.classList.add("skipped");
         if (item.k === "song" && item.set && seenSetSong && countIsOff(item)) row.appendChild(countOffMark());
         if (item.k === "song" && item.set) seenSetSong = true;
-        if (item.k === "song" && item.set) {
-          var medleyNext = null;
-          for (var mn = i + 1; mn < rows.length; mn++) {
-            if (rows[mn].k === "stop") break;
-            if (rows[mn].k === "song" && rows[mn].set) {
-              medleyNext = rows[mn];
-              break;
-            }
-          }
-          var medleyPrev = null;
-          for (var mp = i - 1; mp >= 0; mp--) {
-            if (rows[mp].k === "stop") break;
-            if (rows[mp].k === "song" && rows[mp].set) {
-              medleyPrev = rows[mp];
-              break;
-            }
-          }
-          // The song that runs into a count-off song is green, and so is the
-          // count-off song itself when it follows any song (the medley target).
-          // A STOP still ends the band.
-          var nextOff = !!(medleyNext && countIsOff(medleyNext));
-          var targetOff = countIsOff(item) && !!medleyPrev;
-          if (nextOff || targetOff) row.classList.add("medley");
-        }
+        if (medleyLead(i)) row.classList.add("medley");
 
         var main = document.createElement(item.k === "final" ? "div" : "button");
         main.className = "main";
