@@ -836,7 +836,9 @@
       gap: 8px;
     }
     .drum-list {
-      --chord-repeat-w: 22px;
+      /* The drums page has no repeat signs any more; their reserved columns
+         would otherwise leave 22 px of dead space on each side of a section. */
+      --chord-repeat-w: 0px;
       --drum-bar-h: 22px;
       --drum-stack-gap: 2px;
       display: grid;
