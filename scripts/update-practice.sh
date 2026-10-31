@@ -18,19 +18,21 @@ cp "$html" "$root/DBK Reaper Stage Web Remote.html"
 python3 - "$dest" <<'PYMANIFEST'
 import hashlib, json, os, sys
 dest = sys.argv[1]
-files, total, stamp, sizes = [], 0, [], {}
+files, total, stamp, sizes, stamps = [], 0, [], {}, {}
 for name in sorted(os.listdir(dest)):
     path = os.path.join(dest, name)
     if not os.path.isfile(path) or name == "offline-manifest.json":
         continue
     size = os.path.getsize(path)
-    files.append("DBK_Stage/" + name)
+    key = "DBK_Stage/" + name
+    files.append(key)
     total += size
     stamp.append("%s:%d:%d" % (name, size, int(os.path.getmtime(path))))
-    sizes["DBK_Stage/" + name] = size
+    sizes[key] = size
+    stamps[key] = "%d-%d" % (size, int(os.path.getmtime(path)))
 version = hashlib.md5("|".join(stamp).encode("utf-8")).hexdigest()[:10]
 with open(os.path.join(dest, "offline-manifest.json"), "w", encoding="utf-8") as handle:
-    json.dump({"version": version, "total": total, "sizes": sizes, "files": files},
+    json.dump({"version": version, "total": total, "sizes": sizes, "stamps": stamps, "files": files},
               handle, separators=(",", ":"))
 print("Offline manifest: %d files, %.1f MB" % (len(files), total / 1048576))
 PYMANIFEST

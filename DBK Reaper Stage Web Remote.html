@@ -4896,14 +4896,29 @@
       bar.classList.remove("on");
     }
 
-    function cacheFile(url, store) {
+    // Store one file in the offline cache. When wantSize is given, a cached copy
+    // of a different size is re-fetched, so a refreshed pack updates only the
+    // files that actually changed instead of re-downloading everything.
+    function cacheFile(url, store, wantSize) {
       return Promise.resolve().then(function() {
         if (store) return store;
         if (!window.caches) throw new Error("nocache");
         return caches.open(OFFLINE_CACHE);
       }).then(function(cache) {
         return cache.match(url).then(function(hit) {
-          if (hit) return 0;
+          if (hit) {
+            var cached = Number(hit.headers.get("content-length")) || 0;
+            var wanted = Number(wantSize) || 0;
+            if (!wanted || !cached || cached === wanted) {
+              return 0;
+            }
+            return cache.delete(url).then(function() {
+              return null;
+            });
+          }
+          return null;
+        }).then(function(stored) {
+          if (stored === 0) return 0;
           // The header tells the worker not to cache this response again.
           return fetch(url, {
             cache: "no-store",
@@ -4941,6 +4956,12 @@
       sizes = sizes || {};
       if (!window.caches) return Promise.resolve(false);
       return caches.open(OFFLINE_CACHE).then(function(store) {
+        // Scores and song files first (a few MB), audio after: the band can read
+        // the set long before the last song file has downloaded.
+        var audio = /\.(mp3|flac|m4a|wav)$/i;
+        files = files.slice().sort(function(a, b) {
+          return (audio.test(a) ? 1 : 0) - (audio.test(b) ? 1 : 0);
+        });
         return new Promise(function(resolve) {
           var index = 0;
           var active = 0;
@@ -4969,7 +4990,7 @@
               var file = files[index++];
               active += 1;
               (function(name) {
-                cacheFile(name, store).then(function(fresh) {
+                cacheFile(name, store, sizes[name]).then(function(fresh) {
                   offlineState.got += Number(sizes[name]) || Number(fresh) || 0;
                   offlineState.count += 1;
                   paintOfflineBar();
