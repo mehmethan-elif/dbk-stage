@@ -7272,6 +7272,7 @@
       if (paOpen !== paOpenSent && typeof wwr_req === "function") {
         paOpenSent = paOpen;
         wwr_req("SET/EXTSTATE/DBK_STAGE/paopen/" + (paOpen ? "1" : "0"));
+        if (!paOpen) paSentTarget = null;
       }
       if (paOpen) {
         if (Date.now() - paPollAt > 500 && (typeof wwr_req === "function")) {
@@ -7994,6 +7995,7 @@
     var paFaderKey = "";
     var paPollAt = 0;
     var paOpenSent = false;
+    var paSentTarget = null;
     var paPrevPage = "lyrics";
 
     function paTrack() {
@@ -8316,6 +8318,17 @@
     function renderPa() {
       if (viewPage !== "pa") return;
       var host = document.getElementById("pa-fx");
+      // MASTER shows the master processors, FRONT shows that track's Trim.
+      var targetValue = paMix === "front" ? String((paInfo && paInfo.front) || 0) : "0";
+      if (paSentTarget !== targetValue) {
+        paSentTarget = targetValue;
+        if (typeof wwr_req === "function") {
+          wwr_req("SET/EXTSTATE/DBK_STAGE/pafxtarget/" + targetValue);
+        }
+        paFx = [];
+        paFxKey = "";
+        host.innerHTML = "";
+      }
       var key = paFx.map(function(card) {
         return card.i + ":" + card.n + ":" + (card.p || []).map(function(param) {
           return param.i + ":" + param.n;
