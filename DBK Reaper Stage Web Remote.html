@@ -7211,6 +7211,9 @@
         for (var mi = 0; mi < muteBtns.length; mi++) {
           var act = muteBtns[mi].getAttribute("data-act");
           var on = !!muteStates[act];
+          // Right after a press the page already shows the new state; an older
+          // poll response must not flip it back while the script catches up.
+          if (Date.now() < muteHold) continue;
           muteBtns[mi].classList.toggle("on", on);
           muteBtns[mi].setAttribute("aria-pressed", on ? "true" : "false");
           muteBtns[mi].disabled = !live;
@@ -7994,6 +7997,7 @@
     var paFaderKey = "";
     var paPollAt = 0;
     var paOpenSent = false;
+    var muteHold = 0;
     var paSentTarget = null;
     var paPrevPage = "lyrics";
 
@@ -8710,6 +8714,7 @@
               var on = !el.classList.contains("on");
               el.classList.toggle("on", on);
               el.setAttribute("aria-pressed", on ? "true" : "false");
+              muteHold = Date.now() + 1200;
             }
           }
           return;
