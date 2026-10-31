@@ -7267,7 +7267,13 @@
       document.getElementById("mixer-row").hidden = !(showMixer && mixerOpen);
       var paBtn = document.getElementById("pa-tune");
       if (paBtn) paBtn.classList.toggle("on", viewPage === "pa");
-      if (viewPage === "pa") {
+      // Same contract as the mixer: only an open page asks the script for data.
+      var paOpen = viewPage === "pa";
+      if (paOpen !== paOpenSent && typeof wwr_req === "function") {
+        paOpenSent = paOpen;
+        wwr_req("SET/EXTSTATE/DBK_STAGE/paopen/" + (paOpen ? "1" : "0"));
+      }
+      if (paOpen) {
         if (Date.now() - paPollAt > 500 && (typeof wwr_req === "function")) {
           paPollAt = Date.now();
           wwr_req("GET/EXTSTATE/DBK_STAGE/pafx;GET/EXTSTATE/DBK_STAGE/pa");
@@ -7987,6 +7993,7 @@
     var paFxKey = "";
     var paFaderKey = "";
     var paPollAt = 0;
+    var paOpenSent = false;
     var paPrevPage = "lyrics";
 
     function paTrack() {
