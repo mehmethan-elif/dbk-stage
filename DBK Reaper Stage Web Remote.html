@@ -2321,6 +2321,26 @@
     var practiceDeckOffset = 0;
     var practiceChainTimer = null;
     var practiceUseElement = false;
+    // Low-memory mode streams each song through one <audio> element instead of
+    // decoding whole songs into RAM. Slower to start, but it never holds more
+    // than a few seconds of audio. Enable from the console: setLowMemory(true)
+    var practiceLowMemory = false;
+    try { practiceLowMemory = localStorage.getItem("dbk_low_memory") === "1"; } catch (err) {}
+    practiceUseElement = practiceLowMemory;
+
+    function setLowMemory(on) {
+      practiceLowMemory = !!on;
+      practiceUseElement = practiceLowMemory;
+      try { localStorage.setItem("dbk_low_memory", practiceLowMemory ? "1" : "0"); } catch (err) {}
+      if (practiceMode && practicePlaying) {
+        var at = practiceAudioTime();
+        stopPracticeAudio();
+        practicePlaying = true;
+        startPractice(at);
+      }
+      return practiceLowMemory;
+    }
+    window.setLowMemory = setLowMemory;
 
     function practiceAudioTime() {
       if (!practicePlaying) return practiceOffset;
@@ -2640,6 +2660,11 @@
       practicePlaying = true;
       practiceChain = false;
       ensurePracticeCtx();
+      if (practiceLowMemory) {
+        practiceUseElement = true;
+        startPracticeElement(practiceOffset);
+        return;
+      }
       if (practiceUseElement) {
         startPracticeElement(practiceOffset);
         return;
