@@ -1351,7 +1351,7 @@
     #offline-bar button[hidden] { display: none; }
     #mixer-faders {
       display: grid;
-      grid-template-columns: repeat(8, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 8px;
     }
     .mixer-empty {
@@ -1377,7 +1377,7 @@
       grid-row: 1;
       grid-column: 1;
       overflow: hidden;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       line-height: 1.2;
       white-space: nowrap;
@@ -1586,7 +1586,7 @@
     .pa-mix-head { display: flex; gap: 8px; margin-bottom: 8px; }
     .pa-mix-head .pa-mix-btn { flex: 1 1 0; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-weight: 700; letter-spacing: 0.06em; }
     .pa-mix-head .pa-mix-btn.on { background: #3dba7a; color: #111; border-color: #3dba7a; }
-    #pa-faders { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+    #pa-faders { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
     .pa-card h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .pa-bypass {
       padding: 6px 12px;
@@ -1638,6 +1638,10 @@
       font-weight: 800;
       line-height: 1;
       text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
     }
     .pa-tgl.on { background: #ea8400; border-color: #ea8400; color: #111; }
     .pa-sub-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
