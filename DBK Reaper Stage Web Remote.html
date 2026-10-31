@@ -8051,6 +8051,26 @@
       return null;
     }
 
+    // A poll that was already in flight when a button was pressed can carry the
+    // previous value and overwrite the fresh one, which looked like the control
+    // jumping back. Each press keeps a short hold that ignores such echoes.
+    var paHold = {};
+
+    function paHoldSet(fxIndex, paramIndex, value) {
+      paHold[fxIndex + ":" + paramIndex] = { until: Date.now() + 1500, value: value };
+    }
+
+    function paHoldActive(fxIndex, paramIndex, published) {
+      var key = fxIndex + ":" + paramIndex;
+      var hold = paHold[key];
+      if (!hold) return false;
+      if (Date.now() > hold.until || Math.abs(Number(published) - Number(hold.value)) < 0.0001) {
+        delete paHold[key];
+        return false;
+      }
+      return true;
+    }
+
     function paLiveParam(fxIndex, paramIndex) {
       for (var f = 0; f < paFx.length; f++) {
         if (paFx[f].i !== fxIndex) continue;
@@ -8096,6 +8116,7 @@
           var unit = (String(param.n || "").match(/\(([^)]*)\)/) || [])[1] || "";
           cell.textContent = next.toFixed(1) + (unit ? " " + unit : "");
         }
+        paHoldSet(fx.i, param.i, next);
         paSend(fx.i, param.i, next);
       });
       return button;
@@ -8113,6 +8134,7 @@
         var live = paLiveParam(fx.i, param.i) || param;
         var next = Number(live.r) >= 0.5 ? 0 : 1;
         el.classList.toggle("on", next === 1);
+        paHoldSet(fx.i, param.i, next);
         paSend(fx.i, param.i, next);
         param.v = next;
       });
@@ -8274,6 +8296,7 @@
           var vList = paFx[vf].p || [];
           for (var vp = 0; vp < vList.length; vp++) {
             if (vList[vp].i !== vParam) continue;
+            if (paHoldActive(vFx, vParam, vList[vp].r)) continue;
             if (values[v].textContent !== vList[vp].f) values[v].textContent = vList[vp].f;
           }
         }
@@ -8286,7 +8309,9 @@
           if (paFx[tf].i !== tFx) continue;
           var tList = paFx[tf].p || [];
           for (var tp = 0; tp < tList.length; tp++) {
-            if (tList[tp].i === tParam) toggles[t].classList.toggle("on", Number(tList[tp].v) >= 0.5);
+            if (tList[tp].i !== tParam) continue;
+            if (paHoldActive(tFx, tParam, tList[tp].r)) continue;
+            toggles[t].classList.toggle("on", Number(tList[tp].r) >= 0.5);
           }
         }
       }
