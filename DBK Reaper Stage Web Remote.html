@@ -8224,8 +8224,9 @@
           bypass.addEventListener("click", function(ev) {
             var el = ev.currentTarget;
             var index = Number(el.getAttribute("data-fx"));
-            var off = el.classList.contains("on");
-            wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pabypass|" + index + "|" + (off ? "0" : "1"));
+            // "on" means the plugin is bypassed; the command takes the enabled state.
+            var bypassed = el.classList.contains("on");
+            wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pabypass|" + index + "|" + (bypassed ? "1" : "0"));
           });
           title.appendChild(bypass);
           card.appendChild(title);
