@@ -1586,6 +1586,31 @@
     .pa-mix-head .pa-mix-btn { flex: 1 1 0; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-weight: 700; letter-spacing: 0.06em; }
     .pa-mix-head .pa-mix-btn.on { background: #3dba7a; color: #111; border-color: #3dba7a; }
     #pa-faders { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+    .pa-card h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .pa-bypass {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #1c1c1c;
+      color: #ddd;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .pa-bypass.on { background: #ea8400; border-color: #ea8400; color: #111; }
+    .pa-toggle {
+      display: block;
+      width: 100%;
+      margin: 8px 0 2px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #1c1c1c;
+      color: #ddd;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+    .pa-toggle.on { background: #3dba7a; border-color: #3dba7a; color: #111; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -8018,11 +8043,41 @@
           var card = document.createElement("section");
           card.className = "pa-card";
           var title = document.createElement("h3");
-          title.textContent = fx.n;
+          var titleText = document.createElement("span");
+          titleText.textContent = fx.n;
+          title.appendChild(titleText);
+          var bypass = document.createElement("button");
+          bypass.type = "button";
+          bypass.className = "pa-bypass" + (fx.ok ? "" : " on");
+          bypass.textContent = "BYPASS";
+          bypass.setAttribute("data-fx", String(fx.i));
+          bypass.addEventListener("click", function(ev) {
+            var el = ev.currentTarget;
+            var fxIndex2 = Number(el.getAttribute("data-fx"));
+            var off = el.classList.contains("on");
+            wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pabypass|" + fxIndex2 + "|" + (off ? "0" : "1"));
+          });
+          title.appendChild(bypass);
           card.appendChild(title);
           var params = fx.p || [];
           for (var p = 0; p < params.length; p++) {
             (function(fxIndex, param) {
+              if (param.b) {
+                var toggle = document.createElement("button");
+                toggle.type = "button";
+                toggle.className = "pa-toggle" + (Number(param.v) >= 0.5 ? " on" : "");
+                toggle.textContent = param.n;
+                toggle.setAttribute("data-fx", String(fxIndex));
+                toggle.setAttribute("data-p", String(param.i));
+                toggle.addEventListener("click", function(ev) {
+                  var el = ev.currentTarget;
+                  var next = el.classList.contains("on") ? 0 : 1;
+                  paSend(Number(el.getAttribute("data-fx")), Number(el.getAttribute("data-p")), next);
+                  el.classList.toggle("on", next === 1);
+                });
+                card.appendChild(toggle);
+                return;
+              }
               var row = document.createElement("div");
               row.className = "pa-param";
               var label = document.createElement("label");
@@ -8067,6 +8122,25 @@
             var cell = slider.parentNode.querySelector(".pa-val");
             if (cell && cell.textContent !== list[pi].f) cell.textContent = list[pi].f;
           }
+        }
+      }
+      var toggles = host.querySelectorAll(".pa-toggle");
+      for (var t = 0; t < toggles.length; t++) {
+        var tFx = Number(toggles[t].getAttribute("data-fx"));
+        var tParam = Number(toggles[t].getAttribute("data-p"));
+        for (var tf = 0; tf < paFx.length; tf++) {
+          if (paFx[tf].i !== tFx) continue;
+          var tList = paFx[tf].p || [];
+          for (var tp = 0; tp < tList.length; tp++) {
+            if (tList[tp].i === tParam) toggles[t].classList.toggle("on", Number(tList[tp].v) >= 0.5);
+          }
+        }
+      }
+      var bypasses = host.querySelectorAll(".pa-bypass");
+      for (var bp = 0; bp < bypasses.length; bp++) {
+        var bFx = Number(bypasses[bp].getAttribute("data-fx"));
+        for (var bf = 0; bf < paFx.length; bf++) {
+          if (paFx[bf].i === bFx) bypasses[bp].classList.toggle("on", !paFx[bf].ok);
         }
       }
       var target = paTrack();
@@ -8144,7 +8218,8 @@
       for (var i = 0; i < count; i++) text += receiveParts[i] || "";
       text = text.replace(/\\n/g, "\n");
       var lines = text.split(/\n|;/);
-      if ((lines[0] || "") !== String(outputPick || "0")) return;
+      var wantedTrack = viewPage === "pa" ? paTrack() : String(outputPick || "0");
+      if ((lines[0] || "") !== wantedTrack) return;
       var next = [];
       for (var j = 1; j < lines.length; j++) {
         if (!lines[j]) continue;
@@ -8335,7 +8410,7 @@
     // Mixer meters are the only heavy payload; they are requested only while the
     // mixer is actually on screen.
     setInterval(function() {
-      if (!mixerOpen || practiceMode) return;
+      if ((!mixerOpen && viewPage !== "pa") || practiceMode) return;
       if (typeof wwr_req !== "function") return;
       wwr_req("GET/EXTSTATE/DBK_STAGE/rn;GET/EXTSTATE/DBK_STAGE/r0;GET/EXTSTATE/DBK_STAGE/r1;GET/EXTSTATE/DBK_STAGE/r2;GET/EXTSTATE/DBK_STAGE/r3");
     }, 400);
