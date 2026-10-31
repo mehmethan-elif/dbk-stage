@@ -2377,20 +2377,61 @@
     var practiceEndGuid = "";
     var practiceWarmed = {};
 
+    // ---- Practice audio engine ------------------------------------------------
+    // Two decoded decks instead of one <audio> element: the next song is started
+    // at an absolute Web Audio time while the previous one keeps playing to its
+    // natural end, so its tail is heard under the new song. The element path is
+    // kept as a fallback if a file cannot be decoded.
+    var practiceDeck = null;
+    var practicePending = null;
+    var practiceTails = [];
+    var practiceDeckName = "";
+    var practiceDeckGuid = "";
+    var practiceDeckWhen = 0;
+    var practiceDeckOffset = 0;
+    var practiceChainTimer = null;
+    var practiceUseElement = false;
+
     function practiceAudioTime() {
-      if (practicePlaying && practiceEl && !practiceEl.paused) {
-        return practiceEl.currentTime;
+      if (!practicePlaying) return practiceOffset;
+      if (practiceUseElement) {
+        if (practiceEl && !practiceEl.paused) return practiceEl.currentTime;
+        return practiceOffset;
       }
-      return practiceOffset;
+      if (!practiceCtx || !practiceDeck) return practiceOffset;
+      return Math.max(0, practiceDeckOffset + (practiceCtx.currentTime - practiceDeckWhen));
+    }
+
+    function practiceStopDecks() {
+      clearTimeout(practiceChainTimer);
+      practiceChainTimer = null;
+      var all = [];
+      if (practiceDeck) all.push(practiceDeck);
+      if (practicePending) all.push(practicePending);
+      for (var i = 0; i < practiceTails.length; i++) all.push(practiceTails[i]);
+      practiceDeck = null;
+      practicePending = null;
+      practiceTails = [];
+      var now = practiceCtx ? practiceCtx.currentTime : 0;
+      for (var j = 0; j < all.length; j++) {
+        var deck = all[j];
+        if (!deck) continue;
+        try {
+          deck.gain.gain.cancelScheduledValues(now);
+          deck.gain.gain.setValueAtTime(deck.gain.gain.value, now);
+          deck.gain.gain.linearRampToValueAtTime(0, now + 0.02);
+          deck.src.stop(now + 0.03);
+        } catch (err) {}
+      }
     }
 
     function stopPracticeAudio() {
-      clearTimeout(practiceChainTimer);
-      practiceChainTimer = null;
-      if (practiceEl) {
-        if (practicePlaying && !practiceEl.paused) practiceOffset = practiceEl.currentTime;
+      if (practicePlaying && !practiceUseElement) practiceOffset = practiceAudioTime();
+      if (practiceEl && practicePlaying && practiceUseElement && !practiceEl.paused) {
+        practiceOffset = practiceEl.currentTime;
         try { practiceEl.pause(); } catch (err) {}
       }
+      practiceStopDecks();
       practicePlaying = false;
     }
 
@@ -2567,36 +2608,129 @@
       paint();
     }
 
-    function continuePracticeAtNext(song) {
-      var next = practiceNextSong(song);
-      if (!next) {
-        finishPracticeAtStop(song);
-        return;
+    function practiceDeckEnded(deck) {
+      var at = practiceTails.indexOf(deck);
+      if (at >= 0) practiceTails.splice(at, 1);
+      try { deck.src.disconnect(); } catch (err) {}
+      try { deck.gain.disconnect(); } catch (err) {}
+      // The last song of the set finished: stop the transport.
+      if (deck === practiceDeck) {
+        practiceDeck = null;
+        practicePlaying = false;
+        practiceChain = false;
+        practiceOffset = 0;
+        paint();
       }
-      practiceChain = true;
-      stopPracticeAudio();
-      practiceSel = next.g;
-      practiceOffset = practiceSongStart(next);
-      paint();
-      startPractice(practiceOffset);
     }
 
-    function followPracticeChain() {
-      if (!practiceMode || !practicePlaying || practiceChain) return;
-      var song = selectedSongRow();
+    function practiceStartDeck(song, offset) {
+      var ctx = ensurePracticeCtx();
+      if (!ctx) return Promise.reject(new Error("audio"));
+      return loadPracticeSong(song.n).then(function(buffer) {
+        if (!practiceMode || !practicePlaying) return null;
+        var when = ctx.currentTime + 0.06;
+        var startAt = Math.max(0, Math.min(Math.max(0, buffer.duration - 0.02), offset));
+        var src = ctx.createBufferSource();
+        src.buffer = buffer;
+        var gain = ctx.createGain();
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(when, startAt);
+        var deck = { src: src, gain: gain, name: song.n, guid: song.g, when: when, offset: startAt };
+        src.onended = function() { practiceDeckEnded(deck); };
+        practiceDeck = deck;
+        practiceDeckName = song.n;
+        practiceDeckGuid = song.g;
+        practiceDeckWhen = when;
+        practiceDeckOffset = startAt;
+        practiceScheduleChain(song, startAt, when);
+        return deck;
+      });
+    }
+
+    // The next song is started at an absolute context time, so the boundary is
+    // sample-accurate whether or not the timer is late; the previous deck is
+    // simply left running and finishes under the new song.
+    function practiceScheduleChain(song, offset, when) {
+      clearTimeout(practiceChainTimer);
+      practiceChainTimer = null;
       if (!song || practiceStops(song)) return;
-      requestSongFile(song.n, false);
-      var at = practiceNextAt(song);
       var next = practiceNextSong(song);
-      if (next && (!(at > 0) || practiceAudioTime() > at - 8)) {
-        warmPracticeAudio(next.n);
-        requestSongFile(next.n, false);
-      }
-      if (!(at > 0) || practiceAudioTime() + 0.02 < at) return;
-      continuePracticeAtNext(song);
+      if (!next) return;
+      var at = practiceNextAt(song);
+      if (!(at > 0)) return;
+      var nextOffset = practiceSongStart(next);
+      requestSongFile(next.n, false);
+      warmPracticeAudio(next.n);
+      var ctx = practiceCtx;
+      loadPracticeSong(next.n).then(function(buffer) {
+        if (!practiceMode || !practicePlaying || !ctx || !practiceDeck) return;
+        if (practiceDeckGuid !== song.g) return;
+        var startWhen = when + (at - offset);
+        if (startWhen < ctx.currentTime + 0.02) startWhen = ctx.currentTime + 0.02;
+        var startAt = Math.max(0, Math.min(Math.max(0, buffer.duration - 0.02), nextOffset));
+        var src = ctx.createBufferSource();
+        src.buffer = buffer;
+        var gain = ctx.createGain();
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(startWhen, startAt);
+        var deck = { src: src, gain: gain, name: next.n, guid: next.g, when: startWhen, offset: startAt };
+        src.onended = function() { practiceDeckEnded(deck); };
+        practicePending = deck;
+        var ms = Math.max(0, (startWhen - ctx.currentTime) * 1000);
+        practiceChainTimer = setTimeout(function() {
+          practiceChainTimer = null;
+          if (!practiceMode || !practicePlaying) return;
+          if (practiceDeck) practiceTails.push(practiceDeck);
+          practiceDeck = practicePending;
+          practicePending = null;
+          practiceDeckName = next.n;
+          practiceDeckGuid = next.g;
+          practiceDeckWhen = startWhen;
+          practiceDeckOffset = startAt;
+          practiceSel = next.g;
+          practiceEndGuid = next.g;
+          practiceSong = next.n;
+          paint();
+          practiceScheduleChain(next, startAt, startWhen);
+        }, ms);
+      }, function() {
+        practiceUseElement = true;
+        startPracticeElement(offset);
+      });
     }
 
     function startPractice(offset) {
+      var song = selectedSongRow();
+      if (!song) return;
+      practiceSong = song.n;
+      practiceEndGuid = song.g;
+      practiceOffset = Math.max(0, Number(offset) || 0);
+      practicePlaying = true;
+      practiceChain = false;
+      ensurePracticeCtx();
+      if (practiceUseElement) {
+        startPracticeElement(practiceOffset);
+        return;
+      }
+      practiceStopDecks();
+      requestSongFile(song.n, false);
+      var next = practiceNextSong(song);
+      if (next) {
+        warmPracticeAudio(next.n);
+        requestSongFile(next.n, false);
+      }
+      practiceStartDeck(song, practiceOffset).then(function() {
+        paint();
+      }, function() {
+        practiceUseElement = true;
+        startPracticeElement(practiceOffset);
+      });
+    }
+
+    // Fallback path: the original single-element player.
+    function startPracticeElement(offset) {
       var song = selectedSongRow();
       if (!song) return;
       var name = song.n;
@@ -2628,8 +2762,6 @@
             paint();
           });
         }
-        // Fire the handover at the marker itself rather than waiting for the
-        // 80 ms poll, so the next song starts on time.
         var nextAt = practiceNextAt(song);
         if (nextAt > 0 && !practiceStops(song)) {
           clearTimeout(practiceChainTimer);
@@ -2641,8 +2773,6 @@
         }
         paint();
       }
-      // When chaining, the element still holds the previous song, so begin()
-      // must wait until the new source is actually the one loaded.
       if (practiceSrcName === name && el.readyState >= 1) begin();
       else {
         var onReady = function() {
@@ -2654,6 +2784,36 @@
         el.addEventListener("loadedmetadata", onReady);
         el.addEventListener("canplay", onReady);
       }
+    }
+
+    function continuePracticeAtNext(song) {
+      var next = practiceNextSong(song);
+      if (!next) {
+        finishPracticeAtStop(song);
+        return;
+      }
+      practiceChain = true;
+      stopPracticeAudio();
+      practiceSel = next.g;
+      practiceOffset = practiceSongStart(next);
+      paint();
+      startPracticeElement(practiceOffset);
+    }
+
+    function followPracticeChain() {
+      if (!practiceMode || !practicePlaying || practiceChain) return;
+      if (!practiceUseElement) return;
+      var song = selectedSongRow();
+      if (!song || practiceStops(song)) return;
+      requestSongFile(song.n, false);
+      var at = practiceNextAt(song);
+      var next = practiceNextSong(song);
+      if (next && (!(at > 0) || practiceAudioTime() > at - 8)) {
+        warmPracticeAudio(next.n);
+        requestSongFile(next.n, false);
+      }
+      if (!(at > 0) || practiceAudioTime() + 0.02 < at) return;
+      continuePracticeAtNext(song);
     }
 
     function togglePractice() {
