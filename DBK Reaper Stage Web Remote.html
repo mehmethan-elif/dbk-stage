@@ -7240,7 +7240,7 @@
       var paBtn = document.getElementById("pa-tune");
       if (paBtn) paBtn.classList.toggle("on", viewPage === "pa");
       if (viewPage === "pa") {
-        if (Date.now() - paPollAt > 600 && (typeof wwr_req === "function")) {
+        if (Date.now() - paPollAt > 900 && (typeof wwr_req === "function")) {
           paPollAt = Date.now();
           wwr_req("GET/EXTSTATE/DBK_STAGE/pafx;GET/EXTSTATE/DBK_STAGE/pa");
         }
