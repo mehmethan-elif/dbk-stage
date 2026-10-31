@@ -8091,11 +8091,20 @@
       return null;
     }
 
+    // "0 dB", "100 Hz", "2 ms": whole numbers stay whole, the unit always shows.
+    function paFormat(param) {
+      var unit = (String(param && param.n || "").match(/\(([^)]*)\)/) || [])[1] || "";
+      var value = Number(param && param.r);
+      if (!isFinite(value)) return String(param && param.f || "");
+      var text = Math.abs(value - Math.round(value)) < 0.05 ? String(Math.round(value)) : value.toFixed(1);
+      return text + (unit ? " " + unit : "");
+    }
+
     function paValueCell(fx, param) {
       var cell = document.createElement("span");
       cell.className = "pa-row-val";
       if (param) {
-        cell.textContent = param.f;
+        cell.textContent = paFormat(param);
         cell.setAttribute("data-fx", String(fx.i));
         cell.setAttribute("data-p", String(param.i));
       }
@@ -8121,10 +8130,7 @@
         param.r = next;
         // Immediate readout; the published value confirms it a moment later.
         var cell = button.parentNode.querySelector(".pa-row-val");
-        if (cell) {
-          var unit = (String(param.n || "").match(/\(([^)]*)\)/) || [])[1] || "";
-          cell.textContent = next.toFixed(1) + (unit ? " " + unit : "");
-        }
+        if (cell) cell.textContent = paFormat({ n: param.n, r: next });
         paHoldSet(fx.i, param.i, next);
         paSend(fx.i, param.i, next);
       });
@@ -8306,7 +8312,8 @@
           for (var vp = 0; vp < vList.length; vp++) {
             if (vList[vp].i !== vParam) continue;
             if (paHoldActive(vFx, vParam, vList[vp].r)) continue;
-            if (values[v].textContent !== vList[vp].f) values[v].textContent = vList[vp].f;
+            var shown = paFormat(vList[vp]);
+            if (values[v].textContent !== shown) values[v].textContent = shown;
           }
         }
       }
