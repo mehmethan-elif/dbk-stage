@@ -5193,7 +5193,9 @@
       if (offlineTried) return;
       offlineTried = true;
       registerOfflineWorker();
-      startOfflinePack(false);
+      // The scores and song files are small, so they are fetched on launch
+      // without asking; only the audio waits for a tap.
+      startOfflinePack(true, false);
     }
 
     function warmPracticeScore(name) {
