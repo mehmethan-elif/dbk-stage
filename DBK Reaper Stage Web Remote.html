@@ -1611,20 +1611,31 @@
       text-align: left;
     }
     .pa-toggle.on { background: #3dba7a; border-color: #3dba7a; color: #111; font-weight: 700; }
-    .pa-grid { display: grid; grid-template-columns: minmax(0, 1fr) 38px 38px 42px 52px; gap: 6px; align-items: center; margin: 6px 0; }
-    .pa-grid-xover { grid-template-columns: minmax(0, 1fr) 38px 38px; }
-    .pa-grid-mini { grid-template-columns: minmax(0, 1fr) 34px 34px; gap: 4px; margin: 4px 0; }
+    .pa-grid { display: grid; grid-template-columns: minmax(0, 1fr) 38px 38px 38px 38px; gap: 6px; align-items: center; margin: 6px 0; }
+    .pa-grid-xover { grid-template-columns: minmax(0, 1fr) 38px 38px 38px; }
+    .pa-grid-mini { grid-template-columns: minmax(0, 1fr) 38px 38px; gap: 6px; margin: 6px 0; }
     .pa-cell-label { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
     .pa-row-name { font-size: 0.78rem; color: var(--muted); min-width: 38px; }
     .pa-row-val { font-size: 0.85rem; color: #fff; font-variant-numeric: tabular-nums; }
-    .pa-step { padding: 7px 0; border-radius: 6px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-weight: 800; }
-    .pa-tgl { padding: 7px 2px; border-radius: 6px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-size: 0.7rem; font-weight: 800; }
+    .pa-step, .pa-tgl {
+      width: 38px;
+      min-height: 32px;
+      padding: 0 2px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #1c1c1c;
+      color: #ddd;
+      font-size: 0.72rem;
+      font-weight: 800;
+      line-height: 1;
+      text-align: center;
+    }
     .pa-tgl.on { background: #ea8400; border-color: #ea8400; color: #111; }
     .pa-sub-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .pa-sub-col { min-width: 0; }
     .pa-sub-head { display: flex; align-items: center; gap: 6px; margin: 6px 0; }
     .pa-sub-head > span:first-child { font-size: 0.78rem; color: var(--muted); flex: 1 1 auto; }
-    .pa-sub-head .pa-tgl { min-width: 40px; padding: 6px 4px; }
+    .pa-sub-head .pa-tgl { min-width: 38px; }
     .pa-wide { width: 100%; margin: 6px 0; padding: 9px; }
 
   </style>
@@ -8201,6 +8212,7 @@
 
     function paSubCard(card, fx) {
       var xover = paParamLike(fx, "X-Over");
+      var link = paParamLike(fx, "Link");
       if (xover) {
         var head = document.createElement("div");
         head.className = "pa-grid pa-grid-xover";
@@ -8214,13 +8226,15 @@
         head.appendChild(label);
         head.appendChild(paStepBtn(fx, xover, -1));
         head.appendChild(paStepBtn(fx, xover, 1));
+        if (link) {
+          var linkBtn = paTglBtn(fx, link, "LINK");
+          linkBtn.setAttribute("title", "LINK L/R");
+          linkBtn.setAttribute("aria-label", "LINK L/R");
+          head.appendChild(linkBtn);
+        } else {
+          head.appendChild(document.createElement("span"));
+        }
         card.appendChild(head);
-      }
-      var link = paParamLike(fx, "Link");
-      if (link) {
-        var linkBtn = paTglBtn(fx, link, "LINK L/R");
-        linkBtn.classList.add("pa-wide");
-        card.appendChild(linkBtn);
       }
       var cols = document.createElement("div");
       cols.className = "pa-sub-cols";
