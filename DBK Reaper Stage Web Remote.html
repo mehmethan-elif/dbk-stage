@@ -8069,8 +8069,16 @@
       button.addEventListener("click", function() {
         var step = Number(param.s) || (1 / 72);
         var next = Math.min(1, Math.max(0, Number(param.v) + direction * step));
-        paSend(fx.i, param.i, next);
         param.v = next;
+        // Immediate readout; the published value confirms it a moment later.
+        var cell = button.parentNode.querySelector(".pa-row-val");
+        var low = Number(param.lo);
+        var high = Number(param.hi);
+        if (cell && isFinite(low) && isFinite(high)) {
+          var unit = (String(param.n || "").match(/\(([^)]*)\)/) || [])[1] || "";
+          cell.textContent = (low + next * (high - low)).toFixed(1) + (unit ? " " + unit : "");
+        }
+        paSend(fx.i, param.i, next);
       });
       return button;
     }
@@ -8580,7 +8588,16 @@
           return;
         }
         if (el.classList && el.classList.contains("mute-btn")) {
-          if (!el.disabled) send(el.getAttribute("data-act"), "");
+          if (!el.disabled) {
+            var act = el.getAttribute("data-act");
+            send(act, "");
+            // Instant feedback; the next publish confirms the real state.
+            if (act === "mutemaster" || act === "mutefront" || act === "muteinputs") {
+              var on = !el.classList.contains("on");
+              el.classList.toggle("on", on);
+              el.setAttribute("aria-pressed", on ? "true" : "false");
+            }
+          }
           return;
         }
         el = el.parentNode;
