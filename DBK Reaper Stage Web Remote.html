@@ -1384,8 +1384,9 @@
       text-overflow: ellipsis;
     }
     .fader-db {
-      grid-row: 2;
-      grid-column: 1;
+      grid-row: 1;
+      grid-column: 2;
+      text-align: right;
       color: var(--muted);
       font-size: 12px;
       font-variant-numeric: tabular-nums;
@@ -1404,8 +1405,8 @@
       justify-content: center;
       touch-action: manipulation;
     }
-    .mix-up { grid-row: 1; grid-column: 2; }
-    .mix-down { grid-row: 2; grid-column: 2; }
+    .mix-down { grid-row: 2; grid-column: 1; }
+    .mix-up { grid-row: 2; grid-column: 2; }
     .mix-tri {
       width: 20px;
       height: 14px;
@@ -1617,6 +1618,14 @@
     .pa-cell-label { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
     .pa-row-name { font-size: 0.78rem; color: var(--muted); min-width: 38px; }
     .pa-row-val { font-size: 0.85rem; color: #fff; font-variant-numeric: tabular-nums; }
+    .pa-step .mix-tri {
+      width: 22px;
+      height: 16px;
+      background: currentColor;
+      display: block;
+    }
+    .pa-step .tri-up { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+    .pa-step .tri-down { clip-path: polygon(0 0, 100% 0, 50% 100%); }
     .pa-step, .pa-tgl {
       width: 52px;
       height: 52px;
@@ -8125,7 +8134,11 @@
       var button = document.createElement("button");
       button.type = "button";
       button.className = "pa-step";
-      button.textContent = direction > 0 ? "+" : "\u2212";
+      button.setAttribute("aria-label", direction > 0 ? "Up" : "Down");
+      var triangle = document.createElement("span");
+      triangle.className = "mix-tri " + (direction > 0 ? "tri-up" : "tri-down");
+      triangle.setAttribute("aria-hidden", "true");
+      button.appendChild(triangle);
       button.addEventListener("click", function() {
         // Always step from the value the script last published, never from a
         // stale copy captured when the card was built.
@@ -8253,8 +8266,8 @@
         col.appendChild(head);
         var level = paParamLike(fx, "Sub " + side + " Level");
         var delay = paParamLike(fx, "Sub " + side + " Delay");
-        if (level) col.appendChild(paSubRow(fx, level, "LEVEL"));
-        if (delay) col.appendChild(paSubRow(fx, delay, "DELAY"));
+        if (level) col.appendChild(paSubRow(fx, level, "L"));
+        if (delay) col.appendChild(paSubRow(fx, delay, "D"));
         cols.appendChild(col);
       });
       card.appendChild(cols);
