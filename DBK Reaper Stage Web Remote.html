@@ -1611,6 +1611,22 @@
       text-align: left;
     }
     .pa-toggle.on { background: #3dba7a; border-color: #3dba7a; color: #111; font-weight: 700; }
+    .pa-grid { display: grid; grid-template-columns: minmax(0, 1fr) 38px 38px 42px 52px; gap: 6px; align-items: center; margin: 6px 0; }
+    .pa-grid-xover { grid-template-columns: minmax(0, 1fr) 38px 38px; }
+    .pa-grid-mini { grid-template-columns: minmax(0, 1fr) 34px 34px; gap: 4px; margin: 4px 0; }
+    .pa-cell-label { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+    .pa-row-name { font-size: 0.78rem; color: var(--muted); min-width: 38px; }
+    .pa-row-val { font-size: 0.85rem; color: #fff; font-variant-numeric: tabular-nums; }
+    .pa-step { padding: 7px 0; border-radius: 6px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-weight: 800; }
+    .pa-tgl { padding: 7px 2px; border-radius: 6px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-size: 0.7rem; font-weight: 800; }
+    .pa-tgl.on { background: #ea8400; border-color: #ea8400; color: #111; }
+    .pa-sub-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pa-sub-col { min-width: 0; }
+    .pa-sub-head { display: flex; align-items: center; gap: 6px; margin: 6px 0; }
+    .pa-sub-head > span:first-child { font-size: 0.78rem; color: var(--muted); flex: 1 1 auto; }
+    .pa-sub-head .pa-tgl { min-width: 40px; padding: 6px 4px; }
+    .pa-wide { width: 100%; margin: 6px 0; padding: 9px; }
+
   </style>
 </head>
 <body>
@@ -8025,11 +8041,165 @@
       }
     }
 
+    function paParamLike(fx, part) {
+      var list = fx.p || [];
+      var needle = String(part).toLowerCase();
+      for (var i = 0; i < list.length; i++) {
+        if (String(list[i].n || "").toLowerCase().indexOf(needle) >= 0) return list[i];
+      }
+      return null;
+    }
+
+    function paValueCell(fx, param) {
+      var cell = document.createElement("span");
+      cell.className = "pa-row-val";
+      if (param) {
+        cell.textContent = param.f;
+        cell.setAttribute("data-fx", String(fx.i));
+        cell.setAttribute("data-p", String(param.i));
+      }
+      return cell;
+    }
+
+    function paStepBtn(fx, param, direction) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "pa-step";
+      button.textContent = direction > 0 ? "+" : "\u2212";
+      button.addEventListener("click", function() {
+        var step = Number(param.s) || (1 / 72);
+        var next = Math.min(1, Math.max(0, Number(param.v) + direction * step));
+        paSend(fx.i, param.i, next);
+        param.v = next;
+      });
+      return button;
+    }
+
+    function paTglBtn(fx, param, label) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "pa-tgl" + (Number(param.v) >= 0.5 ? " on" : "");
+      button.textContent = label;
+      button.setAttribute("data-fx", String(fx.i));
+      button.setAttribute("data-p", String(param.i));
+      button.addEventListener("click", function(ev) {
+        var el = ev.currentTarget;
+        var next = el.classList.contains("on") ? 0 : 1;
+        el.classList.toggle("on", next === 1);
+        paSend(fx.i, param.i, next);
+        param.v = next;
+      });
+      return button;
+    }
+
+    function paTrimCard(card, fx) {
+      var grid = document.createElement("div");
+      grid.className = "pa-grid";
+      var channels = [["L", "L"], ["R", "R"], ["Mid", "MID"], ["Side", "SIDE"]];
+      for (var c = 0; c < channels.length; c++) {
+        var prefix = channels[c][0];
+        var level = paParamLike(fx, prefix + " Level");
+        var mute = paParamLike(fx, prefix + " Mute");
+        var invert = paParamLike(fx, prefix + " Invert");
+        var label = document.createElement("div");
+        label.className = "pa-cell-label";
+        var name = document.createElement("span");
+        name.className = "pa-row-name";
+        name.textContent = channels[c][1];
+        label.appendChild(name);
+        label.appendChild(paValueCell(fx, level));
+        grid.appendChild(label);
+        grid.appendChild(level ? paStepBtn(fx, level, -1) : document.createElement("span"));
+        grid.appendChild(level ? paStepBtn(fx, level, 1) : document.createElement("span"));
+        grid.appendChild(mute ? paTglBtn(fx, mute, "M") : document.createElement("span"));
+        grid.appendChild(invert ? paTglBtn(fx, invert, "INV") : document.createElement("span"));
+      }
+      card.appendChild(grid);
+    }
+
+    function paSubRow(fx, param, name) {
+      var row = document.createElement("div");
+      row.className = "pa-grid pa-grid-mini";
+      var label = document.createElement("div");
+      label.className = "pa-cell-label";
+      if (name) {
+        var text = document.createElement("span");
+        text.className = "pa-row-name";
+        text.textContent = name;
+        label.appendChild(text);
+      }
+      label.appendChild(paValueCell(fx, param));
+      row.appendChild(label);
+      row.appendChild(paStepBtn(fx, param, -1));
+      row.appendChild(paStepBtn(fx, param, 1));
+      return row;
+    }
+
+    function paSubCard(card, fx) {
+      var xover = paParamLike(fx, "X-Over");
+      if (xover) {
+        var head = document.createElement("div");
+        head.className = "pa-grid pa-grid-xover";
+        var label = document.createElement("div");
+        label.className = "pa-cell-label";
+        var name = document.createElement("span");
+        name.className = "pa-row-name";
+        name.textContent = "X-OVER";
+        label.appendChild(name);
+        label.appendChild(paValueCell(fx, xover));
+        head.appendChild(label);
+        head.appendChild(paStepBtn(fx, xover, -1));
+        head.appendChild(paStepBtn(fx, xover, 1));
+        card.appendChild(head);
+      }
+      var link = paParamLike(fx, "Link");
+      if (link) {
+        var linkBtn = paTglBtn(fx, link, "LINK L/R");
+        linkBtn.classList.add("pa-wide");
+        card.appendChild(linkBtn);
+      }
+      var cols = document.createElement("div");
+      cols.className = "pa-sub-cols";
+      ["L", "R"].forEach(function(side) {
+        var col = document.createElement("div");
+        col.className = "pa-sub-col";
+        var head = document.createElement("div");
+        head.className = "pa-sub-head";
+        var title = document.createElement("span");
+        title.textContent = "SUB " + side;
+        head.appendChild(title);
+        var mute = paParamLike(fx, "Sub " + side + " Mute");
+        var invert = paParamLike(fx, "Sub " + side + " Invert");
+        if (mute) head.appendChild(paTglBtn(fx, mute, "M"));
+        if (invert) head.appendChild(paTglBtn(fx, invert, "INV"));
+        col.appendChild(head);
+        var level = paParamLike(fx, "Sub " + side + " Level");
+        var delay = paParamLike(fx, "Sub " + side + " Delay");
+        if (level) col.appendChild(paSubRow(fx, level, "LEVEL"));
+        if (delay) col.appendChild(paSubRow(fx, delay, "DELAY"));
+        cols.appendChild(col);
+      });
+      card.appendChild(cols);
+    }
+
+    function paGenericCard(card, fx) {
+      var params = fx.p || [];
+      for (var p = 0; p < params.length; p++) {
+        (function(fxIndex, param) {
+          if (param.b) {
+            var toggle = paTglBtn(fx, param, param.n);
+            toggle.appendChild(document.createTextNode(""));
+            card.appendChild(toggle);
+            return;
+          }
+          card.appendChild(paSubRow(fx, param, param.n));
+        })(fx.i, params[p]);
+      }
+    }
+
     function renderPa() {
       if (viewPage !== "pa") return;
       var host = document.getElementById("pa-fx");
-      // Rebuild only when the parameter list itself changes: values are pushed
-      // into the existing sliders, so a slider being dragged is never replaced.
       var key = paFx.map(function(card) {
         return card.i + ":" + card.n + ":" + (card.p || []).map(function(param) {
           return param.i + ":" + param.n;
@@ -8053,78 +8223,34 @@
           bypass.setAttribute("data-fx", String(fx.i));
           bypass.addEventListener("click", function(ev) {
             var el = ev.currentTarget;
-            var fxIndex2 = Number(el.getAttribute("data-fx"));
+            var index = Number(el.getAttribute("data-fx"));
             var off = el.classList.contains("on");
-            wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pabypass|" + fxIndex2 + "|" + (off ? "0" : "1"));
+            wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pabypass|" + index + "|" + (off ? "0" : "1"));
           });
           title.appendChild(bypass);
           card.appendChild(title);
-          var params = fx.p || [];
-          for (var p = 0; p < params.length; p++) {
-            (function(fxIndex, param) {
-              if (param.b) {
-                var toggle = document.createElement("button");
-                toggle.type = "button";
-                toggle.className = "pa-toggle" + (Number(param.v) >= 0.5 ? " on" : "");
-                toggle.textContent = param.n;
-                toggle.setAttribute("data-fx", String(fxIndex));
-                toggle.setAttribute("data-p", String(param.i));
-                toggle.addEventListener("click", function(ev) {
-                  var el = ev.currentTarget;
-                  var next = el.classList.contains("on") ? 0 : 1;
-                  paSend(Number(el.getAttribute("data-fx")), Number(el.getAttribute("data-p")), next);
-                  el.classList.toggle("on", next === 1);
-                });
-                card.appendChild(toggle);
-                return;
-              }
-              var row = document.createElement("div");
-              row.className = "pa-param";
-              var label = document.createElement("label");
-              label.textContent = param.n;
-              var value = document.createElement("span");
-              value.className = "pa-val";
-              value.textContent = param.f;
-              var slider = document.createElement("input");
-              slider.type = "range";
-              slider.min = "0";
-              slider.max = "1";
-              slider.step = "0.001";
-              slider.value = String(param.v);
-              slider.setAttribute("data-fx", String(fxIndex));
-              slider.setAttribute("data-p", String(param.i));
-              slider.addEventListener("input", function(ev) {
-                var el = ev.currentTarget;
-                paSend(fxIndex, param.i, el.value);
-                value.textContent = Math.round(Number(el.value) * 100) + "%";
-              });
-              row.appendChild(label);
-              row.appendChild(value);
-              row.appendChild(slider);
-              card.appendChild(row);
-            })(fx.i, params[p]);
-          }
+          var upper = String(fx.n || "").toUpperCase();
+          if (upper.indexOf("SUB ALIGN") >= 0) paSubCard(card, fx);
+          else if (upper.indexOf("TRIM") >= 0) paTrimCard(card, fx);
+          else paGenericCard(card, fx);
           host.appendChild(card);
         }
       }
-      var sliders = host.querySelectorAll('input[type="range"]');
-      for (var s = 0; s < sliders.length; s++) {
-        var slider = sliders[s];
-        if (document.activeElement === slider) continue;
-        var fxIndex = Number(slider.getAttribute("data-fx"));
-        var paramIndex = Number(slider.getAttribute("data-p"));
-        for (var fi = 0; fi < paFx.length; fi++) {
-          if (paFx[fi].i !== fxIndex) continue;
-          var list = paFx[fi].p || [];
-          for (var pi = 0; pi < list.length; pi++) {
-            if (list[pi].i !== paramIndex) continue;
-            if (Number(slider.value) !== Number(list[pi].v)) slider.value = String(list[pi].v);
-            var cell = slider.parentNode.querySelector(".pa-val");
-            if (cell && cell.textContent !== list[pi].f) cell.textContent = list[pi].f;
+      // Push the published values into the cells without rebuilding them.
+      var values = host.querySelectorAll(".pa-row-val[data-fx]");
+      for (var v = 0; v < values.length; v++) {
+        var vFx = Number(values[v].getAttribute("data-fx"));
+        var vParam = Number(values[v].getAttribute("data-p"));
+        for (var vf = 0; vf < paFx.length; vf++) {
+          if (paFx[vf].i !== vFx) continue;
+          var vList = paFx[vf].p || [];
+          for (var vp = 0; vp < vList.length; vp++) {
+            if (vList[vp].i !== vParam) continue;
+            if (values[v].textContent !== vList[vp].f) values[v].textContent = vList[vp].f;
           }
         }
       }
-      var toggles = host.querySelectorAll(".pa-toggle");
+      var toggles = host.querySelectorAll(".pa-tgl");
       for (var t = 0; t < toggles.length; t++) {
         var tFx = Number(toggles[t].getAttribute("data-fx"));
         var tParam = Number(toggles[t].getAttribute("data-p"));
