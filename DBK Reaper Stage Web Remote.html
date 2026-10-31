@@ -2312,97 +2312,74 @@
     // at an absolute Web Audio time while the previous one keeps playing to its
     // natural end, so its tail is heard under the new song. The element path is
     // kept as a fallback if a file cannot be decoded.
-    var practiceDeck = null;
-    var practicePending = null;
-    var practiceTails = [];
-    var practiceDeckName = "";
-    var practiceDeckGuid = "";
-    var practiceDeckWhen = 0;
-    var practiceDeckOffset = 0;
+    // ---- Practice audio: two streaming decks ---------------------------------
+    // Deck A plays the current song, deck B holds the next one preloaded. At the
+    // song's nextSongAt deck B starts (with the count-in offset applied) while
+    // deck A keeps playing to the end of its file, so the previous tail is still
+    // heard under the new song. Streaming, so playback starts in a moment
+    // instead of waiting for the whole file to be decoded.
+    var practiceElA = null;
+    var practiceElB = null;
+    var practiceCurrentEl = null;
+    var practiceTailEl = null;
+    var practiceElSong = "";
+    var practiceElNext = "";
+    var practiceElNextOffset = 0;
     var practiceChainTimer = null;
-    var practiceUseElement = false;
-    // Low-memory mode streams each song through one <audio> element instead of
-    // decoding whole songs into RAM. Slower to start, but it never holds more
-    // than a few seconds of audio. Enable from the console: setLowMemory(true)
+    var practiceUseElement = true;
     var practiceLowMemory = false;
-    try { practiceLowMemory = localStorage.getItem("dbk_low_memory") === "1"; } catch (err) {}
-    practiceUseElement = practiceLowMemory;
 
     function setLowMemory(on) {
+      // Kept for compatibility: both decks stream, so there is nothing to free.
       practiceLowMemory = !!on;
-      practiceUseElement = practiceLowMemory;
       try { localStorage.setItem("dbk_low_memory", practiceLowMemory ? "1" : "0"); } catch (err) {}
-      if (practiceMode && practicePlaying) {
-        var at = practiceAudioTime();
-        stopPracticeAudio();
-        practicePlaying = true;
-        startPractice(at);
-      }
       return practiceLowMemory;
     }
     window.setLowMemory = setLowMemory;
 
     function practiceAudioTime() {
-      if (!practicePlaying) return practiceOffset;
-      if (practiceUseElement) {
-        if (practiceEl && !practiceEl.paused) return practiceEl.currentTime;
-        return practiceOffset;
+      if (practiceCurrentEl && practicePlaying && !practiceCurrentEl.paused) {
+        return practiceCurrentEl.currentTime;
       }
-      if (!practiceCtx || !practiceDeck) return practiceOffset;
-      return Math.max(0, practiceDeckOffset + (practiceCtx.currentTime - practiceDeckWhen));
+      return practiceOffset;
     }
 
-    function practiceStopDecks() {
-      clearTimeout(practiceChainTimer);
-      practiceChainTimer = null;
-      var all = [];
-      if (practiceDeck) all.push(practiceDeck);
-      if (practicePending) all.push(practicePending);
-      for (var i = 0; i < practiceTails.length; i++) all.push(practiceTails[i]);
-      practiceDeck = null;
-      practicePending = null;
-      practiceTails = [];
-      var now = practiceCtx ? practiceCtx.currentTime : 0;
-      for (var j = 0; j < all.length; j++) {
-        var deck = all[j];
-        if (!deck) continue;
-        try {
-          deck.gain.gain.cancelScheduledValues(now);
-          deck.gain.gain.setValueAtTime(deck.gain.gain.value, now);
-          deck.gain.gain.linearRampToValueAtTime(0, now + 0.02);
-          deck.src.stop(now + 0.03);
-        } catch (err) {}
-      }
-    }
-
-    function stopPracticeAudio() {
-      if (practicePlaying && !practiceUseElement) practiceOffset = practiceAudioTime();
-      if (practiceEl && practicePlaying && practiceUseElement && !practiceEl.paused) {
-        practiceOffset = practiceEl.currentTime;
-        try { practiceEl.pause(); } catch (err) {}
-      }
-      practiceStopDecks();
-      practicePlaying = false;
-    }
-
-    function ensurePracticeAudioEl() {
-      if (practiceEl) return practiceEl;
-      practiceEl = document.createElement("audio");
-      practiceEl.preload = "auto";
-      practiceEl.setAttribute("playsinline", "");
-      practiceEl.setAttribute("webkit-playsinline", "");
-      practiceEl.style.display = "none";
-      practiceEl.addEventListener("ended", onPracticeAudioEnded);
-      practiceEl.addEventListener("error", function() {
-        practicePlaying = false;
-        paint();
+    function practiceDeckEl(el) {
+      if (!el) return;
+      el.preload = "auto";
+      el.setAttribute("playsinline", "");
+      el.setAttribute("webkit-playsinline", "");
+      el.style.display = "none";
+      el.addEventListener("ended", function() {
+        if (el === practiceCurrentEl) {
+          onPracticeAudioEnded();
+          return;
+        }
+        if (el === practiceTailEl) {
+          practiceTailEl = null;
+          practicePreloadIdle(el);
+        }
       });
-      document.body.appendChild(practiceEl);
-      return practiceEl;
+      el.addEventListener("error", function() {
+        if (el === practiceCurrentEl) {
+          practicePlaying = false;
+          paint();
+        }
+      });
+      document.body.appendChild(el);
     }
 
-    // Giving the element the file starts the download at once, so Play waits for
-    // the first seconds of it instead of the whole file plus a full decode.
+    function ensurePracticeDecks() {
+      if (!practiceElA) {
+        practiceElA = document.createElement("audio");
+        practiceDeckEl(practiceElA);
+      }
+      if (!practiceElB) {
+        practiceElB = document.createElement("audio");
+        practiceDeckEl(practiceElB);
+      }
+    }
+
     function practiceAudioSource(name) {
       var url = "DBK_Stage/" + webFile(name) + ".mp3";
       if (!window.caches) return Promise.resolve(url);
@@ -2418,30 +2395,25 @@
       });
     }
 
-    function preparePracticeAudio(name) {
-      if (!name) return;
-      var el = ensurePracticeAudioEl();
-      if (practiceElSong === name) return;
-      practiceElSong = name;
-      practiceAudioSource(name).then(function(url) {
-        if (practiceElSong !== name) {
-          if (url.indexOf("blob:") === 0) URL.revokeObjectURL(url);
-          return;
-        }
-        if (practiceBlobUrl && practiceBlobUrl !== url) {
-          try { URL.revokeObjectURL(practiceBlobUrl); } catch (err) {}
-        }
-        practiceBlobUrl = url.indexOf("blob:") === 0 ? url : "";
-        el.src = url;
-        practiceSrcName = name;
-      });
-    }
-
     function warmPracticeAudio(name) {
       if (!name || practiceWarmed[name]) return;
       practiceWarmed[name] = true;
       cacheFile("DBK_Stage/" + webFile(name) + ".mp3").catch(function() {
         delete practiceWarmed[name];
+      });
+    }
+
+    function practiceLoadInto(el, name, offset) {
+      if (!el || !name) return;
+      practiceAudioSource(name).then(function(url) {
+        el.src = url;
+        try { el.load(); } catch (err) {}
+        if (offset > 0) {
+          el.addEventListener("loadedmetadata", function once() {
+            el.removeEventListener("loadedmetadata", once);
+            try { el.currentTime = offset; } catch (err) {}
+          });
+        }
       });
     }
 
@@ -2476,8 +2448,6 @@
       return practiceCtx;
     }
 
-    // A decoded song is ~100 MB, so only the last few songs stay in memory;
-    // otherwise a full practice session exhausts an iPad's tab memory.
     function rememberPracticeBuffer(name) {
       var at = practiceBufferOrder.indexOf(name);
       if (at >= 0) practiceBufferOrder.splice(at, 1);
@@ -2558,187 +2528,130 @@
       paint();
     }
 
-    function practiceDeckEnded(deck) {
-      var at = practiceTails.indexOf(deck);
-      if (at >= 0) practiceTails.splice(at, 1);
-      try { deck.src.disconnect(); } catch (err) {}
-      try { deck.gain.disconnect(); } catch (err) {}
-      // The last song of the set finished: stop the transport.
-      if (deck === practiceDeck) {
-        practiceDeck = null;
-        practicePlaying = false;
-        practiceChain = false;
-        practiceOffset = 0;
-        paint();
-      }
+    // The idle deck preloads the song after the current one.
+    function practicePreloadIdle(el) {
+      if (!el || !practiceElNext) return;
+      if (el === practiceCurrentEl) return;
+      practiceLoadInto(el, practiceElNext, practiceElNextOffset);
+      practiceTailEl = el;
     }
 
-    function practiceStartDeck(song, offset) {
-      var ctx = ensurePracticeCtx();
-      if (!ctx) return Promise.reject(new Error("audio"));
-      return loadPracticeSong(song.n).then(function(buffer) {
-        if (!practiceMode || !practicePlaying) return null;
-        var when = ctx.currentTime + 0.06;
-        var startAt = Math.max(0, Math.min(Math.max(0, buffer.duration - 0.02), offset));
-        var src = ctx.createBufferSource();
-        src.buffer = buffer;
-        var gain = ctx.createGain();
-        src.connect(gain);
-        gain.connect(ctx.destination);
-        src.start(when, startAt);
-        var deck = { src: src, gain: gain, name: song.n, guid: song.g, when: when, offset: startAt };
-        src.onended = function() { practiceDeckEnded(deck); };
-        practiceDeck = deck;
-        practiceDeckName = song.n;
-        practiceDeckGuid = song.g;
-        practiceDeckWhen = when;
-        practiceDeckOffset = startAt;
-        practiceScheduleChain(song, startAt, when);
-        return deck;
-      });
-    }
-
-    // The next song is started at an absolute context time, so the boundary is
-    // sample-accurate whether or not the timer is late; the previous deck is
-    // simply left running and finishes under the new song.
-    function practiceScheduleChain(song, offset, when) {
+    function practiceScheduleBoundary(song) {
       clearTimeout(practiceChainTimer);
       practiceChainTimer = null;
       if (!song || practiceStops(song)) return;
-      var next = practiceNextSong(song);
-      if (!next) return;
       var at = practiceNextAt(song);
       if (!(at > 0)) return;
-      var nextOffset = practiceSongStart(next);
-      requestSongFile(next.n, false);
-      warmPracticeAudio(next.n);
-      var ctx = practiceCtx;
-      loadPracticeSong(next.n).then(function(buffer) {
-        if (!practiceMode || !practicePlaying || !ctx || !practiceDeck) return;
-        if (practiceDeckGuid !== song.g) return;
-        var startWhen = when + (at - offset);
-        if (startWhen < ctx.currentTime + 0.02) startWhen = ctx.currentTime + 0.02;
-        var startAt = Math.max(0, Math.min(Math.max(0, buffer.duration - 0.02), nextOffset));
-        var src = ctx.createBufferSource();
-        src.buffer = buffer;
-        var gain = ctx.createGain();
-        src.connect(gain);
-        gain.connect(ctx.destination);
-        src.start(startWhen, startAt);
-        var deck = { src: src, gain: gain, name: next.n, guid: next.g, when: startWhen, offset: startAt };
-        src.onended = function() { practiceDeckEnded(deck); };
-        practicePending = deck;
-        var ms = Math.max(0, (startWhen - ctx.currentTime) * 1000);
-        practiceChainTimer = setTimeout(function() {
-          practiceChainTimer = null;
-          if (!practiceMode || !practicePlaying) return;
-          if (practiceDeck) practiceTails.push(practiceDeck);
-          practiceDeck = practicePending;
-          practicePending = null;
-          practiceDeckName = next.n;
-          practiceDeckGuid = next.g;
-          practiceDeckWhen = startWhen;
-          practiceDeckOffset = startAt;
-          practiceSel = next.g;
-          practiceEndGuid = next.g;
-          practiceSong = next.n;
-          paint();
-          practiceScheduleChain(next, startAt, startWhen);
-        }, ms);
-      }, function() {
-        practiceUseElement = true;
-        startPracticeElement(offset);
+      var delay = Math.max(0, (at - practiceAudioTime()) * 1000 - 10);
+      practiceChainTimer = setTimeout(function() {
+        practiceChainTimer = null;
+        if (!practiceMode || !practicePlaying) return;
+        practiceHandover(song);
+      }, delay);
+    }
+
+    function practiceHandover(song) {
+      var next = practiceNextSong(song);
+      if (!next || !practiceCurrentEl) return;
+      var nextEl = practiceTailEl;
+      if (!nextEl || nextEl === practiceCurrentEl) {
+        nextEl = practiceCurrentEl === practiceElA ? practiceElB : practiceElA;
+        practiceLoadInto(nextEl, next.n, practiceElNextOffset);
+      }
+      var old = practiceCurrentEl;
+      practiceCurrentEl = nextEl;
+      practiceTailEl = old;
+      practiceElSong = next.n;
+      practiceSel = next.g;
+      practiceEndGuid = next.g;
+      practiceSong = next.n;
+      try { nextEl.currentTime = practiceElNextOffset; } catch (err) {}
+      var started = nextEl.play();
+      if (started && started.catch) started.catch(function() {});
+      // the wheel turns: the song after the new current becomes the preload
+      var following = practiceNextSong(next);
+      practiceElNext = following ? following.n : "";
+      practiceElNextOffset = following ? practiceSongStart(following) : 0;
+      if (following) {
+        warmPracticeAudio(following.n);
+        requestSongFile(following.n, false);
+      }
+      paint();
+      practiceScheduleBoundary(next);
+      // when the old song's tail ends, that deck takes the following song
+      old.addEventListener("ended", function onceTail() {
+        old.removeEventListener("ended", onceTail);
+        if (practiceTailEl === old) practiceTailEl = null;
+        practicePreloadIdle(old);
       });
+    }
+
+    function stopPracticeAudio() {
+      clearTimeout(practiceChainTimer);
+      practiceChainTimer = null;
+      practicePlaying = false;
+      [practiceElA, practiceElB].forEach(function(el) {
+        if (!el) return;
+        try { el.pause(); } catch (err) {}
+        el.removeAttribute("src");
+        try { el.load(); } catch (err) {}
+      });
+      practiceCurrentEl = null;
+      practiceTailEl = null;
+      practiceElSong = "";
+      practiceElNext = "";
     }
 
     function startPractice(offset) {
       var song = selectedSongRow();
       if (!song) return;
-      practiceSong = song.n;
-      practiceEndGuid = song.g;
-      practiceOffset = Math.max(0, Number(offset) || 0);
+      var at = Math.max(0, Number(offset) || 0);
+      ensurePracticeDecks();
+      var cur = practiceElA;
+      var other = practiceElB;
+      stopPracticeAudio();
+      ensurePracticeDecks();
+      cur = practiceElA;
+      other = practiceElB;
+      practiceCurrentEl = cur;
+      practiceTailEl = other;
       practicePlaying = true;
       practiceChain = false;
-      ensurePracticeCtx();
-      if (practiceLowMemory) {
-        practiceUseElement = true;
-        startPracticeElement(practiceOffset);
-        return;
-      }
-      if (practiceUseElement) {
-        startPracticeElement(practiceOffset);
-        return;
-      }
-      practiceStopDecks();
+      practiceSong = song.n;
+      practiceEndGuid = song.g;
+      practiceOffset = at;
+      practiceElSong = song.n;
       requestSongFile(song.n, false);
       var next = practiceNextSong(song);
+      practiceElNext = next ? next.n : "";
+      practiceElNextOffset = next ? practiceSongStart(next) : 0;
       if (next) {
         warmPracticeAudio(next.n);
         requestSongFile(next.n, false);
+        practiceLoadInto(other, next.n, practiceElNextOffset);
       }
-      practiceStartDeck(song, practiceOffset).then(function() {
-        paint();
-      }, function() {
-        practiceUseElement = true;
-        startPracticeElement(practiceOffset);
-      });
-    }
-
-    // Fallback path: the original single-element player.
-    function startPracticeElement(offset) {
-      var song = selectedSongRow();
-      if (!song) return;
-      var name = song.n;
-      var guid = song.g;
-      var el = ensurePracticeAudioEl();
-      preparePracticeAudio(name);
-      requestSongFile(name, false);
-      var upcoming = practiceNextSong(song);
-      if (upcoming) {
-        warmPracticeAudio(upcoming.n);
-        requestSongFile(upcoming.n, false);
-      }
-      var at = Math.max(0, Number(offset) || 0);
-      practiceSong = name;
-      practiceEndGuid = guid;
-      practiceOffset = at;
-      practicePlaying = true;
-      practiceChain = false;
-      function begin() {
-        if (!practiceMode || practiceElSong !== name) return;
-        var dur = el.duration;
-        if (dur > 0 && at >= dur - 0.05) at = 0;
-        try { el.currentTime = at; } catch (err) {}
-        practiceOffset = at;
-        var started = el.play();
-        if (started && started.catch) {
-          started.catch(function() {
-            practicePlaying = false;
-            paint();
-          });
-        }
-        var nextAt = practiceNextAt(song);
-        if (nextAt > 0 && !practiceStops(song)) {
-          clearTimeout(practiceChainTimer);
-          var delay = Math.max(0, (nextAt - practiceOffset) * 1000 - 25);
-          practiceChainTimer = setTimeout(function() {
-            if (!practiceMode || !practicePlaying || practiceChain) return;
-            followPracticeChain();
-          }, delay);
-        }
-        paint();
-      }
-      if (practiceSrcName === name && el.readyState >= 1) begin();
-      else {
-        var onReady = function() {
-          if (practiceSrcName !== name) return;
-          el.removeEventListener("loadedmetadata", onReady);
-          el.removeEventListener("canplay", onReady);
-          begin();
+      practiceAudioSource(song.n).then(function(url) {
+        if (!practicePlaying || practiceElSong !== song.n) return;
+        cur.src = url;
+        try { cur.load(); } catch (err) {}
+        var begin = function() {
+          try { cur.currentTime = at; } catch (err) {}
+          var started = cur.play();
+          if (started && started.catch) {
+            started.catch(function() {
+              practicePlaying = false;
+              paint();
+            });
+          }
+          practiceScheduleBoundary(song);
+          paint();
         };
-        el.addEventListener("loadedmetadata", onReady);
-        el.addEventListener("canplay", onReady);
-      }
+        if (cur.readyState >= 1) begin();
+        else cur.addEventListener("loadedmetadata", function once() {
+          cur.removeEventListener("loadedmetadata", once);
+          begin();
+        });
+      });
     }
 
     function continuePracticeAtNext(song) {
@@ -2748,27 +2661,18 @@
         return;
       }
       practiceChain = true;
-      stopPracticeAudio();
       practiceSel = next.g;
       practiceOffset = practiceSongStart(next);
       paint();
-      startPracticeElement(practiceOffset);
+      startPractice(practiceOffset);
     }
 
     function followPracticeChain() {
       if (!practiceMode || !practicePlaying || practiceChain) return;
-      if (!practiceUseElement) return;
+      if (practiceChainTimer) return;
       var song = selectedSongRow();
       if (!song || practiceStops(song)) return;
-      requestSongFile(song.n, false);
-      var at = practiceNextAt(song);
-      var next = practiceNextSong(song);
-      if (next && (!(at > 0) || practiceAudioTime() > at - 8)) {
-        warmPracticeAudio(next.n);
-        requestSongFile(next.n, false);
-      }
-      if (!(at > 0) || practiceAudioTime() + 0.02 < at) return;
-      continuePracticeAtNext(song);
+      practiceScheduleBoundary(song);
     }
 
     function togglePractice() {
@@ -2918,7 +2822,12 @@
       practiceSel = guid;
       var song = selectedSongRow();
       if (song) {
-        preparePracticeAudio(song.n);
+        ensurePracticeDecks();
+        var nextRow = practiceNextSong(song);
+        practiceElNext = nextRow ? nextRow.n : "";
+        practiceElNextOffset = nextRow ? practiceSongStart(nextRow) : 0;
+        if (nextRow) practiceLoadInto(practiceElB, nextRow.n, practiceElNextOffset);
+        warmPracticeAudio(song.n);
         warmPracticeScore(song.n);
       }
       if (same && was) startPractice(0);
@@ -5078,9 +4987,19 @@
             wantedAudio[String(webFile(rows[r].n)).toLowerCase()] = true;
           }
         }
+        // If the song list has not arrived yet there is nothing to filter
+        // against, so every audio file is kept rather than silently dropped.
+        var hasWanted = false;
+        for (var wk in wantedAudio) {
+          if (wantedAudio.hasOwnProperty(wk)) {
+            hasWanted = true;
+            break;
+          }
+        }
         var keep = files.filter(function(name) {
           if (!audioFile.test(name)) return true;
           if (!withAudio) return false;
+          if (!hasWanted) return true;
           var base = name.replace(/^.*\//, "").replace(/\.[^.]+$/, "").toLowerCase();
           return wantedAudio[base] === true;
         });
