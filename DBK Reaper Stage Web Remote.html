@@ -7962,7 +7962,8 @@
     }
 
     function paSend(fx, param, value) {
-      wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pafx|" + fx + "|" + param + "|" + Number(value).toFixed(4));
+      // Values travel in the plugin's own units (dB, Hz, ms), not normalised.
+      wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pafx|" + fx + "|" + param + "|" + Number(value).toFixed(3));
     }
 
     function paStepRecv(index, delta) {
@@ -8067,16 +8068,19 @@
       button.className = "pa-step";
       button.textContent = direction > 0 ? "+" : "\u2212";
       button.addEventListener("click", function() {
-        var step = Number(param.s) || (1 / 72);
-        var next = Math.min(1, Math.max(0, Number(param.v) + direction * step));
-        param.v = next;
-        // Immediate readout; the published value confirms it a moment later.
-        var cell = button.parentNode.querySelector(".pa-row-val");
+        var step = Number(param.s) || 0.5;
+        var current = Number(param.r);
+        if (!isFinite(current)) current = 0;
         var low = Number(param.lo);
         var high = Number(param.hi);
-        if (cell && isFinite(low) && isFinite(high)) {
+        var next = current + direction * step;
+        if (isFinite(low) && isFinite(high)) next = Math.min(high, Math.max(low, next));
+        param.r = next;
+        // Immediate readout; the published value confirms it a moment later.
+        var cell = button.parentNode.querySelector(".pa-row-val");
+        if (cell) {
           var unit = (String(param.n || "").match(/\(([^)]*)\)/) || [])[1] || "";
-          cell.textContent = (low + next * (high - low)).toFixed(1) + (unit ? " " + unit : "");
+          cell.textContent = next.toFixed(1) + (unit ? " " + unit : "");
         }
         paSend(fx.i, param.i, next);
       });
