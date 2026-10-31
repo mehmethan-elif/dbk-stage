@@ -4773,11 +4773,16 @@
       var go = bar.querySelector(".go");
       if (offlineState.done) {
         bar.classList.add("on");
-        txt.textContent = "Offline ready · " + offlineMb(offlineState.total);
+        txt.textContent = offlineState.withAudio
+          ? "Offline ready · " + offlineMb(offlineState.total)
+          : "Scores ready · audio caches as you play";
         fill.style.width = "100%";
         go.hidden = true;
         var go2c = bar.querySelector(".go2");
-        if (go2c) go2c.hidden = true;
+        if (go2c) {
+          go2c.textContent = "+ audio";
+          go2c.hidden = !!offlineState.withAudio;
+        }
         clearTimeout(paintOfflineBar.hide);
         paintOfflineBar.hide = setTimeout(function() { bar.classList.remove("on"); }, 6000);
         return;
@@ -5123,9 +5128,10 @@
       if (offlineTried) return;
       offlineTried = true;
       registerOfflineWorker();
-      // The whole pack is fetched on launch, scores and song files first so the
-      // set is readable long before the last song's audio has arrived.
-      startOfflinePack(true, true);
+      // Scores and song files are small and are fetched on launch. Audio is
+      // not pulled in one burst: each song's mp3 is cached when it is played,
+      // and the offline bar offers the full audio pass explicitly.
+      startOfflinePack(true, false);
     }
 
     function warmPracticeScore(name) {
