@@ -1725,7 +1725,7 @@
         <button type="button" class="mute-btn" data-act="mutemaster" aria-pressed="false">Master</button>
         <button type="button" class="mute-btn" data-act="mutefront" aria-pressed="false">Front</button>
         <button type="button" class="mute-btn" data-act="muteinputs" aria-pressed="false">Inputs</button>
-        <button type="button" class="mute-btn" id="pa-tune" aria-pressed="false">PA Tune</button>
+        <button type="button" class="mute-btn" id="pa-tune" aria-pressed="false">PA Mixer</button>
       </div>
       <span id="net" role="status" aria-label="Not connected" title="Not connected">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1771,7 +1771,6 @@
         <div id="chords-stage" hidden></div>
         <div id="drums-stage" hidden></div>
         <div id="pa-stage" hidden>
-          <div id="pa-fx" class="pa-fx"></div>
           <div class="pa-mix">
             <div class="pa-mix-head">
               <button type="button" class="pa-mix-btn on" data-pa-mix="master" aria-pressed="true">MASTER</button>
@@ -7277,7 +7276,7 @@
       if (paOpen) {
         if (Date.now() - paPollAt > 500 && (typeof wwr_req === "function")) {
           paPollAt = Date.now();
-          wwr_req("GET/EXTSTATE/DBK_STAGE/pafx;GET/EXTSTATE/DBK_STAGE/pa");
+          wwr_req("GET/EXTSTATE/DBK_STAGE/pa");
         }
         renderPa();
       }
@@ -8005,13 +8004,7 @@
     function paSend(fx, param, value) {
       // Values travel in the plugin's own units (dB, Hz, ms), not normalised.
       wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pafx|" + fx + "|" + param + "|" + Number(value).toFixed(3));
-      // Ask for the real value once, shortly after, instead of waiting for the
-      // next poll: the control confirms itself in a fraction of a second.
-      if (paEchoTimer) clearTimeout(paEchoTimer);
-      paEchoTimer = setTimeout(function() {
-        paEchoTimer = 0;
-        if (typeof wwr_req === "function") wwr_req("GET/EXTSTATE/DBK_STAGE/pafx");
-      }, 220);
+      // Fader moves are applied by the script directly; nothing to fetch here.
     }
 
     function paStepRecv(index, delta) {
@@ -8317,24 +8310,14 @@
 
     function renderPa() {
       if (viewPage !== "pa") return;
+      // The FX cards are gone: this page is the PA mixer.
       var host = document.getElementById("pa-fx");
-      // MASTER shows the master processors, FRONT shows that track's Trim.
-      var targetValue = paMix === "front" ? String((paInfo && paInfo.front) || 0) : "0";
-      if (paSentTarget !== targetValue) {
-        paSentTarget = targetValue;
-        if (typeof wwr_req === "function") {
-          wwr_req("SET/EXTSTATE/DBK_STAGE/pafxtarget/" + targetValue);
-        }
-        paFx = [];
-        paFxKey = "";
-        host.innerHTML = "";
-      }
       var key = paFx.map(function(card) {
         return card.i + ":" + card.n + ":" + (card.p || []).map(function(param) {
           return param.i + ":" + param.n;
         }).join(",");
       }).join("|");
-      if (key !== paFxKey) {
+      if (host && key !== paFxKey) {
         paFxKey = key;
         host.innerHTML = "";
         for (var f = 0; f < paFx.length; f++) {
@@ -8367,7 +8350,7 @@
         }
       }
       // Push the published values into the cells without rebuilding them.
-      var values = host.querySelectorAll(".pa-row-val[data-fx]");
+      var values = host ? host.querySelectorAll(".pa-row-val[data-fx]") : [];
       for (var v = 0; v < values.length; v++) {
         var vFx = Number(values[v].getAttribute("data-fx"));
         var vParam = Number(values[v].getAttribute("data-p"));
@@ -8382,7 +8365,7 @@
           }
         }
       }
-      var toggles = host.querySelectorAll(".pa-tgl");
+      var toggles = host ? host.querySelectorAll(".pa-tgl") : [];
       for (var t = 0; t < toggles.length; t++) {
         var tFx = Number(toggles[t].getAttribute("data-fx"));
         var tParam = Number(toggles[t].getAttribute("data-p"));
@@ -8396,7 +8379,7 @@
           }
         }
       }
-      var bypasses = host.querySelectorAll(".pa-bypass");
+      var bypasses = host ? host.querySelectorAll(".pa-bypass") : [];
       for (var bp = 0; bp < bypasses.length; bp++) {
         var bFx = Number(bypasses[bp].getAttribute("data-fx"));
         for (var bf = 0; bf < paFx.length; bf++) {
