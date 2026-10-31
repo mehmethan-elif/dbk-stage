@@ -1,5 +1,5 @@
 // DBK Stage — practice page offline cache.
-const CACHE = "dbk-stage-v1";
+const CACHE = "dbk-stage-v2";
 const CORE = [
   "./",
   "index.html",
@@ -48,10 +48,10 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Audio and MIDI stems are large and are streamed on demand; keeping them in
-  // the service-worker cache only fills the device's storage quota.
+  // Audio and MIDI stems are streamed by the browser itself. Intercepting them
+  // (even with a plain fetch) stalls the media element in Chrome, so the request
+  // is left alone and goes straight to the network.
   if (/\.(mp3|flac|mid|m4a|wav)$/i.test(url.pathname) || request.headers.get("range")) {
-    event.respondWith(fetch(request));
     return;
   }
 
