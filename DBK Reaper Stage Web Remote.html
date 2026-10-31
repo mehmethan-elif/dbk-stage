@@ -1351,8 +1351,11 @@
     #offline-bar button[hidden] { display: none; }
     #mixer-faders {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 8px;
+    }
+    @media (max-width: 760px) {
+      #mixer-faders, #pa-faders { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     .mixer-empty {
       grid-column: 1 / -1;
@@ -1586,7 +1589,7 @@
     .pa-mix-head { display: flex; gap: 8px; margin-bottom: 8px; }
     .pa-mix-head .pa-mix-btn { flex: 1 1 0; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-weight: 700; letter-spacing: 0.06em; }
     .pa-mix-head .pa-mix-btn.on { background: #3dba7a; color: #111; border-color: #3dba7a; }
-    #pa-faders { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+    #pa-faders { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
     .pa-card h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .pa-bypass {
       padding: 6px 12px;
@@ -1615,9 +1618,9 @@
     .pa-grid { display: grid; grid-template-columns: minmax(0, 1fr) 52px 52px 52px 52px; gap: 6px; align-items: center; margin: 8px 0; }
     .pa-grid-xover { grid-template-columns: minmax(0, 1fr) 52px 52px 52px; }
     .pa-grid-mini { grid-template-columns: minmax(0, 1fr) 52px 52px; gap: 6px; margin: 8px 0; }
-    .pa-cell-label { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
-    .pa-row-name { font-size: 0.78rem; color: var(--muted); min-width: 38px; }
-    .pa-row-val { font-size: 0.85rem; color: #fff; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .pa-cell-label { display: flex; align-items: baseline; gap: 6px; min-width: 0; overflow: visible; }
+    .pa-row-name { font-size: 0.78rem; color: var(--muted); flex: 0 0 auto; }
+    .pa-row-val { font-size: 0.85rem; color: #fff; font-variant-numeric: tabular-nums; white-space: nowrap; flex: 0 0 auto; }
     .pa-step .mix-tri {
       width: 22px;
       height: 16px;
