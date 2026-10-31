@@ -1567,6 +1567,25 @@
       font-size: 0.8rem;
       line-height: 1.3;
     }
+    /* PA Tune page: master bus processors and the MASTER/FRONT mix. */
+    #pa-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 8px 12px calc(18px + env(safe-area-inset-bottom));
+    }
+    #pa-stage[hidden] { display: none; }
+    .pa-fx { display: flex; flex-direction: column; gap: 10px; }
+    .pa-card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: #141414; }
+    .pa-card h3 { margin: 0 0 8px; font-size: 0.95rem; letter-spacing: 0.04em; }
+    .pa-param { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; margin: 10px 0 2px; }
+    .pa-param label { font-size: 0.82rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pa-param .pa-val { font-size: 0.82rem; font-variant-numeric: tabular-nums; color: #ddd; }
+    .pa-param input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: #3dba7a; }
+    .pa-mix-head { display: flex; gap: 8px; margin-bottom: 8px; }
+    .pa-mix-head .pa-mix-btn { flex: 1 1 0; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #1c1c1c; color: #ddd; font-weight: 700; letter-spacing: 0.06em; }
+    .pa-mix-head .pa-mix-btn.on { background: #3dba7a; color: #111; border-color: #3dba7a; }
+    #pa-faders { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
   </style>
 </head>
 <body>
@@ -1637,6 +1656,7 @@
         <button type="button" class="mute-btn" data-act="mutemaster" aria-pressed="false">Master</button>
         <button type="button" class="mute-btn" data-act="mutefront" aria-pressed="false">Front</button>
         <button type="button" class="mute-btn" data-act="muteinputs" aria-pressed="false">Inputs</button>
+        <button type="button" class="mute-btn" id="pa-tune" aria-pressed="false">PA Tune</button>
       </div>
       <span id="net" role="status" aria-label="Not connected" title="Not connected">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1681,6 +1701,16 @@
         <div id="score-stage" hidden></div>
         <div id="chords-stage" hidden></div>
         <div id="drums-stage" hidden></div>
+        <div id="pa-stage" hidden>
+          <div id="pa-fx" class="pa-fx"></div>
+          <div class="pa-mix">
+            <div class="pa-mix-head">
+              <button type="button" class="pa-mix-btn on" data-pa-mix="master" aria-pressed="true">MASTER</button>
+              <button type="button" class="pa-mix-btn" data-pa-mix="front" aria-pressed="false">FRONT</button>
+            </div>
+            <div id="pa-faders"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="prep" hidden>
@@ -7127,6 +7157,7 @@
       document.getElementById("score-stage").hidden = viewPage !== "score";
       document.getElementById("chords-stage").hidden = viewPage !== "chords";
       document.getElementById("drums-stage").hidden = viewPage !== "drums";
+      document.getElementById("pa-stage").hidden = viewPage !== "pa";
       var prepBtn = document.getElementById("page-prep");
       prepBtn.hidden = !(live && !practiceMode && selectedOutputName() === "MEHMETHAN");
       prepBtn.disabled = !show;
@@ -7165,6 +7196,15 @@
       mixerBtn.classList.toggle("on", showMixer && mixerOpen);
       mixerBtn.setAttribute("aria-pressed", showMixer && mixerOpen ? "true" : "false");
       document.getElementById("mixer-row").hidden = !(showMixer && mixerOpen);
+      var paBtn = document.getElementById("pa-tune");
+      if (paBtn) paBtn.classList.toggle("on", viewPage === "pa");
+      if (viewPage === "pa") {
+        if (Date.now() - paPollAt > 600 && (typeof wwr_req === "function")) {
+          paPollAt = Date.now();
+          wwr_req("GET/EXTSTATE/DBK_STAGE/pafx;GET/EXTSTATE/DBK_STAGE/pa");
+        }
+        renderPa();
+      }
       document.getElementById("columns").classList.toggle("no-setlist", !setlistOpen);
       var setlistBtn = document.getElementById("setlist");
       setlistBtn.classList.toggle("on", setlistOpen);
@@ -7867,6 +7907,194 @@
       }
     }
 
+    var paFx = [];
+    var paInfo = null;
+    var paMix = "master";
+    var paMixTrack = "";
+    var paFxKey = "";
+    var paFaderKey = "";
+    var paPollAt = 0;
+    var paPrevPage = "lyrics";
+
+    function paTrack() {
+      return paMix === "front" ? String((paInfo && paInfo.front) || 0) : "0";
+    }
+
+    function paSend(fx, param, value) {
+      wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pafx|" + fx + "|" + param + "|" + Number(value).toFixed(4));
+    }
+
+    function paStepRecv(index, delta) {
+      var item = null;
+      for (var i = 0; i < receives.length; i++) {
+        if (receives[i].i === index) item = receives[i];
+      }
+      if (!item) return;
+      var db = volToDb(item.v);
+      var next;
+      if (db <= -120) {
+        if (delta < 0) return;
+        next = -60;
+      } else {
+        next = db + delta;
+        if (next > 12) next = 12;
+        if (next < -60) next = -60;
+        if (delta < 0 && db <= -60) next = -150;
+      }
+      item.v = next <= -150 ? 0 : dbToVol(next);
+      wwr_req("SET/EXTSTATE/DBK_STAGE/recv/" + encodeURIComponent(paTrack() + "|" + index + "|" + item.v.toFixed(6)));
+      renderPaFaders();
+    }
+
+    function paFaderStep(index, direction) {
+      var up = document.createElement("button");
+      up.type = "button";
+      up.className = "mix-step mix-" + direction;
+      up.setAttribute("aria-label", direction === "up" ? "Up" : "Down");
+      var tri = document.createElement("span");
+      tri.className = "mix-tri";
+      tri.setAttribute("aria-hidden", "true");
+      up.appendChild(tri);
+      up.addEventListener("click", function() {
+        paStepRecv(index, direction === "up" ? 1 : -1);
+      });
+      return up;
+    }
+
+    function renderPaFaders() {
+      var row = document.getElementById("pa-faders");
+      var key = receives.map(function(rec) { return rec.i + ":" + rec.n; }).join("\n");
+      if (key !== paFaderKey) {
+        paFaderKey = key;
+        row.innerHTML = "";
+        if (!receives.length) {
+          row.innerHTML = '<p class="mixer-empty">No receives</p>';
+        }
+        for (var i = 0; i < receives.length; i++) {
+          var rec = receives[i];
+          var fader = document.createElement("div");
+          fader.className = "fader";
+          fader.setAttribute("data-i", String(rec.i));
+          var name = document.createElement("div");
+          name.className = "fader-name";
+          name.textContent = rec.n;
+          var readout = document.createElement("div");
+          readout.className = "fader-db";
+          fader.appendChild(name);
+          fader.appendChild(readout);
+          fader.appendChild(paFaderStep(rec.i, "up"));
+          fader.appendChild(paFaderStep(rec.i, "down"));
+          row.appendChild(fader);
+        }
+      }
+      var nodes = row.querySelectorAll(".fader");
+      for (var n = 0; n < nodes.length; n++) {
+        var idx = Number(nodes[n].getAttribute("data-i"));
+        var item = null;
+        for (var r = 0; r < receives.length; r++) {
+          if (receives[r].i === idx) item = receives[r];
+        }
+        if (!item) continue;
+        paintFader(nodes[n], item.c);
+        nodes[n].querySelector(".fader-db").textContent = dbText(item.v);
+      }
+    }
+
+    function renderPa() {
+      if (viewPage !== "pa") return;
+      var host = document.getElementById("pa-fx");
+      // Rebuild only when the parameter list itself changes: values are pushed
+      // into the existing sliders, so a slider being dragged is never replaced.
+      var key = paFx.map(function(card) {
+        return card.i + ":" + card.n + ":" + (card.p || []).map(function(param) {
+          return param.i + ":" + param.n;
+        }).join(",");
+      }).join("|");
+      if (key !== paFxKey) {
+        paFxKey = key;
+        host.innerHTML = "";
+        for (var f = 0; f < paFx.length; f++) {
+          var fx = paFx[f];
+          var card = document.createElement("section");
+          card.className = "pa-card";
+          var title = document.createElement("h3");
+          title.textContent = fx.n;
+          card.appendChild(title);
+          var params = fx.p || [];
+          for (var p = 0; p < params.length; p++) {
+            (function(fxIndex, param) {
+              var row = document.createElement("div");
+              row.className = "pa-param";
+              var label = document.createElement("label");
+              label.textContent = param.n;
+              var value = document.createElement("span");
+              value.className = "pa-val";
+              value.textContent = param.f;
+              var slider = document.createElement("input");
+              slider.type = "range";
+              slider.min = "0";
+              slider.max = "1";
+              slider.step = "0.001";
+              slider.value = String(param.v);
+              slider.setAttribute("data-fx", String(fxIndex));
+              slider.setAttribute("data-p", String(param.i));
+              slider.addEventListener("input", function(ev) {
+                var el = ev.currentTarget;
+                paSend(fxIndex, param.i, el.value);
+                value.textContent = Math.round(Number(el.value) * 100) + "%";
+              });
+              row.appendChild(label);
+              row.appendChild(value);
+              row.appendChild(slider);
+              card.appendChild(row);
+            })(fx.i, params[p]);
+          }
+          host.appendChild(card);
+        }
+      }
+      var sliders = host.querySelectorAll('input[type="range"]');
+      for (var s = 0; s < sliders.length; s++) {
+        var slider = sliders[s];
+        if (document.activeElement === slider) continue;
+        var fxIndex = Number(slider.getAttribute("data-fx"));
+        var paramIndex = Number(slider.getAttribute("data-p"));
+        for (var fi = 0; fi < paFx.length; fi++) {
+          if (paFx[fi].i !== fxIndex) continue;
+          var list = paFx[fi].p || [];
+          for (var pi = 0; pi < list.length; pi++) {
+            if (list[pi].i !== paramIndex) continue;
+            if (Number(slider.value) !== Number(list[pi].v)) slider.value = String(list[pi].v);
+            var cell = slider.parentNode.querySelector(".pa-val");
+            if (cell && cell.textContent !== list[pi].f) cell.textContent = list[pi].f;
+          }
+        }
+      }
+      var target = paTrack();
+      if (target !== paMixTrack) {
+        paMixTrack = target;
+        wwr_req("SET/EXTSTATE/DBK_STAGE/mixtrack/" + encodeURIComponent(target));
+        receives = [];
+        paFaderKey = "";
+      }
+      renderPaFaders();
+      var buttons = document.querySelectorAll(".pa-mix-btn");
+      for (var b = 0; b < buttons.length; b++) {
+        var on = buttons[b].getAttribute("data-pa-mix") === paMix;
+        buttons[b].classList.toggle("on", on);
+        buttons[b].setAttribute("aria-pressed", on ? "true" : "false");
+      }
+    }
+
+    function togglePa() {
+      if (viewPage === "pa") {
+        viewPage = paPrevPage || "lyrics";
+      } else {
+        paPrevPage = viewPage;
+        viewPage = "pa";
+      }
+      paint();
+    }
+
     function renderMixer() {
       var row = document.getElementById("mixer-faders");
       if (!receives.length) {
@@ -7970,9 +8198,12 @@
       select.appendChild(placeholder);
       for (var i = 0; i < outputTracks.length; i++) {
         var track = outputTracks[i];
+        var label = String(track.n || ("Track " + track.i));
+        // MASTER and FRONT live on the PA Tune page, not in the cue mix list.
+        if (label.toUpperCase() === "MASTER" || label.toUpperCase() === "FRONT") continue;
         var option = document.createElement("option");
         option.value = String(track.i);
-        option.textContent = track.n || ("Track " + track.i);
+        option.textContent = label;
         select.appendChild(option);
       }
       var found = previous === "select";
@@ -8063,6 +8294,13 @@
             outputsChanged = true;
             fillOutputs();
           }
+        } else if (tok[2] === "pafx") {
+          var fxList = parseJson(raw);
+          if (fxList) paFx = fxList;
+          if (viewPage === "pa") renderPa();
+        } else if (tok[2] === "pa") {
+          var paState = parseJson(raw);
+          if (paState) paInfo = paState;
         } else if (tok[2] === "rn") {
           var count = parseInt(raw, 10);
           if (!isFinite(count)) count = 0;
@@ -8127,6 +8365,18 @@
     document.addEventListener("click", function(ev) {
       var el = ev.target;
       while (el && el !== document.body) {
+        if (el.id === "pa-tune") {
+          togglePa();
+          return;
+        }
+        if (el.classList && el.classList.contains("pa-mix-btn")) {
+          paMix = el.getAttribute("data-pa-mix") === "front" ? "front" : "master";
+          paMixTrack = "";
+          paFaderKey = "";
+          receives = [];
+          if (viewPage === "pa") renderPa();
+          return;
+        }
         if (el.classList && el.classList.contains("mute-btn")) {
           if (!el.disabled) send(el.getAttribute("data-act"), "");
           return;
