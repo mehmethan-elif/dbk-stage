@@ -2565,9 +2565,16 @@
       practiceSel = next.g;
       practiceEndGuid = next.g;
       practiceSong = next.n;
-      try { nextEl.currentTime = practiceElNextOffset; } catch (err) {}
-      var started = nextEl.play();
-      if (started && started.catch) started.catch(function() {});
+      var playNext = function() {
+        try { nextEl.currentTime = practiceElNextOffset; } catch (err) {}
+        var started = nextEl.play();
+        if (started && started.catch) started.catch(function() {});
+      };
+      if (nextEl.readyState >= 2) playNext();
+      else nextEl.addEventListener("canplay", function once() {
+        nextEl.removeEventListener("canplay", once);
+        playNext();
+      });
       // the wheel turns: the song after the new current becomes the preload
       var following = practiceNextSong(next);
       practiceElNext = following ? following.n : "";
@@ -2632,9 +2639,10 @@
       }
       practiceAudioSource(song.n).then(function(url) {
         if (!practicePlaying || practiceElSong !== song.n) return;
-        cur.src = url;
-        try { cur.load(); } catch (err) {}
+        var begun = false;
         var begin = function() {
+          if (begun) return;
+          begun = true;
           try { cur.currentTime = at; } catch (err) {}
           var started = cur.play();
           if (started && started.catch) {
@@ -2646,11 +2654,14 @@
           practiceScheduleBoundary(song);
           paint();
         };
-        if (cur.readyState >= 1) begin();
-        else cur.addEventListener("loadedmetadata", function once() {
+        // Listen before the source is set: the old readyState belongs to the
+        // previous file, so checking it here would start too early.
+        cur.addEventListener("loadedmetadata", function once() {
           cur.removeEventListener("loadedmetadata", once);
           begin();
         });
+        cur.src = url;
+        try { cur.load(); } catch (err) {}
       });
     }
 
