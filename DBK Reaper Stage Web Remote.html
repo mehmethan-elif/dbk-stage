@@ -8129,7 +8129,8 @@
         if (isFinite(low) && isFinite(high)) next = Math.min(high, Math.max(low, next));
         param.r = next;
         // Immediate readout; the published value confirms it a moment later.
-        var cell = button.parentNode.querySelector(".pa-row-val");
+        var cell = button.parentNode.querySelector(
+          '.pa-row-val[data-fx="' + fx.i + '"][data-p="' + param.i + '"]');
         if (cell) cell.textContent = paFormat({ n: param.n, r: next });
         paHoldSet(fx.i, param.i, next);
         paSend(fx.i, param.i, next);
