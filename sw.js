@@ -48,6 +48,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Audio and MIDI stems are large and are streamed on demand; keeping them in
+  // the service-worker cache only fills the device's storage quota.
+  if (/\.(mp3|flac|mid|m4a|wav)$/i.test(url.pathname) || request.headers.get("range")) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)

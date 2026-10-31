@@ -2462,7 +2462,7 @@
       var at = practiceBufferOrder.indexOf(name);
       if (at >= 0) practiceBufferOrder.splice(at, 1);
       practiceBufferOrder.push(name);
-      while (practiceBufferOrder.length > 3) {
+      while (practiceBufferOrder.length > 2) {
         var oldest = practiceBufferOrder[0];
         if (oldest === practiceSong) break;
         practiceBufferOrder.shift();
@@ -7286,7 +7286,12 @@
       net.classList.toggle("on", !!linkOk);
       net.title = linkOk ? "Connected" : (live ? "Signal lost" : "Not connected");
       net.setAttribute("aria-label", net.title);
-      syncLibraryMarks();
+      // The key column only depends on the chosen output (and the rows), so it
+      // is refreshed on a change instead of twice a second.
+      if (outputName !== paintOutputName) {
+        paintOutputName = outputName;
+        syncLibraryMarks();
+      }
       document.getElementById("offline").hidden = show;
       var muteRow = document.getElementById("mute-row");
       var showMutes = live && !practiceMode && (outputName === "MASTER" || outputName === "FRONT" || outputName === "MEHMETHAN");
@@ -8078,6 +8083,7 @@
       }
     }
 
+    var paintOutputName = "";
     var paInfo = null;
     var paMix = "master";
     var paMixTrack = "";
@@ -8519,7 +8525,7 @@
       wwr_req_recur("TRANSPORT", 120);
       wwr_req_recur("GET/EXTSTATE/DBK_STAGE/meta;GET/EXTSTATE/DBK_STAGE/outputs", 500);
       // Slow fallback for the song list; the fast path is the rev check in meta.
-      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/songs", 5000);
+      wwr_req_recur("GET/EXTSTATE/DBK_STAGE/songs", 30000);
     } else {
       remoteReady = true;
       paint();
