@@ -4829,10 +4829,14 @@
       bar = document.createElement("div");
       bar.id = "offline-bar";
       bar.innerHTML = '<span class="txt"></span><span class="bar"><i></i></span>'
-        + '<button type="button" class="go" hidden>Download</button>';
+        + '<button type="button" class="go" hidden>Download</button>'
+        + '<button type="button" class="go2" hidden>+ audio</button>';
       document.body.appendChild(bar);
       bar.querySelector(".go").addEventListener("click", function() {
-        startOfflinePack(true);
+        startOfflinePack(true, false);
+      });
+      bar.querySelector(".go2").addEventListener("click", function() {
+        startOfflinePack(true, true);
       });
       return bar;
     }
@@ -4852,6 +4856,8 @@
         txt.textContent = "Offline ready · " + offlineMb(offlineState.total);
         fill.style.width = "100%";
         go.hidden = true;
+        var go2c = bar.querySelector(".go2");
+        if (go2c) go2c.hidden = true;
         clearTimeout(paintOfflineBar.hide);
         paintOfflineBar.hide = setTimeout(function() { bar.classList.remove("on"); }, 6000);
         return;
@@ -4871,14 +4877,22 @@
           + " / " + offlineMb(offlineState.total) + speed;
         fill.style.width = pct + "%";
         go.hidden = true;
+        var go2d = bar.querySelector(".go2");
+        if (go2d) go2d.hidden = true;
         bar.classList.add("on");
         return;
       }
       if (offlineState.offer) {
-        txt.textContent = "Download all songs for offline · " + offlineMb(offlineState.total);
+        var go2 = bar.querySelector(".go2");
+        txt.textContent = "Download for offline · " + offlineMb(offlineState.total)
+          + (offlineState.withAudio ? " (with audio)" : " (scores)");
         fill.style.width = "0%";
         go.textContent = "Download";
         go.hidden = false;
+        if (go2) {
+          go2.textContent = offlineState.withAudio ? "scores only" : "+ audio";
+          go2.hidden = false;
+        }
         bar.classList.add("on");
         return;
       }
@@ -4890,6 +4904,11 @@
         fill.style.width = "0%";
         go.textContent = "Resume";
         go.hidden = false;
+        var go2b = bar.querySelector(".go2");
+        if (go2b) {
+          go2b.textContent = offlineState.withAudio ? "scores only" : "+ audio";
+          go2b.hidden = false;
+        }
         bar.classList.add("on");
         return;
       }
@@ -5021,8 +5040,19 @@
       });
     }
 
-    function startOfflinePack(force) {
+    function startOfflinePack(force, withAudio) {
       if (offlineState.busy) return;
+      if (withAudio === undefined) {
+        try {
+          withAudio = localStorage.getItem("dbkOfflineAudio") === "1";
+        } catch (err) {
+          withAudio = false;
+        }
+      }
+      offlineState.withAudio = !!withAudio;
+      try {
+        localStorage.setItem("dbkOfflineAudio", withAudio ? "1" : "0");
+      } catch (err) {}
       fetch("DBK_Stage/offline-manifest.json?v=" + Date.now(), { cache: "no-store" }).then(function(res) {
         if (!res.ok) throw new Error("manifest");
         return res.json();
@@ -5050,6 +5080,7 @@
         }
         var keep = files.filter(function(name) {
           if (!audioFile.test(name)) return true;
+          if (!withAudio) return false;
           var base = name.replace(/^.*\//, "").replace(/\.[^.]+$/, "").toLowerCase();
           return wantedAudio[base] === true;
         });
