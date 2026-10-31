@@ -1575,7 +1575,7 @@
       padding: 8px 12px calc(18px + env(safe-area-inset-bottom));
     }
     #pa-stage[hidden] { display: none; }
-    .pa-fx { display: flex; flex-direction: column; gap: 10px; }
+    .pa-fx { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 10px; align-items: start; }
     .pa-card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: #141414; }
     .pa-card h3 { margin: 0 0 8px; font-size: 0.95rem; letter-spacing: 0.04em; }
     .pa-param { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; margin: 10px 0 2px; }
