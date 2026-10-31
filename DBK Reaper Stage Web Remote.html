@@ -7240,7 +7240,7 @@
       var paBtn = document.getElementById("pa-tune");
       if (paBtn) paBtn.classList.toggle("on", viewPage === "pa");
       if (viewPage === "pa") {
-        if (Date.now() - paPollAt > 900 && (typeof wwr_req === "function")) {
+        if (Date.now() - paPollAt > 500 && (typeof wwr_req === "function")) {
           paPollAt = Date.now();
           wwr_req("GET/EXTSTATE/DBK_STAGE/pafx;GET/EXTSTATE/DBK_STAGE/pa");
         }
@@ -7966,12 +7966,11 @@
       wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pafx|" + fx + "|" + param + "|" + Number(value).toFixed(3));
       // Ask for the real value once, shortly after, instead of waiting for the
       // next poll: the control confirms itself in a fraction of a second.
-      if (!paEchoTimer) {
-        paEchoTimer = setTimeout(function() {
-          paEchoTimer = 0;
-          if (typeof wwr_req === "function") wwr_req("GET/EXTSTATE/DBK_STAGE/pafx");
-        }, 260);
-      }
+      if (paEchoTimer) clearTimeout(paEchoTimer);
+      paEchoTimer = setTimeout(function() {
+        paEchoTimer = 0;
+        if (typeof wwr_req === "function") wwr_req("GET/EXTSTATE/DBK_STAGE/pafx");
+      }, 220);
     }
 
     function paStepRecv(index, delta) {
