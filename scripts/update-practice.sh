@@ -29,7 +29,13 @@ for name in sorted(os.listdir(dest)):
     total += size
     stamp.append("%s:%d:%d" % (name, size, int(os.path.getmtime(path))))
     sizes[key] = size
-    stamps[key] = "%d-%d" % (size, int(os.path.getmtime(path)))
+    # Content hash, not the timestamp: copying the pack on every deploy gives
+    # every file a new mtime, which would force a full re-download on devices.
+    digest = hashlib.md5()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1048576), b""):
+            digest.update(chunk)
+    stamps[key] = "%d-%s" % (size, digest.hexdigest()[:16])
 version = hashlib.md5("|".join(stamp).encode("utf-8")).hexdigest()[:10]
 with open(os.path.join(dest, "offline-manifest.json"), "w", encoding="utf-8") as handle:
     json.dump({"version": version, "total": total, "sizes": sizes, "stamps": stamps, "files": files},
