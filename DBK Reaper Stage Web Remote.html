@@ -8051,6 +8051,17 @@
       return null;
     }
 
+    function paLiveParam(fxIndex, paramIndex) {
+      for (var f = 0; f < paFx.length; f++) {
+        if (paFx[f].i !== fxIndex) continue;
+        var list = paFx[f].p || [];
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].i === paramIndex) return list[i];
+        }
+      }
+      return null;
+    }
+
     function paValueCell(fx, param) {
       var cell = document.createElement("span");
       cell.className = "pa-row-val";
@@ -8068,11 +8079,14 @@
       button.className = "pa-step";
       button.textContent = direction > 0 ? "+" : "\u2212";
       button.addEventListener("click", function() {
-        var step = Number(param.s) || 0.5;
-        var current = Number(param.r);
+        // Always step from the value the script last published, never from a
+        // stale copy captured when the card was built.
+        var live = paLiveParam(fx.i, param.i) || param;
+        var step = Number(live.s) || 1;
+        var current = Number(live.r);
         if (!isFinite(current)) current = 0;
-        var low = Number(param.lo);
-        var high = Number(param.hi);
+        var low = Number(live.lo);
+        var high = Number(live.hi);
         var next = current + direction * step;
         if (isFinite(low) && isFinite(high)) next = Math.min(high, Math.max(low, next));
         param.r = next;
@@ -8096,7 +8110,8 @@
       button.setAttribute("data-p", String(param.i));
       button.addEventListener("click", function(ev) {
         var el = ev.currentTarget;
-        var next = el.classList.contains("on") ? 0 : 1;
+        var live = paLiveParam(fx.i, param.i) || param;
+        var next = Number(live.r) >= 0.5 ? 0 : 1;
         el.classList.toggle("on", next === 1);
         paSend(fx.i, param.i, next);
         param.v = next;
