@@ -4896,27 +4896,21 @@
       bar.classList.remove("on");
     }
 
-    // Store one file in the offline cache. When wantSize is given, a cached copy
-    // of a different size is re-fetched, so a refreshed pack updates only the
-    // files that actually changed instead of re-downloading everything.
-    function cacheFile(url, store, wantSize) {
+    // Store one file in the offline cache. With force the cached copy is
+    // dropped first, so a changed file is fetched again; otherwise a file that
+    // is already stored is kept.
+    function cacheFile(url, store, force) {
       return Promise.resolve().then(function() {
         if (store) return store;
         if (!window.caches) throw new Error("nocache");
         return caches.open(OFFLINE_CACHE);
       }).then(function(cache) {
         return cache.match(url).then(function(hit) {
-          if (hit) {
-            var cached = Number(hit.headers.get("content-length")) || 0;
-            var wanted = Number(wantSize) || 0;
-            if (!wanted || !cached || cached === wanted) {
-              return 0;
-            }
-            return cache.delete(url).then(function() {
-              return null;
-            });
-          }
-          return null;
+          if (hit && !force) return 0;
+          if (!hit) return null;
+          return cache.delete(url).then(function() {
+            return null;
+          });
         }).then(function(stored) {
           if (stored === 0) return 0;
           // The header tells the worker not to cache this response again.
@@ -4952,7 +4946,21 @@
       });
     }
 
-    function downloadOfflineFiles(files, sizes) {
+    function offlineStampMap() {
+      try {
+        return JSON.parse(localStorage.getItem("dbkFileStamps") || "{}") || {};
+      } catch (err) {
+        return {};
+      }
+    }
+
+    function saveOfflineStamps(map) {
+      try {
+        localStorage.setItem("dbkFileStamps", JSON.stringify(map));
+      } catch (err) {}
+    }
+
+    function downloadOfflineFiles(files, sizes, stamps) {
       sizes = sizes || {};
       if (!window.caches) return Promise.resolve(false);
       return caches.open(OFFLINE_CACHE).then(function(store) {
@@ -4962,6 +4970,8 @@
         files = files.slice().sort(function(a, b) {
           return (audio.test(a) ? 1 : 0) - (audio.test(b) ? 1 : 0);
         });
+        stamps = stamps || {};
+        var storedStamps = offlineStampMap();
         return new Promise(function(resolve) {
           var index = 0;
           var active = 0;
@@ -4980,6 +4990,7 @@
             // used to be cut off and the check then saw them as missing.
             if (index >= files.length && active === 0) {
               finished = true;
+              saveOfflineStamps(storedStamps);
               resolve(failed === 0);
               return;
             }
@@ -4990,7 +5001,10 @@
               var file = files[index++];
               active += 1;
               (function(name) {
-                cacheFile(name, store, sizes[name]).then(function(fresh) {
+                var want = stamps[name] || "";
+                var changed = !want || storedStamps[name] !== want;
+                cacheFile(name, store, changed).then(function(fresh) {
+                  if (want) storedStamps[name] = want;
                   offlineState.got += Number(sizes[name]) || Number(fresh) || 0;
                   offlineState.count += 1;
                   paintOfflineBar();
@@ -5024,6 +5038,30 @@
           standalone = window.navigator.standalone === true
             || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
         } catch (err) {}
+        // Audio for the setlist only: the band needs its own songs offline,
+        // while the rest of the library can stream when it is opened. Scores
+        // and song files stay complete for every song.
+        var audioFile = /\.(mp3|flac|m4a|wav)$/i;
+        var wantedAudio = {};
+        for (var r = 0; r < rows.length; r++) {
+          if (rows[r].k === "song" && rows[r].set) {
+            wantedAudio[String(webFile(rows[r].n)).toLowerCase()] = true;
+          }
+        }
+        var keep = files.filter(function(name) {
+          if (!audioFile.test(name)) return true;
+          var base = name.replace(/^.*\//, "").replace(/\.[^.]+$/, "").toLowerCase();
+          return wantedAudio[base] === true;
+        });
+        var skipped = files.length - keep.length;
+        files = keep;
+        var packedTotal = 0;
+        for (var fi = 0; fi < files.length; fi++) {
+          packedTotal += Number((manifest.sizes || {})[files[fi]]) || 0;
+        }
+        offlineState.total = packedTotal;
+        offlineState.files = files.length;
+
         var begin = function() {
           offlineState.offer = false;
           offlineState.busy = true;
@@ -5032,7 +5070,7 @@
           offlineState.count = 0;
           offlineState.startedAt = Date.now();
           paintOfflineBar();
-          downloadOfflineFiles(files, manifest.sizes).then(function(completed) {
+          downloadOfflineFiles(files, manifest.sizes, manifest.stamps).then(function(completed) {
             if (!completed) {
               offlineState.busy = false;
               paintOfflineBar();
