@@ -7964,6 +7964,14 @@
     function paSend(fx, param, value) {
       // Values travel in the plugin's own units (dB, Hz, ms), not normalised.
       wwr_req("SET/EXTSTATE/DBK_STAGE/cmd/pafx|" + fx + "|" + param + "|" + Number(value).toFixed(3));
+      // Ask for the real value once, shortly after, instead of waiting for the
+      // next poll: the control confirms itself in a fraction of a second.
+      if (!paEchoTimer) {
+        paEchoTimer = setTimeout(function() {
+          paEchoTimer = 0;
+          if (typeof wwr_req === "function") wwr_req("GET/EXTSTATE/DBK_STAGE/pafx");
+        }, 260);
+      }
     }
 
     function paStepRecv(index, delta) {
@@ -8055,6 +8063,7 @@
     // previous value and overwrite the fresh one, which looked like the control
     // jumping back. Each press keeps a short hold that ignores such echoes.
     var paHold = {};
+    var paEchoTimer = 0;
 
     function paHoldSet(fxIndex, paramIndex, value) {
       paHold[fxIndex + ":" + paramIndex] = { until: Date.now() + 1500, value: value };
