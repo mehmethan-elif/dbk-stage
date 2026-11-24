@@ -708,13 +708,18 @@
       display: block;
       padding: 1px 5px;
       border-radius: 3px;
-      background: #2c5f43;
-      color: #eaf6ee;
+      color: #fff;
       font: 600 10px/1.35 ui-sans-serif, system-ui, sans-serif;
       letter-spacing: 0.02em;
       white-space: nowrap;
       pointer-events: none;
     }
+    .score-xml-section.tone-default { background: #2f6fed; }
+    .score-xml-section.tone-count { background: #e6c14a; color: #1a1a1a; }
+    .score-xml-section.tone-serbest { background: #8b5cf6; }
+    .score-xml-section.tone-song { background: #3dba7a; }
+    .score-xml-section.tone-rall { background: #e8c12a; color: #1a1a1a; }
+    .score-xml-section.tone-final { background: #e24a4a; }
     .score-xml-bars { position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; }
     .score-xml-bar {
       position: absolute;
@@ -5606,7 +5611,7 @@
         var rect = view.rects[marks[j].measure - 1];
         if (!rect) continue;
         var tag = document.createElement("b");
-        tag.className = "score-xml-section";
+        tag.className = "score-xml-section tone-" + sectionTone(marks[j].label);
         tag.textContent = marks[j].label;
         tag.style.left = Math.max(0, rect.x) + "px";
         tag.style.top = Math.max(0, rect.y - 15) + "px";
@@ -5693,7 +5698,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0250";
+    var DBK_BUILD = "2026-11-25 0255";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
