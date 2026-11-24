@@ -5560,13 +5560,26 @@
       if (!song) return marks;
       var seen = {};
       var sections = song.sections || [];
+      var block = scorePassBlock(song);
+      var order = scorePlayOrder(name);
       for (var i = 0; i < sections.length; i++) {
         var label = String(sections[i].name || "").trim();
         if (!label) continue;
         if (label.toUpperCase().indexOf("COUNT") === 0) continue;
         var bar = Number(sections[i].measure) || 0;
         if (!bar) continue;
+        // only the first pass of the form labels the score
+        if (block && bar >= block.repeatAt) continue;
         var measure = scoreMeasureForBar(name, bar);
+        // a section marker sits on the last bar of the section before it, so the
+        // section itself begins on the following measure (the first section
+        // already starts on measure 1)
+        if (measure > 1) measure += 1;
+        if (order && order.length) {
+          var lastMeasure = 1;
+          for (var oi = 0; oi < order.length; oi++) if (order[oi] + 1 > lastMeasure) lastMeasure = order[oi] + 1;
+          if (measure > lastMeasure) measure = lastMeasure;
+        }
         if (!(measure > 0)) continue;
         var key = measure + "|" + label.toUpperCase();
         if (seen[key]) continue;
@@ -5698,7 +5711,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0255";
+    var DBK_BUILD = "2026-11-25 0300";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
