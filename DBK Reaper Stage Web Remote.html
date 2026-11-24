@@ -5278,25 +5278,31 @@
         }
         order = [];
         var repeatStart = 0;
-        var taken = false;
         var skipping = "";
+        var passes = {};
         var i2 = 0;
         var guard = 0;
-        while (i2 < n && guard < n * 8) {
+        while (i2 < n && guard < n * 16) {
           guard += 1;
           if (forward[i2]) repeatStart = i2;
           if (skipping && ending[i2] === skipping) {
+            // the 1st ending was already played: skip it and end this pass
+            skipping = "";
             i2 += 1;
             continue;
           }
           order.push(i2);
-          if (backward[i2] && !taken) {
-            taken = true;
-            skipping = "1";
-            i2 = repeatStart;
-            continue;
+          if (backward[i2]) {
+            // every backward barline is taken once: a score may have several
+            // repeats, and the second one must still jump back
+            passes[i2] = (passes[i2] || 0) + 1;
+            if (passes[i2] === 1) {
+              skipping = "1";
+              i2 = repeatStart;
+              continue;
+            }
+            skipping = "";
           }
-          if (backward[i2]) skipping = "";
           i2 += 1;
         }
       } catch (err) {
