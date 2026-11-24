@@ -5260,10 +5260,24 @@
       return rel + 1;
     }
 
+    function scoreXmlReady(pages, attempt) {
+      if (pages.clientWidth >= 8) return Promise.resolve(true);
+      if ((attempt || 0) > 20) return Promise.resolve(false);
+      return new Promise(function(resolve) {
+        requestAnimationFrame(function() {
+          resolve(scoreXmlReady(pages, (attempt || 0) + 1));
+        });
+      });
+    }
+
     function renderScoreXml(name, pages) {
       return loadScoreXml(name).then(function(xml) {
         if (!xml) return false;
-        return ensureOsmd().then(function(OSMD) {
+        return scoreXmlReady(pages).then(function(ready) {
+          if (!ready) return false;
+          return ensureOsmd();
+        }).then(function(OSMD) {
+          if (!OSMD) return false;
           if (scoreXmlViews[name]) {
             try { scoreXmlViews[name].host.remove(); } catch (err) {}
             delete scoreXmlViews[name];
