@@ -5407,8 +5407,10 @@
       }
       if (order && order.length) {
         var block = scorePassBlock(song);
-        if (block && block.length > 0 && bar >= block.repeatAt) {
-          var rel = bar - block.repeatAt;
+        if (block && block.length > 0 && bar >= block.repeatAt + 1) {
+          // the section marker sits on the last bar of the previous pass, so the
+          // repeat starts on the bar after it
+          var rel = bar - (block.repeatAt + 1);
           // past the last pass the audio only has its tail: hold the last bar
           if (rel >= block.length) {
             scorePath = "tail r" + rel + "/" + block.length;
@@ -5612,7 +5614,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0215";
+    var DBK_BUILD = "2026-11-25 0225";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
