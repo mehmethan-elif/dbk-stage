@@ -5552,9 +5552,7 @@
       }
       if (view.bar !== bar) {
         view.bar = bar;
-        try {
-          view.mark.scrollIntoView({ block: "center", behavior: "smooth" });
-        } catch (err) {}
+        scoreXmlBringIntoView(view);
       }
     }
 
@@ -5566,6 +5564,43 @@
       tag.id = "build-stamp";
       tag.textContent = DBK_BUILD;
       document.body.appendChild(tag);
+    }
+
+    // Scroll the pane that actually scrolls (the practice view), not relying on
+    // scrollIntoView, which does nothing when the box sits in a nested scroller.
+    function scoreXmlBringIntoView(view) {
+      var mark = view.mark;
+      if (!mark || mark.style.display === "none") return;
+      var box = mark.getBoundingClientRect();
+      var target = null;
+      var el = view.host;
+      while (el && el !== document.documentElement) {
+        var style = window.getComputedStyle(el);
+        if (/(auto|scroll)/.test(style.overflowY) && el.scrollHeight > el.clientHeight + 2) {
+          target = el;
+          break;
+        }
+        el = el.parentElement;
+      }
+      var vh = window.innerHeight;
+      var top = 0;
+      var height = vh;
+      if (target) {
+        var tb = target.getBoundingClientRect();
+        top = tb.top;
+        height = tb.height;
+      } else {
+        target = document.scrollingElement || document.documentElement;
+      }
+      var delta = (box.top - top) - (height - box.height) / 2;
+      if (Math.abs(delta) < height * 0.35) return;   // already comfortably visible
+      var max = Math.max(0, (target.scrollHeight || 0) - (target.clientHeight || height));
+      var next = Math.min(max, Math.max(0, (target.scrollTop || 0) + delta));
+      try {
+        target.scrollTo({ top: next, behavior: "smooth" });
+      } catch (err) {
+        target.scrollTop = next;
+      }
     }
 
     function scoreXmlTick() {
