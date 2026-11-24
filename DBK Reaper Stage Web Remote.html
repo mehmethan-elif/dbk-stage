@@ -690,7 +690,17 @@
       overflow: hidden;
       box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     }
+    .score-xml { position: relative; }
     .score-xml canvas { display: block; width: 100%; height: auto; }
+    .score-xml-bars { position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; }
+    .score-xml-bar {
+      position: absolute;
+      display: none;
+      box-sizing: border-box;
+      background: rgba(61, 186, 122, 0.28);
+      border: 1px solid rgb(61, 186, 122);
+      border-radius: 2px;
+    }
     .score-page-wrap { position: relative; width: 100%; }
     .score-overlay { position: absolute; inset: 0; }
     .score-rect {
@@ -2332,6 +2342,7 @@
     var practiceElA = null;
     var practiceElB = null;
     var practiceCurrentEl = null;
+    var scoreUiHooked = false;
     var practiceTailEl = null;
     var practiceElSong = "";
     var practiceElNext = "";
@@ -2640,6 +2651,7 @@
       practiceOffset = at;
       practiceElSong = song.n;
       requestSongFile(song.n, false);
+      scoreXmlFollowStart();
       var next = practiceNextSong(song);
       practiceElNext = next ? next.n : "";
       practiceElNextOffset = next ? practiceSongStart(next) : 0;
@@ -5299,16 +5311,35 @@
             backend: "canvas",
             drawingParameters: "compacttight"
           });
+          // Each bar must stay its own bar: merging empty bars into "-2-" would
+          // shift every playhead rectangle after it.
+          try {
+            osmd.EngravingRules.RenderMultipleRestMeasures = false;
+            osmd.EngravingRules.AutoGenerateMultipleRestMeasuresFromRestMeasures = false;
+          } catch (err) {}
           return osmd.load(xml).then(function() {
             osmd.render();
             var measures = 0;
             try {
-              var pagesArr = osmd.GraphicSheet && osmd.GraphicSheet.MusicPages;
-              if (pagesArr && pagesArr[0] && pagesArr[0].MeasureList) {
-                measures = pagesArr[0].MeasureList.length;
-              }
+              var list = osmd.GraphicSheet && osmd.GraphicSheet.measureList;
+              measures = list ? list.length : 0;
             } catch (err) {}
-            scoreXmlViews[name] = { osmd: osmd, host: host, measures: measures };
+            var overlay = document.createElement("div");
+            overlay.className = "score-xml-bars";
+            host.appendChild(overlay);
+            var mark = document.createElement("i");
+            mark.className = "score-xml-bar";
+            overlay.appendChild(mark);
+            scoreXmlViews[name] = {
+              osmd: osmd,
+              host: host,
+              overlay: overlay,
+              mark: mark,
+              measures: measures,
+              rects: [],
+              bar: 0
+            };
+            scoreXmlLayout(name);
             pages.setAttribute("data-score", "xml");
             return true;
           });
@@ -5317,6 +5348,116 @@
           return false;
         });
       });
+    }
+
+    // Measure boxes in the engraved sheet: bar N occupies one rectangle, and the
+    // current one is highlighted from the audio clock.
+    function scoreXmlLayout(name) {
+      var view = scoreXmlViews[name];
+      if (!view) return;
+      var gs = view.osmd.GraphicSheet;
+      var canvas = view.host.querySelector("canvas");
+      if (!gs || !canvas) return;
+      var pagesArr = gs.MusicPages || [];
+      var page = pagesArr[0];
+      var pageBox = page && page.boundingBox;
+      var units = pageBox && pageBox.size && pageBox.size.width;
+      if (!(units > 0)) return;
+      var cssW = canvas.getBoundingClientRect().width || canvas.width;
+      var scale = cssW / units;
+      var systems = (page && page.musicSystems) || [];
+      var list = gs.measureList || [];
+      var rects = [];
+      for (var i = 0; i < list.length; i++) {
+        var m = list[i] && list[i][0];
+        var bb = m && m.boundingBox;
+        if (!bb || !bb.absolutePosition) {
+          rects.push(null);
+          continue;
+        }
+        var x = bb.absolutePosition.x;
+        var y = bb.absolutePosition.y;
+        // the following measure on the same system gives this bar's right edge
+        var right = null;
+        for (var j = i + 1; j < list.length; j++) {
+          var nb = list[j] && list[j][0] && list[j][0].boundingBox;
+          if (!nb || !nb.absolutePosition) continue;
+          if (Math.abs(nb.absolutePosition.y - y) < 0.6) right = nb.absolutePosition.x;
+          break;
+        }
+        var sys = null;
+        for (var s = 0; s < systems.length; s++) {
+          var sb = systems[s].boundingBox;
+          if (!sb || !sb.absolutePosition) continue;
+          var top = sb.absolutePosition.y;
+          var bottom = top + (sb.size ? sb.size.height : 0);
+          if (y >= top - 0.5 && y <= bottom + 0.5) {
+            sys = sb;
+            break;
+          }
+        }
+        if (!(right > x)) {
+          right = sys && sys.size ? sys.absolutePosition.x + sys.size.width : x + 8;
+        }
+        var rect = {
+          x: x * scale,
+          y: (sys && sys.absolutePosition ? sys.absolutePosition.y : y) * scale,
+          w: (right - x) * scale,
+          h: (sys && sys.size ? sys.size.height : 8) * scale
+        };
+        rects.push(rect);
+      }
+      view.rects = rects;
+    }
+
+    function scoreXmlPaint(name, bar) {
+      var view = scoreXmlViews[name];
+      if (!view || !view.mark) return;
+      var rect = view.rects[bar - 1];
+      if (!rect) {
+        view.mark.style.display = "none";
+        return;
+      }
+      view.mark.style.display = "block";
+      view.mark.style.left = rect.x + "px";
+      view.mark.style.top = rect.y + "px";
+      view.mark.style.width = rect.w + "px";
+      view.mark.style.height = rect.h + "px";
+      if (view.bar !== bar) {
+        view.bar = bar;
+        try {
+          view.mark.scrollIntoView({ block: "center", behavior: "smooth" });
+        } catch (err) {}
+      }
+    }
+
+    function scoreXmlTick() {
+      if (!scoreXmlTicking) return;
+      var names = Object.keys(scoreXmlViews);
+      for (var i = 0; i < names.length; i++) {
+        if (!scoreXmlViews[names[i]].rects.length) scoreXmlLayout(names[i]);
+        var bar = scoreBarAt(names[i], practiceAudioTime());
+        scoreXmlPaint(names[i], bar);
+      }
+      if (!practicePlaying) scoreXmlTicking = false;
+      else requestAnimationFrame(scoreXmlTick);
+    }
+
+    var scoreXmlResizeTimer = null;
+    window.addEventListener("resize", function() {
+      clearTimeout(scoreXmlResizeTimer);
+      scoreXmlResizeTimer = setTimeout(function() {
+        var names = Object.keys(scoreXmlViews);
+        for (var i = 0; i < names.length; i++) scoreXmlLayout(names[i]);
+      }, 250);
+    });
+
+    var scoreXmlTicking = false;
+
+    function scoreXmlFollowStart() {
+      if (scoreXmlTicking) return;
+      scoreXmlTicking = true;
+      requestAnimationFrame(scoreXmlTick);
     }
 
     function loadScoreDoc(name) {
