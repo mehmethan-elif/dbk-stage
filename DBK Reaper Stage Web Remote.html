@@ -5538,8 +5538,11 @@
         if (!view.rects.length || Math.abs(nowW - (view.cssWidth || 0)) > 1) {
           scoreXmlLayout(names[i]);
         }
+        // paused or finished: keep the bar that was last shown, otherwise the
+        // silent clock would send the highlight back to bar 1
+        if (!practicePlaying) continue;
         var bar = scoreBarAt(names[i], practiceAudioTime());
-        scoreXmlPaint(names[i], bar);
+        if (bar > 0) scoreXmlPaint(names[i], bar);
       }
       if (!practicePlaying) scoreXmlTicking = false;
       else requestAnimationFrame(scoreXmlTick);
