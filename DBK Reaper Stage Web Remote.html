@@ -5415,6 +5415,11 @@
     function scoreXmlPaint(name, bar) {
       var view = scoreXmlViews[name];
       if (!view || !view.mark) return;
+      // The audio keeps a tail after the last notated bar, so the bar computed
+      // from the clock can run past the score: hold the last bar instead of
+      // dropping the highlight.
+      if (bar > view.rects.length) bar = view.rects.length;
+      if (bar < 1) bar = 1;
       var rect = view.rects[bar - 1];
       if (!rect) {
         view.mark.style.display = "none";
