@@ -5241,20 +5241,30 @@
       return sections.length ? Number(sections[0].measure) || 1 : 1;
     }
 
-    // The audio may play the form more than once; the score covers one pass, so
-    // the repeat point is where a section name reappears.
-    function scorePassLength(song) {
+    // The audio may play the form more than once. The repeat point is where a
+    // run of consecutive section names appears a second time (a single repeated
+    // name is not enough: songs often have two "SAN A" sections in a row).
+    function scorePassBlock(song) {
       var sections = (song && song.sections) || [];
       var start = scoreCountInBars(song);
-      var seen = {};
+      var names = [];
+      var measures = [];
       for (var i = 0; i < sections.length; i++) {
-        var nm = String(sections[i].name || "").toUpperCase();
         var m = Number(sections[i].measure) || 0;
-        if (m <= start) continue;
-        if (seen[nm] !== undefined) return m - start;
-        seen[nm] = m;
+        if (m < start) continue;
+        names.push(String(sections[i].name || "").trim().toUpperCase());
+        measures.push(m);
       }
-      return 0;
+      for (var a = 0; a < names.length; a++) {
+        for (var b = a + 2; b < names.length; b++) {
+          var k = 0;
+          while (b + k < names.length && names[a + k] === names[b + k]) k += 1;
+          if (k >= 2) {
+            return { blockStart: measures[a], repeatAt: measures[b], length: measures[b] - measures[a] };
+          }
+        }
+      }
+      return null;
     }
 
     function measureAtTime(song, time) {
@@ -5274,11 +5284,15 @@
     function scoreBarAt(name, time) {
       var song = cachedSong(name);
       if (!song) return 0;
-      var rel = measureAtTime(song, time) - scoreCountInBars(song);
-      if (rel < 0) return 0;
-      var pass = scorePassLength(song);
-      if (pass > 0) rel %= pass;
-      return rel + 1;
+      var start = scoreCountInBars(song);
+      var bar = measureAtTime(song, time);
+      if (bar < start) return 0;
+      var block = scorePassBlock(song);
+      if (block && bar >= block.repeatAt && block.length > 0) {
+        // second (and later) pass of the repeated block: show the same bars
+        return (block.blockStart - start) + ((bar - block.repeatAt) % block.length) + 1;
+      }
+      return bar - start + 1;
     }
 
     function scoreXmlReady(pages, attempt) {
@@ -5377,35 +5391,23 @@
         }
         var x = bb.absolutePosition.x;
         var y = bb.absolutePosition.y;
-        // the following measure on the same system gives this bar's right edge
-        var right = null;
-        for (var j = i + 1; j < list.length; j++) {
-          var nb = list[j] && list[j][0] && list[j][0].boundingBox;
-          if (!nb || !nb.absolutePosition) continue;
-          if (Math.abs(nb.absolutePosition.y - y) < 0.6) right = nb.absolutePosition.x;
-          break;
+        // borderRight is the bar's own width; borderTop/Bottom its vertical span
+        var w = Number(bb.borderRight) || 0;
+        var top = Number(bb.borderTop);
+        var bottom = Number(bb.borderBottom);
+        if (!isFinite(top)) top = 0.5;
+        if (!isFinite(bottom) || bottom < top + 3) bottom = top + 4.5;
+        if (top > 0.5) top = 0.5;
+        if (!(w > 0)) {
+          rects.push(null);
+          continue;
         }
-        var sys = null;
-        for (var s = 0; s < systems.length; s++) {
-          var sb = systems[s].boundingBox;
-          if (!sb || !sb.absolutePosition) continue;
-          var top = sb.absolutePosition.y;
-          var bottom = top + (sb.size ? sb.size.height : 0);
-          if (y >= top - 0.5 && y <= bottom + 0.5) {
-            sys = sb;
-            break;
-          }
-        }
-        if (!(right > x)) {
-          right = sys && sys.size ? sys.absolutePosition.x + sys.size.width : x + 8;
-        }
-        var rect = {
+        rects.push({
           x: x * scale,
-          y: (sys && sys.absolutePosition ? sys.absolutePosition.y : y) * scale,
-          w: (right - x) * scale,
-          h: (sys && sys.size ? sys.size.height : 8) * scale
-        };
-        rects.push(rect);
+          y: (y + top) * scale,
+          w: w * scale,
+          h: (bottom - top) * scale
+        });
       }
       view.rects = rects;
     }
