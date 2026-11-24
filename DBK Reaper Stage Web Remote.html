@@ -5719,7 +5719,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0320";
+    var DBK_BUILD = "2026-11-25 0325";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5754,7 +5754,8 @@
     };
     // setSectionMeasure("Song", "CEV A", 14) pins one section label.
     var SECTION_MEASURES = {
-      "Ah Le Yar": { "SAN A": 37, "SAN B": 48, "NAK A": 66, "NAK B": 80 }
+      "Ah Le Yar": { "SAN A": 37, "SAN B": 48, "NAK A": 66, "NAK B": 80 },
+      "Anlatamam Derdimi": { "CEV A": 14 }
     };
     try {
       var stored = JSON.parse(localStorage.getItem("dbkSectionMeasures") || "{}") || {};
