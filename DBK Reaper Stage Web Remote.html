@@ -2756,6 +2756,7 @@
       else {
         updateHead();
         refreshViews();
+        scoreXmlRefresh();
       }
     }
 
@@ -2894,6 +2895,7 @@
       }
       if (same && was) startPractice(0);
       paint();
+      scoreXmlRefresh();
     }
 
     function lyricCovers(lyrics, time) {
@@ -5541,6 +5543,7 @@
             };
             scoreXmlLayout(name);
             scoreXmlSections(name, sectionMarks);
+            scoreXmlRefresh();
             pages.setAttribute("data-score", "xml");
             return true;
           });
@@ -5719,7 +5722,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0325";
+    var DBK_BUILD = "2026-11-25 0330";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5857,6 +5860,18 @@
         target.scrollTo({ top: next, behavior: "smooth" });
       } catch (err) {
         target.scrollTop = next;
+      }
+    }
+
+    // Paint once from the current position: used when the transport is moved
+    // while the deck is stopped, so the box follows a seek.
+    function scoreXmlRefresh() {
+      var names = Object.keys(scoreXmlViews);
+      for (var i = 0; i < names.length; i++) {
+        var view = scoreXmlViews[names[i]];
+        if (!view.rects.length) scoreXmlLayout(names[i]);
+        var bar = scoreBarAt(names[i], practiceAudioTime());
+        if (bar > 0) scoreXmlPaint(names[i], bar);
       }
     }
 
