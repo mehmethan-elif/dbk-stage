@@ -5576,13 +5576,20 @@
         // on the section's own first bar, so they stay where they are.
         var shifted = !/^NAK\b/.test(label.toUpperCase());
         if (measure > 1 && shifted) measure += 1;
+        var pinned = SECTION_MEASURES[name] && SECTION_MEASURES[name][label.toUpperCase()];
+        if (pinned > 0) measure = pinned;
         if (order && order.length) {
           var lastMeasure = 1;
           for (var oi = 0; oi < order.length; oi++) if (order[oi] + 1 > lastMeasure) lastMeasure = order[oi] + 1;
           if (measure > lastMeasure) measure = lastMeasure;
         }
         if (!(measure > 0)) continue;
-        var key = measure + "|" + label.toUpperCase();
+        // one badge per section name: a repeated section (NAK, ARA) labels the
+        // score once, not once per pass
+        var byName = label.toUpperCase();
+        if (seen["name|" + byName]) continue;
+        seen["name|" + byName] = true;
+        var key = measure + "|" + byName;
         if (seen[key]) continue;
         seen[key] = true;
         marks.push({ label: label, measure: measure, bar: bar });
@@ -5712,7 +5719,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0305";
+    var DBK_BUILD = "2026-11-25 0315";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5745,6 +5752,19 @@
       saveScoreCalibration();
       return SCORE_REPEAT_ANCHORS[name];
     };
+    // setSectionMeasure("Song", "CEV A", 14) pins one section label.
+    var SECTION_MEASURES = {};
+    try {
+      SECTION_MEASURES = JSON.parse(localStorage.getItem("dbkSectionMeasures") || "{}") || {};
+    } catch (err) {}
+    window.setSectionMeasure = function(songName, label, measure) {
+      var key = "name";
+      SECTION_MEASURES[songName] = SECTION_MEASURES[songName] || {};
+      SECTION_MEASURES[songName][String(label).toUpperCase()] = Math.round(Number(measure) || 0);
+      try { localStorage.setItem("dbkSectionMeasures", JSON.stringify(SECTION_MEASURES)); } catch (err) {}
+      return SECTION_MEASURES[songName][String(label).toUpperCase()];
+    };
+
     window.setScoreCal = function(name, startBar, endBar) {
       SCORE_CALS[name] = { start: Math.round(Number(startBar) || 0), end: Math.round(Number(endBar) || 0) };
       saveScoreCalibration();
