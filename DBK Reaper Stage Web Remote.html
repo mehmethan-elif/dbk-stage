@@ -5376,7 +5376,10 @@
       return (Number(seg.measure) || 1) + Math.floor((time - Number(seg.time)) / bar + 1e-6);
     }
 
+    var scorePath = "";
+
     function scoreBarAt(name, time) {
+      scorePath = "";
       var song = cachedSong(name);
       if (!song) return 0;
       var start = scoreCountInBars(song);
@@ -5389,7 +5392,11 @@
         if (block && block.length > 0 && bar >= block.repeatAt) {
           var rel = bar - block.repeatAt;
           // past the last pass the audio only has its tail: hold the last bar
-          if (rel >= block.length) return order[order.length - 1] + 1;
+          if (rel >= block.length) {
+            scorePath = "tail r" + rel + "/" + block.length;
+            return order[order.length - 1] + 1;
+          }
+          scorePath = "repeat r" + rel + "/" + block.length;
           // the repeat starts exactly on repeatAt, so the first bar of the
           // second pass is the block's first bar (not the second one)
           // A song may restart its audio at a score bar other than the first
@@ -5409,14 +5416,22 @@
           var idx = base + (rel % block.length);
           if (idx >= 0 && idx < order.length) return order[idx] + 1;
         }
-        if (offset < order.length) return order[offset] + 1;
+        if (offset < order.length) {
+          scorePath = "order " + offset + "/" + order.length;
+          return order[offset] + 1;
+        }
+        scorePath = "order tail " + offset + "/" + order.length;
         return order[order.length - 1] + 1;
       }
       var block2 = scorePassBlock(song);
       if (block2 && bar >= block2.repeatAt && block2.length > 0) {
         var rel2 = bar - block2.repeatAt;
         // past the last pass this is the audio tail: hold the end of the score
-        if (rel2 >= block2.length) return block2.length;
+        if (rel2 >= block2.length) {
+          scorePath = "block tail r" + rel2 + "/" + block2.length;
+          return block2.length;
+        }
+        scorePath = "block r" + rel2 + "/" + block2.length;
         return (block2.blockStart - start) + rel2 + 1;
       }
       return bar - start + 1;
@@ -5576,7 +5591,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0155";
+    var DBK_BUILD = "2026-11-25 0200";
 
     // Per-song score bar the audio restarts on at its form repeat.
     var SCORE_REPEAT_ANCHORS = {};
@@ -5641,7 +5656,11 @@
         // silent clock would send the highlight back to bar 1
         if (!practicePlaying) continue;
         if (!scorePlayOrder(names[i])) loadScoreXml(names[i]);
-        var bar = scoreBarAt(names[i], practiceAudioTime());
+        var tNow = practiceAudioTime();
+        var bar = scoreBarAt(names[i], tNow);
+        var caption = DBK_BUILD + " · bar " + bar + " of " + view.rects.length
+          + " · " + (scorePath || "none") + " · t " + tNow.toFixed(1);
+        if (view.note) view.note.textContent = caption;
         if (bar > 0) scoreXmlPaint(names[i], bar);
         var stamp = document.getElementById("build-stamp");
         if (stamp && i === 0) {
