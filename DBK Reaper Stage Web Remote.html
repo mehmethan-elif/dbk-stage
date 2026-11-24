@@ -5382,7 +5382,7 @@
       scorePath = "";
       var song = cachedSong(name);
       if (!song) return 0;
-      var start = scoreCountInBars(song);
+      var start = scoreStartBar(name, song);
       var bar = measureAtTime(song, time);
       if (bar < start) return 0;
       var offset = bar - start;
@@ -5593,8 +5593,42 @@
 
     var DBK_BUILD = "2026-11-25 0200";
 
-    // Per-song score bar the audio restarts on at its form repeat.
+    // Per-song calibration, stored on the device. These are the two numbers a
+    // song may need when its score and its audio do not line up by counting:
+    //   scoreStart   audio bar where the score's first measure is played
+    //   scoreRepeat  score measure the audio restarts on at the form repeat
     var SCORE_REPEAT_ANCHORS = {};
+    var SCORE_START_BARS = {};
+    try {
+      SCORE_REPEAT_ANCHORS = JSON.parse(localStorage.getItem("dbkScoreAnchors") || "{}") || {};
+      SCORE_START_BARS = JSON.parse(localStorage.getItem("dbkScoreStarts") || "{}") || {};
+    } catch (err) {}
+
+    function saveScoreCalibration() {
+      try {
+        localStorage.setItem("dbkScoreAnchors", JSON.stringify(SCORE_REPEAT_ANCHORS));
+        localStorage.setItem("dbkScoreStarts", JSON.stringify(SCORE_START_BARS));
+      } catch (err) {}
+    }
+
+    // setScoreAnchor("Song", 25)  -> the repeat jumps to score measure 25
+    // setScoreStart("Song", 5)    -> score measure 1 is played on audio bar 5
+    window.setScoreAnchor = function(name, measure) {
+      SCORE_REPEAT_ANCHORS[name] = Math.max(0, Math.round(Number(measure) || 0));
+      saveScoreCalibration();
+      return SCORE_REPEAT_ANCHORS[name];
+    };
+    window.setScoreStart = function(name, audioBar) {
+      SCORE_START_BARS[name] = Math.max(0, Math.round(Number(audioBar) || 0));
+      saveScoreCalibration();
+      return SCORE_START_BARS[name];
+    };
+
+    function scoreStartBar(name, song) {
+      var fixed = Number(SCORE_START_BARS[name]);
+      if (fixed > 0) return fixed;
+      return scoreCountInBars(song);
+    }
 
     function buildStamp() {
       if (document.getElementById("build-stamp")) return;
