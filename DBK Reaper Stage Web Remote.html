@@ -703,6 +703,18 @@
     }
     .score-xml { position: relative; }
     .score-xml canvas { display: block; width: 100%; height: auto; }
+    .score-xml-section {
+      position: absolute;
+      display: block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: #2c5f43;
+      color: #eaf6ee;
+      font: 600 10px/1.35 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      pointer-events: none;
+    }
     .score-xml-bars { position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; }
     .score-xml-bar {
       position: absolute;
@@ -5373,11 +5385,16 @@
     var scorePath = "";
 
     function scoreBarAt(name, time) {
+      var song = cachedSong(name);
+      if (!song) return 0;
+      return scoreMeasureForBar(name, measureAtTime(song, time));
+    }
+
+    function scoreMeasureForBar(name, bar) {
       scorePath = "";
       var song = cachedSong(name);
       if (!song) return 0;
       var start = scoreStartBar(name, song);
-      var bar = measureAtTime(song, time);
       if (bar < start) return 0;
       var offset = bar - start;
       var order = scorePlayOrder(name);
@@ -5486,8 +5503,15 @@
           try {
             osmd.EngravingRules.RenderMultipleRestMeasures = false;
             osmd.EngravingRules.AutoGenerateMultipleRestMeasuresFromRestMeasures = false;
+            osmd.EngravingRules.RenderMeasureNumbers = false;
+            // honour the <print new-system="yes"/> marks injected for sections
+            osmd.EngravingRules.NewSystemAtXMLNewSystemAttribute = true;
+            osmd.EngravingRules.NewSystemAtXMLNewPageAttribute = true;
+            if (osmd.setOptions) osmd.setOptions({ newSystemFromXML: true });
           } catch (err) {}
-          return osmd.load(xml).then(function() {
+          var sectionMarks = scoreSectionMarks(name);
+          var prepared = scoreXmlWithBreaks(xml, sectionMarks);
+          return osmd.load(prepared).then(function() {
             osmd.render();
             var measures = 0;
             try {
@@ -5511,6 +5535,7 @@
               bar: 0
             };
             scoreXmlLayout(name);
+            scoreXmlSections(name, sectionMarks);
             pages.setAttribute("data-score", "xml");
             return true;
           });
@@ -5523,6 +5548,72 @@
 
     // Measure boxes in the engraved sheet: bar N occupies one rectangle, and the
     // current one is highlighted from the audio clock.
+    // Sections of the song (from REAPER markers) mapped onto printed measures.
+    function scoreSectionMarks(name) {
+      var song = cachedSong(name);
+      var marks = [];
+      if (!song) return marks;
+      var seen = {};
+      var sections = song.sections || [];
+      for (var i = 0; i < sections.length; i++) {
+        var label = String(sections[i].name || "").trim();
+        if (!label) continue;
+        if (label.toUpperCase().indexOf("COUNT") === 0) continue;
+        var bar = Number(sections[i].measure) || 0;
+        if (!bar) continue;
+        var measure = scoreMeasureForBar(name, bar);
+        if (!(measure > 0)) continue;
+        var key = measure + "|" + label.toUpperCase();
+        if (seen[key]) continue;
+        seen[key] = true;
+        marks.push({ label: label, measure: measure, bar: bar });
+      }
+      return marks;
+    }
+
+    // Insert a system break at the first measure of every section.
+    function scoreXmlWithBreaks(xml, marks) {
+      if (!marks || !marks.length) return xml;
+      try {
+        var doc = new DOMParser().parseFromString(xml, "application/xml");
+        var part = doc.querySelector("part");
+        if (!part) return xml;
+        var measures = part.querySelectorAll("measure");
+        var wanted = {};
+        for (var i = 0; i < marks.length; i++) {
+          if (marks[i].measure > 1) wanted[marks[i].measure - 1] = true;
+        }
+        for (var index in wanted) {
+          var measure = measures[Number(index)];
+          if (!measure) continue;
+          var print = doc.createElement("print");
+          print.setAttribute("new-system", "yes");
+          measure.insertBefore(print, measure.firstChild);
+        }
+        return new XMLSerializer().serializeToString(doc);
+      } catch (err) {
+        return xml;
+      }
+    }
+
+    // Boxed section labels above the measure each section starts on.
+    function scoreXmlSections(name, marks) {
+      var view = scoreXmlViews[name];
+      if (!view || !view.overlay) return;
+      var old = view.overlay.querySelectorAll(".score-xml-section");
+      for (var i = 0; i < old.length; i++) old[i].remove();
+      for (var j = 0; j < marks.length; j++) {
+        var rect = view.rects[marks[j].measure - 1];
+        if (!rect) continue;
+        var tag = document.createElement("b");
+        tag.className = "score-xml-section";
+        tag.textContent = marks[j].label;
+        tag.style.left = Math.max(0, rect.x) + "px";
+        tag.style.top = Math.max(0, rect.y - 15) + "px";
+        view.overlay.appendChild(tag);
+      }
+    }
+
     function scoreXmlLayout(name) {
       var view = scoreXmlViews[name];
       if (!view) return;
@@ -5602,7 +5693,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0235";
+    var DBK_BUILD = "2026-11-25 0250";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
