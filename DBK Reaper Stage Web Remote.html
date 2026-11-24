@@ -5429,10 +5429,12 @@
       }
       if (order && order.length) {
         var block = scorePassBlock(song);
-        if (block && block.length > 0 && bar >= block.repeatAt + 1) {
+        var repShift = SCORE_REPEAT_SHIFT[name];
+        if (repShift === undefined) repShift = 1;
+        if (block && block.length > 0 && bar >= block.repeatAt + repShift) {
           // the section marker sits on the last bar of the previous pass, so the
-          // repeat starts on the bar after it
-          var rel = bar - (block.repeatAt + 1);
+          // repeat starts on the bar after it (unless the song says otherwise)
+          var rel = bar - (block.repeatAt + repShift);
           // past the last pass the audio only has its tail: hold the last bar
           if (rel >= block.length) {
             scorePath = "tail r" + rel + "/" + block.length;
@@ -5642,6 +5644,8 @@
       for (var j = 0; j < marks.length; j++) {
         var rect = view.rects[marks[j].measure - 1];
         if (!rect) continue;
+        if (!view.sections) view.sections = {};
+        view.sections[marks[j].measure] = marks[j].label;
         var tag = document.createElement("b");
         tag.className = "score-xml-section tone-" + sectionTone(marks[j].label);
         tag.textContent = marks[j].label;
@@ -5733,9 +5737,18 @@
       var rect = view.rects[bar - 1];
       if (!rect) return;
       scoreXmlPlace(view.mark, rect);
+      // The next box marks the next *moment*: a new line, a new section, or the
+      // bar the repeat jumps to. A plain following bar gets no box.
       var nextBar = scoreXmlNextMeasure(name, bar);
       if (nextBar > view.rects.length) nextBar = view.rects.length;
-      scoreXmlPlace(view.markNext, nextBar !== bar ? view.rects[nextBar - 1] : null);
+      var nextRect = nextBar !== bar ? view.rects[nextBar - 1] : null;
+      var showNext = false;
+      if (nextRect && rect) {
+        if (Math.abs(nextRect.y - rect.y) > 1) showNext = true;            // line change
+        else if (view.sections && view.sections[nextBar]) showNext = true;  // section change
+        else if (nextBar <= bar) showNext = true;                           // repeat jump
+      }
+      scoreXmlPlace(view.markNext, showNext ? nextRect : null);
       if (view.note) {
         view.note.textContent = DBK_BUILD + " · bar " + bar + " of " + view.rects.length;
       }
@@ -5748,7 +5761,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0345";
+    var DBK_BUILD = "2026-11-25 0405";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5782,6 +5795,12 @@
       return SCORE_REPEAT_ANCHORS[name];
     };
     // setSectionMeasure("Song", "CEV A", 14) pins one section label.
+    // Some songs place the form-repeat marker on the first bar of the new pass,
+    // others on the last bar of the old one. 0 = marker is the repeat bar.
+    var SCORE_REPEAT_SHIFT = {
+      "Arpa Buğday Daneler": 0
+    };
+
     var SECTION_MEASURES = {
       "Ah Le Yar": { "SAN A": 37, "SAN B": 48, "NAK A": 66, "NAK B": 80 },
       "Anlatamam Derdimi": { "CEV A": 14, "SAN B": 16 }
