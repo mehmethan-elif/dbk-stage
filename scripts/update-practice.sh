@@ -8,6 +8,9 @@ mkdir -p "$dest"
 find "$dest" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 find "$src" -maxdepth 1 -type f ! -name '.DS_Store' ! -name 'settings.json' | while IFS= read -r file; do
   name=$(basename "$file")
+  # Score exports arrive with spaces ("Ah Le Yar.musicxml"); the page looks
+  # songs up by their hyphen slug, so normalise the separator.
+  name=$(printf '%s' "$name" | tr ' ' '-')
   case "$name" in
     *[!A-Za-z0-9._-]*) continue ;;
   esac

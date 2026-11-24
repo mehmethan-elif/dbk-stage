@@ -680,6 +680,8 @@
       flex-direction: column;
       gap: 12px;
     }
+    .score-xml { width: 100%; }
+    .score-xml canvas { display: block; width: 100%; height: auto; }
     .score-page-wrap { position: relative; width: 100%; }
     .score-overlay { position: absolute; inset: 0; }
     .score-rect {
@@ -5141,6 +5143,159 @@
       }).catch(function() {});
     }
 
+    // ---- MusicXML scores -----------------------------------------------------
+    // A song with a <slug>.musicxml is engraved by OSMD and becomes the score
+    // view; the PDF stays as the fallback for songs without one and for any
+    // file that fails to render.
+    var osmdPromise = null;
+    var scoreXmlText = {};
+    var scoreXmlLoads = {};
+    var scoreXmlViews = {};
+
+    function ensureOsmd() {
+      if (window.opensheetmusicdisplay) return Promise.resolve(window.opensheetmusicdisplay);
+      if (osmdPromise) return osmdPromise;
+      osmdPromise = fetch("DBK_Stage/osmd.min.js", { cache: "default" }).then(function(res) {
+        if (!res.ok) throw new Error("osmd");
+        return res.text();
+      }).then(function(text) {
+        var url = URL.createObjectURL(new Blob([text], { type: "text/javascript" }));
+        return new Promise(function(resolve, reject) {
+          var tag = document.createElement("script");
+          tag.src = url;
+          tag.onload = function() { resolve(window.opensheetmusicdisplay); };
+          tag.onerror = function() { reject(new Error("osmd")); };
+          document.head.appendChild(tag);
+        });
+      });
+      osmdPromise.catch(function() { osmdPromise = null; });
+      return osmdPromise;
+    }
+
+    function scoreXmlUrl(name) {
+      return "DBK_Stage/" + webFile(name) + ".musicxml";
+    }
+
+    function loadScoreXml(name) {
+      if (scoreXmlText[name]) {
+        return Promise.resolve(scoreXmlText[name] === "missing" ? null : scoreXmlText[name]);
+      }
+      if (scoreXmlLoads[name]) return scoreXmlLoads[name];
+      var url = scoreXmlUrl(name);
+      if (!practiceMode) url += "?t=" + Date.now();
+      var promise = fetch(url, { cache: practiceMode ? "default" : "no-store" }).then(function(res) {
+        if (!res.ok) throw new Error("missing");
+        return res.text();
+      }).then(function(text) {
+        if (scoreXmlLoads[name] !== promise) return null;
+        delete scoreXmlLoads[name];
+        if (!text || text.indexOf("score-partwise") < 0) {
+          scoreXmlText[name] = "missing";
+          return null;
+        }
+        scoreXmlText[name] = text;
+        return text;
+      }).catch(function() {
+        if (scoreXmlLoads[name] !== promise) return null;
+        delete scoreXmlLoads[name];
+        scoreXmlText[name] = "missing";
+        return null;
+      });
+      scoreXmlLoads[name] = promise;
+      return promise;
+    }
+
+    // The score starts after the count-in, so its bar 1 is the first audio bar
+    // of the COUNT section's end.
+    function scoreCountInBars(song) {
+      var sections = (song && song.sections) || [];
+      var end = 0;
+      for (var i = 0; i < sections.length; i++) {
+        var name = String(sections[i].name || "").toUpperCase();
+        if (name.indexOf("COUNT") === 0) {
+          end = Math.max(end, Number(sections[i].endMeasure) || 0);
+        }
+      }
+      if (end > 0) return end;
+      return sections.length ? Number(sections[0].measure) || 1 : 1;
+    }
+
+    // The audio may play the form more than once; the score covers one pass, so
+    // the repeat point is where a section name reappears.
+    function scorePassLength(song) {
+      var sections = (song && song.sections) || [];
+      var start = scoreCountInBars(song);
+      var seen = {};
+      for (var i = 0; i < sections.length; i++) {
+        var nm = String(sections[i].name || "").toUpperCase();
+        var m = Number(sections[i].measure) || 0;
+        if (m <= start) continue;
+        if (seen[nm] !== undefined) return m - start;
+        seen[nm] = m;
+      }
+      return 0;
+    }
+
+    function measureAtTime(song, time) {
+      var map = (song && song.tempoMap) || [];
+      var seg = null;
+      for (var i = 0; i < map.length; i++) {
+        if (Number(map[i].time) <= time) seg = map[i];
+        else break;
+      }
+      if (!seg) return 1;
+      var beats = (Number(seg.numerator) || 4) * 4 / (Number(seg.denominator) || 4);
+      var bar = beats * 60 / (Number(seg.bpm) || 120);
+      if (!(bar > 0)) return Number(seg.measure) || 1;
+      return (Number(seg.measure) || 1) + Math.floor((time - Number(seg.time)) / bar + 1e-6);
+    }
+
+    function scoreBarAt(name, time) {
+      var song = cachedSong(name);
+      if (!song) return 0;
+      var rel = measureAtTime(song, time) - scoreCountInBars(song);
+      if (rel < 0) return 0;
+      var pass = scorePassLength(song);
+      if (pass > 0) rel %= pass;
+      return rel + 1;
+    }
+
+    function renderScoreXml(name, pages) {
+      return loadScoreXml(name).then(function(xml) {
+        if (!xml) return false;
+        return ensureOsmd().then(function(OSMD) {
+          if (scoreXmlViews[name]) {
+            try { scoreXmlViews[name].host.remove(); } catch (err) {}
+            delete scoreXmlViews[name];
+          }
+          pages.innerHTML = "";
+          var host = document.createElement("div");
+          host.className = "score-xml";
+          pages.appendChild(host);
+          var osmd = new OSMD.OpenSheetMusicDisplay(host, {
+            backend: "canvas",
+            drawingParameters: "compacttight"
+          });
+          return osmd.load(xml).then(function() {
+            osmd.render();
+            var measures = 0;
+            try {
+              var pagesArr = osmd.GraphicSheet && osmd.GraphicSheet.MusicPages;
+              if (pagesArr && pagesArr[0] && pagesArr[0].MeasureList) {
+                measures = pagesArr[0].MeasureList.length;
+              }
+            } catch (err) {}
+            scoreXmlViews[name] = { osmd: osmd, host: host, measures: measures };
+            pages.setAttribute("data-score", "xml");
+            return true;
+          });
+        }).catch(function() {
+          pages.innerHTML = "";
+          return false;
+        });
+      });
+    }
+
     function loadScoreDoc(name) {
       if (scoreDocs[name] && scoreDocs[name] !== "loading") return Promise.resolve(scoreDocs[name]);
       if (scoreLoads[name]) return scoreLoads[name];
@@ -5191,6 +5346,20 @@
     function paintScoreBlock(block, job) {
       var pages = block.querySelector(".score-pages");
       var name = block.getAttribute("data-name");
+      return renderScoreXml(name, pages).then(function(rendered) {
+        if (job !== scoreJob) return null;
+        if (rendered) {
+          layoutScore(name);
+          return null;
+        }
+        return paintScorePdf(block, job);
+      });
+    }
+
+    function paintScorePdf(block, job) {
+      var pages = block.querySelector(".score-pages");
+      var name = block.getAttribute("data-name");
+      if (pages) pages.setAttribute("data-score", "pdf");
       return loadScoreDoc(name).then(function(doc) {
         if (job !== scoreJob) return null;
         if (!pages) return null;
