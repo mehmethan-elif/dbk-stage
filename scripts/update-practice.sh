@@ -8,9 +8,18 @@ mkdir -p "$dest"
 find "$dest" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 find "$src" -maxdepth 1 -type f ! -name '.DS_Store' ! -name 'settings.json' | while IFS= read -r file; do
   name=$(basename "$file")
-  # Score exports arrive with spaces ("Ah Le Yar.musicxml"); the page looks
-  # songs up by their hyphen slug, so normalise the separator.
-  name=$(printf '%s' "$name" | tr ' ' '-')
+  # Score exports arrive with spaces and Turkish letters ("Arpa Bugday
+  # Daneler.musicxml"); the page looks songs up by their ASCII hyphen slug, so
+  # normalise both.
+  name=$(python3 - "$name" <<'PYNAME'
+import sys, unicodedata
+name = sys.argv[1].replace(" ", "-")
+name = name.replace("ı", "i").replace("İ", "I")
+name = unicodedata.normalize("NFKD", name)
+name = "".join(ch for ch in name if not unicodedata.combining(ch))
+print(name)
+PYNAME
+)
   case "$name" in
     *[!A-Za-z0-9._-]*) continue ;;
   esac
