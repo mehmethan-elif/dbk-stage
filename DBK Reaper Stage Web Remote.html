@@ -5572,9 +5572,10 @@
         if (block && bar >= block.repeatAt) continue;
         var measure = scoreMeasureForBar(name, bar);
         // a section marker sits on the last bar of the section before it, so the
-        // section itself begins on the following measure (the first section
-        // already starts on measure 1)
-        if (measure > 1) measure += 1;
+        // section itself begins on the following measure. NAK markers are placed
+        // on the section's own first bar, so they stay where they are.
+        var shifted = !/^NAK\b/.test(label.toUpperCase());
+        if (measure > 1 && shifted) measure += 1;
         if (order && order.length) {
           var lastMeasure = 1;
           for (var oi = 0; oi < order.length; oi++) if (order[oi] + 1 > lastMeasure) lastMeasure = order[oi] + 1;
@@ -5711,7 +5712,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0300";
+    var DBK_BUILD = "2026-11-25 0305";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
