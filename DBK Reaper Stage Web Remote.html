@@ -5565,6 +5565,10 @@
         if (!practicePlaying) continue;
         var bar = scoreBarAt(names[i], practiceAudioTime());
         if (bar > 0) scoreXmlPaint(names[i], bar);
+        var stamp = document.getElementById("build-stamp");
+        if (stamp && i === 0) {
+          stamp.textContent = DBK_BUILD + " · bar " + bar + " · t " + practiceAudioTime().toFixed(1);
+        }
       }
       if (!practicePlaying) scoreXmlTicking = false;
       else requestAnimationFrame(scoreXmlTick);
