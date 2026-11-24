@@ -729,6 +729,10 @@
       border: 1px solid rgb(61, 186, 122);
       border-radius: 2px;
     }
+    .score-xml-bar.next {
+      background: rgba(232, 145, 48, 0.28);
+      border-color: rgb(232, 145, 48);
+    }
     .score-page-wrap { position: relative; width: 100%; }
     .score-overlay { position: absolute; inset: 0; }
     .score-rect {
@@ -5528,6 +5532,9 @@
             var overlay = document.createElement("div");
             overlay.className = "score-xml-bars";
             host.appendChild(overlay);
+            var markNext = document.createElement("i");
+            markNext.className = "score-xml-bar next";
+            overlay.appendChild(markNext);
             var mark = document.createElement("i");
             mark.className = "score-xml-bar";
             overlay.appendChild(mark);
@@ -5537,6 +5544,7 @@
               host: host,
               overlay: overlay,
               mark: mark,
+              markNext: markNext,
               measures: measures,
               rects: [],
               bar: 0
@@ -5689,6 +5697,31 @@
       view.cssWidth = cssW;
     }
 
+    // The measure played after `bar`, following the score's own repeat order.
+    function scoreXmlNextMeasure(name, bar) {
+      var order = scorePlayOrder(name);
+      if (!order || !order.length) return bar + 1;
+      for (var i = order.length - 1; i >= 0; i--) {
+        if (order[i] + 1 === bar) {
+          return i + 1 < order.length ? order[i + 1] + 1 : order[0] + 1;
+        }
+      }
+      return bar + 1;
+    }
+
+    function scoreXmlPlace(el, rect) {
+      if (!el) return;
+      if (!rect) {
+        el.style.display = "none";
+        return;
+      }
+      el.style.display = "block";
+      el.style.left = rect.x + "px";
+      el.style.top = rect.y + "px";
+      el.style.width = rect.w + "px";
+      el.style.height = rect.h + "px";
+    }
+
     function scoreXmlPaint(name, bar) {
       var view = scoreXmlViews[name];
       if (!view || !view.mark) return;
@@ -5698,18 +5731,11 @@
       if (bar > view.rects.length) bar = view.rects.length;
       if (bar < 1) bar = 1;
       var rect = view.rects[bar - 1];
-      if (!rect) {
-        // keep the last position rather than blinking out
-        if (view.note) {
-          view.note.textContent = DBK_BUILD + " · bar " + bar + " (no box) of " + view.rects.length;
-        }
-        return;
-      }
-      view.mark.style.display = "block";
-      view.mark.style.left = rect.x + "px";
-      view.mark.style.top = rect.y + "px";
-      view.mark.style.width = rect.w + "px";
-      view.mark.style.height = rect.h + "px";
+      if (!rect) return;
+      scoreXmlPlace(view.mark, rect);
+      var nextBar = scoreXmlNextMeasure(name, bar);
+      if (nextBar > view.rects.length) nextBar = view.rects.length;
+      scoreXmlPlace(view.markNext, nextBar !== bar ? view.rects[nextBar - 1] : null);
       if (view.note) {
         view.note.textContent = DBK_BUILD + " · bar " + bar + " of " + view.rects.length;
       }
@@ -5722,7 +5748,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0330";
+    var DBK_BUILD = "2026-11-25 0345";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5758,7 +5784,7 @@
     // setSectionMeasure("Song", "CEV A", 14) pins one section label.
     var SECTION_MEASURES = {
       "Ah Le Yar": { "SAN A": 37, "SAN B": 48, "NAK A": 66, "NAK B": 80 },
-      "Anlatamam Derdimi": { "CEV A": 14 }
+      "Anlatamam Derdimi": { "CEV A": 14, "SAN B": 16 }
     };
     try {
       var stored = JSON.parse(localStorage.getItem("dbkSectionMeasures") || "{}") || {};
@@ -5852,10 +5878,13 @@
       } else {
         target = document.scrollingElement || document.documentElement;
       }
-      var delta = (box.top - top) - (height - box.height) / 2;
-      if (Math.abs(delta) < height * 0.35) return;   // already comfortably visible
+      // same rule as the PDF score: a band at the top of the view, scroll only
+      // when the bar leaves it
+      var pad = 12;
+      var band = Math.max(24, height * 0.3);
+      if (box.top >= top + pad && box.bottom <= top + pad + band) return;
       var max = Math.max(0, (target.scrollHeight || 0) - (target.clientHeight || height));
-      var next = Math.min(max, Math.max(0, (target.scrollTop || 0) + delta));
+      var next = Math.min(max, Math.max(0, (target.scrollTop || 0) + (box.top - (top + pad))));
       try {
         target.scrollTo({ top: next, behavior: "smooth" });
       } catch (err) {
