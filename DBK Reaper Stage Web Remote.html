@@ -5361,17 +5361,18 @@
       var offset = bar - start;
       var order = scorePlayOrder(name);
       if (order && order.length) {
-        // the audio repeats the whole form after the first pass; the tail after
-        // the score simply stays on the last bar
-        if (offset < order.length) return order[offset] + 1;
-        // the form repeats a later block (the intro is not repeated), so the
-        // second pass continues from that block, not from bar 1
         var block = scorePassBlock(song);
-        if (block && bar >= block.repeatAt && block.length > 0) {
+        if (block && block.length > 0 && bar >= block.repeatAt) {
+          var rel = bar - block.repeatAt;
+          // past the last pass the audio only has its tail: hold the last bar
+          if (rel >= block.length) return order[order.length - 1] + 1;
+          // the repeat starts exactly on repeatAt, so the first bar of the
+          // second pass is the block's first bar (not the second one)
           var base = block.blockStart - start;
-          var idx = base + ((bar - block.repeatAt) % block.length);
+          var idx = base + (rel % block.length);
           if (idx >= 0 && idx < order.length) return order[idx] + 1;
         }
+        if (offset < order.length) return order[offset] + 1;
         return order[order.length - 1] + 1;
       }
       var block2 = scorePassBlock(song);
