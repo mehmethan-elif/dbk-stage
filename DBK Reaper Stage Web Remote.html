@@ -5241,6 +5241,71 @@
       return sections.length ? Number(sections[0].measure) || 1 : 1;
     }
 
+    // The printed bars in the order the score is played: repeat barlines are
+    // taken, and a 1st ending is skipped on the second pass.
+    var scorePlayOrders = {};
+
+    function scorePlayOrder(name) {
+      if (scorePlayOrders[name]) return scorePlayOrders[name];
+      var xml = scoreXmlText[name];
+      if (!xml || xml === "missing") return null;
+      var order = null;
+      try {
+        var doc = new DOMParser().parseFromString(xml, "application/xml");
+        var part = doc.querySelector("part");
+        var measures = part ? part.querySelectorAll("measure") : [];
+        var n = measures.length;
+        var forward = {};
+        var backward = {};
+        var ending = {};
+        var openEnding = "";
+        for (var i = 0; i < n; i++) {
+          var barlines = measures[i].querySelectorAll("barline");
+          for (var b = 0; b < barlines.length; b++) {
+            var rep = barlines[b].querySelector("repeat");
+            if (rep) {
+              if ((rep.getAttribute("direction") || "") === "forward") forward[i] = true;
+              else backward[i] = true;
+            }
+            var end = barlines[b].querySelector("ending");
+            if (end) {
+              var type = end.getAttribute("type") || "";
+              if (type === "start") openEnding = end.getAttribute("number") || "1";
+              if (openEnding) ending[i] = openEnding;
+              if (type === "stop" || type === "discontinue") openEnding = "";
+            }
+          }
+        }
+        order = [];
+        var repeatStart = 0;
+        var taken = false;
+        var skipping = "";
+        var i2 = 0;
+        var guard = 0;
+        while (i2 < n && guard < n * 8) {
+          guard += 1;
+          if (forward[i2]) repeatStart = i2;
+          if (skipping && ending[i2] === skipping) {
+            i2 += 1;
+            continue;
+          }
+          order.push(i2);
+          if (backward[i2] && !taken) {
+            taken = true;
+            skipping = "1";
+            i2 = repeatStart;
+            continue;
+          }
+          if (backward[i2]) skipping = "";
+          i2 += 1;
+        }
+      } catch (err) {
+        order = null;
+      }
+      scorePlayOrders[name] = order;
+      return order;
+    }
+
     // The audio may play the form more than once. The repeat point is where a
     // run of consecutive section names appears a second time (a single repeated
     // name is not enough: songs often have two "SAN A" sections in a row).
@@ -5287,10 +5352,25 @@
       var start = scoreCountInBars(song);
       var bar = measureAtTime(song, time);
       if (bar < start) return 0;
-      var block = scorePassBlock(song);
-      if (block && bar >= block.repeatAt && block.length > 0) {
-        // second (and later) pass of the repeated block: show the same bars
-        return (block.blockStart - start) + ((bar - block.repeatAt) % block.length) + 1;
+      var offset = bar - start;
+      var order = scorePlayOrder(name);
+      if (order && order.length) {
+        // the audio repeats the whole form after the first pass; the tail after
+        // the score simply stays on the last bar
+        if (offset < order.length) return order[offset] + 1;
+        // the form repeats a later block (the intro is not repeated), so the
+        // second pass continues from that block, not from bar 1
+        var block = scorePassBlock(song);
+        if (block && bar >= block.repeatAt && block.length > 0) {
+          var base = block.blockStart - start;
+          var idx = base + ((bar - block.repeatAt) % block.length);
+          if (idx >= 0 && idx < order.length) return order[idx] + 1;
+        }
+        return order[order.length - 1] + 1;
+      }
+      var block2 = scorePassBlock(song);
+      if (block2 && bar >= block2.repeatAt && block2.length > 0) {
+        return (block2.blockStart - start) + ((bar - block2.repeatAt) % block2.length) + 1;
       }
       return bar - start + 1;
     }
@@ -5410,6 +5490,8 @@
         });
       }
       view.rects = rects;
+      view.unitScale = scale;
+      view.cssWidth = cssW;
     }
 
     function scoreXmlPaint(name, bar) {
@@ -5442,7 +5524,13 @@
       if (!scoreXmlTicking) return;
       var names = Object.keys(scoreXmlViews);
       for (var i = 0; i < names.length; i++) {
-        if (!scoreXmlViews[names[i]].rects.length) scoreXmlLayout(names[i]);
+        var view = scoreXmlViews[names[i]];
+        // a hidden block has no width: lay the rectangles out once it is shown
+        var canvas = view.host.querySelector("canvas");
+        var nowW = canvas ? canvas.getBoundingClientRect().width : 0;
+        if (!view.rects.length || Math.abs(nowW - (view.cssWidth || 0)) > 1) {
+          scoreXmlLayout(names[i]);
+        }
         var bar = scoreBarAt(names[i], practiceAudioTime());
         scoreXmlPaint(names[i], bar);
       }
