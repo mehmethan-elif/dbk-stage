@@ -5409,7 +5409,7 @@
       if (bar < start) return 0;
       var offset = bar - start;
       var order = scorePlayOrder(name);
-      var cal = SCORE_CALS[name];
+      var cal = SCORE_CALS[scoreKey(name)];
       if (cal && cal.start > 0 && cal.end >= cal.start) {
         var span = cal.end - cal.start + 1;
         var off = bar - cal.start;
@@ -5429,7 +5429,7 @@
       }
       if (order && order.length) {
         var block = scorePassBlock(song);
-        var repShift = SCORE_REPEAT_SHIFT[name];
+        var repShift = SCORE_REPEAT_SHIFT[scoreKey(name)];
         if (repShift === undefined) repShift = 1;
         if (block && block.length > 0 && bar >= block.repeatAt + repShift) {
           // the section marker sits on the last bar of the previous pass, so the
@@ -5566,8 +5566,48 @@
 
     // Measure boxes in the engraved sheet: bar N occupies one rectangle, and the
     // current one is highlighted from the audio clock.
+    // Rehearsal marks written in the score (<rehearsal>ARA</rehearsal>) give the
+    // exact measure of every section, with no guessing.
+    var SCORE_REHEARSALS = {};
+
+    function scoreRehearsalMarks(name) {
+      if (SCORE_REHEARSALS[name] !== undefined) return SCORE_REHEARSALS[name];
+      var xml = scoreXmlText[name];
+      var marks = [];
+      if (xml && xml !== "missing") {
+        try {
+          var doc = new DOMParser().parseFromString(xml, "application/xml");
+          var measures = doc.querySelectorAll("part measure");
+          for (var i = 0; i < measures.length; i++) {
+            var rehearsal = measures[i].querySelector("rehearsal");
+            if (!rehearsal) continue;
+            var label = String(rehearsal.textContent || "").trim();
+            if (!label) continue;
+            marks.push({ label: label, measure: i + 1 });
+          }
+        } catch (err) {
+          marks = [];
+        }
+      }
+      SCORE_REHEARSALS[name] = marks;
+      return marks;
+    }
+
     // Sections of the song (from REAPER markers) mapped onto printed measures.
     function scoreSectionMarks(name) {
+      var rehearsals = scoreRehearsalMarks(name);
+      if (rehearsals.length) {
+        var pinnedMarks = [];
+        var seenRehearsal = {};
+        for (var r = 0; r < rehearsals.length; r++) {
+          var labelR = rehearsals[r].label;
+          var keyR = labelR.toUpperCase();
+          if (seenRehearsal[keyR]) continue;
+          seenRehearsal[keyR] = true;
+          pinnedMarks.push({ label: labelR, measure: rehearsals[r].measure, bar: 0 });
+        }
+        return pinnedMarks;
+      }
       var song = cachedSong(name);
       var marks = [];
       if (!song) return marks;
@@ -5589,7 +5629,7 @@
         // on the section's own first bar, so they stay where they are.
         var shifted = !/^NAK\b/.test(label.toUpperCase());
         if (measure > 1 && shifted) measure += 1;
-        var pinned = SECTION_MEASURES[name] && SECTION_MEASURES[name][label.toUpperCase()];
+        var pinned = SECTION_MEASURES[scoreKey(name)] && SECTION_MEASURES[scoreKey(name)][label.toUpperCase()];
         if (pinned > 0) measure = pinned;
         if (order && order.length) {
           var lastMeasure = 1;
@@ -5761,7 +5801,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0405";
+    var DBK_BUILD = "2026-11-25 0415";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5803,7 +5843,8 @@
 
     var SECTION_MEASURES = {
       "Ah Le Yar": { "SAN A": 37, "SAN B": 48, "NAK A": 66, "NAK B": 80 },
-      "Anlatamam Derdimi": { "CEV A": 14, "SAN B": 16 }
+      "Anlatamam Derdimi": { "CEV A": 14, "SAN B": 16 },
+      "Arpa Buğday Daneler": { "SAN": 6 }
     };
     try {
       var stored = JSON.parse(localStorage.getItem("dbkSectionMeasures") || "{}") || {};
@@ -5832,8 +5873,15 @@
       return SCORE_START_BARS[name];
     };
 
+    // Song names can carry either a precomposed "ğ" or "g" + combining breve;
+    // normalise before looking anything up in the calibration tables.
+    function scoreKey(name) {
+      var text = String(name || "");
+      try { return text.normalize("NFC"); } catch (err) { return text; }
+    }
+
     function scoreStartBar(name, song) {
-      var fixed = Number(SCORE_START_BARS[name]);
+      var fixed = Number(SCORE_START_BARS[scoreKey(name)]);
       if (fixed > 0) return fixed;
       return scoreCountInBars(song);
     }
