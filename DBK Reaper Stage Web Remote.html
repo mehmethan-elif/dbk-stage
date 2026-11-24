@@ -5387,6 +5387,24 @@
       if (bar < start) return 0;
       var offset = bar - start;
       var order = scorePlayOrder(name);
+      var cal = SCORE_CALS[name];
+      if (cal && cal.start > 0 && cal.end >= cal.start) {
+        var span = cal.end - cal.start + 1;
+        var off = bar - cal.start;
+        if (off < 0) return 0;
+        if (off >= span * 2) {
+          scorePath = "cal tail " + off + "/" + span;
+          if (order && order.length) return order[order.length - 1] + 1;
+          return span;
+        }
+        var within = off % span;
+        scorePath = "cal " + within + "/" + span;
+        if (order && order.length) {
+          var k = Math.min(within, order.length - 1);
+          return order[k] + 1;
+        }
+        return Math.min(within + 1, span);
+      }
       if (order && order.length) {
         var block = scorePassBlock(song);
         if (block && block.length > 0 && bar >= block.repeatAt) {
@@ -5594,7 +5612,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0200";
+    var DBK_BUILD = "2026-11-25 0215";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5602,6 +5620,12 @@
     //   scoreRepeat  score measure the audio restarts on at the form repeat
     var SCORE_REPEAT_ANCHORS = {};
     var SCORE_START_BARS = {};
+    // Songs whose score does not have one bar per audio bar: start bar of the
+    // score and last bar of one pass. The score's played order is fitted into
+    // that span, and the span repeats with the audio.
+    var SCORE_CALS = {
+      "Anlatamam Derdimi": { start: 3, end: 52 }
+    };
     try {
       SCORE_REPEAT_ANCHORS = JSON.parse(localStorage.getItem("dbkScoreAnchors") || "{}") || {};
       SCORE_START_BARS = JSON.parse(localStorage.getItem("dbkScoreStarts") || "{}") || {};
@@ -5621,6 +5645,12 @@
       saveScoreCalibration();
       return SCORE_REPEAT_ANCHORS[name];
     };
+    window.setScoreCal = function(name, startBar, endBar) {
+      SCORE_CALS[name] = { start: Math.round(Number(startBar) || 0), end: Math.round(Number(endBar) || 0) };
+      saveScoreCalibration();
+      return SCORE_CALS[name];
+    };
+
     window.setScoreStart = function(name, audioBar) {
       SCORE_START_BARS[name] = Math.max(0, Math.round(Number(audioBar) || 0));
       saveScoreCalibration();
