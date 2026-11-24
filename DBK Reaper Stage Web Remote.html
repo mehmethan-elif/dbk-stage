@@ -5588,6 +5588,9 @@
       if (view.bar !== bar) {
         view.bar = bar;
         scoreXmlBringIntoView(view);
+      } else {
+        // the user may have scrolled away: bring the bar back if it is off-screen
+        scoreXmlKeepVisible(view);
       }
     }
 
@@ -5636,6 +5639,31 @@
       tag.id = "build-stamp";
       tag.textContent = DBK_BUILD;
       document.body.appendChild(tag);
+    }
+
+    function scoreXmlPane(view) {
+      var el = view.host;
+      while (el && el !== document.documentElement) {
+        var style = window.getComputedStyle(el);
+        if (/(auto|scroll)/.test(style.overflowY) && el.scrollHeight > el.clientHeight + 2) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    function scoreXmlKeepVisible(view) {
+      var mark = view.mark;
+      if (!mark || mark.style.display === "none") return;
+      var box = mark.getBoundingClientRect();
+      var pane = scoreXmlPane(view);
+      var top = 0;
+      var height = window.innerHeight;
+      if (pane) {
+        var pb = pane.getBoundingClientRect();
+        top = pb.top;
+        height = pb.height;
+      }
+      if (box.bottom < top || box.top > top + height) scoreXmlBringIntoView(view);
     }
 
     // Scroll the pane that actually scrolls (the practice view), not relying on
