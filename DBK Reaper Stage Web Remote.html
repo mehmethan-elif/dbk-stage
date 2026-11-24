@@ -680,7 +680,16 @@
       flex-direction: column;
       gap: 12px;
     }
-    .score-xml { width: 100%; }
+    /* OSMD engraves black notation on a transparent canvas: give it a paper
+       sheet, otherwise the dark stage theme makes it look blank. */
+    .score-xml {
+      width: 100%;
+      background: #fff;
+      border-radius: 6px;
+      padding: 6px 0;
+      overflow: hidden;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    }
     .score-xml canvas { display: block; width: 100%; height: auto; }
     .score-page-wrap { position: relative; width: 100%; }
     .score-overlay { position: absolute; inset: 0; }
