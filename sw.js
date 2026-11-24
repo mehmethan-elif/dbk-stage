@@ -1,5 +1,5 @@
 // DBK Stage — practice page offline cache.
-const CACHE = "dbk-stage-v2";
+const CACHE = "dbk-stage-v3";
 const CORE = [
   "./",
   "index.html",

@@ -690,6 +690,17 @@
       overflow: hidden;
       box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     }
+    #build-stamp {
+      position: fixed;
+      right: 8px;
+      bottom: 4px;
+      z-index: 9999;
+      font: 10px/1.2 ui-monospace, monospace;
+      color: #8a8a96;
+      opacity: 0.65;
+      pointer-events: none;
+      user-select: none;
+    }
     .score-xml { position: relative; }
     .score-xml canvas { display: block; width: 100%; height: auto; }
     .score-xml-bars { position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; }
@@ -5151,6 +5162,7 @@
       if (offlineTried) return;
       offlineTried = true;
       registerOfflineWorker();
+      buildStamp();
       // Scores and song files are small and are fetched on launch. Audio is
       // not pulled in one burst: each song's mp3 is cached when it is played,
       // and the offline bar offers the full audio pass explicitly.
@@ -5525,6 +5537,16 @@
           view.mark.scrollIntoView({ block: "center", behavior: "smooth" });
         } catch (err) {}
       }
+    }
+
+    var DBK_BUILD = "2026-11-25 0135";
+
+    function buildStamp() {
+      if (document.getElementById("build-stamp")) return;
+      var tag = document.createElement("small");
+      tag.id = "build-stamp";
+      tag.textContent = DBK_BUILD;
+      document.body.appendChild(tag);
     }
 
     function scoreXmlTick() {
