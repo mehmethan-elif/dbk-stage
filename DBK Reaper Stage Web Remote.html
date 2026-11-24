@@ -5388,7 +5388,20 @@
           if (rel >= block.length) return order[order.length - 1] + 1;
           // the repeat starts exactly on repeatAt, so the first bar of the
           // second pass is the block's first bar (not the second one)
+          // A song may restart its audio at a score bar other than the first
+          // one (for example at the second repeat). One number per song
+          // overrides the computed anchor.
+          var anchor = 0;
+          var cachedSettings = settingsCache[name];
+          if (cachedSettings && cachedSettings.data) {
+            anchor = Number(cachedSettings.data.scoreRepeatMeasure) || 0;
+          }
+          if (!anchor) anchor = Number(SCORE_REPEAT_ANCHORS[name]) || 0;
           var base = block.blockStart - start;
+          if (anchor > 0) {
+            var at = order.indexOf(anchor - 1);
+            if (at >= 0) base = at;
+          }
           var idx = base + (rel % block.length);
           if (idx >= 0 && idx < order.length) return order[idx] + 1;
         }
@@ -5556,7 +5569,10 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0135";
+    var DBK_BUILD = "2026-11-25 0145";
+
+    // Per-song score bar the audio restarts on at its form repeat.
+    var SCORE_REPEAT_ANCHORS = {};
 
     function buildStamp() {
       if (document.getElementById("build-stamp")) return;
