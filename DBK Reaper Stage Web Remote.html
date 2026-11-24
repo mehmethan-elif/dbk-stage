@@ -5239,6 +5239,10 @@
       }).catch(function() {
         if (scoreXmlLoads[name] !== promise) return null;
         delete scoreXmlLoads[name];
+        // keep a copy we already parsed; only remember "missing" if we never had one
+        if (typeof scoreXmlText[name] === "string" && scoreXmlText[name] !== "missing") {
+          return scoreXmlText[name];
+        }
         scoreXmlText[name] = "missing";
         return null;
       });
@@ -5410,7 +5414,10 @@
       }
       var block2 = scorePassBlock(song);
       if (block2 && bar >= block2.repeatAt && block2.length > 0) {
-        return (block2.blockStart - start) + ((bar - block2.repeatAt) % block2.length) + 1;
+        var rel2 = bar - block2.repeatAt;
+        // past the last pass this is the audio tail: hold the end of the score
+        if (rel2 >= block2.length) return block2.length;
+        return (block2.blockStart - start) + rel2 + 1;
       }
       return bar - start + 1;
     }
@@ -5569,7 +5576,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0145";
+    var DBK_BUILD = "2026-11-25 0155";
 
     // Per-song score bar the audio restarts on at its form repeat.
     var SCORE_REPEAT_ANCHORS = {};
@@ -5633,6 +5640,7 @@
         // paused or finished: keep the bar that was last shown, otherwise the
         // silent clock would send the highlight back to bar 1
         if (!practicePlaying) continue;
+        if (!scorePlayOrder(names[i])) loadScoreXml(names[i]);
         var bar = scoreBarAt(names[i], practiceAudioTime());
         if (bar > 0) scoreXmlPaint(names[i], bar);
         var stamp = document.getElementById("build-stamp");
