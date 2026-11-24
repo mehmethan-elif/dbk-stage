@@ -703,12 +703,6 @@
     }
     .score-xml { position: relative; }
     .score-xml canvas { display: block; width: 100%; height: auto; }
-    .score-xml-note {
-      display: block;
-      padding: 2px 6px 4px;
-      font: 10px/1.3 ui-monospace, monospace;
-      color: #6d6d78;
-    }
     .score-xml-bars { position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; }
     .score-xml-bar {
       position: absolute;
@@ -5506,16 +5500,12 @@
             var mark = document.createElement("i");
             mark.className = "score-xml-bar";
             overlay.appendChild(mark);
-            var note = document.createElement("small");
-            note.className = "score-xml-note";
-            note.textContent = DBK_BUILD;
-            host.appendChild(note);
+
             scoreXmlViews[name] = {
               osmd: osmd,
               host: host,
               overlay: overlay,
               mark: mark,
-              note: note,
               measures: measures,
               rects: [],
               bar: 0
@@ -5560,11 +5550,9 @@
         var y = bb.absolutePosition.y;
         // borderRight is the bar's own width; borderTop/Bottom its vertical span
         var w = Number(bb.borderRight) || 0;
-        var top = Number(bb.borderTop);
-        var bottom = Number(bb.borderBottom);
-        if (!isFinite(top)) top = 0.5;
-        if (!isFinite(bottom) || bottom < top + 3) bottom = top + 4.5;
-        if (top > 0.5) top = 0.5;
+        // fixed height: the box marks the bar, it does not trace ledger lines
+        var top = 0.5;
+        var bottom = 5;
         if (!(w > 0)) {
           rects.push(null);
           continue;
@@ -5614,7 +5602,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0225";
+    var DBK_BUILD = "2026-11-25 0235";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5752,14 +5740,7 @@
         if (!scorePlayOrder(names[i])) loadScoreXml(names[i]);
         var tNow = practiceAudioTime();
         var bar = scoreBarAt(names[i], tNow);
-        var caption = DBK_BUILD + " · bar " + bar + " of " + view.rects.length
-          + " · " + (scorePath || "none") + " · t " + tNow.toFixed(1);
-        if (view.note) view.note.textContent = caption;
         if (bar > 0) scoreXmlPaint(names[i], bar);
-        var stamp = document.getElementById("build-stamp");
-        if (stamp && i === 0) {
-          stamp.textContent = DBK_BUILD + " · bar " + bar + " · t " + practiceAudioTime().toFixed(1);
-        }
       }
       if (!practicePlaying) scoreXmlTicking = false;
       else requestAnimationFrame(scoreXmlTick);
