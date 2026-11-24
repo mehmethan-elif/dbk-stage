@@ -5209,14 +5209,15 @@
       return "DBK_Stage/" + webFile(name) + ".musicxml";
     }
 
-    function loadScoreXml(name) {
-      if (scoreXmlText[name]) {
+    function loadScoreXml(name, force) {
+      if (!force && scoreXmlText[name]) {
         return Promise.resolve(scoreXmlText[name] === "missing" ? null : scoreXmlText[name]);
       }
       if (scoreXmlLoads[name]) return scoreXmlLoads[name];
       var url = scoreXmlUrl(name);
-      if (!practiceMode) url += "?t=" + Date.now();
-      var promise = fetch(url, { cache: practiceMode ? "default" : "no-store" }).then(function(res) {
+      // Scores are re-exported while preparing, so the file is always asked for
+      // fresh; the service worker serves the cached copy when offline.
+      var promise = fetch(url, { cache: "no-store" }).then(function(res) {
         if (!res.ok) throw new Error("missing");
         return res.text();
       }).then(function(text) {
@@ -5227,6 +5228,7 @@
           return null;
         }
         scoreXmlText[name] = text;
+        delete scorePlayOrders[name];
         return text;
       }).catch(function() {
         if (scoreXmlLoads[name] !== promise) return null;
@@ -5405,7 +5407,7 @@
     }
 
     function renderScoreXml(name, pages) {
-      return loadScoreXml(name).then(function(xml) {
+      return loadScoreXml(name, true).then(function(xml) {
         if (!xml) return false;
         return scoreXmlReady(pages).then(function(ready) {
           if (!ready) return false;

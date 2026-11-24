@@ -1,5 +1,5 @@
 // DBK Stage — practice page offline cache.
-const CACHE = "dbk-stage-v3";
+const CACHE = "dbk-stage-v4";
 const CORE = [
   "./",
   "index.html",
@@ -44,6 +44,13 @@ self.addEventListener("fetch", (event) => {
   // The pack list must always come from the network, otherwise an old copy
   // makes the page think the download is already up to date.
   if (url.pathname.endsWith("offline-manifest.json")) {
+    event.respondWith(fetch(request).catch(() => caches.match(request)));
+    return;
+  }
+
+  // Score files are re-exported while preparing: fetch them fresh when online
+  // and fall back to the cache only when the device is offline.
+  if (/\.musicxml$/i.test(url.pathname)) {
     event.respondWith(fetch(request).catch(() => caches.match(request)));
     return;
   }
