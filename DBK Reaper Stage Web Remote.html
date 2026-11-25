@@ -5651,16 +5651,16 @@
         var label = String(sections[i].name || "").trim();
         if (!label) continue;
         if (label.toUpperCase().indexOf("COUNT") === 0) continue;
-        var bar = Number(sections[i].measure) || 0;
+        // The section's own start time is exact; the "measure" field written by
+        // the export can be one bar off when the marker sits inside a bar.
+        var startTime = Number(sections[i].start);
+        var bar = isFinite(startTime) && startTime >= 0
+          ? measureAtTime(song, startTime)
+          : (Number(sections[i].measure) || 0);
         if (!bar) continue;
         // only the first pass of the form labels the score
         if (block && bar >= block.repeatAt) continue;
         var measure = scoreMeasureForBar(name, bar);
-        // a section marker sits on the last bar of the section before it, so the
-        // section itself begins on the following measure. NAK markers are placed
-        // on the section's own first bar, so they stay where they are.
-        var shifted = !/^NAK\b/.test(label.toUpperCase());
-        if (measure > 1 && shifted) measure += 1;
         var pinned = SECTION_MEASURES[scoreKey(name)] && SECTION_MEASURES[scoreKey(name)][label.toUpperCase()];
         if (pinned > 0) measure = pinned;
         if (order && order.length) {
@@ -5924,7 +5924,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0555";
+    var DBK_BUILD = "2026-11-25 0600";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
