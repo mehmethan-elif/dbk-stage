@@ -5418,6 +5418,36 @@
 
     var scoreLastOrderIndex = -1;
 
+    var SCORE_REGIONS = {};
+
+    function loadScoreRegion(name) {
+      if (SCORE_REGIONS[name] !== undefined) return SCORE_REGIONS[name];
+      SCORE_REGIONS[name] = null;
+      var row = null;
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].k === "song" && rows[i].n === name) row = rows[i];
+      }
+      if (!row) return null;
+      var slug = webFile(name);
+      fetch("DBK_Stage/" + slug + "-score.json", { cache: "no-store" }).then(function(res) {
+        if (!res.ok) return null;
+        return res.json();
+      }).then(function(data) {
+        if (!data) return;
+        SCORE_REGIONS[name] = data;
+      }).catch(function() {});
+      return null;
+    }
+
+    // True when the score was exported in performance order (one measure per bar).
+    function scoreIdentityStart(name) {
+      var region = SCORE_REGIONS[name];
+      var song = cachedSong(name);
+      if (!region || !song) return 0;
+      if (!(region.bars > 0)) return 0;
+      return measureAtTime(song, Number(region.start) || 0);
+    }
+
     function scoreMeasureForBar(name, bar) {
       var mapped = scoreMeasureForBarRaw(name, bar);
       var shift = SCORE_SECTION_SHIFT[scoreKey(name)] || 0;
@@ -5427,6 +5457,17 @@
 
     function scoreMeasureForBarRaw(name, bar) {
       scorePath = "";
+      // exported scores are written in performance order: measure = bar offset
+      var identityStart = scoreIdentityStart(name);
+      if (identityStart > 0) {
+        var regionInfo = SCORE_REGIONS[name] || {};
+        var barsTotal = Number(regionInfo.bars) || 0;
+        var measure = bar - identityStart + 1;
+        if (measure < 1) return 0;
+        if (barsTotal > 0 && measure > barsTotal) return barsTotal;
+        scorePath = "identity " + measure;
+        return measure;
+      }
       scoreLastOrderIndex = -1;
       var song = cachedSong(name);
       if (!song) return 0;
@@ -5542,6 +5583,7 @@
     function renderScoreXml(name, pages) {
       return loadScoreXml(name, true).then(function(xml) {
         if (!xml) return false;
+        loadScoreRegion(name);
         return scoreXmlReady(pages).then(function(ready) {
           if (!ready) return false;
           return ensureOsmd();
