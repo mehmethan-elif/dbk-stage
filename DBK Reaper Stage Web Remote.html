@@ -5669,6 +5669,8 @@
         // only the first pass of the form labels the score
         if (block && bar >= block.repeatAt) continue;
         var measure = scoreMeasureForBar(name, bar);
+        var secShift = SCORE_SECTION_SHIFT[scoreKey(name)] || 0;
+        if (secShift) measure = measure <= 0 ? 1 : measure + secShift;
         var pinned = SECTION_MEASURES[scoreKey(name)] && SECTION_MEASURES[scoreKey(name)][label.toUpperCase()];
         if (pinned > 0) measure = pinned;
         if (order && order.length) {
@@ -5973,7 +5975,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0645";
+    var DBK_BUILD = "2026-11-25 0705";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -6011,6 +6013,13 @@
     // others on the last bar of the old one. 0 = marker is the repeat bar.
     // Measures per line: 0 = let the engraver fill the line, >0 = fixed and even.
     var SCORE_LINE_MEASURES = 5;
+
+    // Some arrangements place their markers one bar before the score's measure;
+    // this shifts every label of that song by the given amount.
+    var SCORE_SECTION_SHIFT = {
+      "Candan İleri": 1,
+      "Ölürüm Türkiyem": 1
+    };
 
     var SCORE_REPEAT_SHIFT = {
       "Arpa Buğday Daneler": 0
