@@ -5533,6 +5533,7 @@
             osmd.EngravingRules.AutoGenerateMultipleRestMeasuresFromRestMeasures = false;
             osmd.EngravingRules.RenderMeasureNumbers = false;
             osmd.EngravingRules.StretchLastSystemLine = false;
+            osmd.Zoom = 1;
             // honour the <print new-system="yes"/> marks injected for sections
             osmd.EngravingRules.NewSystemAtXMLNewSystemAttribute = true;
             osmd.EngravingRules.NewSystemAtXMLNewPageAttribute = true;
@@ -5914,9 +5915,6 @@
         else if (nextBar <= bar) showNext = true;                           // repeat jump
       }
       scoreXmlPlace(view.markNext, showNext ? nextRect : null);
-      if (view.note) {
-        view.note.textContent = DBK_BUILD + " · bar " + bar + " of " + view.rects.length;
-      }
       if (view.bar !== bar) {
         view.bar = bar;
         scoreXmlBringIntoView(view);
@@ -5926,7 +5924,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0435";
+    var DBK_BUILD = "2026-11-25 0540";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
