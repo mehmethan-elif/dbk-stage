@@ -10,7 +10,7 @@
       <measure number="1">
         <attributes>
           <divisions>480</divisions>
-          <key><fifths>0</fifths></key>
+          <key><fifths>-1</fifths><mode>minor</mode></key>
           <time><beats>6</beats><beat-type>8</beat-type></time>
           <clef><sign>G</sign><line>2</line></clef>
         </attributes>
@@ -120,8 +120,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>5</octave>
           </pitch>
           <duration>240</duration>
@@ -142,8 +142,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>5</octave>
           </pitch>
           <duration>960</duration>
@@ -211,8 +211,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -268,8 +268,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -280,8 +280,8 @@
       <measure number="15">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -310,8 +310,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -364,8 +364,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -403,8 +403,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -570,8 +570,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -749,8 +749,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -761,8 +761,8 @@
       <measure number="29">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -771,8 +771,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -848,8 +848,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -1010,8 +1010,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1049,8 +1049,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -1069,8 +1069,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1127,8 +1127,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -1244,8 +1244,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -1264,8 +1264,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1274,8 +1274,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1313,8 +1313,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1342,8 +1342,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1397,8 +1397,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1439,8 +1439,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1504,8 +1504,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1550,8 +1550,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1592,8 +1592,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1657,8 +1657,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1735,8 +1735,8 @@
       <measure number="61">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1745,8 +1745,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -1848,8 +1848,8 @@
       <measure number="68">
         <note>
           <pitch>
-            <step>D</step>
-            <alter>1</alter>
+            <step>E</step>
+            <alter>-1</alter>
             <octave>5</octave>
           </pitch>
           <duration>2880</duration>
@@ -2076,8 +2076,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -2088,8 +2088,8 @@
       <measure number="81">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -2118,8 +2118,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -2172,8 +2172,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -2211,8 +2211,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -2322,8 +2322,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -2403,8 +2403,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -2415,8 +2415,8 @@
       <measure number="95">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>1440</duration>
@@ -2473,8 +2473,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -2536,8 +2536,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -2566,8 +2566,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -2624,8 +2624,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -2679,8 +2679,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -2708,8 +2708,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -2841,8 +2841,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -3020,8 +3020,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3032,8 +3032,8 @@
       <measure number="109">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -3042,8 +3042,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3119,8 +3119,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -3281,8 +3281,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3320,8 +3320,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -3340,8 +3340,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3398,8 +3398,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -3515,8 +3515,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -3535,8 +3535,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3545,8 +3545,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3584,8 +3584,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3613,8 +3613,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3668,8 +3668,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3710,8 +3710,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3775,8 +3775,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3821,8 +3821,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3863,8 +3863,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -3928,8 +3928,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4006,8 +4006,8 @@
       <measure number="141">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4016,8 +4016,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4119,8 +4119,8 @@
       <measure number="148">
         <note>
           <pitch>
-            <step>D</step>
-            <alter>1</alter>
+            <step>E</step>
+            <alter>-1</alter>
             <octave>5</octave>
           </pitch>
           <duration>2880</duration>
@@ -4347,8 +4347,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4359,8 +4359,8 @@
       <measure number="161">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -4389,8 +4389,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4443,8 +4443,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -4482,8 +4482,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -4593,8 +4593,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -4674,8 +4674,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4686,8 +4686,8 @@
       <measure number="175">
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>1440</duration>
@@ -4744,8 +4744,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -4807,8 +4807,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>480</duration>
@@ -4837,8 +4837,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>960</duration>
@@ -4895,8 +4895,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>240</duration>
@@ -4950,8 +4950,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>554</duration>
@@ -4979,8 +4979,8 @@
         </note>
         <note>
           <pitch>
-            <step>A</step>
-            <alter>1</alter>
+            <step>B</step>
+            <alter>-1</alter>
             <octave>4</octave>
           </pitch>
           <duration>554</duration>
