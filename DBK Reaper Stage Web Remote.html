@@ -5497,14 +5497,9 @@
       var osmd = view.osmd;
       return osmd.load(prepared).then(function() {
         osmd.render();
-        // OSMD rebuilds the host on every load: the overlay and the bar boxes
-        // have to be put back, otherwise the highlight disappears.
-        if (view.overlay && view.overlay.parentNode !== view.host) {
-          view.host.appendChild(view.overlay);
-        }
-        if (!view.overlay.querySelector(".score-xml-bar")) {
-          view.host.appendChild(view.overlay);
-        }
+        // OSMD rebuilds the host on every load: recreate the bar overlay inside
+        // it, otherwise the highlight has nothing to draw in.
+        scoreXmlAttachOverlay(view);
         scoreXmlLayout(name);
         scoreXmlSections(name, marks);
         scoreXmlRefresh();
@@ -5581,6 +5576,7 @@
                 var balanced = scoreXmlBalancedBreaks(name, sectionMarks, current);
                 if (balanced) {
                   current.balancePass += 1;
+                  current.balanced = true;
                   return scoreXmlRenderAgain(name, pages, xml, sectionMarks, balanced).then(function() {
                     return true;
                   });
@@ -5858,6 +5854,22 @@
         }
       }
       return bar + 1;
+    }
+
+    function scoreXmlAttachOverlay(view) {
+      if (!view || !view.host) return;
+      var overlay = document.createElement("div");
+      overlay.className = "score-xml-bars";
+      var next = document.createElement("i");
+      next.className = "score-xml-bar next";
+      var cur = document.createElement("i");
+      cur.className = "score-xml-bar";
+      overlay.appendChild(next);
+      overlay.appendChild(cur);
+      view.host.appendChild(overlay);
+      view.overlay = overlay;
+      view.markNext = next;
+      view.mark = cur;
     }
 
     function scoreXmlPlace(el, rect) {
