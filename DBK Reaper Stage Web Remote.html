@@ -5565,7 +5565,11 @@
             backend: "canvas",
             // "default" keeps the normal spacing between systems, which leaves
             // room for the section chips above each line
-            drawingParameters: "default"
+            drawingParameters: "default",
+            drawTitle: false,
+            drawComposer: false,
+            drawLyricist: false,
+            drawCredits: false
           });
           // Each bar must stay its own bar: merging empty bars into "-2-" would
           // shift every playhead rectangle after it.
@@ -5574,6 +5578,9 @@
             osmd.EngravingRules.AutoGenerateMultipleRestMeasuresFromRestMeasures = false;
             osmd.EngravingRules.RenderMeasureNumbers = false;
             osmd.EngravingRules.StretchLastSystemLine = false;
+            // keep the repeat barline clear of the notes before it, which OSMd
+            // otherwise lets collide when the page is narrow
+            osmd.EngravingRules.DistanceBetweenLastInstructionAndRepetitionBarline = 6;
             // honour the <print new-system="yes"/> marks injected for sections
             osmd.EngravingRules.NewSystemAtXMLNewSystemAttribute = true;
             osmd.EngravingRules.NewSystemAtXMLNewPageAttribute = true;
@@ -5617,6 +5624,8 @@
             scoreXmlLayout(name);
             scoreXmlSections(name, sectionMarks);
             scoreXmlRefresh();
+            var engravedAt = scoreXmlViews[name];
+            if (engravedAt) engravedAt.renderWidth = host.clientWidth || 0;
             pages.setAttribute("data-score", "xml");
             return true;
           });
@@ -6245,11 +6254,37 @@
       }
     }
 
+    // The engraving is width dependent: when the practice pane changes width
+    // (the setlist column appearing, a rotation) the sheet is re-engraved,
+    // otherwise the canvas is just squeezed and the layout rules break.
+    function scoreXmlCheckWidth(view, name) {
+      if (!view || view.rerendering) return;
+      var width = view.host ? view.host.clientWidth : 0;
+      if (!(width > 40)) return;
+      if (!view.renderWidth) {
+        view.renderWidth = width;
+        return;
+      }
+      if (Math.abs(width - view.renderWidth) < 12) return;
+      view.rerendering = true;
+      view.renderWidth = width;
+      setTimeout(function() {
+        try {
+          view.osmd.render();
+          scoreXmlLayout(name);
+          scoreXmlSections(name, scoreSectionMarks(name));
+          scoreXmlRefresh();
+        } catch (err) {}
+        view.rerendering = false;
+      }, 200);
+    }
+
     function scoreXmlTick() {
       if (!scoreXmlTicking) return;
       var names = Object.keys(scoreXmlViews);
       for (var i = 0; i < names.length; i++) {
         var view = scoreXmlViews[names[i]];
+        scoreXmlCheckWidth(view, names[i]);
         // a hidden block has no width: lay the rectangles out once it is shown
         var canvas = view.host.querySelector("canvas");
         var nowW = canvas ? canvas.getBoundingClientRect().width : 0;
