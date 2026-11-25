@@ -5464,7 +5464,13 @@
         var barsTotal = Number(regionInfo.bars) || 0;
         var measure = bar - identityStart + 1;
         if (measure < 1) return 0;
-        if (barsTotal > 0 && measure > barsTotal) return barsTotal;
+        if (barsTotal > 0 && measure > barsTotal) measure = barsTotal;
+        // an exported score may be compressed with repeats: the map says which
+        // printed measure a performance bar belongs to
+        var mapped = regionInfo.map && regionInfo.map[measure - 1];
+        if (mapped > 0) measure = mapped;
+        var measuresTotal = Number(regionInfo.measures) || 0;
+        if (measuresTotal > 0 && measure > measuresTotal) measure = measuresTotal;
         scorePath = "identity " + measure;
         return measure;
       }
