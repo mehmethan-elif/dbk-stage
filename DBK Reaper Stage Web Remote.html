@@ -5994,7 +5994,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0725";
+    var DBK_BUILD = "2026-11-25 0735";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -6098,6 +6098,9 @@
     }
 
     function scoreXmlPane(view) {
+      // the practice view is the page scroller; prefer it over a nested one
+      var appView = document.getElementById("view");
+      if (appView && appView.scrollHeight > appView.clientHeight + 2) return appView;
       var el = view.host;
       while (el && el !== document.documentElement) {
         var style = window.getComputedStyle(el);
@@ -6156,7 +6159,7 @@
       var max = Math.max(0, (target.scrollHeight || 0) - (target.clientHeight || height));
       var next = Math.min(max, Math.max(0, (target.scrollTop || 0) + (box.top - (top + pad))));
       try {
-        target.scrollTo({ top: next, behavior: "smooth" });
+        target.scrollTo({ top: next, behavior: "auto" });
       } catch (err) {
         target.scrollTop = next;
       }
