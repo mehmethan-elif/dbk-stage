@@ -702,21 +702,18 @@
       user-select: none;
     }
     .score-xml { position: relative; display: flex; align-items: stretch; width: 100%; }
-    .score-xml-gutter { position: relative; flex: 0 0 64px; width: 64px; }
+    .score-xml-gutter { position: relative; flex: 0 0 0; width: 0; }
     .score-xml-sheet { position: relative; flex: 1 1 auto; min-width: 0; padding-top: 18px; }
     .score-xml-wrap { position: relative; width: 100%; }
     .score-xml-wrap canvas { display: block; width: 100%; height: auto; }
     .score-xml canvas { display: block; width: 100%; height: auto; }
     .score-xml-section {
       position: absolute;
-      left: 2px;
       display: block;
-      max-width: 60px;
-      padding: 1px 4px;
-      text-align: center;
+      padding: 1px 5px;
       border-radius: 3px;
       color: #fff;
-      font: 600 9px/1.15 ui-sans-serif, system-ui, sans-serif;
+      font: 600 10px/1.35 ui-sans-serif, system-ui, sans-serif;
       letter-spacing: 0.02em;
       white-space: nowrap;
       pointer-events: none;
@@ -5865,18 +5862,6 @@
       if (!view || !view.overlay) return;
       var old = view.overlay.querySelectorAll(".score-xml-section");
       for (var i = 0; i < old.length; i++) old[i].remove();
-      // systems: measures sharing a y
-      var systems = [];
-      for (var r = 0; r < view.rects.length; r++) {
-        var rc = view.rects[r];
-        if (!rc) continue;
-        var last = systems[systems.length - 1];
-        if (last && Math.abs(rc.y - last.y) < 1) {
-          last.bottom = Math.max(last.bottom, rc.y + rc.h);
-        } else {
-          systems.push({ y: rc.y, bottom: rc.y + rc.h, from: r + 1 });
-        }
-      }
       view.sectionEl = {};
       for (var j = 0; j < marks.length; j++) {
         var rect = view.rects[marks[j].measure - 1];
@@ -5886,26 +5871,10 @@
         var tag = document.createElement("b");
         tag.className = "score-xml-section tone-" + sectionTone(marks[j].label);
         tag.textContent = marks[j].label;
-        // a row of its own when the gap above the system is big enough
-        var sysIdx = -1;
-        for (var sy = 0; sy < systems.length; sy++) {
-          if (Math.abs(systems[sy].y - rect.y) < 1) { sysIdx = sy; break; }
-        }
-        var prevBottom = sysIdx > 0 ? systems[sysIdx - 1].bottom : 0;
-        var top = systems[sysIdx] ? systems[sysIdx].y : rect.y;
-        var gap = top - prevBottom;
-        // OSMD gives the systems only a small gap, so a full-width row would sit
-        // on the notes: the label goes in the left margin, level with its staff.
-        if (false && (sysIdx === 0 || gap >= 12)) {
-          tag.classList.add("row");
-          tag.style.left = "0px";
-          tag.style.top = ((systems[sysIdx] ? systems[sysIdx].y : rect.y) - 17) + "px";
-          view.overlay.appendChild(tag);
-        } else {
-          tag.style.left = "2px";
-          tag.style.top = Math.max(0, rect.y) + "px";
-          (view.gutter || view.overlay).appendChild(tag);
-        }
+        // small chip at the start of the system, as before
+        tag.style.left = Math.max(0, rect.x) + "px";
+        tag.style.top = Math.max(0, rect.y - 15) + "px";
+        view.overlay.appendChild(tag);
         view.sectionEl[marks[j].measure] = tag;
       }
     }
