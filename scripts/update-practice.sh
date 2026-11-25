@@ -12,11 +12,13 @@ find "$src" -maxdepth 1 -type f ! -name '.DS_Store' ! -name 'settings.json' | wh
   # Daneler.musicxml"); the page looks songs up by their ASCII hyphen slug, so
   # normalise both.
   name=$(python3 - "$name" <<'PYNAME'
-import sys, unicodedata
-name = sys.argv[1].replace(" ", "-")
-name = name.replace("ı", "i").replace("İ", "I")
+import re, sys, unicodedata
+name = sys.argv[1].replace("ı", "i").replace("İ", "I")
 name = unicodedata.normalize("NFKD", name)
 name = "".join(ch for ch in name if not unicodedata.combining(ch))
+# same slug the page builds: runs of anything unusual become one hyphen
+name = re.sub(r"[^A-Za-z0-9._-]+", "-", name)
+name = re.sub(r"-+", "-", name).strip("-")
 print(name)
 PYNAME
 )
