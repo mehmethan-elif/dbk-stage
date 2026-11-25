@@ -5589,7 +5589,8 @@
           var sectionMarks = scoreSectionMarks(name);
           // a system break at every section start: the label needs a row of its
           // own above the line, which only a new system provides
-          var prepared = scoreXmlWithBreaks(xml, sectionMarks);
+          // a first pass without forced breaks gives the natural measure widths
+          var prepared = xml;
           return osmd.load(prepared).then(function() {
             osmd.render();
             var measures = 0;
@@ -5619,9 +5620,21 @@
               measures: measures,
               rects: [],
               bar: 0,
+              fitDone: (scoreXmlViews[name] && scoreXmlViews[name].fitDone) || false,
               fitDone: (scoreXmlViews[name] && scoreXmlViews[name].fitDone) || false
             };
             scoreXmlLayout(name);
+            var fitView = scoreXmlViews[name];
+            if (fitView && !fitView.fitDone) {
+              var fitBreaks = scoreXmlFitBreaks(name, sectionMarks, fitView);
+              if (fitBreaks) {
+                fitView.fitDone = true;
+                return scoreXmlRenderAgain(name, pages, xml, sectionMarks, fitBreaks).then(function() {
+                  pages.setAttribute("data-score", "xml");
+                  return true;
+                });
+              }
+            }
             scoreXmlSections(name, sectionMarks);
             scoreXmlRefresh();
             var engravedAt = scoreXmlViews[name];
