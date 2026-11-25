@@ -704,6 +704,8 @@
     .score-xml { position: relative; display: flex; align-items: stretch; width: 100%; }
     .score-xml-gutter { position: relative; flex: 0 0 64px; width: 64px; }
     .score-xml-sheet { position: relative; flex: 1 1 auto; min-width: 0; padding-top: 18px; }
+    .score-xml-wrap { position: relative; width: 100%; }
+    .score-xml-wrap canvas { display: block; width: 100%; height: auto; }
     .score-xml canvas { display: block; width: 100%; height: auto; }
     .score-xml-section {
       position: absolute;
@@ -721,9 +723,12 @@
     }
     .score-xml-section.row {
       right: 0;
+      height: 13px;
+      line-height: 13px;
+      overflow: hidden;
       max-width: none;
       text-align: left;
-      padding: 1px 6px;
+      padding: 0 6px;
       border-radius: 0 3px 3px 0;
       opacity: 0.92;
     }
@@ -5553,10 +5558,13 @@
           gutter.className = "score-xml-gutter";
           var sheet = document.createElement("div");
           sheet.className = "score-xml-sheet";
+          var canvasWrap = document.createElement("div");
+          canvasWrap.className = "score-xml-wrap";
+          sheet.appendChild(canvasWrap);
           host.appendChild(gutter);
           host.appendChild(sheet);
           pages.appendChild(host);
-          var osmd = new OSMD.OpenSheetMusicDisplay(sheet, {
+          var osmd = new OSMD.OpenSheetMusicDisplay(canvasWrap, {
             backend: "canvas",
             drawingParameters: "compacttight"
           });
@@ -5597,6 +5605,7 @@
               osmd: osmd,
               host: host,
               sheet: sheet,
+              wrap: canvasWrap,
               gutter: gutter,
               overlay: overlay,
               mark: mark,
@@ -5731,6 +5740,12 @@
           if (!measure) continue;
           var print = doc.createElement("print");
           print.setAttribute("new-system", "yes");
+          // room above the system for the section row
+          var layout = doc.createElement("system-layout");
+          var distance = doc.createElement("system-distance");
+          distance.textContent = "210";
+          layout.appendChild(distance);
+          print.appendChild(layout);
           measure.insertBefore(print, measure.firstChild);
         }
         return new XMLSerializer().serializeToString(doc);
@@ -5879,10 +5894,12 @@
         var prevBottom = sysIdx > 0 ? systems[sysIdx - 1].bottom : 0;
         var top = systems[sysIdx] ? systems[sysIdx].y : rect.y;
         var gap = top - prevBottom;
-        if (sysIdx === 0 || gap >= 14) {
+        // OSMD gives the systems only a small gap, so a full-width row would sit
+        // on the notes: the label goes in the left margin, level with its staff.
+        if (false && (sysIdx === 0 || gap >= 12)) {
           tag.classList.add("row");
           tag.style.left = "0px";
-          tag.style.top = (sysIdx === 0 ? 2 : prevBottom + 1) + "px";
+          tag.style.top = ((systems[sysIdx] ? systems[sysIdx].y : rect.y) - 17) + "px";
           view.overlay.appendChild(tag);
         } else {
           tag.style.left = "2px";
@@ -5967,7 +5984,7 @@
       cur.className = "score-xml-bar";
       overlay.appendChild(next);
       overlay.appendChild(cur);
-      (view.sheet || view.host).appendChild(overlay);
+      (view.wrap || view.sheet || view.host).appendChild(overlay);
       view.overlay = overlay;
       view.markNext = next;
       view.mark = cur;
@@ -6017,7 +6034,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0800";
+    var DBK_BUILD = "2026-11-25 0845";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
