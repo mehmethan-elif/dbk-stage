@@ -5566,9 +5566,22 @@
               measures: measures,
               rects: [],
               bar: 0,
-              balancePass: (scoreXmlViews[name] && scoreXmlViews[name].balancePass) || 0
+              fitDone: (scoreXmlViews[name] && scoreXmlViews[name].fitDone) || false
             };
             scoreXmlLayout(name);
+            var fitView = scoreXmlViews[name];
+            if (fitView && !fitView.fitDone) {
+              var fitBreaks = scoreXmlFitBreaks(name, sectionMarks, fitView);
+              if (fitBreaks) {
+                fitView.fitDone = true;
+                return scoreXmlRenderAgain(name, pages, xml, sectionMarks, fitBreaks).then(function() {
+                  scoreXmlSections(name, sectionMarks);
+                  scoreXmlRefresh();
+                  pages.setAttribute("data-score", "xml");
+                  return true;
+                });
+              }
+            }
             scoreXmlSections(name, sectionMarks);
             scoreXmlRefresh();
             pages.setAttribute("data-score", "xml");
@@ -5771,6 +5784,41 @@
       return breaks;
     }
 
+    // Break lines by measured width. A section starts a new line only when the
+    // line it would join is already mostly used; two short sections share one.
+    function scoreXmlFitBreaks(name, marks, view) {
+      if (!view || !view.rects || !view.rects.length) return null;
+      var canvas = view.host && view.host.querySelector("canvas");
+      var width = canvas ? canvas.getBoundingClientRect().width : 0;
+      if (!(width > 0)) return null;
+      var cap = width * 0.97;
+      var rects = view.rects;
+      var n = rects.length;
+      var widths = [];
+      for (var i = 0; i < n; i++) widths.push(rects[i] ? rects[i].w : 0);
+      var sectionAt = {};
+      for (var m = 0; m < marks.length; m++) {
+        if (marks[m].measure > 0) sectionAt[marks[m].measure] = true;
+      }
+      var breaks = {};
+      var used = 0;
+      var onLine = 0;
+      for (var k = 1; k <= n; k++) {
+        var w = widths[k - 1];
+        var atSection = sectionAt[k] && k > 1;
+        var mustBreak = used > 0 && used + w > cap;
+        var preferBreak = atSection && onLine > 0 && used >= cap * 0.6;
+        if (mustBreak || preferBreak) {
+          breaks[k] = true;
+          used = 0;
+          onLine = 0;
+        }
+        used += w;
+        onLine += 1;
+      }
+      return breaks;
+    }
+
     function scoreXmlSections(name, marks) {
       var view = scoreXmlViews[name];
       if (!view || !view.overlay) return;
@@ -5909,7 +5957,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0615";
+    var DBK_BUILD = "2026-11-25 0625";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
