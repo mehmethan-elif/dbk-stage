@@ -5539,7 +5539,9 @@
             if (osmd.setOptions) osmd.setOptions({ newSystemFromXML: true });
           } catch (err) {}
           var sectionMarks = scoreSectionMarks(name);
-          var prepared = scoreXmlWithBreaks(xml, sectionMarks);
+          // first pass without forced breaks: its line widths are the natural
+          // ones, which is what the fit rule needs to decide
+          var prepared = xml;
           return osmd.load(prepared).then(function() {
             osmd.render();
             var measures = 0;
@@ -5807,7 +5809,7 @@
         var w = widths[k - 1];
         var atSection = sectionAt[k] && k > 1;
         var mustBreak = used > 0 && used + w > cap;
-        var preferBreak = atSection && onLine > 0 && used >= cap * 0.6;
+        var preferBreak = atSection && onLine > 0 && used >= cap * 0.85;
         if (mustBreak || preferBreak) {
           breaks[k] = true;
           used = 0;
@@ -5957,7 +5959,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0625";
+    var DBK_BUILD = "2026-11-25 0635";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
