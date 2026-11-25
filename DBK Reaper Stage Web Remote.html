@@ -6068,7 +6068,10 @@
         var view = scoreXmlViews[names[i]];
         if (!view.rects.length) scoreXmlLayout(names[i]);
         var bar = scoreBarAt(names[i], practiceAudioTime());
-        if (bar > 0) scoreXmlPaint(names[i], bar);
+        if (bar > 0) {
+          scoreXmlPaint(names[i], bar);
+          scoreXmlBlockScroll(view, bar);
+        }
       }
     }
 
@@ -6089,7 +6092,10 @@
         if (!scorePlayOrder(names[i])) loadScoreXml(names[i]);
         var tNow = practiceAudioTime();
         var bar = scoreBarAt(names[i], tNow);
-        if (bar > 0) scoreXmlPaint(names[i], bar);
+        if (bar > 0) {
+          scoreXmlPaint(names[i], bar);
+          scoreXmlBlockScroll(view, bar);
+        }
       }
       if (!practicePlaying) scoreXmlTicking = false;
       else requestAnimationFrame(scoreXmlTick);
