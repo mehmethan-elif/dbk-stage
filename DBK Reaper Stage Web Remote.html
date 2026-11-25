@@ -5401,8 +5401,11 @@
       return scoreMeasureForBar(name, measureAtTime(song, time));
     }
 
+    var scoreLastOrderIndex = -1;
+
     function scoreMeasureForBar(name, bar) {
       scorePath = "";
+      scoreLastOrderIndex = -1;
       var song = cachedSong(name);
       if (!song) return 0;
       var start = scoreStartBar(name, song);
@@ -5423,6 +5426,7 @@
         scorePath = "cal " + within + "/" + span;
         if (order && order.length) {
           var k = Math.min(within, order.length - 1);
+          scoreLastOrderIndex = k;
           return order[k] + 1;
         }
         return Math.min(within + 1, span);
@@ -5458,10 +5462,14 @@
             if (at >= 0) base = at;
           }
           var idx = base + (rel % block.length);
-          if (idx >= 0 && idx < order.length) return order[idx] + 1;
+          if (idx >= 0 && idx < order.length) {
+            scoreLastOrderIndex = idx;
+            return order[idx] + 1;
+          }
         }
         if (offset < order.length) {
           scorePath = "order " + offset + "/" + order.length;
+          scoreLastOrderIndex = offset;
           return order[offset] + 1;
         }
         scorePath = "order tail " + offset + "/" + order.length;
@@ -5890,6 +5898,12 @@
     function scoreXmlNextMeasure(name, bar) {
       var order = scorePlayOrder(name);
       if (!order || !order.length) return bar + 1;
+      var at = scoreLastOrderIndex;
+      if (at >= 0 && at < order.length && order[at] + 1 === bar) {
+        // the bar that follows in the score's own played order: at the end of a
+        // repeated section this is the section's first bar
+        return order[(at + 1) % order.length] + 1;
+      }
       for (var i = order.length - 1; i >= 0; i--) {
         if (order[i] + 1 === bar) {
           return i + 1 < order.length ? order[i + 1] + 1 : order[0] + 1;
@@ -5959,7 +5973,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0635";
+    var DBK_BUILD = "2026-11-25 0645";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
