@@ -5563,7 +5563,9 @@
           pages.appendChild(host);
           var osmd = new OSMD.OpenSheetMusicDisplay(canvasWrap, {
             backend: "canvas",
-            drawingParameters: "compacttight"
+            // "default" keeps the normal spacing between systems, which leaves
+            // room for the section chips above each line
+            drawingParameters: "default"
           });
           // Each bar must stay its own bar: merging empty bars into "-2-" would
           // shift every playhead rectangle after it.
@@ -5907,8 +5909,8 @@
         // borderRight is the bar's own width; borderTop/Bottom its vertical span
         var w = Number(bb.borderRight) || 0;
         // fixed height: the box marks the bar, it does not trace ledger lines
-        var top = 0.5;
-        var bottom = 5;
+        var top = 0;
+        var bottom = 4.6;
         if (!(w > 0)) {
           rects.push(null);
           continue;
@@ -5993,6 +5995,7 @@
         if (Math.abs(nextRect.y - rect.y) > 1) showNext = true;            // line change
         else if (view.sections && view.sections[nextBar]) showNext = true;  // section change
         else if (nextBar <= bar) showNext = true;                           // repeat jump
+        else if (scoreXmlNextMeasure(name, nextBar) <= nextBar) showNext = true; // next bar is a repeat end
       }
       scoreXmlPlace(view.markNext, showNext ? nextRect : null);
       if (view.bar !== bar) {
