@@ -5924,7 +5924,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0540";
+    var DBK_BUILD = "2026-11-25 0550";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -6095,7 +6095,6 @@
         var bar = scoreBarAt(names[i], practiceAudioTime());
         if (bar > 0) {
           scoreXmlPaint(names[i], bar);
-          scoreXmlBlockScroll(view, bar);
         }
       }
     }
@@ -6119,7 +6118,6 @@
         var bar = scoreBarAt(names[i], tNow);
         if (bar > 0) {
           scoreXmlPaint(names[i], bar);
-          scoreXmlBlockScroll(view, bar);
         }
       }
       if (!practicePlaying) scoreXmlTicking = false;
