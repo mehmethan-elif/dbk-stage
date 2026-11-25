@@ -5748,12 +5748,6 @@
           if (!measure) continue;
           var print = doc.createElement("print");
           print.setAttribute("new-system", "yes");
-          // room above the system for the section row
-          var layout = doc.createElement("system-layout");
-          var distance = doc.createElement("system-distance");
-          distance.textContent = "210";
-          layout.appendChild(distance);
-          print.appendChild(layout);
           measure.insertBefore(print, measure.firstChild);
         }
         return new XMLSerializer().serializeToString(doc);
