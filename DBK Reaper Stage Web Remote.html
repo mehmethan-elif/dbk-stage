@@ -5491,6 +5491,18 @@
       });
     }
 
+    function scoreXmlRenderAgain(name, pages, xml, marks, breaks) {
+      var prepared = scoreXmlWithBreaks(xml, marks, breaks);
+      var view = scoreXmlViews[name];
+      var osmd = view.osmd;
+      return osmd.load(prepared).then(function() {
+        osmd.render();
+        scoreXmlLayout(name);
+        scoreXmlSections(name, marks);
+        scoreXmlRefresh();
+      }).catch(function() {});
+    }
+
     function renderScoreXml(name, pages) {
       return loadScoreXml(name, true).then(function(xml) {
         if (!xml) return false;
@@ -5549,9 +5561,23 @@
               markNext: markNext,
               measures: measures,
               rects: [],
-              bar: 0
+              bar: 0,
+              balancePass: (scoreXmlViews[name] && scoreXmlViews[name].balancePass) || 0
             };
             scoreXmlLayout(name);
+            var current = scoreXmlViews[name];
+            if (current) {
+              current.balancePass = current.balancePass || 0;
+              if (current.balancePass < 3) {
+                var balanced = scoreXmlBalancedBreaks(name, sectionMarks, current);
+                if (balanced) {
+                  current.balancePass += 1;
+                  return scoreXmlRenderAgain(name, pages, xml, sectionMarks, balanced).then(function() {
+                    return true;
+                  });
+                }
+              }
+            }
             scoreXmlSections(name, sectionMarks);
             scoreXmlRefresh();
             pages.setAttribute("data-score", "xml");
@@ -5650,17 +5676,25 @@
       return marks;
     }
 
-    // Insert a system break at the first measure of every section.
-    function scoreXmlWithBreaks(xml, marks) {
-      if (!marks || !marks.length) return xml;
+    // Insert a system break at the first measure of every section (or at an
+    // explicit set of measures).
+    function scoreXmlWithBreaks(xml, marks, explicit) {
       try {
         var doc = new DOMParser().parseFromString(xml, "application/xml");
         var part = doc.querySelector("part");
         if (!part) return xml;
         var measures = part.querySelectorAll("measure");
         var wanted = {};
-        for (var i = 0; i < marks.length; i++) {
-          if (marks[i].measure > 1) wanted[marks[i].measure - 1] = true;
+        if (explicit) {
+          for (var e in explicit) {
+            var at = Number(e) - 1;
+            if (at > 0) wanted[at] = true;
+          }
+        } else {
+          if (!marks || !marks.length) return xml;
+          for (var i = 0; i < marks.length; i++) {
+            if (marks[i].measure > 1) wanted[marks[i].measure - 1] = true;
+          }
         }
         for (var index in wanted) {
           var measure = measures[Number(index)];
@@ -5673,6 +5707,70 @@
       } catch (err) {
         return xml;
       }
+    }
+
+    // Measures per line, read from the rendered sheet (grouped by system).
+    function scoreXmlLineCounts(view) {
+      var counts = [];
+      var lastY = null;
+      for (var i = 0; i < view.rects.length; i++) {
+        var rect = view.rects[i];
+        if (!rect) continue;
+        if (lastY === null || Math.abs(rect.y - lastY) > 1) {
+          counts.push(1);
+          lastY = rect.y;
+        } else {
+          counts[counts.length - 1] += 1;
+        }
+      }
+      return counts;
+    }
+
+    // A section whose natural flow ends with one or two measures on the last
+    // line is re-broken evenly: 8 + 6 + 1 becomes 8 + 7.
+    function scoreXmlBalancedBreaks(name, marks, view) {
+      var counts = scoreXmlLineCounts(view);
+      if (counts.length < 2) return null;
+      if (!(SCORE_LINE_MEASURES > 0)) {
+        var thin = false;
+        for (var c = 0; c < counts.length; c++) {
+          if (counts[c] <= 2 && counts.length > 1) thin = true;
+        }
+        if (!thin) return null;
+      }
+      var lastMeasure = view.rects.length;
+      // a fixed number of measures per line is predictable on stage: every line
+      // reads the same, and no section ends on a single orphan measure
+      var perLine = SCORE_LINE_MEASURES > 0 ? SCORE_LINE_MEASURES : 0;
+      var starts = [];
+      for (var m = 0; m < marks.length; m++) starts.push(marks[m].measure);
+      starts.sort(function(a, b) { return a - b; });
+      // capacity of one line, ignoring the thin outliers we are trying to fix
+      if (!perLine) {
+        var wide = [];
+        for (var w = 0; w < counts.length; w++) if (counts[w] > 2) wide.push(counts[w]);
+        if (!wide.length) return null;
+        perLine = Math.max.apply(null, wide);
+      }
+      var breaks = {};
+      for (var i = 0; i < starts.length; i++) {
+        var from = starts[i];
+        var to = i + 1 < starts.length ? starts[i + 1] - 1 : lastMeasure;
+        breaks[from] = true;
+        var count = to - from + 1;
+        if (count <= perLine) continue;
+        if (SCORE_LINE_MEASURES > 0) {
+          for (var at2 = from + perLine; at2 <= to; at2 += perLine) breaks[at2] = true;
+          continue;
+        }
+        var lines = Math.ceil(count / perLine);
+        var step = Math.ceil(count / lines);
+        for (var k = 1; k < lines; k++) {
+          var at = from + k * step;
+          if (at <= to) breaks[at] = true;
+        }
+      }
+      return breaks;
     }
 
     // Boxed section labels above the measure each section starts on.
@@ -5801,7 +5899,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0415";
+    var DBK_BUILD = "2026-11-25 0435";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
@@ -5837,6 +5935,9 @@
     // setSectionMeasure("Song", "CEV A", 14) pins one section label.
     // Some songs place the form-repeat marker on the first bar of the new pass,
     // others on the last bar of the old one. 0 = marker is the repeat bar.
+    // Measures per line: 0 = let the engraver fill the line, >0 = fixed and even.
+    var SCORE_LINE_MEASURES = 5;
+
     var SCORE_REPEAT_SHIFT = {
       "Arpa Buğday Daneler": 0
     };
