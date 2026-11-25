@@ -5891,7 +5891,8 @@
         tag.textContent = marks[j].label;
         // small chip at the start of the system, as before
         tag.style.left = Math.max(0, rect.x) + "px";
-        tag.style.top = Math.max(0, rect.y - 15) + "px";
+        // clear of the staff and of the ledger lines above it
+        tag.style.top = (rect.y - 24) + "px";
         view.overlay.appendChild(tag);
         view.sectionEl[marks[j].measure] = tag;
       }
