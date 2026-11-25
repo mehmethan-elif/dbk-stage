@@ -5526,7 +5526,10 @@
       var view = scoreXmlViews[name];
       var osmd = view.osmd;
       return osmd.load(prepared).then(function() {
+        var paneNow = (view.host && view.host.clientWidth) || 940;
+        if (view.wrap) view.wrap.style.width = Math.max(paneNow + 180, 1100) + "px";
         osmd.render();
+        if (view.wrap) view.wrap.style.width = paneNow + "px";
         // OSMD rebuilds the host on every load: recreate the bar overlay inside
         // it, otherwise the highlight has nothing to draw in.
         scoreXmlAttachOverlay(view);
@@ -5557,6 +5560,11 @@
           sheet.className = "score-xml-sheet";
           var canvasWrap = document.createElement("div");
           canvasWrap.className = "score-xml-wrap";
+          // engraved wider than the pane, then shown at the pane width: smaller
+          // notation, more measures per line, no overflow
+          var paneWidth = host.clientWidth || pages.clientWidth || 940;
+          var engraveWidth = Math.max(paneWidth + 180, 1100);
+          canvasWrap.style.width = engraveWidth + "px";
           sheet.appendChild(canvasWrap);
           host.appendChild(gutter);
           host.appendChild(sheet);
@@ -5581,6 +5589,9 @@
             // keep the repeat barline clear of the notes before it, which OSMd
             // otherwise lets collide when the page is narrow
             osmd.EngravingRules.DistanceBetweenLastInstructionAndRepetitionBarline = 6;
+            // a smaller engraving scale packs more measures per line, which keeps
+            // a wide measure from ending up alone on a line
+            osmd.Zoom = 0.8;
             // honour the <print new-system="yes"/> marks injected for sections
             osmd.EngravingRules.NewSystemAtXMLNewSystemAttribute = true;
             osmd.EngravingRules.NewSystemAtXMLNewPageAttribute = true;
@@ -5623,6 +5634,7 @@
               fitDone: (scoreXmlViews[name] && scoreXmlViews[name].fitDone) || false,
               fitDone: (scoreXmlViews[name] && scoreXmlViews[name].fitDone) || false
             };
+            canvasWrap.style.width = (host.clientWidth || paneWidth) + "px";
             scoreXmlLayout(name);
             var fitView = scoreXmlViews[name];
             if (fitView && !fitView.fitDone) {
@@ -5892,7 +5904,7 @@
         // small chip at the start of the system, as before
         tag.style.left = Math.max(0, rect.x) + "px";
         // clear of the staff and of the ledger lines above it
-        tag.style.top = (rect.y - 24) + "px";
+        tag.style.top = (rect.y - 34) + "px";
         view.overlay.appendChild(tag);
         view.sectionEl[marks[j].measure] = tag;
       }
