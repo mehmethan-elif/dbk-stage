@@ -5533,7 +5533,6 @@
             osmd.EngravingRules.AutoGenerateMultipleRestMeasuresFromRestMeasures = false;
             osmd.EngravingRules.RenderMeasureNumbers = false;
             osmd.EngravingRules.StretchLastSystemLine = false;
-            osmd.Zoom = 1;
             // honour the <print new-system="yes"/> marks injected for sections
             osmd.EngravingRules.NewSystemAtXMLNewSystemAttribute = true;
             osmd.EngravingRules.NewSystemAtXMLNewPageAttribute = true;
@@ -5570,20 +5569,6 @@
               balancePass: (scoreXmlViews[name] && scoreXmlViews[name].balancePass) || 0
             };
             scoreXmlLayout(name);
-            var current = scoreXmlViews[name];
-            if (current) {
-              current.balancePass = current.balancePass || 0;
-              if (current.balancePass < 3) {
-                var balanced = scoreXmlBalancedBreaks(name, sectionMarks, current);
-                if (balanced) {
-                  current.balancePass += 1;
-                  current.balanced = true;
-                  return scoreXmlRenderAgain(name, pages, xml, sectionMarks, balanced).then(function() {
-                    return true;
-                  });
-                }
-              }
-            }
             scoreXmlSections(name, sectionMarks);
             scoreXmlRefresh();
             pages.setAttribute("data-score", "xml");
@@ -5924,7 +5909,7 @@
       }
     }
 
-    var DBK_BUILD = "2026-11-25 0600";
+    var DBK_BUILD = "2026-11-25 0615";
 
     // Per-song calibration, stored on the device. These are the two numbers a
     // song may need when its score and its audio do not line up by counting:
