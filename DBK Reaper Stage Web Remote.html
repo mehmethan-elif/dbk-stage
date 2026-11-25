@@ -5497,6 +5497,14 @@
       var osmd = view.osmd;
       return osmd.load(prepared).then(function() {
         osmd.render();
+        // OSMD rebuilds the host on every load: the overlay and the bar boxes
+        // have to be put back, otherwise the highlight disappears.
+        if (view.overlay && view.overlay.parentNode !== view.host) {
+          view.host.appendChild(view.overlay);
+        }
+        if (!view.overlay.querySelector(".score-xml-bar")) {
+          view.host.appendChild(view.overlay);
+        }
         scoreXmlLayout(name);
         scoreXmlSections(name, marks);
         scoreXmlRefresh();
@@ -5529,6 +5537,7 @@
             osmd.EngravingRules.RenderMultipleRestMeasures = false;
             osmd.EngravingRules.AutoGenerateMultipleRestMeasuresFromRestMeasures = false;
             osmd.EngravingRules.RenderMeasureNumbers = false;
+            osmd.EngravingRules.StretchLastSystemLine = false;
             // honour the <print new-system="yes"/> marks injected for sections
             osmd.EngravingRules.NewSystemAtXMLNewSystemAttribute = true;
             osmd.EngravingRules.NewSystemAtXMLNewPageAttribute = true;
